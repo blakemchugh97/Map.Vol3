@@ -411,7 +411,6 @@ input { font-family: inherit; }
 .crew-marker.orange { background: var(--orange); }
 .crew-marker.red    { background: var(--red); }
 .crew-marker.selected { border-color: var(--accent-hi); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 50%, transparent); z-index: 1000 !important; }
-.marker-count { position: absolute; top: -7px; right: -7px; background: var(--surface); color: var(--text); border: 1px solid var(--border-hi); border-radius: 999px; font-size: 9px; font-weight: 700; line-height: 1; padding: 2px 4px; min-width: 15px; text-align: center; }
 
 .incident-marker { background: var(--gold); width: 20px; height: 20px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.5); }
 .hypo-marker { background: var(--violet); width: 20px; height: 20px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.5); }

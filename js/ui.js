@@ -28,6 +28,16 @@ let zoneRadius = ZONE_SIM.defaultRadius;
 let testRate = null;
 let zonesGeojsonFailed = false;
 
+// Sample dots are a debugging aid only — hidden in normal use to keep the map
+// clean. Enable by loading the app with ?debugDots in the URL.
+const DEBUG_DOTS = new URLSearchParams(location.search).has('debugDots');
+
+// Draw / update the violet competitive-radius circle for the selected crew.
+function showRadiusCircle() {
+  if (!STATE.selectedCrew) return;
+  MapView.setRadiusCircle(STATE.selectedCrew.lat, STATE.selectedCrew.lng, zoneRadius);
+}
+
 /* ============================================================
    Bootstrap
    ============================================================ */
@@ -311,6 +321,9 @@ function selectCrew(crew, { fly = false } = {}) {
   STATE.selectedCrew = crew;
   testRate = null;
   $('btn-moat').disabled = false;
+  // Drop any radius circle / dots from a previously analyzed crew.
+  MapView.clearRadiusCircle();
+  MapView.clearSampleDots();
   MapView.highlightCrew(crew);
   if (fly) MapView.flyToCrew(crew);
   closePanel('ddp-panel');
@@ -410,7 +423,11 @@ function renderDetail(crew) {
   // wire detail interactions
   el('[data-pc]', panel).addEventListener('click', () => closeDetail());
   const zr = $('zone-radius');
-  zr.addEventListener('input', () => { zoneRadius = parseInt(zr.value, 10); $('zr-readout').textContent = zoneRadius + ' mi'; });
+  zr.addEventListener('input', () => {
+    zoneRadius = parseInt(zr.value, 10);
+    $('zr-readout').textContent = zoneRadius + ' mi';
+    showRadiusCircle(); // live-update the visible radius circle
+  });
   $('run-zone').addEventListener('click', () => runZoneAnalysis(crew));
   panel.querySelectorAll('.nudge[data-nudge]').forEach(b =>
     b.addEventListener('click', () => nudgeRate(crew, parseFloat(b.dataset.nudge))));
@@ -431,6 +448,7 @@ function closeDetail() {
   lastZoneResult = null;
   MapView.clearHighlight();
   MapView.clearSampleDots();
+  MapView.clearRadiusCircle();
   document.querySelectorAll('.crew-item.selected').forEach(n => n.classList.remove('selected'));
   if (STATE.activeOverlay === 'moat') { STATE.activeOverlay = null; MapView.clearOverlayCells(); MapView.cancelOverlayJob(); updateOverlayButtons(); }
   $('btn-moat').disabled = true;
@@ -446,9 +464,11 @@ function runZoneAnalysis(crew) {
   result.crewId = crew.id;
   lastZoneResult = result;
   renderZoneResults(result);
-  // sample dots on map (subset)
-  const dots = result.points.slice(0, ZONE_SIM.sampleDotsOnMap);
-  MapView.showSampleDots(dots);
+  // Visible radius boundary for the analysis (separate from the incident circle).
+  showRadiusCircle();
+  // Sample dots are debug-only; hidden in normal use.
+  if (DEBUG_DOTS) MapView.showSampleDots(result.points.slice(0, ZONE_SIM.sampleDotsOnMap));
+  else MapView.clearSampleDots();
 }
 
 function renderZoneResults(r) {
@@ -932,7 +952,7 @@ function buildGlossary() {
     ['Rate sensitivity', 'Substitutes a hypothetical rate, re-runs the simulation, and shows the change in win rate, rank, and base cost. Breakeven is the rate at which you tie your top threat.'],
     ['Moat overlay', 'A grid (~350mi) around the selected crew. Each cell shows the dollar margin vs. the best competitor: green = strong advantage, red = exposed.'],
     ['Rate desert', 'A CONUS grid showing the average rate of the cheapest available crews after PL thinning. Teal = cheap field; orange = "desert" where only expensive crews remain.'],
-    ['Shared DDP', 'Multiple crews dispatched from one address. The map pin shows a count badge; click it to pick a specific crew.'],
+    ['Shared DDP', 'Multiple crews dispatched from one address. Click the shared map pin to open a list and pick a specific crew.'],
   ];
   $('glossary-body').innerHTML = terms.map(([t, d]) =>
     `<div class="gloss-term"><h3>${t}</h3><p>${d}</p></div>`).join('') +

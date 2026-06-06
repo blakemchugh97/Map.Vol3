@@ -65,20 +65,26 @@ export function rankIncident(crews, lat, lng, plKey, timeFilter) {
   return rows;
 }
 
-/* ---------- Grid points inside a circle ---------- */
+/* ---------- Sample points inside a circle ----------
+   Sunflower (Vogel) distribution: the golden-angle spiral places ~n points with
+   quasi-uniform spatial density and no row/column banding — visually far more
+   even than a square lattice clipped to a disc. r = sqrt(t) gives equal-area
+   radial density (points don't bunch at the center). Returns exactly n points,
+   all inside the radius, as [lat, lng] pairs. */
 export function generateGridPoints(centerLat, centerLng, radiusMiles, n = ZONE_SIM.points) {
   const points = [];
-  const steps = Math.ceil(Math.sqrt(n * 1.4));
   const degLat = radiusMiles / 69.0;
   const degLng = radiusMiles / (69.0 * Math.cos(centerLat * Math.PI / 180));
-  for (let i = 0; i < steps; i++) {
-    for (let j = 0; j < steps; j++) {
-      const lat = centerLat - degLat + (2 * degLat * i / (steps - 1));
-      const lng = centerLng - degLng + (2 * degLng * j / (steps - 1));
-      if (haversine(centerLat, centerLng, lat, lng) <= radiusMiles) {
-        points.push([lat, lng]);
-      }
-    }
+  const golden = Math.PI * (3 - Math.sqrt(5)); // ~2.39996 rad
+  // Always sample the crew's own DDP (center) first.
+  points.push([centerLat, centerLng]);
+  for (let i = 1; i < n; i++) {
+    const r = Math.sqrt(i / (n - 1));   // 0..1, equal-area
+    const theta = i * golden;
+    points.push([
+      centerLat + r * degLat * Math.sin(theta),
+      centerLng + r * degLng * Math.cos(theta),
+    ]);
   }
   return points;
 }

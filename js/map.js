@@ -16,7 +16,7 @@ let markersByKey = {};      // ddpKey -> { marker, crews, key }
 let crewKeyById = {};       // crew.id -> ddpKey
 let selectedMarkerKey = null;
 
-let incidentMarker, incidentCircle, hypoMarker;
+let incidentMarker, incidentCircle, hypoMarker, radiusCircle;
 let zoneLayer = null, zoneByUnit = {}, activeZoneLayer = null;
 let overlayCells = null;     // L.layerGroup for moat/desert
 let sampleDots = null;       // L.layerGroup for zone-sim dots
@@ -76,13 +76,13 @@ export function setTheme(theme) {
    ============================================================ */
 function makeIcon(group, selected) {
   const cheapest = group.reduce((a, b) => (a.rank <= b.rank ? a : b));
-  const n = group.length;
   const sel = selected ? ' selected' : '';
-  const badge = n > 1 ? `<span class="marker-count">${n}</span>` : '';
-  const size = 16;
+  // No numeric count badge — shared DDPs are revealed via the click panel,
+  // keeping the map marker clean. Slightly smaller than before (was 16px).
+  const size = 12;
   return L.divIcon({
     className: '',
-    html: `<div class="crew-marker ${cheapest.color}${sel}" style="width:${size}px;height:${size}px">${badge}</div>`,
+    html: `<div class="crew-marker ${cheapest.color}${sel}" style="width:${size}px;height:${size}px"></div>`,
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
   });
@@ -197,6 +197,24 @@ export function setIncidentRadius(lat, lng, miles) {
     radius: miles * 1609.34, color: '#f59e0b', weight: 1.5, opacity: 0.7,
     fillColor: '#f59e0b', fillOpacity: 0.06,
   }).addTo(map);
+}
+
+/* ============================================================
+   Competitive-radius circle (zone analysis)
+   ============================================================ */
+// Distinct violet dashed disc (ported from vol9) centered on the analyzed crew.
+// Kept separate from the amber incidentCircle so the two never conflict.
+export function setRadiusCircle(lat, lng, miles) {
+  if (radiusCircle) { map.removeLayer(radiusCircle); radiusCircle = null; }
+  if (!miles || miles <= 0) return;
+  radiusCircle = L.circle([lat, lng], {
+    radius: miles * 1609.34,
+    color: '#a78bfa', weight: 2, opacity: 0.9, dashArray: '6,4',
+    fillColor: '#a78bfa', fillOpacity: 0.06, interactive: false,
+  }).addTo(map);
+}
+export function clearRadiusCircle() {
+  if (radiusCircle) { map.removeLayer(radiusCircle); radiusCircle = null; }
 }
 
 /* ============================================================
@@ -422,7 +440,7 @@ export function showSampleDots(points) {
   clearSampleDots();
   for (const [lat, lng] of points) {
     L.circleMarker([lat, lng], {
-      radius: 4, color: '#8b5cf6', weight: 1, opacity: 0.8,
+      radius: 2, color: '#8b5cf6', weight: 1, opacity: 0.8,
       fillColor: '#8b5cf6', fillOpacity: 0.35, interactive: false,
     }).addTo(sampleDots);
   }
