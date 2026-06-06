@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+._*
+
+# Editor / OS cruft
+*.swp
+.idea/
+.vscode/
+
+# Local preview/launch config (machine-specific)
+.claude/
+
+# Internal working files (brief + duplicate source data) — kept locally, not published
+MapAnalysisfiles/

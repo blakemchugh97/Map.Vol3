@@ -1,0 +1,74 @@
+# T2C Dispatch Intelligence Map
+
+A wildland fire crew dispatch intelligence map for the 2025/26 IROC contract season.
+Ranks **802 Type 2 Hand Crews** by the NICC dispatch-cost formula and supports incident
+simulation, competitive-radius analysis, rate-sensitivity testing, moat / rate-desert
+overlays, and zone-level market intelligence.
+
+Vanilla JS ES modules + [Leaflet](https://leafletjs.com/). **No build step, no bundler.**
+
+---
+
+## Run it locally
+
+The app loads data with ES modules + `fetch()`, which browsers **block on `file://`** —
+so you can't just double-click `index.html`. Serve it over HTTP instead:
+
+**Easiest (macOS):** double-click **`serve.command`**. It starts a local server and opens
+your browser automatically. (The first time, macOS may ask Terminal for permission to
+access the folder — click OK.)
+
+**Manual (any OS):**
+```bash
+cd t2c-dispatch-map
+python3 -m http.server 8000
+```
+then open <http://localhost:8000/>.
+
+---
+
+## Deploy to GitHub Pages
+
+1. Create a new repository on <https://github.com/new> (e.g. `t2c-dispatch-map`).
+2. From this folder:
+   ```bash
+   git remote add origin https://github.com/<your-username>/t2c-dispatch-map.git
+   git branch -M main
+   git push -u origin main
+   ```
+3. On GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**,
+   pick **`main`** / **`/ (root)`**, Save.
+4. Your map will be live at `https://<your-username>.github.io/t2c-dispatch-map/`.
+
+All asset paths are relative, so it works from a project subpath without changes.
+
+---
+
+## Project structure
+
+```
+t2c-dispatch-map/
+├── index.html               app shell
+├── crews.json               802 crews, pre-ranked
+├── dispatch_zones.geojson   133 NIFC dispatch boundaries
+├── css/app.css              design system + layout
+├── js/
+│   ├── config.js            constants, tunables, global state
+│   ├── dispatch.js          pure math: haversine, NICC cost, PL thinning, simulations
+│   ├── map.js               Leaflet, markers, clustering, overlays
+│   └── ui.js                sidebar, panels, filters, modes, glossary
+└── serve.command            double-click local launcher (macOS)
+```
+
+## Core model
+
+```js
+// NICC dispatch cost — dist is straight-line air miles (haversine)
+niccCost(crew, dist) = crew.base_cost + (crew.rate * 20 / 50) * dist * 2
+// base_cost = rate * 20 people * 14 days * 8 hrs
+```
+
+**PL thinning** simulates competing fires drawing the cheapest crews away (higher PL =
+fewer competitors available). In the **competitive-radius simulation**, PL thins only the
+*competing* field — the analyzed crew is always available (it's the hypothesis being
+tested), so it never thins itself out of its own analysis.

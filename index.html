@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T2C Dispatch Intelligence Map</title>
+
+  <!-- Font: Satoshi -->
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" />
+
+  <!-- Leaflet + MarkerCluster -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <!-- ===== Full-screen error (hidden by default) ===== -->
+  <div id="error-screen" class="error-screen" hidden>
+    <div class="error-card">
+      <div class="error-icon">⚠</div>
+      <h1 id="error-title">Failed to load crew data</h1>
+      <p id="error-message">crews.json could not be fetched. Check that the file is present and you are serving over HTTP.</p>
+      <button id="error-retry" class="btn btn-primary">Retry</button>
+    </div>
+  </div>
+
+  <!-- ===== Loading splash ===== -->
+  <div id="splash" class="splash">
+    <div class="splash-inner">
+      <div class="splash-spinner"></div>
+      <div class="splash-text">Loading dispatch intelligence…</div>
+    </div>
+  </div>
+
+  <!-- ===== App shell ===== -->
+  <div id="app" class="app" hidden>
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside id="sidebar" class="sidebar" aria-label="Crew browser">
+      <header class="sidebar-header">
+        <div class="brand">
+          <div class="brand-mark">T2C</div>
+          <div class="brand-text">
+            <div class="brand-title">Dispatch Intelligence</div>
+            <div class="brand-sub">2025/26 IROC · 802 crews</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="sidebar-controls">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input id="search" class="input search-input" type="text"
+                 placeholder="Search ID, company, zone…  ( / )" autocomplete="off" />
+          <button id="search-clear" class="search-clear" title="Clear" hidden>×</button>
+        </div>
+
+        <!-- Active filter chips (zone filter etc.) -->
+        <div id="active-filters" class="active-filters" hidden></div>
+
+        <!-- Rate range filter -->
+        <div class="filter-block">
+          <div class="filter-label-row">
+            <span class="filter-label">Rate range</span>
+            <span id="rate-readout" class="filter-readout">$51 – $68</span>
+          </div>
+          <div class="dual-slider">
+            <input id="rate-min" class="range" type="range" min="51" max="68" step="0.5" value="51" />
+            <input id="rate-max" class="range" type="range" min="51" max="68" step="0.5" value="68" />
+          </div>
+        </div>
+
+        <!-- Cluster radius -->
+        <div class="filter-block">
+          <div class="filter-label-row">
+            <span class="filter-label">Cluster radius</span>
+            <span id="cluster-readout" class="filter-readout">60px</span>
+          </div>
+          <input id="cluster-radius" class="range" type="range" min="0" max="120" step="5" value="60" />
+        </div>
+
+        <!-- Stat chips -->
+        <div id="stat-chips" class="stat-chips">
+          <button class="chip chip-green"  data-tier="green"  title="Cheapest 100"><span class="chip-dot"></span><span class="chip-n" id="chip-green">0</span></button>
+          <button class="chip chip-yellow" data-tier="yellow" title="Mid-tier"><span class="chip-dot"></span><span class="chip-n" id="chip-yellow">0</span></button>
+          <button class="chip chip-orange" data-tier="orange" title="Expensive"><span class="chip-dot"></span><span class="chip-n" id="chip-orange">0</span></button>
+          <button class="chip chip-red"    data-tier="red"    title="Most expensive"><span class="chip-dot"></span><span class="chip-n" id="chip-red">0</span></button>
+        </div>
+      </div>
+
+      <!-- Crew list -->
+      <div class="crew-list-head">
+        <span id="crew-count" class="crew-count">802 crews</span>
+        <span class="crew-sort">by rate ↑</span>
+      </div>
+      <div id="crew-list" class="crew-list" role="list"></div>
+    </aside>
+
+    <!-- Sidebar collapse toggle -->
+    <button id="sidebar-toggle" class="sidebar-toggle" title="Collapse sidebar">◀</button>
+
+    <!-- Floating mini-legend (visible when sidebar collapsed) -->
+    <div id="mini-chips" class="mini-chips" hidden></div>
+
+    <!-- ===================== MAP ===================== -->
+    <main class="map-wrap">
+      <div id="map" class="map"></div>
+
+      <!-- PL bar (top-left) -->
+      <div id="pl-bar" class="pl-bar">
+        <div class="pl-title">Preparedness Level</div>
+        <div class="pl-seg" role="tablist">
+          <button class="pl-btn active" data-pl="none">None</button>
+          <button class="pl-btn" data-pl="PL2">PL2</button>
+          <button class="pl-btn" data-pl="PL3">PL3</button>
+          <button class="pl-btn" data-pl="PL4">PL4</button>
+          <button class="pl-btn" data-pl="PL5">PL5</button>
+        </div>
+        <div id="pl-desc" class="pl-desc">All competitors included</div>
+      </div>
+
+      <!-- Top-right action stack -->
+      <div class="action-stack">
+        <button id="btn-incident" class="btn btn-gold action-btn" title="Drop incident pin (I)">⊕ Drop Incident</button>
+        <div class="overlay-group">
+          <button id="btn-zones"  class="btn action-btn overlay-btn" title="Zone overlay (Z)">▦ Zones</button>
+          <button id="btn-moat"   class="btn action-btn overlay-btn" title="Moat overlay (M)" disabled>◈ Moat</button>
+          <button id="btn-desert" class="btn action-btn overlay-btn" title="Rate desert (D)">≋ Desert</button>
+        </div>
+        <div class="util-group">
+          <button id="btn-theme" class="btn action-btn util-btn" title="Toggle theme (T)">☾</button>
+          <button id="btn-help"  class="btn action-btn util-btn" title="Glossary &amp; help (?)">?</button>
+        </div>
+      </div>
+
+      <!-- Overlay compute progress -->
+      <div id="overlay-progress" class="overlay-progress" hidden>
+        <div class="op-spinner"></div>
+        <span id="op-label">Computing…</span>
+      </div>
+
+      <!-- Incident control bar (shown in incident mode) -->
+      <div id="incident-controls" class="incident-controls" hidden>
+        <div class="ic-row">
+          <span class="ic-title">◎ Incident</span>
+          <span id="ic-coords" class="ic-coords">click map to drop pin</span>
+          <button id="ic-clear" class="btn btn-sm" title="Clear incident (Esc)">Clear</button>
+        </div>
+        <div class="ic-row ic-filters">
+          <span class="ic-label">Max mob time</span>
+          <div class="seg seg-sm" id="time-filter">
+            <button class="seg-btn active" data-hr="">No limit</button>
+            <button class="seg-btn" data-hr="6">6h</button>
+            <button class="seg-btn" data-hr="12">12h</button>
+            <button class="seg-btn" data-hr="24">24h</button>
+          </div>
+        </div>
+        <div class="ic-row ic-filters">
+          <span class="ic-label">Radius</span>
+          <input id="incident-radius" class="range range-sm" type="range" min="0" max="2000" step="25" value="0" />
+          <span id="incident-radius-readout" class="filter-readout">off</span>
+        </div>
+      </div>
+
+      <!-- Legend (bottom-right) -->
+      <div id="legend" class="legend">
+        <div class="legend-title">Rate tier</div>
+        <div class="legend-row"><span class="ldot green"></span> Cheapest 100 <span class="lmuted">· moat</span></div>
+        <div class="legend-row"><span class="ldot yellow"></span> Mid-tier <span class="lmuted">· parity</span></div>
+        <div class="legend-row"><span class="ldot orange"></span> Expensive <span class="lmuted">· exposed</span></div>
+        <div class="legend-row"><span class="ldot red"></span> Most expensive</div>
+        <div id="legend-overlay" class="legend-overlay" hidden></div>
+      </div>
+
+      <!-- Floating panel dock (bottom-left, stacks without overlap) -->
+      <div id="panel-dock" class="panel-dock">
+        <section id="detail-panel" class="float-panel" hidden></section>
+        <section id="incident-panel" class="float-panel incident-panel" hidden></section>
+        <section id="ddp-panel" class="float-panel ddp-panel" hidden></section>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===================== GLOSSARY MODAL ===================== -->
+  <div id="glossary" class="modal" hidden>
+    <div class="modal-backdrop" data-close="glossary"></div>
+    <div class="modal-card">
+      <header class="modal-head">
+        <h2>Glossary &amp; Methodology</h2>
+        <button class="modal-close" data-close="glossary" title="Close (Esc)">×</button>
+      </header>
+      <div class="modal-body" id="glossary-body"><!-- filled by ui.js --></div>
+    </div>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <!-- Serve guard (classic script, always runs): ES modules + fetch() are blocked
+       on file://, so double-clicking index.html hangs forever on the splash. Detect
+       that and show actionable instructions instead of an endless spinner. -->
+  <script>
+    (function () {
+      function showServeError(title, html, showRetry) {
+        var es = document.getElementById('error-screen'), sp = document.getElementById('splash');
+        if (!es) return;
+        document.getElementById('error-title').textContent = title;
+        document.getElementById('error-message').innerHTML = html;
+        var btn = document.getElementById('error-retry');
+        if (btn) btn.style.display = showRetry ? '' : 'none';
+        if (sp) sp.hidden = true;
+        es.hidden = false;
+      }
+      if (location.protocol === 'file:') {
+        // Modules won't even load over file:// — surface the fix immediately.
+        var serveMsg = 'This app loads data with ES modules + <code>fetch()</code>, which browsers block on <code>file://</code>. ' +
+          'Open a terminal in this folder and run:<br><br>' +
+          '<code>python3 -m http.server 8000</code><br><br>' +
+          'then visit <code>http://localhost:8000/</code>';
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () { showServeError('Please serve over HTTP', serveMsg, false); });
+        } else {
+          showServeError('Please serve over HTTP', serveMsg, false);
+        }
+      } else {
+        // Watchdog: if the app never boots over http(s) (blocked/missing module,
+        // failed data fetch that didn't surface), don't hang on the splash forever.
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            var app = document.getElementById('app'), es = document.getElementById('error-screen');
+            if (app && app.hidden && es && es.hidden) {
+              showServeError('Still loading…',
+                'The app did not finish booting. Make sure you are serving over HTTP ' +
+                '(<code>python3 -m http.server</code>) and that <code>crews.json</code> sits next to <code>index.html</code>.', true);
+            }
+          }, 8000);
+        });
+      }
+    })();
+  </script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script type="module" src="js/ui.js"></script>
+</body>
+</html>
