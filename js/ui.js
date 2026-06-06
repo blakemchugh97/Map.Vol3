@@ -496,13 +496,20 @@ function renderZoneResults(r) {
 
   box.innerHTML = `
     <div class="result-grid" style="margin-top:11px">
-      <div class="result-cell"><div class="rc-val">${r.win_pct}%</div><div class="rc-label">Win (#1)</div></div>
-      <div class="result-cell"><div class="rc-val">${r.top5_pct}%</div><div class="rc-label">Top-5</div></div>
       <div class="result-cell"><div class="rc-val">${r.top10_pct}%</div><div class="rc-label">Top-10</div></div>
+      <div class="result-cell"><div class="rc-val">${r.top20_pct}%</div><div class="rc-label">Top-20</div></div>
       <div class="result-cell"><div class="rc-val">${r.avg_rank}</div><div class="rc-label">Avg rank</div></div>
-      <div class="result-cell"><div class="rc-val">${r.total_pts}</div><div class="rc-label">Pts used</div></div>
+      <div class="result-cell"><div class="rc-val">${r.median_rank}</div><div class="rc-label">Median rank</div></div>
+      <div class="result-cell"><div class="rc-val">${r.total_pts}</div><div class="rc-label">Pts sampled</div></div>
       <div class="result-cell"><div class="rc-val">${PL_CONFIG[STATE.plKey].keepFraction < 1 ? STATE.plKey.toUpperCase() : '—'}</div><div class="rc-label">PL</div></div>
     </div>
+    <div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap">
+      <span style="display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:600;background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.5)">1–5: ${r.band1_5}</span>
+      <span style="display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:600;background:rgba(132,204,22,.18);border:1px solid rgba(132,204,22,.5)">6–10: ${r.band6_10}</span>
+      <span style="display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:600;background:rgba(234,179,8,.18);border:1px solid rgba(234,179,8,.5)">11–20: ${r.band11_20}</span>
+      <span style="display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:600;background:rgba(249,115,22,.18);border:1px solid rgba(249,115,22,.5)">21+: ${r.band21plus}</span>
+    </div>
+    <div class="hint" style="margin-top:5px;font-size:var(--text-xs)">#1 win rate: ${r.win_pct}% · top-5: ${r.top5_pct}% — diagnostic</div>
     ${threats}`;
 
   box.querySelectorAll('tr.clickable').forEach(tr =>
@@ -624,10 +631,10 @@ function startMoat() {
 function showMoatLegend() {
   $('legend-overlay').hidden = false;
   $('legend-overlay').innerHTML = `
-    <div class="legend-title">Moat margin · $ vs best competitor</div>
-    <div class="legend-grad" style="background:linear-gradient(90deg,rgb(239,68,68),rgb(234,179,8),rgb(34,197,94))"></div>
-    <div class="legend-grad-labels"><span>−$${MOAT_CONFIG.strongAdvantage.toLocaleString()} exposed</span><span>parity</span><span>+$${MOAT_CONFIG.strongAdvantage.toLocaleString()} moat</span></div>
-    <div class="hint" style="margin-top:5px">Hover any cell for the exact margin &amp; top competitor.</div>`;
+    <div class="legend-title">Competitive reach · rank-band fade</div>
+    <div class="legend-grad" style="background:linear-gradient(90deg,rgb(220,38,38),rgb(249,115,22),rgb(234,179,8),rgb(132,204,22),rgb(16,185,129))"></div>
+    <div class="legend-grad-labels"><span>rank 35+</span><span>top-20 edge</span><span>top-10 ✓</span></div>
+    <div class="hint" style="margin-top:5px">Hover any cell to see exact rank, band, and cheapest competitor.</div>`;
 }
 
 function toggleDesert() {
@@ -947,10 +954,10 @@ function buildGlossary() {
     ['Rate tiers', 'Crews ranked globally by rate (ascending). <b>Green</b> = cheapest 100, <b>Yellow</b> = 101–210, <b>Orange</b> = 211–388, <b>Red</b> = 389+. Color encodes competitive pricing, not quality.'],
     ['Preparedness Level (PL)', 'Simulates competing fires drawing the cheapest crews away. Higher PL keeps a smaller fraction of the field available, opening the competitive field. PL2≈90%, PL3≈70%, PL4≈43%, PL5≈18%.'],
     ['Incident mode', 'Drop a pin anywhere; every available crew is ranked by NICC cost to that point. Time filter removes crews whose mobilization (travel + 3h buffer) exceeds the limit.'],
-    ['Competitive radius', 'Simulates ~100 incidents inside a radius around a crew\'s DDP and measures how often it ranks #1, top-5, and top-10. PL thins the <i>competing</i> field; the analyzed crew is always available (it is the hypothesis being tested), so it never thins itself out of its own analysis.'],
-    ['Threats', 'Crews that out-rank the selected crew in ≥30% of sampled incidents — your direct competitors in that radius.'],
+    ['Competitive radius', 'Simulates ~100 incidents inside a radius around a crew\'s DDP. The main metrics are top-10 and top-20 rate, average rank, median rank, and a rank-band breakdown. Being #1 is shown as a diagnostic — the goal is to stay competitive in the top-10 to top-20 band, not to be the cheapest option everywhere.'],
+    ['Threats', 'Crews that out-rank the selected crew in ≥30% of sampled incidents — direct competitors in that radius.'],
     ['Rate sensitivity', 'Substitutes a hypothetical rate, re-runs the simulation, and shows the change in win rate, rank, and base cost. Breakeven is the rate at which you tie your top threat.'],
-    ['Moat overlay', 'A grid (~350mi) around the selected crew. Each cell shows the dollar margin vs. the best competitor: green = strong advantage, red = exposed.'],
+    ['Moat overlay', 'A grid (~350mi) around the selected crew. Each cell shows where the crew\'s rank falls in the competitive field at that location. Emerald = comfortably top-10; amber = near the top-20 boundary; red = outside the useful band. Hover any cell for the exact rank.'],
     ['Rate desert', 'A CONUS grid showing the average rate of the cheapest available crews after PL thinning. Teal = cheap field; orange = "desert" where only expensive crews remain.'],
     ['Shared DDP', 'Multiple crews dispatched from one address. Click the shared map pin to open a list and pick a specific crew.'],
   ];

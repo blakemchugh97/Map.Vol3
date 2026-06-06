@@ -52,13 +52,15 @@ export const ZONE_SIM = {
 //   margin <= strongExposed        -> full red    (exposed)
 // A yellow deadband around $0 stops tiny margins from rendering deep green/red.
 export const MOAT_CONFIG = {
-  cellDegrees:    0.4,    // ~27mi cells
-  maxRadius:      350,    // competitive disc reach from the crew DDP
+  cellDegrees:     0.4,   // ~27mi cells
+  maxRadius:       350,   // competitive disc reach from the crew DDP
+  fillOpacity:     0.52,
+  // Rank-band thresholds for the band-based moat score
+  bandTop:         10,    // "useful band" top-N (comfortably competitive)
+  bandOuter:       20,    // outer band boundary (marginal zone)
+  // Legacy dollar field kept so moatReadout() doesn't break if called externally
   strongAdvantage: 2500,
-  yellowBand:      1000,  // |margin| <= this reads as pure yellow (parity)
-  strongExposed:  -2500,
-  fillOpacity:     0.5,
-  normScale:       12000, // $ scale to normalize avg advantage to -1..1 in summaries
+  normScale:       12000,
 };
 
 /* ---------- Rate desert overlay ---------- */

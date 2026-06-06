@@ -7,7 +7,7 @@ import {
   MAP_CONFIG, ZONE_STYLE, MOAT_CONFIG, DESERT_CONFIG, PL_CONFIG,
 } from './config.js';
 import {
-  haversine, moatReadout, computeDesertCell, isUSLand, runChunked,
+  haversine, computeRankAtPoint, bandScore, computeDesertCell, isUSLand, runChunked,
 } from './dispatch.js';
 
 let map, tileLayer, handlers = {};
@@ -275,33 +275,29 @@ export function bindZonePopup(layer, html) { layer.bindPopup(html, { className: 
 /* ============================================================
    Moat overlay
    ============================================================ */
-// Map normalized 0..1 advantage to red(0) -> yellow(0.5) -> green(1).
-function moatRampColor(t) {
-  t = clamp(t, 0, 1);
-  if (t >= 0.5) { const u = (t - 0.5) / 0.5; return rgb(lerp(234, 34, u), lerp(179, 197, u), lerp(8, 94, u)); }
-  const u = t / 0.5; return rgb(lerp(239, 234, u), lerp(68, 179, u), lerp(68, 8, u));
+// Five-stop gradient: deep-red → orange → amber → lime → emerald.
+// score: 0..1 from bandScore() — 1 = comfortably in top-10, 0 = outside top-20+.
+function bandMoatColor(score) {
+  const s = clamp(score, 0, 1);
+  const stops = [
+    [220,  38,  38],  // 0.00  deep red   — outside useful band
+    [249, 115,  22],  // 0.25  orange      — just outside top-20
+    [234, 179,   8],  // 0.50  amber       — at top-20 boundary
+    [132, 204,  22],  // 0.75  lime        — inside top-10, competitive
+    [ 16, 185, 129],  // 1.00  emerald     — comfortably in top-10
+  ];
+  const t = s * (stops.length - 1);
+  const i = Math.min(Math.floor(t), stops.length - 2);
+  const u = t - i;
+  const [r1, g1, b1] = stops[i], [r2, g2, b2] = stops[i + 1];
+  return { color: rgb(lerp(r1, r2, u), lerp(g1, g2, u), lerp(b1, b2, u)), opacity: MOAT_CONFIG.fillOpacity };
 }
-// Absolute, symmetric ladder with a yellow deadband (interpretable across crews).
-function moatColor(margin) {
-  const { strongAdvantage, strongExposed, yellowBand, fillOpacity } = MOAT_CONFIG;
-  let color;
-  if (margin >= yellowBand) {
-    const u = Math.min(1, (margin - yellowBand) / Math.max(1, strongAdvantage - yellowBand));
-    color = moatRampColor(0.5 + 0.5 * u);
-  } else if (margin <= -yellowBand) {
-    const u = Math.min(1, (-margin - yellowBand) / Math.max(1, (-strongExposed) - yellowBand));
-    color = moatRampColor(0.5 - 0.5 * u);
-  } else {
-    color = moatRampColor(0.5); // parity deadband -> pure yellow
-  }
-  return { color, opacity: fillOpacity };
-}
-function moatBucket(m) {
-  if (m >= MOAT_CONFIG.strongAdvantage) return 'strong advantage';
-  if (m >= MOAT_CONFIG.yellowBand)      return 'advantage';
-  if (m > -MOAT_CONFIG.yellowBand)      return 'marginal (near parity)';
-  if (m > MOAT_CONFIG.strongExposed)    return 'disadvantage';
-  return 'strong disadvantage (exposed)';
+function bandBucket(rank) {
+  if (rank <= 5)  return 'top-5 — strong';
+  if (rank <= 10) return 'top-10 — competitive';
+  if (rank <= 20) return 'top-20 — marginal';
+  if (rank <= 35) return 'rank 21–35 — fading';
+  return 'rank 35+ — outside useful band';
 }
 
 // Frame the crew's competitive disc so the moat fills the view (a continental
@@ -336,15 +332,15 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
   }
   const computed = [];
   overlayJob = runChunked(cells, ([lat, lng]) => {
-    const ro = moatReadout(selectedCrew, lat, lng, allCrews, keepFraction);
-    const { color, opacity } = moatColor(ro.margin);
-    const comp = ro.bestCompCrew;
+    const ro = computeRankAtPoint(selectedCrew, lat, lng, allCrews, keepFraction);
+    const { color, opacity } = bandMoatColor(bandScore(ro.rank));
     const tip =
-      `<b>Moat — ${selectedCrew.id}</b> @ $${(+selectedCrew.rate).toFixed(2)}/hr · ${plLabel}<br>` +
-      `Margin: <b>${ro.margin >= 0 ? '+' : ''}${money(ro.margin)}</b> <span style="opacity:.8">(${moatBucket(ro.margin)})</span><br>` +
+      `<b>${selectedCrew.id}</b> · rank <b>#${ro.rank}</b> of ${ro.fieldSize} · ${plLabel}<br>` +
+      `<span style="opacity:.9">${bandBucket(ro.rank)}</span><br>` +
       `${selectedCrew.id} cost: ${money(ro.myCost)}<br>` +
-      (comp ? `Best competitor: <b>${comp.id}</b> @ $${(+comp.rate).toFixed(2)} · ${money(ro.bestCompCost)}`
-            : `Best competitor: none at this PL`);
+      (ro.bestComp
+        ? `Cheapest competitor: <b>${ro.bestComp.id}</b> @ $${(+ro.bestComp.rate).toFixed(2)}/hr · ${money(ro.bestCompCost)}`
+        : `No competitors at this PL`);
     const rect = drawRect(lat, lng, step, color, opacity, tip);
     computed.push({ lat, lng, step, color, opacity, tip });
     if (rect) overlayCells.addLayer(rect);

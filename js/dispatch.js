@@ -89,6 +89,34 @@ export function generateGridPoints(centerLat, centerLng, radiusMiles, n = ZONE_S
   return points;
 }
 
+/* ---------- Band-based moat scoring ----------
+   Maps a crew's rank at a point to a 0..1 score representing how safely
+   it sits in the "useful competitive band" (top-10 to top-20).
+   1.0 = deeply in top-10 | 0.0 = well outside top-20+ */
+export function bandScore(rank) {
+  if (rank <= 10) return Math.max(0.70, 1.0 - (rank - 1) * 0.033); // 1→1.0, 10→0.70
+  if (rank <= 20) return 0.70 - (rank - 10) * 0.035;                // 10→0.70, 20→0.35
+  if (rank <= 40) return 0.35 - (rank - 20) * 0.0125;               // 20→0.35, 40→0.10
+  return Math.max(0, 0.10 - (rank - 40) * 0.002);                   // 40+→0
+}
+
+/* Exact rank of selectedCrew at a point after PL thinning of competitors.
+   Returns { rank, myCost, fieldSize, bestComp, bestCompCost }. */
+export function computeRankAtPoint(selectedCrew, lat, lng, allCrews, keepFraction) {
+  const competitors = allCrews.filter(c => c.id !== selectedCrew.id);
+  const myCost = costToPoint(selectedCrew, lat, lng);
+  const field = keepFraction >= 1.0
+    ? competitors
+    : thinField(competitors, lat, lng, keepFraction);
+  let rank = 1, bestComp = null, bestCompCost = Infinity;
+  for (const c of field) {
+    const cost = costToPoint(c, lat, lng);
+    if (cost < myCost) rank++;
+    if (cost < bestCompCost) { bestCompCost = cost; bestComp = c; }
+  }
+  return { rank, myCost, fieldSize: field.length + 1, bestComp, bestCompCost };
+}
+
 /* ---------- Zone (competitive radius) simulation ----------
    Model D: the analyzed crew is the hypothesis ("if dispatched here") and is
    ALWAYS available. PL thinning models *competitors* being drawn to other fires,
@@ -101,7 +129,11 @@ export function runZoneSimulation(selectedCrew, radiusMiles, allCrews, plKey) {
   const points = generateGridPoints(selectedCrew.lat, selectedCrew.lng, radiusMiles);
   const keepFraction = PL_CONFIG[plKey].keepFraction;
   const competitors = allCrews.filter(c => c.id !== selectedCrew.id);
-  const results = { ranks: [], top5: 0, top10: 0, win: 0, threats: {}, points };
+  const results = {
+    ranks: [], win: 0, top5: 0, top10: 0, top20: 0,
+    band1_5: 0, band6_10: 0, band11_20: 0, band21plus: 0,
+    threats: {}, points,
+  };
 
   for (const [lat, lng] of points) {
     const field = thinField(competitors, lat, lng, keepFraction);
@@ -115,9 +147,15 @@ export function runZoneSimulation(selectedCrew, radiusMiles, allCrews, plKey) {
     if (myIdx === -1) continue; // defensive; selectedCrew is always present
     const myRank = myIdx + 1;
     results.ranks.push(myRank);
-    if (myRank === 1) results.win++;
-    if (myRank <= 5)  results.top5++;
-    if (myRank <= 10) results.top10++;
+    if (myRank === 1)  results.win++;
+    if (myRank <= 5)   results.top5++;
+    if (myRank <= 10)  results.top10++;
+    if (myRank <= 20)  results.top20++;
+    // exclusive band buckets
+    if      (myRank <= 5)  results.band1_5++;
+    else if (myRank <= 10) results.band6_10++;
+    else if (myRank <= 20) results.band11_20++;
+    else                   results.band21plus++;
 
     for (let i = 0; i < myIdx; i++) {
       const t = ranked[i].id;
@@ -126,10 +164,19 @@ export function runZoneSimulation(selectedCrew, radiusMiles, allCrews, plKey) {
   }
 
   const n = results.ranks.length;
-  results.top5_pct  = n > 0 ? (results.top5 / n * 100).toFixed(1) : '0';
-  results.top10_pct = n > 0 ? (results.top10 / n * 100).toFixed(1) : '0';
-  results.win_pct   = n > 0 ? (results.win / n * 100).toFixed(1) : '0';
-  results.avg_rank  = n > 0 ? (results.ranks.reduce((a, b) => a + b, 0) / n).toFixed(1) : '0';
+  results.win_pct    = n > 0 ? (results.win   / n * 100).toFixed(1) : '0';
+  results.top5_pct   = n > 0 ? (results.top5  / n * 100).toFixed(1) : '0';
+  results.top10_pct  = n > 0 ? (results.top10 / n * 100).toFixed(1) : '0';
+  results.top20_pct  = n > 0 ? (results.top20 / n * 100).toFixed(1) : '0';
+  results.avg_rank   = n > 0 ? (results.ranks.reduce((a, b) => a + b, 0) / n).toFixed(1) : '0';
+  if (n > 0) {
+    const s = [...results.ranks].sort((a, b) => a - b);
+    results.median_rank = (n % 2 === 0
+      ? ((s[n / 2 - 1] + s[n / 2]) / 2)
+      : s[Math.floor(n / 2)]).toFixed(1);
+  } else {
+    results.median_rank = '0';
+  }
   results.total_pts = n;
 
   results.threat_list = Object.entries(results.threats)
@@ -161,6 +208,7 @@ export function rateSensitivity(selectedCrew, testRate, radius, allCrews, plKey)
   return {
     base, test,
     delta_top10: (parseFloat(test.top10_pct) - parseFloat(base.top10_pct)).toFixed(1),
+    delta_top20: (parseFloat(test.top20_pct) - parseFloat(base.top20_pct)).toFixed(1),
     delta_top5:  (parseFloat(test.top5_pct)  - parseFloat(base.top5_pct)).toFixed(1),
     delta_win:   (parseFloat(test.win_pct)   - parseFloat(base.win_pct)).toFixed(1),
     delta_rank:  (parseFloat(test.avg_rank)  - parseFloat(base.avg_rank)).toFixed(1),
