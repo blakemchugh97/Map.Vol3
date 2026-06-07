@@ -123,10 +123,13 @@ input { font-family: inherit; }
 .input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
 .input::placeholder { color: var(--text-faint); }
 
-.range { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: var(--surface2); border-radius: 3px; outline: none; }
-.range::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); cursor: pointer; transition: background .12s; }
-.range::-webkit-slider-thumb:hover { background: var(--accent-hi); }
-.range::-moz-range-thumb { width: 15px; height: 15px; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); cursor: pointer; }
+.range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: var(--surface2); border-radius: 999px; outline: none; box-shadow: inset 0 1px 2px rgba(0,0,0,.35); }
+.range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--accent-hi), var(--accent)); border: 2px solid var(--surface); box-shadow: 0 1px 4px rgba(0,0,0,.5), 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent); cursor: pointer; transition: transform .1s, box-shadow .12s; }
+.range::-webkit-slider-thumb:hover { transform: scale(1.12); box-shadow: 0 1px 6px rgba(0,0,0,.55), 0 0 0 5px color-mix(in srgb, var(--accent) 28%, transparent); }
+.range::-webkit-slider-thumb:active { transform: scale(1.04); }
+.range::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); box-shadow: 0 1px 4px rgba(0,0,0,.5); cursor: pointer; }
+/* Single-slider gradient fill (driven by --fill from JS) */
+#cluster-radius { background: linear-gradient(90deg, var(--accent), var(--accent-hi)) 0 / var(--fill, 50%) 100% no-repeat, var(--surface2); }
 .range-sm { max-width: 130px; }
 
 /* ============================================================
@@ -195,25 +198,27 @@ input { font-family: inherit; }
 
 .filter-block { display: flex; flex-direction: column; gap: 7px; }
 .filter-label-row { display: flex; justify-content: space-between; align-items: baseline; }
-.filter-label { font-size: var(--text-sm); font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+.filter-label { font-size: var(--text-sm); font-weight: 600; color: color-mix(in srgb, var(--text) 60%, var(--text-muted)); text-transform: uppercase; letter-spacing: .07em; }
 .filter-readout { font-size: var(--text-sm); font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
 
-.dual-slider { position: relative; height: 16px; display: grid; }
-.dual-slider .range { grid-area: 1 / 1; background: transparent; pointer-events: none; }
+.dual-slider { --lo: 0%; --ro: 100%; position: relative; height: 18px; display: grid; align-items: center; }
+.dual-slider .range { grid-area: 1 / 1; background: transparent; box-shadow: none; pointer-events: none; z-index: 2; }
 .dual-slider .range::-webkit-slider-thumb { pointer-events: auto; }
 .dual-slider .range::-moz-range-thumb { pointer-events: auto; }
-.dual-slider::before { content: ""; position: absolute; top: 6px; left: 0; right: 0; height: 4px; background: var(--surface2); border-radius: 3px; }
+.dual-slider::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); height: 6px; background: var(--surface2); border-radius: 999px; box-shadow: inset 0 1px 2px rgba(0,0,0,.35); z-index: 0; }
+.dual-slider::after { content: ""; position: absolute; top: 50%; transform: translateY(-50%); height: 6px; left: var(--lo); right: calc(100% - var(--ro)); background: linear-gradient(90deg, var(--accent), var(--accent-hi)); border-radius: 999px; z-index: 1; }
 
 .stat-chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.chip { display: flex; align-items: center; justify-content: center; gap: 5px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 4px; transition: border-color .12s, opacity .12s; }
-.chip:hover { border-color: var(--border-hi); }
-.chip.muted { opacity: .35; }
-.chip-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
-.chip-n { font-size: var(--text-sm); font-weight: 700; font-variant-numeric: tabular-nums; }
-.chip-green  .chip-dot { background: var(--green); }
-.chip-yellow .chip-dot { background: var(--yellow); }
-.chip-orange .chip-dot { background: var(--orange); }
-.chip-red    .chip-dot { background: var(--red); }
+.chip { display: flex; align-items: center; justify-content: center; gap: 6px; background: color-mix(in srgb, var(--chip-c, var(--accent)) 12%, var(--surface2)); border: 1px solid color-mix(in srgb, var(--chip-c, var(--accent)) 38%, transparent); border-radius: var(--radius-sm); padding: 6px 4px; cursor: pointer; transition: background .12s, border-color .12s, opacity .12s, transform .08s; }
+.chip:hover { background: color-mix(in srgb, var(--chip-c, var(--accent)) 22%, var(--surface2)); border-color: color-mix(in srgb, var(--chip-c, var(--accent)) 62%, transparent); }
+.chip:active { transform: translateY(1px); }
+.chip.muted { opacity: .3; }
+.chip-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--chip-c, var(--accent)); box-shadow: 0 0 6px color-mix(in srgb, var(--chip-c, var(--accent)) 65%, transparent); }
+.chip-n { font-size: var(--text-base); font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+.chip-green  { --chip-c: var(--green); }
+.chip-yellow { --chip-c: var(--yellow); }
+.chip-orange { --chip-c: var(--orange); }
+.chip-red    { --chip-c: var(--red); }
 
 .crew-list-head { display: flex; justify-content: space-between; align-items: center; padding: 9px 14px; border-bottom: 1px solid var(--border); }
 .crew-count { font-size: var(--text-sm); font-weight: 600; }
@@ -267,7 +272,10 @@ input { font-family: inherit; }
 .map-wrap.crosshair .leaflet-interactive { cursor: crosshair !important; }
 
 /* PL bar */
-.pl-bar { position: absolute; top: 12px; left: 12px; z-index: 500; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 10px 12px; box-shadow: var(--shadow-sm); min-width: 232px; }
+.pl-bar { position: absolute; top: 12px; left: 12px; z-index: 500; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 10px 12px; box-shadow: var(--shadow-sm); min-width: 232px; transition: top .22s ease; }
+/* When the sidebar is collapsed the floating mini-chips occupy the top-left
+   corner — drop the PL bar below them so the two never overlap. */
+.app.sidebar-collapsed .pl-bar { top: 64px; }
 .pl-title { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); font-weight: 600; margin-bottom: 7px; }
 .pl-seg { display: flex; gap: 3px; background: var(--surface2); border-radius: var(--radius-sm); padding: 3px; }
 .pl-btn { flex: 1; background: none; border: none; color: var(--text-muted); font-size: var(--text-sm); font-weight: 600; padding: 5px 4px; border-radius: var(--radius-sm); transition: background .12s, color .12s; }
@@ -275,12 +283,32 @@ input { font-family: inherit; }
 .pl-btn.active { background: var(--accent); color: #fff; }
 .pl-desc { font-size: var(--text-xs); color: var(--text-faint); margin-top: 7px; }
 
+/* PL fine-tune slider (violet, to distinguish from the blue rate sliders) */
+.pl-slider-block { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 5px; }
+.pl-slider-row { display: flex; justify-content: space-between; align-items: baseline; }
+.pl-slider-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); font-weight: 600; }
+.pl-slider { background: linear-gradient(90deg, var(--violet), #a78bfa) 0 / var(--fill, 50%) 100% no-repeat, var(--surface2); }
+.pl-slider::-webkit-slider-thumb { background: radial-gradient(circle at 35% 30%, #c4b5fd, var(--violet)); box-shadow: 0 1px 4px rgba(0,0,0,.5), 0 0 0 1px color-mix(in srgb, var(--violet) 45%, transparent); }
+.pl-slider::-webkit-slider-thumb:hover { box-shadow: 0 1px 6px rgba(0,0,0,.55), 0 0 0 5px color-mix(in srgb, var(--violet) 28%, transparent); }
+.pl-slider::-moz-range-thumb { background: var(--violet); }
+.pl-slider-ends { display: flex; justify-content: space-between; font-size: var(--text-xs); color: var(--text-faint); }
+
 /* Action stack top-right */
 .action-stack { position: absolute; top: 12px; right: 12px; z-index: 500; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
 .action-btn { box-shadow: var(--shadow-sm); }
 .overlay-group, .util-group { display: flex; gap: 6px; }
 .util-btn { width: 34px; padding: 7px 0; text-align: center; }
 .overlay-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent-hi); }
+/* Hypothetical DDL tool button — violet to match its panel/marker */
+.hypo-btn.active { background: color-mix(in srgb, var(--violet) 22%, var(--surface2)); border-color: var(--violet); color: #c4b5fd; }
+/* Wildfire layer button — cool blue to match its triangle map points */
+.fire-btn.active { background: color-mix(in srgb, #38bdf8 22%, var(--surface2)); border-color: #38bdf8; color: #bae6fd; }
+/* Active-incidents (last 24h) layer button — bright pink to match its alert points */
+.incident24-btn.active { background: color-mix(in srgb, #ec4899 22%, var(--surface2)); border-color: #ec4899; color: #f9a8d4; }
+/* Light theme: the active tint is pale, so the light label text washes out —
+   swap to a dark same-hue label to keep it legible. */
+[data-theme="light"] .fire-btn.active { color: #075985; }
+[data-theme="light"] .incident24-btn.active { color: #9d174d; }
 
 /* Overlay compute progress */
 .overlay-progress { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 520; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 7px 14px 7px 11px; display: flex; align-items: center; gap: 9px; box-shadow: var(--shadow-sm); font-size: var(--text-sm); color: var(--text-muted); }
@@ -325,12 +353,22 @@ input { font-family: inherit; }
 .panel-dock {
   position: absolute; left: 12px; bottom: 12px; z-index: 530;
   display: flex; flex-direction: column; gap: 8px;
-  width: 380px; max-height: calc(100vh - 24px);
+  width: 380px;
+  /* The dock is bottom-anchored and grows upward; the PL bar (~157px tall) sits
+     top-left at top:12. Cap the height so a tall stack (e.g. detail + hypo
+     panels) scrolls internally instead of rising behind the PL bar — keeping
+     the "panels never overlap the PL bar" rule. Offset = dock bottom (12) +
+     PL bar bottom (~169) + gap. */
+  max-height: calc(100vh - 200px);
   /* dock height hugs its panels (only gaps are "empty"), so it can scroll
      when two expanded panels exceed the viewport — headers stay reachable. */
   overflow-y: auto; overflow-x: hidden;
   scrollbar-width: thin;
 }
+/* When the sidebar is collapsed the PL bar drops to top:64 (clearing the
+   floating mini-chips), so the dock needs ~52px more clearance to stay below
+   both the mini-chips and the lowered PL bar. */
+.app.sidebar-collapsed .panel-dock { max-height: calc(100vh - 252px); }
 .float-panel {
   position: relative; width: 100%; flex: none;
   background: var(--surface); border: 1px solid var(--border);
@@ -338,6 +376,7 @@ input { font-family: inherit; }
   display: flex; flex-direction: column; overflow: hidden;
 }
 .incident-panel { border-color: var(--gold); }
+.hypo-panel { border-color: var(--violet); }
 
 .float-panel.minimized { width: max-content; max-width: 100%; }
 .float-panel.minimized .panel-body { display: none; }
@@ -413,7 +452,15 @@ input { font-family: inherit; }
 .crew-marker.selected { border-color: var(--accent-hi); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 50%, transparent); z-index: 1000 !important; }
 
 .incident-marker { background: var(--gold); width: 20px; height: 20px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.5); }
-.hypo-marker { background: var(--violet); width: 20px; height: 20px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.5); }
+.hypo-marker { background: var(--violet); width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; color: #fff; font-weight: 800; font-size: 12px; display: grid; place-items: center; box-shadow: 0 0 0 3px color-mix(in srgb, var(--violet) 45%, transparent), 0 2px 6px rgba(0,0,0,.5); }
+/* Fire-layer markers — a compact hazard "triangle" silhouette so live fire points
+   read at a glance and never blend with the round crew dots. Kept small and edged
+   to cut clutter; cool blue = wildfire layer, bright pink = last-24h incidents —
+   high-contrast hues that stay clear of the warm-toned crew tiers. */
+.wildfire-marker,
+.active-incident-marker { clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+.wildfire-marker { width: 12px; height: 11px; background: linear-gradient(180deg, #bae6fd 0%, #38bdf8 48%, #0ea5e9 82%, #0284c7 100%); filter: drop-shadow(0 0 .6px rgba(0,0,0,.8)) drop-shadow(0 1px 1.5px rgba(0,0,0,.45)); }
+.active-incident-marker { width: 13px; height: 12px; background: linear-gradient(180deg, #fbcfe8 0%, #f472b6 44%, #ec4899 78%, #be185d 100%); filter: drop-shadow(0 0 .8px rgba(255,255,255,.9)) drop-shadow(0 1px 1.5px rgba(0,0,0,.5)); }
 
 .marker-cluster div { font-family: var(--font); font-weight: 700; }
 .leaflet-popup-content-wrapper { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }

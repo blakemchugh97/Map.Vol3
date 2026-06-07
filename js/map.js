@@ -4,10 +4,11 @@
    ============================================================ */
 
 import {
-  MAP_CONFIG, ZONE_STYLE, MOAT_CONFIG, DESERT_CONFIG, PL_CONFIG,
+  MAP_CONFIG, ZONE_STYLE, MOAT_CONFIG, DESERT_CONFIG, PL_CONFIG, STATE,
+  WILDFIRE_CONFIG, ACTIVE_INCIDENTS_CONFIG, effectiveKeepFraction,
 } from './config.js';
 import {
-  haversine, computeRankAtPoint, bandScore, computeDesertCell, isUSLand, runChunked,
+  haversine, computeRankAtPoint, bandScore, computeRateDesertHoverStats, isUSLand, runChunked,
 } from './dispatch.js';
 
 let map, tileLayer, handlers = {};
@@ -218,12 +219,18 @@ export function clearRadiusCircle() {
 }
 
 /* ============================================================
-   Hypothetical DDP pin
+   Hypothetical DDL crew marker
+   Distinct violet "H" pin for the user-placed what-if crew. Clickable so it can
+   be selected and analyzed like any other crew (routes to onHypoMarkerClick).
    ============================================================ */
 export function setHypoPin(lat, lng) {
   if (hypoMarker) map.removeLayer(hypoMarker);
-  const icon = L.divIcon({ className: '', html: '<div class="hypo-marker"></div>', iconSize: [20, 20], iconAnchor: [10, 18] });
-  hypoMarker = L.marker([lat, lng], { icon, zIndexOffset: 1000 }).addTo(map);
+  const icon = L.divIcon({ className: '', html: '<div class="hypo-marker">H</div>', iconSize: [22, 22], iconAnchor: [11, 11] });
+  hypoMarker = L.marker([lat, lng], { icon, zIndexOffset: 1100 }).addTo(map);
+  hypoMarker.on('click', (e) => {
+    L.DomEvent.stopPropagation(e);
+    if (handlers.onHypoMarkerClick) handlers.onHypoMarkerClick();
+  });
 }
 export function clearHypoPin() {
   if (hypoMarker) { map.removeLayer(hypoMarker); hypoMarker = null; }
@@ -314,10 +321,11 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
   cancelOverlayJob();
   clearOverlayCells();
   focusMoat(selectedCrew);
-  const cacheKey = `${selectedCrew.id}|${plKey}`;
+  // Cache key includes the fine-tune slider so changing it never serves stale cells.
+  const cacheKey = `${selectedCrew.id}|${plKey}|${STATE.plSlider}`;
   if (moatCache[cacheKey]) { drawCells(moatCache[cacheKey]); onDone && onDone(); return; }
 
-  const keepFraction = PL_CONFIG[plKey].keepFraction;
+  const keepFraction = effectiveKeepFraction(plKey);
   const step = MOAT_CONFIG.cellDegrees;
   const r = MOAT_CONFIG.maxRadius;
   const degLat = r / 69.0;
@@ -375,9 +383,10 @@ function sampleCellPoints(latS, lngW, d, n) {
 export function showDesert(allCrews, plKey, { onProgress, onDone } = {}) {
   cancelOverlayJob();
   clearOverlayCells();
-  if (desertCache[plKey]) { drawCells(desertCache[plKey]); onDone && onDone(); return; }
+  const cacheKey = `${plKey}|${STATE.plSlider}`;
+  if (desertCache[cacheKey]) { drawCells(desertCache[cacheKey]); onDone && onDone(); return; }
 
-  const keepFraction = PL_CONFIG[plKey].keepFraction;
+  const keepFraction = effectiveKeepFraction(plKey);
   const d = DESERT_CONFIG.cellDegrees;
   const b = DESERT_CONFIG.bounds;
   const N = DESERT_CONFIG.samplesPerCell;
@@ -394,13 +403,15 @@ export function showDesert(allCrews, plKey, { onProgress, onDone } = {}) {
   overlayJob = runChunked(cells, (cell) => {
     const pts = sampleCellPoints(cell.latS, cell.lngW, d, N).filter(([la, ln]) => isUSLand(la, ln));
     const use = pts.length ? pts : [[cell.cLat, cell.cLng]];
-    const scores = use.map(([la, ln]) => computeDesertCell(la, ln, allCrews, keepFraction)).filter(s => s != null);
-    if (!scores.length) return;
-    const avg = scores.reduce((a, x) => a + x, 0) / scores.length;
+    const stats = computeRateDesertHoverStats(use, allCrews, keepFraction);
+    if (!stats) return; // no survivors anywhere in the cell — skip gracefully
+    const avg = stats.avg;
     const color = desertColor(avg);
     const klass = avg >= DESERT_CONFIG.highRate ? 'strong rate desert'
       : avg <= DESERT_CONFIG.lowRate ? 'cheap field dominates' : 'mixed';
-    const tip = `Surviving top-${DESERT_CONFIG.topN} avg rate: <b>$${avg.toFixed(2)}/hr</b><br>` +
+    // Hover shows the avg, lowest, and highest rate among the surviving top-N.
+    const tip = `Surviving top-${DESERT_CONFIG.topN} rate<br>` +
+      `avg <b>$${stats.avg.toFixed(2)}</b> · low <b>$${stats.min.toFixed(2)}</b> · high <b>$${stats.max.toFixed(2)}</b><br>` +
       `<span style="opacity:.8">(${klass})</span> · ${cell.cLat.toFixed(1)}°, ${Math.abs(cell.cLng).toFixed(1)}°W`;
     const rect = drawRect(cell.cLat, cell.cLng, d, color, DESERT_CONFIG.fillOpacity, tip);
     computed.push({ lat: cell.cLat, lng: cell.cLng, step: d, color, opacity: DESERT_CONFIG.fillOpacity, tip });
@@ -408,7 +419,7 @@ export function showDesert(allCrews, plKey, { onProgress, onDone } = {}) {
   }, {
     chunk: 40,
     onProgress,
-    onDone() { desertCache[plKey] = computed; onDone && onDone(); },
+    onDone() { desertCache[cacheKey] = computed; onDone && onDone(); },
   });
 }
 
@@ -428,6 +439,12 @@ function drawCells(cells) {
 }
 export function clearOverlayCells() { if (overlayCells) overlayCells.clearLayers(); }
 export function cancelOverlayJob() { if (overlayJob) { overlayJob.cancel(); overlayJob = null; } }
+/* Drop cached moat/desert cells — call whenever the crew field changes (e.g.
+   a hypothetical DDL is placed, re-rated, or removed) so overlays recompute. */
+export function invalidateOverlayCaches() {
+  for (const k in moatCache) delete moatCache[k];
+  for (const k in desertCache) delete desertCache[k];
+}
 
 /* ============================================================
    Zone-sim sample dots
@@ -442,6 +459,108 @@ export function showSampleDots(points) {
   }
 }
 export function clearSampleDots() { if (sampleDots) sampleDots.clearLayers(); }
+
+/* ============================================================
+   Wildfire layer (live ArcGIS incidents via esri-leaflet)
+   Lazily built on first show, then added/removed on toggle. Independent of the
+   analytic overlays, so it can coexist with moat / desert / zones.
+   ============================================================ */
+let wildfireLayer = null;
+
+export function toggleWildfire(on) {
+  if (!map) return;
+  if (on) {
+    if (!wildfireLayer) {
+      const s = WILDFIRE_CONFIG.markerSize;
+      const icon = L.divIcon({
+        className: '', html: '<div class="wildfire-marker"></div>',
+        iconSize: [s, s], iconAnchor: [s / 2, s / 2],
+      });
+      wildfireLayer = L.esri.featureLayer({
+        url: WILDFIRE_CONFIG.url,
+        // Distinct ember divIcon (not a flat dot) so incidents never read as
+        // orange-tier crews, which share the #f97316 fill.
+        pointToLayer: (_geojson, latlng) => L.marker(latlng, { icon, keyboard: false }),
+        onEachFeature: (feature, layer) =>
+          layer.bindPopup(wildfirePopup(feature.properties), { className: 'wildfire-popup' }),
+      });
+    }
+    wildfireLayer.addTo(map);
+  } else if (wildfireLayer) {
+    map.removeLayer(wildfireLayer);
+  }
+}
+
+// External feed → escape values before injecting into popup HTML.
+function wildfirePopup(p) {
+  p = p || {};
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const name = p.IncidentName ? esc(p.IncidentName) : 'Wildfire incident';
+  const state = p.POOState ? esc(String(p.POOState).replace(/^US-/, '')) : '';
+  const acres = p.DailyAcres ?? p.CalculatedAcres;
+  const acreStr = (acres != null && !isNaN(acres) && acres > 0) ? `${Math.round(acres).toLocaleString()} acres` : 'size n/a';
+  const contained = (p.PercentContained != null && !isNaN(p.PercentContained)) ? ` · ${Math.round(p.PercentContained)}% contained` : '';
+  const cause = p.FireCause ? `<br><span style="opacity:.75">Cause: ${esc(p.FireCause)}</span>` : '';
+  return `<b>${name}</b>${state ? ` · ${state}` : ''}<br>${acreStr}${contained}${cause}`;
+}
+
+/* ============================================================
+   Active incidents layer (WFIGS — incidents reported in last 24h)
+   A second standalone esri-leaflet point layer, toggled independently of the
+   wildfire layer and the analytic overlays. Lazily built on first show.
+   ============================================================ */
+let activeIncidentsLayer = null;
+
+export function toggleActiveIncidents(on) {
+  if (!map) return;
+  if (on) {
+    if (!activeIncidentsLayer) {
+      const s = ACTIVE_INCIDENTS_CONFIG.markerSize;
+      const icon = L.divIcon({
+        className: '', html: '<div class="active-incident-marker"></div>',
+        iconSize: [s, s], iconAnchor: [s / 2, s / 2],
+      });
+      activeIncidentsLayer = L.esri.featureLayer({
+        url: ACTIVE_INCIDENTS_CONFIG.url,
+        // Distinct pulsing "alert" divIcon so last-24h incidents never read as
+        // the ember wildfire markers or orange-tier crew dots.
+        pointToLayer: (_geojson, latlng) => L.marker(latlng, { icon, keyboard: false }),
+        onEachFeature: (feature, layer) =>
+          layer.bindPopup(activeIncidentPopup(feature.properties), { className: 'wildfire-popup' }),
+      });
+    }
+    activeIncidentsLayer.addTo(map);
+  } else if (activeIncidentsLayer) {
+    map.removeLayer(activeIncidentsLayer);
+  }
+}
+
+// External feed → escape values before injecting into popup HTML.
+function activeIncidentPopup(p) {
+  p = p || {};
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const name = p.IncidentName ? esc(p.IncidentName) : 'Active incident';
+  const state = p.POOState ? esc(String(p.POOState).replace(/^US-/, '')) : '';
+  const acres = p.IncidentSize ?? p.DiscoveryAcres;
+  // Many last-24h entries are brand-new sub-acre discoveries — show "<1 acre"
+  // rather than rounding them down to a misleading "0 acres".
+  const acreStr = (acres == null || isNaN(acres) || acres <= 0) ? 'size n/a'
+    : acres < 1 ? '<1 acre'
+    : `${Math.round(acres).toLocaleString()} acres`;
+  const contained = (p.PercentContained != null && !isNaN(p.PercentContained)) ? ` · ${Math.round(p.PercentContained)}% contained` : '';
+  const cause = p.FireCause ? `<br><span style="opacity:.75">Cause: ${esc(p.FireCause)}</span>` : '';
+  const reported = fmtReported(p.FireDiscoveryDateTime);
+  return `<b>${name}</b>${state ? ` · ${state}` : ''}<br>${acreStr}${contained}${reported}${cause}`;
+}
+
+// Epoch ms → short "reported" timestamp; blank if missing/unparseable.
+function fmtReported(ms) {
+  if (ms == null || isNaN(ms)) return '';
+  const d = new Date(ms);
+  if (isNaN(d.getTime())) return '';
+  const when = d.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  return `<br><span style="opacity:.75">Reported: ${when}</span>`;
+}
 
 /* ============================================================
    Invalidate size (after sidebar toggle)
