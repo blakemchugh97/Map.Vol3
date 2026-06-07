@@ -465,30 +465,236 @@ export function clearSampleDots() { if (sampleDots) sampleDots.clearLayers(); }
    Lazily built on first show, then added/removed on toggle. Independent of the
    analytic overlays, so it can coexist with moat / desert / zones.
    ============================================================ */
+// The wildfire toggle drives TWO data sources rendered as one unified layer:
+//   • primary — USA_Wildfires_v1 "current incidents" (sized fire icons by acreage)
+//   • last24  — WFIGS incidents reported in the last 24h (all share the "new start" icon)
+// Both obey one shared filter (a per-source WHERE, since their field names differ)
+// and toggle together.
 let wildfireLayer = null;
+let last24Layer = null;
+let wildfireWanted = false; // desired on/off, in case toggle flips during async symbol load
+let wildfireWhere = '1=1';  // current filter for the primary source
+let last24Where = '1=1';    // current filter for the last-24h source
+
+// Resolve a source key ('primary' | 'last24') to its FeatureServer URL.
+function fireSourceUrl(source) {
+  return source === 'last24' ? ACTIVE_INCIDENTS_CONFIG.url : WILDFIRE_CONFIG.url;
+}
+
+// Server-side filter for the merged wildfire layer. esri-leaflet's setWhere()
+// re-fetches and re-renders only matching features. Each source gets its own
+// WHERE (different acreage field, no FireDiscoveryAge on the last-24h feed).
+// Stored even while the layer is off so it's applied on the next build.
+export function setWildfireWhere(primaryWhere, last24WhereArg) {
+  wildfireWhere = primaryWhere || '1=1';
+  last24Where = last24WhereArg != null ? last24WhereArg : wildfireWhere;
+  if (wildfireLayer && wildfireLayer.setWhere) wildfireLayer.setWhere(wildfireWhere);
+  if (last24Layer && last24Layer.setWhere) last24Layer.setWhere(last24Where);
+}
+
+// The two feeds key incidents by IrwinID but in different formats — primary is
+// lowercase, no braces ("cf3d…"); WFIGS is uppercase, braced ("{A037…}"). Strip
+// braces + lowercase so the same incident matches across both.
+const normIrwin = (v) => (v == null ? '' : String(v).replace(/[{}]/g, '').toLowerCase());
+
+// IrwinIDs matching a filter on a given source — used for the deduped count
+// (the union across both feeds). Resolves to { ids: normalized[], loose: number }
+// where `loose` counts features lacking a usable id (can't be deduped). Null on
+// failure.
+export function queryWildfireIds(where, source = 'primary') {
+  const url = `${fireSourceUrl(source)}/query?where=${encodeURIComponent(where || '1=1')}`
+    + '&outFields=IrwinID&returnGeometry=false&f=json';
+  return fetch(url)
+    .then((r) => r.json())
+    .then((d) => {
+      if (!d || !Array.isArray(d.features)) return null;
+      const ids = [];
+      let loose = 0;
+      for (const f of d.features) {
+        const n = normIrwin(f.attributes && f.attributes.IrwinID);
+        if (n) ids.push(n); else loose++;
+      }
+      return { ids, loose };
+    })
+    .catch(() => null);
+}
+
+// Distinct values for a string field (e.g. POOState, GACC) on a given source —
+// used once at startup to populate the State / GACC pickers. Resolves to string[].
+// NOTE: these services only honor returnDistinctValues when returnGeometry=false;
+// without it the query returns one row per feature (i.e. no dedupe).
+export function queryWildfireDistinct(field, source = 'primary') {
+  const url = `${fireSourceUrl(source)}/query?where=1%3D1&outFields=${encodeURIComponent(field)}`
+    + `&returnGeometry=false&returnDistinctValues=true&orderByFields=${encodeURIComponent(field)}&f=json`;
+  return fetch(url)
+    .then((r) => r.json())
+    .then((d) => (d && Array.isArray(d.features)
+      ? d.features.map((f) => f.attributes[field]).filter((v) => v != null && String(v).trim() !== '')
+      : []))
+    .catch(() => []);
+}
+
+// Official ESRI fire icons: fetched once from the layer's drawingInfo renderer
+// and cached at module level (the prompt's per-feature fetch is explicitly
+// avoided). Resolves to a { label -> { dataUri, px } } map, or null if the def
+// can't be loaded — in which case we fall back to the triangle divIcon below.
+let fireSymbolPromise = null;
+
+function loadFireSymbols() {
+  if (fireSymbolPromise) return fireSymbolPromise;
+  fireSymbolPromise = fetch(`${WILDFIRE_CONFIG.url}?f=pjson`)
+    .then((r) => r.json())
+    .then((def) => {
+      const infos = def && def.drawingInfo && def.drawingInfo.renderer
+        ? def.drawingInfo.renderer.uniqueValueInfos : null;
+      if (!def || !def.drawingInfo) {
+        console.warn('[wildfire] layer def missing drawingInfo — using triangle markers');
+        return null;
+      }
+      if (!infos) return null;
+      const out = {};
+      for (const info of infos) {
+        const sym = info.symbol;
+        if (!sym || !sym.imageData) continue;
+        // width is in points; ×1.333 → CSS px (matches the renderer's display size).
+        out[info.value] = {
+          dataUri: `data:${sym.contentType};base64,${sym.imageData}`,
+          px: Math.round((sym.width || 13.5) * 1.333),
+        };
+      }
+      return Object.keys(out).length ? out : null;
+    })
+    .catch((err) => {
+      console.warn('[wildfire] failed to load symbol icons — using triangle markers', err);
+      // Don't cache a transient failure: clear the promise so a later toggle can
+      // retry the fetch instead of being stuck on the triangle fallback forever.
+      fireSymbolPromise = null;
+      return null;
+    });
+  return fireSymbolPromise;
+}
+
+// Mirrors the renderer's Arcade expression: classify a feature to a symbol label.
+function getFireSymbolLabel(p) {
+  const acres = p.DailyAcres;
+  const age = p.FireDiscoveryAge;
+  const type = p.IncidentTypeCategory;
+  if (type === 'RX') return 'Prescribed Fire';
+  if (type === 'CX') return 'Incident Complex';
+  if (age === 0) return 'New (Past 24-hour)';
+  if (acres == null || isNaN(acres)) return '0-999'; // null acres → smallest tier
+  if (acres < 1000) return '0-999';
+  if (acres < 10000) return '1,000-9,999';
+  if (acres < 50000) return '10,000-49,999';
+  if (acres < 300000) return '50,000-299,999';
+  return '300,000 or more';
+}
+
+// Build an L.icon for a specific symbol label, falling back to the smallest tier.
+function fireIconForLabel(symbols, label) {
+  const sym = symbols[label] || symbols['0-999'];
+  const px = sym.px;
+  return L.icon({
+    iconUrl: sym.dataUri,
+    iconSize: [px, px],
+    iconAnchor: [px / 2, px / 2],
+    popupAnchor: [0, -(px / 2)],
+  });
+}
+
+// Primary source: classify each feature to its acreage/type-based symbol.
+function getFireIcon(symbols, p) {
+  return fireIconForLabel(symbols, getFireSymbolLabel(p));
+}
+
+// Fallback hazard-triangle divIcon, used if the symbol fetch fails.
+function wildfireTriangleIcon() {
+  const s = WILDFIRE_CONFIG.markerSize;
+  return L.divIcon({
+    className: '', html: '<div class="wildfire-marker"></div>',
+    iconSize: [s, s], iconAnchor: [s / 2, s / 2],
+  });
+}
+
+function addWildfireLayers() {
+  if (wildfireLayer) wildfireLayer.addTo(map);
+  if (last24Layer) last24Layer.addTo(map);
+}
+
+/* ---- Cross-source dedup ----
+   The same brand-new fire can appear in BOTH feeds. We keep the primary marker
+   (richer acreage data) and hide the last-24h duplicate. Done client-side so it
+   tracks the live filter + viewport: a fire only counts as a duplicate while its
+   primary counterpart is actually loaded. */
+const primaryIrwinIds = new Set();
+
+function refreshPrimaryIrwinIds() {
+  primaryIrwinIds.clear();
+  if (!wildfireLayer || !wildfireLayer.eachFeature) return;
+  wildfireLayer.eachFeature((l) => {
+    const id = normIrwin(l.feature && l.feature.properties && l.feature.properties.IrwinID);
+    if (id) primaryIrwinIds.add(id);
+  });
+}
+
+function reconcileDedup() {
+  if (!last24Layer || !last24Layer.eachFeature) return;
+  last24Layer.eachFeature((l) => {
+    const id = normIrwin(l.feature && l.feature.properties && l.feature.properties.IrwinID);
+    const dup = !!id && primaryIrwinIds.has(id);
+    if (l.setOpacity) l.setOpacity(dup ? 0 : 1);
+    // A hidden duplicate must not steal clicks from the primary marker beneath it.
+    if (l._icon) l._icon.style.pointerEvents = dup ? 'none' : '';
+  });
+}
+
+// Both layers stream features in (viewport/filter changes), so coalesce the
+// rebuild into one pass per animation frame-ish window.
+let dedupTimer = null;
+function scheduleDedup() {
+  clearTimeout(dedupTimer);
+  dedupTimer = setTimeout(() => { refreshPrimaryIrwinIds(); reconcileDedup(); }, 120);
+}
 
 export function toggleWildfire(on) {
   if (!map) return;
-  if (on) {
+  wildfireWanted = on;
+  if (!on) {
+    if (wildfireLayer) map.removeLayer(wildfireLayer);
+    if (last24Layer) map.removeLayer(last24Layer);
+    return;
+  }
+  if (wildfireLayer && last24Layer) { addWildfireLayers(); return; }
+  // First show: load the official icons, then build both source layers. They're
+  // built once; subsequent toggles reuse them via the guard above.
+  loadFireSymbols().then((symbols) => {
     if (!wildfireLayer) {
-      const s = WILDFIRE_CONFIG.markerSize;
-      const icon = L.divIcon({
-        className: '', html: '<div class="wildfire-marker"></div>',
-        iconSize: [s, s], iconAnchor: [s / 2, s / 2],
-      });
       wildfireLayer = L.esri.featureLayer({
         url: WILDFIRE_CONFIG.url,
-        // Distinct ember divIcon (not a flat dot) so incidents never read as
-        // orange-tier crews, which share the #f97316 fill.
-        pointToLayer: (_geojson, latlng) => L.marker(latlng, { icon, keyboard: false }),
+        where: wildfireWhere, // honor any filter set while the layer was off
+        pointToLayer: (geojson, latlng) => L.marker(latlng, {
+          icon: symbols ? getFireIcon(symbols, geojson.properties || {}) : wildfireTriangleIcon(),
+          keyboard: false,
+        }),
         onEachFeature: (feature, layer) =>
           layer.bindPopup(wildfirePopup(feature.properties), { className: 'wildfire-popup' }),
       });
     }
-    wildfireLayer.addTo(map);
-  } else if (wildfireLayer) {
-    map.removeLayer(wildfireLayer);
-  }
+    if (!last24Layer) {
+      last24Layer = L.esri.featureLayer({
+        url: ACTIVE_INCIDENTS_CONFIG.url,
+        where: last24Where,
+        // Merged style: every last-24h incident shares the "New (Past 24-hour)" icon.
+        pointToLayer: (_geojson, latlng) => L.marker(latlng, {
+          icon: symbols ? fireIconForLabel(symbols, 'New (Past 24-hour)') : wildfireTriangleIcon(),
+          keyboard: false,
+        }),
+        onEachFeature: (feature, layer) =>
+          layer.bindPopup(activeIncidentPopup(feature.properties), { className: 'wildfire-popup' }),
+      });
+    }
+    if (wildfireWanted) addWildfireLayers(); // toggled back off mid-load? leave detached.
+  });
 }
 
 // External feed → escape values before injecting into popup HTML.
@@ -505,36 +711,8 @@ function wildfirePopup(p) {
 }
 
 /* ============================================================
-   Active incidents layer (WFIGS — incidents reported in last 24h)
-   A second standalone esri-leaflet point layer, toggled independently of the
-   wildfire layer and the analytic overlays. Lazily built on first show.
+   Last-24h source popup (WFIGS) — used by the merged wildfire layer above.
    ============================================================ */
-let activeIncidentsLayer = null;
-
-export function toggleActiveIncidents(on) {
-  if (!map) return;
-  if (on) {
-    if (!activeIncidentsLayer) {
-      const s = ACTIVE_INCIDENTS_CONFIG.markerSize;
-      const icon = L.divIcon({
-        className: '', html: '<div class="active-incident-marker"></div>',
-        iconSize: [s, s], iconAnchor: [s / 2, s / 2],
-      });
-      activeIncidentsLayer = L.esri.featureLayer({
-        url: ACTIVE_INCIDENTS_CONFIG.url,
-        // Distinct pulsing "alert" divIcon so last-24h incidents never read as
-        // the ember wildfire markers or orange-tier crew dots.
-        pointToLayer: (_geojson, latlng) => L.marker(latlng, { icon, keyboard: false }),
-        onEachFeature: (feature, layer) =>
-          layer.bindPopup(activeIncidentPopup(feature.properties), { className: 'wildfire-popup' }),
-      });
-    }
-    activeIncidentsLayer.addTo(map);
-  } else if (activeIncidentsLayer) {
-    map.removeLayer(activeIncidentsLayer);
-  }
-}
-
 // External feed → escape values before injecting into popup HTML.
 function activeIncidentPopup(p) {
   p = p || {};

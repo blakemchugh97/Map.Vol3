@@ -74,10 +74,15 @@ async function init() {
   buildGlossary();
   wireControls();
   wireKeyboard();
+  wireFireFilters();
   updateRateFill();
   updateClusterFill();
   updatePlSliderReadout();
+  ffUpdateAcresReadout();
   applyFiltersAndRender();
+  // Populate the wildfire filter facets (distinct states/GACCs + total count) in
+  // the background — non-blocking, so a slow/failed ArcGIS call never holds the app.
+  populateFireFacets();
 
   $('splash').hidden = true;
   $('app').hidden = false;
@@ -271,7 +276,6 @@ function wireControls() {
   $('btn-moat').addEventListener('click', toggleMoat);
   $('btn-desert').addEventListener('click', toggleDesert);
   $('btn-wildfire').addEventListener('click', toggleWildfire);
-  $('btn-active-incidents').addEventListener('click', toggleActiveIncidents);
   $('btn-theme').addEventListener('click', toggleTheme);
   $('btn-help').addEventListener('click', () => openModal('glossary'));
 
@@ -897,21 +901,258 @@ function showToastLegend(msg) {
   $('legend-overlay').innerHTML = `<div class="hint">${esc(msg)}</div>`;
 }
 
-/* Live wildfire layer — a standalone informational toggle. Deliberately NOT part
-   of the exclusive moat/desert/zones set (no clearActiveOverlay), so it can be
-   shown alongside any of them. */
+/* Merged wildfire layer — a standalone informational toggle showing both the
+   USA_Wildfires current-incidents feed and the WFIGS last-24h feed together
+   (one filter, one icon style). Deliberately NOT part of the exclusive
+   moat/desert/zones set (no clearActiveOverlay), so it can sit alongside any. */
 function toggleWildfire() {
   STATE.wildfireOn = !STATE.wildfireOn;
   MapView.toggleWildfire(STATE.wildfireOn);
   $('btn-wildfire').classList.toggle('active', STATE.wildfireOn);
 }
 
-/* Live WFIGS "last 24h" incident layer — a second standalone informational
-   toggle, independent of the wildfire layer and the exclusive overlays. */
-function toggleActiveIncidents() {
-  STATE.activeIncidentsOn = !STATE.activeIncidentsOn;
-  MapView.toggleActiveIncidents(STATE.activeIncidentsOn);
-  $('btn-active-incidents').classList.toggle('active', STATE.activeIncidentsOn);
+/* ============================================================
+   Wildfire filter drawer
+   Server-side ArcGIS filtering for the live wildfire layer. Every control writes
+   to `fireFilters`, rebuilds a WHERE clause, and pushes it to the layer via
+   MapView.setWildfireWhere() (esri-leaflet re-fetches only matching features).
+   Independent of the wildfire on/off toggle: the WHERE is stored and applied
+   whenever the layer is (re)built, and the "showing X of Y" readout queries the
+   service directly so it works even while the layer is hidden.
+   ============================================================ */
+const FIRE_TYPES  = ['WF', 'RX', 'CX'];
+const FIRE_CAUSES = ['Human', 'Lightning', 'Undetermined'];
+const fireFilterDefaults = () => ({
+  nameSearch:  '',
+  minAcres:    0,
+  types:       { WF: true, RX: true, CX: true },
+  causes:      { Human: true, Lightning: true, Undetermined: true },
+  containment: 'all',   // 'all' | 'active' | 'contained'
+  newOnly:     false,
+  states:      [],      // empty = all (no condition)
+  gaccs:       [],      // empty = all (no condition)
+});
+let fireFilters    = fireFilterDefaults();
+let fireTotalCount = null;             // total incidents (where=1=1), fetched once
+let ffNameTimer    = null;             // debounce handle for the name search
+let ffCountSeq     = 0;                // guards against out-of-order count responses
+
+// SQL single-quote escaping for string literals (e.g. "O'Brien Fire").
+const ffQuote = (v) => `'${String(v).replace(/'/g, "''")}'`;
+
+// The two data sources differ only in a couple of fields, so the same filter
+// state emits two WHERE dialects:
+//   primary (USA_Wildfires): acreage = DailyAcres, has FireDiscoveryAge
+//   last24  (WFIGS):         acreage = IncidentSize, no FireDiscoveryAge — the
+//                            whole feed is <24h, so "new fires only" adds nothing.
+function buildFireWhere(f, opts = {}) {
+  const acresField = opts.acresField || 'DailyAcres';
+  const hasAge = opts.hasAge !== false; // default true (primary source)
+  const c = [];
+  // 1. Acreage floor — keep NULL-acreage incidents visible.
+  if (f.minAcres > 0) c.push(`(${acresField} >= ${f.minAcres} OR ${acresField} IS NULL)`);
+  // 2. Incident type — omit when all on; none on → show nothing.
+  const types = FIRE_TYPES.filter((t) => f.types[t]);
+  if (types.length === 0) return '1=0';
+  if (types.length < FIRE_TYPES.length) c.push(`IncidentTypeCategory IN (${types.map(ffQuote).join(', ')})`);
+  // 3. New fires only (no-op on the last-24h source, which is entirely new).
+  if (f.newOnly && hasAge) c.push('FireDiscoveryAge = 0');
+  // 4. Containment status.
+  if (f.containment === 'active')    c.push('PercentContained < 100');
+  if (f.containment === 'contained') c.push('PercentContained = 100');
+  // 5/6. State / GACC multiselects.
+  if (f.states.length) c.push(`POOState IN (${f.states.map(ffQuote).join(', ')})`);
+  if (f.gaccs.length)  c.push(`GACC IN (${f.gaccs.map(ffQuote).join(', ')})`);
+  // 7. Fire cause — omit when all on; none on → show nothing.
+  const causes = FIRE_CAUSES.filter((x) => f.causes[x]);
+  if (causes.length === 0) return '1=0';
+  if (causes.length < FIRE_CAUSES.length) c.push(`FireCause IN (${causes.map(ffQuote).join(', ')})`);
+  // 8. Name search (case-insensitive contains).
+  if (f.nameSearch.trim()) c.push(`UPPER(IncidentName) LIKE UPPER('%${f.nameSearch.trim().replace(/'/g, "''")}%')`);
+  return c.length ? c.join(' AND ') : '1=1';
+}
+
+// Count of filters differing from their default — drives the launcher badge.
+function ffActiveCount(f) {
+  let n = 0;
+  if (f.nameSearch.trim()) n++;
+  if (f.minAcres > 0) n++;
+  if (!FIRE_TYPES.every((t) => f.types[t])) n++;
+  if (!FIRE_CAUSES.every((x) => f.causes[x])) n++;
+  if (f.containment !== 'all') n++;
+  if (f.newOnly) n++;
+  if (f.states.length) n++;
+  if (f.gaccs.length) n++;
+  return n;
+}
+
+// Push the current filter state to both sources + refresh badge and count.
+function applyFireFilters() {
+  const wherePrimary = buildFireWhere(fireFilters, { acresField: 'DailyAcres', hasAge: true });
+  const whereLast24  = buildFireWhere(fireFilters, { acresField: 'IncidentSize', hasAge: false });
+  MapView.setWildfireWhere(wherePrimary, whereLast24);
+
+  const n = ffActiveCount(fireFilters);
+  const badge = $('ff-badge');
+  badge.textContent = n;
+  badge.hidden = n === 0;
+  $('btn-fire-filters').classList.toggle('active', n > 0);
+  $('ff-reset').hidden = n === 0;
+
+  // Count queries are async and can resolve out of order under rapid changes;
+  // tag each with a sequence number and ignore all but the most recent. The
+  // readout sums both sources (the merged total shown on the map).
+  const seq = ++ffCountSeq;
+  $('ff-count').textContent = 'Counting…';
+  Promise.all([
+    MapView.queryWildfireCount(wherePrimary, 'primary'),
+    MapView.queryWildfireCount(whereLast24, 'last24'),
+  ]).then(([a, b]) => {
+    if (seq !== ffCountSeq) return; // superseded by a newer filter change
+    if (a == null && b == null) { $('ff-count').textContent = 'Count unavailable'; return; }
+    const count = (a || 0) + (b || 0);
+    $('ff-count').innerHTML = fireTotalCount == null
+      ? `Showing <b>${count.toLocaleString()}</b> incidents`
+      : `Showing <b>${count.toLocaleString()}</b> of ${fireTotalCount.toLocaleString()} incidents`;
+  });
+}
+
+// Slider position (0–100) → acreage on a log scale (1 … 100,000), snapped to a
+// readable 1/2/5 × 10ⁿ value. 0 means "show all".
+function ffSliderToAcres(pos) {
+  if (pos <= 0) return 0;
+  const raw  = Math.pow(10, (pos / 100) * Math.log10(100000));
+  const mag  = Math.pow(10, Math.floor(Math.log10(raw)));
+  const norm = raw / mag;
+  const snap = norm < 1.5 ? 1 : norm < 3.5 ? 2 : norm < 7.5 ? 5 : 10;
+  return Math.round(snap * mag);
+}
+function ffUpdateAcresReadout() {
+  const slider = $('ff-acres');
+  if (!slider) return;
+  const pos = parseInt(slider.value, 10);
+  slider.style.setProperty('--fill', pos + '%');
+  $('ff-acres-readout').textContent = pos <= 0 ? 'show all' : `≥ ${ffSliderToAcres(pos).toLocaleString()} acres`;
+}
+
+// Geographic Area Coordination Center codes → readable names (the layer only
+// stores the short code in the GACC field).
+const GACC_NAMES = {
+  AICC: 'Alaska', EACC: 'Eastern', GBCC: 'Great Basin', NRCC: 'Northern Rockies',
+  NWCC: 'Northwest', ONCC: 'N. California', OSCC: 'S. California',
+  RMCC: 'Rocky Mountain', SACC: 'Southern', SWCC: 'Southwest',
+};
+// POOState is stored as "US-CA"; show the bare abbreviation but keep the full
+// value for the WHERE clause (so POOState IN ('US-CA', …) matches).
+const ffStateLabel = (v) => String(v).replace(/^US-/, '');
+const ffGaccLabel  = (v) => (GACC_NAMES[v] ? `${GACC_NAMES[v]} (${v})` : v);
+
+// Union distinct string values from both sources, deduped + sorted.
+const ffMergeDistinct = (a, b) => [...new Set([...(a || []), ...(b || [])])].sort();
+
+// Fetch distinct states/GACCs + total counts once (across BOTH sources), then
+// build the two checklists so the one filter covers everything on the map.
+async function populateFireFacets() {
+  const [totP, totL, stP, stL, gaP, gaL] = await Promise.all([
+    MapView.queryWildfireCount('1=1', 'primary'),
+    MapView.queryWildfireCount('1=1', 'last24'),
+    MapView.queryWildfireDistinct('POOState', 'primary'),
+    MapView.queryWildfireDistinct('POOState', 'last24'),
+    MapView.queryWildfireDistinct('GACC', 'primary'),
+    MapView.queryWildfireDistinct('GACC', 'last24'),
+  ]);
+  fireTotalCount = (totP || 0) + (totL || 0);
+  renderFacetList('ff-states', ffMergeDistinct(stP, stL), 'state', ffStateLabel);
+  renderFacetList('ff-gaccs', ffMergeDistinct(gaP, gaL), 'gacc', ffGaccLabel);
+  applyFireFilters(); // seed the count readout now that the total is known
+}
+
+function renderFacetList(containerId, values, kind, labelFn) {
+  const box = $(containerId);
+  if (!values.length) { box.innerHTML = '<span class="ff-loading">none available</span>'; return; }
+  box.innerHTML = values.map((v) =>
+    `<label class="ff-check"><input type="checkbox" value="${esc(v)}" checked><span>${esc(labelFn ? labelFn(v) : v)}</span></label>`).join('');
+  box.querySelectorAll('input').forEach((inp) => inp.addEventListener('change', () => onFacetChange(containerId, kind)));
+}
+
+function onFacetChange(containerId, kind) {
+  const inputs  = [...$(containerId).querySelectorAll('input')];
+  const checked = inputs.filter((i) => i.checked).map((i) => i.value);
+  const key     = kind === 'state' ? 'states' : 'gaccs';
+  // All checked → no condition ([]). Otherwise the checked subset drives an IN(...).
+  fireFilters[key] = checked.length === inputs.length ? [] : checked;
+  $(kind === 'state' ? 'ff-states-count' : 'ff-gaccs-count').textContent =
+    fireFilters[key].length ? `${fireFilters[key].length} selected` : 'all';
+  applyFireFilters();
+}
+
+function setFireFiltersOpen(open) {
+  $('fire-filters').hidden = !open;
+  $('app').classList.toggle('filters-open', open);
+}
+function toggleFireFilters() { setFireFiltersOpen($('fire-filters').hidden); }
+
+function resetFireFilters() {
+  fireFilters = fireFilterDefaults();
+  // name + new + acres
+  $('ff-name').value = ''; $('ff-name-clear').hidden = true;
+  $('ff-new').checked = false;
+  $('ff-acres').value = 0; ffUpdateAcresReadout();
+  // type + cause checkboxes
+  document.querySelectorAll('.ff-type').forEach((cb) => { cb.checked = true; });
+  document.querySelectorAll('.ff-cause').forEach((cb) => { cb.checked = true; });
+  // containment segmented
+  document.querySelectorAll('#ff-containment .seg-btn').forEach((b) => b.classList.toggle('active', b.dataset.cont === 'all'));
+  // facet checklists
+  ['ff-states', 'ff-gaccs'].forEach((id) => $(id).querySelectorAll('input').forEach((i) => { i.checked = true; }));
+  $('ff-states-count').textContent = 'all';
+  $('ff-gaccs-count').textContent  = 'all';
+  applyFireFilters();
+}
+
+function wireFireFilters() {
+  $('btn-fire-filters').addEventListener('click', toggleFireFilters);
+  $('ff-close').addEventListener('click', () => setFireFiltersOpen(false));
+  $('ff-reset').addEventListener('click', resetFireFilters);
+
+  // 1. Name search — debounced ~300ms so a request doesn't fire per keystroke.
+  const name = $('ff-name');
+  name.addEventListener('input', () => {
+    $('ff-name-clear').hidden = !name.value;
+    clearTimeout(ffNameTimer);
+    ffNameTimer = setTimeout(() => { fireFilters.nameSearch = name.value; applyFireFilters(); }, 300);
+  });
+  $('ff-name-clear').addEventListener('click', () => {
+    name.value = ''; $('ff-name-clear').hidden = true;
+    clearTimeout(ffNameTimer);
+    fireFilters.nameSearch = ''; applyFireFilters();
+  });
+
+  // 2/3. Incident type + fire cause checkboxes.
+  document.querySelectorAll('.ff-type').forEach((cb) =>
+    cb.addEventListener('change', () => { fireFilters.types[cb.dataset.type] = cb.checked; applyFireFilters(); }));
+  document.querySelectorAll('.ff-cause').forEach((cb) =>
+    cb.addEventListener('change', () => { fireFilters.causes[cb.dataset.cause] = cb.checked; applyFireFilters(); }));
+
+  // 4. Containment segmented control.
+  document.querySelectorAll('#ff-containment .seg-btn').forEach((b) =>
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#ff-containment .seg-btn').forEach((x) => x.classList.remove('active'));
+      b.classList.add('active');
+      fireFilters.containment = b.dataset.cont;
+      applyFireFilters();
+    }));
+
+  // 5. New fires toggle.
+  $('ff-new').addEventListener('change', () => { fireFilters.newOnly = $('ff-new').checked; applyFireFilters(); });
+
+  // 6. Acreage slider — live readout on drag (cheap), commit the query on release.
+  const acres = $('ff-acres');
+  acres.addEventListener('input', () => {
+    ffUpdateAcresReadout();
+    fireFilters.minAcres = ffSliderToAcres(parseInt(acres.value, 10));
+  });
+  acres.addEventListener('change', applyFireFilters);
 }
 
 function refreshDetailButtons() {
@@ -1172,6 +1413,7 @@ function wireKeyboard() {
     const typing = tag === 'input' || tag === 'textarea';
     if (e.key === 'Escape') {
       if (!$('glossary').hidden) return closeModal('glossary');
+      if (!$('fire-filters').hidden) return setFireFiltersOpen(false);
       if (STATE.mode === 'hypo_placing') { STATE.mode = 'browse'; MapView.setCrosshair(false); renderHypotheticalDDLTool(); return; }
       if (STATE.incidentPin || STATE.mode === 'incident') return clearIncident();
       if (!$('detail-panel').hidden) return closeDetail();
@@ -1191,7 +1433,7 @@ function wireKeyboard() {
       case 'm': if (STATE.selectedCrew) toggleMoat(); break;
       case 'd': toggleDesert(); break;
       case 'w': toggleWildfire(); break;
-      case 'a': toggleActiveIncidents(); break;
+      case 'f': toggleFireFilters(); break;
       case 't': toggleTheme(); break;
     }
   });
@@ -1218,11 +1460,11 @@ function buildGlossary() {
     ['Rate desert', 'A CONUS grid showing the average rate of the cheapest available crews after PL thinning. Teal = cheap field; orange = "desert" where only expensive crews remain. Hover a cell for the average, lowest, and highest rate among the surviving top-15.'],
     ['Hypothetical DDL', 'A standalone what-if crew. Open the ⚲ Hypo DDL tool, set a rate, and drop it anywhere. It becomes a normal crew object — exact NICC cost, a global rate rank, and full inclusion in incident, competitive-radius, moat, and rate-desert analysis. Select it to analyze it like any real crew; Remove to restore the real field.'],
     ['Shared DDP', 'Multiple crews dispatched from one address. Click the shared map pin to open a list and pick a specific crew.'],
-    ['Wildfire layer', 'Live current-incident wildfire points from the NIFC / ArcGIS <code>USA_Wildfires</code> service, loaded on demand via the 🔥 button. Click any point for incident name, size (acres), and containment. It’s purely informational — an independent overlay that can sit alongside the others and never affects crew ranking or any analysis.'],
+    ['Wildfire layer', 'Live fire points loaded on demand via the 🔥 button, merging two ArcGIS feeds into one styled, filterable layer: NIFC <code>USA_Wildfires</code> current incidents (icon sized by acreage) plus WFIGS incidents reported in the last 24h (shown with the "new start" icon). The ⛯ Filters panel narrows both feeds at once (size, type, cause, containment, state, GACC, name). Click any point for incident name, size, and containment. Purely informational — it never affects crew ranking or any analysis.'],
   ];
   $('glossary-body').innerHTML = terms.map(([t, d]) =>
     `<div class="gloss-term"><h3>${t}</h3><p>${d}</p></div>`).join('') +
-    `<div class="gloss-term"><h3>Keyboard</h3><p><code>I</code> incident · <code>H</code> hypo DDL · <code>/</code> search · <code>Z</code> zones · <code>M</code> moat · <code>D</code> desert · <code>W</code> wildfires · <code>T</code> theme · <code>Esc</code> cancel</p></div>`;
+    `<div class="gloss-term"><h3>Keyboard</h3><p><code>I</code> incident · <code>H</code> hypo DDL · <code>/</code> search · <code>Z</code> zones · <code>M</code> moat · <code>D</code> desert · <code>W</code> wildfires · <code>F</code> fire filters · <code>T</code> theme · <code>Esc</code> cancel</p></div>`;
 }
 
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
