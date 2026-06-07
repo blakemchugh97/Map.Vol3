@@ -3,7 +3,7 @@
    No DOM. No Leaflet. Deterministic, testable functions.
    ============================================================ */
 
-import { NICC, PL_CONFIG, ZONE_SIM, MOAT_CONFIG, DESERT_CONFIG } from './config.js';
+import { NICC, ZONE_SIM, MOAT_CONFIG, DESERT_CONFIG, effectiveKeepFraction } from './config.js';
 
 /* ---------- Geometry ---------- */
 export function haversine(lat1, lng1, lat2, lng2) {
@@ -48,7 +48,7 @@ export function thinField(crews, incidentLat, incidentLng, keepFraction) {
    Rank every (thinned) crew by cost to the incident point.
    Returns rows with distance, travel/mob hours, cost. Optional time filter. */
 export function rankIncident(crews, lat, lng, plKey, timeFilter) {
-  const keepFraction = PL_CONFIG[plKey].keepFraction;
+  const keepFraction = effectiveKeepFraction(plKey);
   let field = thinField(crews, lat, lng, keepFraction);
 
   let rows = field.map(crew => {
@@ -127,7 +127,7 @@ export function computeRankAtPoint(selectedCrew, lat, lng, allCrews, keepFractio
    selected crew. */
 export function runZoneSimulation(selectedCrew, radiusMiles, allCrews, plKey) {
   const points = generateGridPoints(selectedCrew.lat, selectedCrew.lng, radiusMiles);
-  const keepFraction = PL_CONFIG[plKey].keepFraction;
+  const keepFraction = effectiveKeepFraction(plKey);
   const competitors = allCrews.filter(c => c.id !== selectedCrew.id);
   const results = {
     ranks: [], win: 0, top5: 0, top10: 0, top20: 0,
@@ -260,16 +260,41 @@ export function computeMoatCell(cellLat, cellLng, selectedCrew, allCrews, keepFr
   return moatReadout(selectedCrew, cellLat, cellLng, allCrews, keepFraction).margin;
 }
 
-/* ---------- Rate desert cell (single point) ---------- */
+/* ---------- Rate desert hover stats ----------
+   Aggregate the surviving cheapest-topN rate across a cell's sample points.
+   For each point we thin the field, take the cheapest `topN` survivors, and
+   record the avg / lowest / highest RATE among them. The cell's reported value
+   is the mean of those per-point stats (mirrors the existing avg-of-avgs), so
+   the min ≤ avg ≤ max ordering is preserved.
+   Returns { avg, min, max, n } or null if no sample point had any survivors
+   (graceful empty handling for ocean / fully-thinned cells). */
+export function computeRateDesertHoverStats(points, allCrews, keepFraction) {
+  const per = [];
+  for (const [lat, lng] of points) {
+    const field = thinField(allCrews, lat, lng, keepFraction);
+    if (field.length === 0) continue;
+    // precompute costs once, then sort (avoid haversine in the comparator)
+    const ranked = field
+      .map(c => ({ c, cost: costToPoint(c, lat, lng) }))
+      .sort((a, b) => a.cost - b.cost);
+    const topN = ranked.slice(0, Math.min(DESERT_CONFIG.topN, ranked.length));
+    const rates = topN.map(x => x.c.rate);
+    per.push({
+      avg: rates.reduce((s, r) => s + r, 0) / rates.length,
+      min: Math.min(...rates),
+      max: Math.max(...rates),
+    });
+  }
+  if (!per.length) return null;
+  const mean = (sel) => per.reduce((s, p) => s + sel(p), 0) / per.length;
+  return { avg: mean(p => p.avg), min: mean(p => p.min), max: mean(p => p.max), n: per.length };
+}
+
+/* ---------- Rate desert cell (single point) ----------
+   Back-compat scalar (avg only); delegates to the stats helper above. */
 export function computeDesertCell(cellLat, cellLng, allCrews, keepFraction) {
-  const field = thinField(allCrews, cellLat, cellLng, keepFraction);
-  if (field.length === 0) return null;
-  // precompute costs once, then sort (avoid haversine in the comparator)
-  const ranked = field
-    .map(c => ({ c, cost: costToPoint(c, cellLat, cellLng) }))
-    .sort((a, b) => a.cost - b.cost);
-  const topN = ranked.slice(0, Math.min(DESERT_CONFIG.topN, ranked.length));
-  return topN.reduce((sum, x) => sum + x.c.rate, 0) / topN.length;
+  const s = computeRateDesertHoverStats([[cellLat, cellLng]], allCrews, keepFraction);
+  return s ? s.avg : null;
 }
 
 /* ---------- US land mask ----------

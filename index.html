@@ -77,9 +77,9 @@
         <div class="filter-block">
           <div class="filter-label-row">
             <span class="filter-label">Cluster radius</span>
-            <span id="cluster-readout" class="filter-readout">60px</span>
+            <span id="cluster-readout" class="filter-readout">0px</span>
           </div>
-          <input id="cluster-radius" class="range" type="range" min="0" max="120" step="5" value="60" />
+          <input id="cluster-radius" class="range" type="range" min="0" max="120" step="5" value="0" />
         </div>
 
         <!-- Stat chips -->
@@ -120,16 +120,29 @@
           <button class="pl-btn" data-pl="PL5">PL5</button>
         </div>
         <div id="pl-desc" class="pl-desc">All competitors included</div>
+
+        <!-- Custom fine-tune slider: filtering intensity WITHIN the chosen PL -->
+        <div class="pl-slider-block">
+          <div class="pl-slider-row">
+            <span class="pl-slider-label">Filter intensity</span>
+            <span id="pl-slider-readout" class="filter-readout">100% kept · nominal</span>
+          </div>
+          <input id="pl-slider" class="range pl-slider" type="range" min="0" max="100" step="1" value="0" />
+          <div class="pl-slider-ends"><span>nominal</span><span>heavier</span></div>
+        </div>
       </div>
 
       <!-- Top-right action stack -->
       <div class="action-stack">
         <button id="btn-incident" class="btn btn-gold action-btn" title="Drop incident pin (I)">⊕ Drop Incident</button>
+        <button id="btn-hypo" class="btn action-btn hypo-btn" title="Hypothetical DDL tool (H)">⚲ Hypo DDL</button>
         <div class="overlay-group">
           <button id="btn-zones"  class="btn action-btn overlay-btn" title="Zone overlay (Z)">▦ Zones</button>
           <button id="btn-moat"   class="btn action-btn overlay-btn" title="Moat overlay (M)" disabled>◈ Moat</button>
           <button id="btn-desert" class="btn action-btn overlay-btn" title="Rate desert (D)">≋ Desert</button>
         </div>
+        <button id="btn-wildfire" class="btn action-btn fire-btn" title="Toggle live wildfire layer (W)">🔥 Wildfires</button>
+        <button id="btn-active-incidents" class="btn action-btn incident24-btn" title="Toggle WFIGS incidents reported in the last 24h (A)">⚠ Active Incidents (Last 24h)</button>
         <div class="util-group">
           <button id="btn-theme" class="btn action-btn util-btn" title="Toggle theme (T)">☾</button>
           <button id="btn-help"  class="btn action-btn util-btn" title="Glossary &amp; help (?)">?</button>
@@ -179,6 +192,7 @@
       <div id="panel-dock" class="panel-dock">
         <section id="detail-panel" class="float-panel" hidden></section>
         <section id="incident-panel" class="float-panel incident-panel" hidden></section>
+        <section id="hypo-panel" class="float-panel hypo-panel" hidden></section>
         <section id="ddp-panel" class="float-panel ddp-panel" hidden></section>
       </div>
     </main>
@@ -241,6 +255,7 @@
   </script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="https://unpkg.com/esri-leaflet@3.1.0/dist/esri-leaflet.js"></script>
   <script type="module" src="js/ui.js"></script>
 </body>
 </html>

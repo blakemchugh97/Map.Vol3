@@ -4,11 +4,12 @@
    ============================================================ */
 
 import {
-  STATE, DATA, PL_CONFIG, RATE_BOUNDS, ZONE_SIM, MOAT_CONFIG, DESERT_CONFIG,
+  STATE, DATA, PL_CONFIG, PL_SLIDER, HYPO_CONFIG, RATE_BOUNDS, ZONE_SIM,
+  MOAT_CONFIG, DESERT_CONFIG, effectiveKeepFraction, tierForRank,
 } from './config.js';
 import {
-  haversine, niccCost, costToPoint, rankIncident, runZoneSimulation,
-  rateSensitivity, breakevenRate, makeRateVariant, zoneStats, generateGridPoints,
+  rankIncident, runZoneSimulation, rateSensitivity, breakevenRate,
+  makeRateVariant, baseCostFor, zoneStats,
 } from './dispatch.js';
 import * as MapView from './map.js';
 
@@ -27,6 +28,14 @@ let lastZoneResult = null;
 let zoneRadius = ZONE_SIM.defaultRadius;
 let testRate = null;
 let zonesGeojsonFailed = false;
+// Pending rate for the hypothetical DDL (the value shown before a pin is placed,
+// and retained between placements). Initialized in init() from HYPO_CONFIG.
+let hypoDraftRate = HYPO_CONFIG.defaultRate;
+
+// While an incident is active, the map shows only the top-N crews for that
+// incident; all other dots are hidden until the incident is cleared.
+const INCIDENT_TOP_N = 30;
+let incidentTopIds = null; // Set<crewId> when an incident is active, else null
 
 // Sample dots are a debugging aid only — hidden in normal use to keep the map
 // clean. Enable by loading the app with ?debugDots in the URL.
@@ -58,12 +67,16 @@ async function init() {
     onMapClick: handleMapClick,
     onMarkerClick: handleMarkerClick,
     onZoneClick: handleZoneClick,
+    onHypoMarkerClick: handleHypoMarkerClick,
   });
   MapView.buildMarkers(DATA.crews, DATA.ddpGroups, STATE.clusterRadius);
 
   buildGlossary();
   wireControls();
   wireKeyboard();
+  updateRateFill();
+  updateClusterFill();
+  updatePlSliderReadout();
   applyFiltersAndRender();
 
   $('splash').hidden = true;
@@ -110,8 +123,9 @@ function visibleCrews() {
 
 function applyFiltersAndRender() {
   const vis = visibleCrews();
-  const visIds = new Set(vis.map(c => c.id));
-  MapView.applyFilter(visIds);
+  // When an incident is active, the map is restricted to that incident's top-N
+  // crews; the sidebar list/chips still reflect the normal filters.
+  MapView.applyFilter(incidentTopIds || new Set(vis.map(c => c.id)));
   renderList(vis);
   renderStatChips(vis);
 }
@@ -214,6 +228,7 @@ function wireControls() {
     activeTier = null;
     document.querySelectorAll('.stat-chips .chip').forEach(ch => ch.classList.remove('muted'));
     $('rate-readout').textContent = `$${lo.toFixed(0)} – $${hi.toFixed(0)}`;
+    updateRateFill();
     applyFiltersAndRender();
   };
   rmin.addEventListener('input', onRate);
@@ -224,6 +239,7 @@ function wireControls() {
   cr.addEventListener('input', () => {
     STATE.clusterRadius = parseInt(cr.value, 10);
     $('cluster-readout').textContent = STATE.clusterRadius + 'px';
+    updateClusterFill();
   });
   cr.addEventListener('change', () => {
     const visIds = new Set(visibleCrews().map(c => c.id));
@@ -239,14 +255,23 @@ function wireControls() {
     btn.addEventListener('click', () => setPL(btn.dataset.pl));
   });
 
+  // PL fine-tune slider: live readout on drag (cheap), recompute on release
+  // (expensive overlays) — mirrors the rate / cluster sliders.
+  const pls = $('pl-slider');
+  pls.addEventListener('input', () => { STATE.plSlider = parseInt(pls.value, 10); updatePlSliderReadout(); });
+  pls.addEventListener('change', () => setPlSlider(parseInt(pls.value, 10)));
+
   // sidebar toggle
   $('sidebar-toggle').addEventListener('click', toggleSidebar);
 
   // action buttons
   $('btn-incident').addEventListener('click', toggleIncidentMode);
+  $('btn-hypo').addEventListener('click', toggleHypoTool);
   $('btn-zones').addEventListener('click', toggleZones);
   $('btn-moat').addEventListener('click', toggleMoat);
   $('btn-desert').addEventListener('click', toggleDesert);
+  $('btn-wildfire').addEventListener('click', toggleWildfire);
+  $('btn-active-incidents').addEventListener('click', toggleActiveIncidents);
   $('btn-theme').addEventListener('click', toggleTheme);
   $('btn-help').addEventListener('click', () => openModal('glossary'));
 
@@ -277,6 +302,26 @@ function syncRateSliders() {
   $('rate-min').value = STATE.rateFilter.min;
   $('rate-max').value = STATE.rateFilter.max;
   $('rate-readout').textContent = `$${STATE.rateFilter.min.toFixed(0)} – $${STATE.rateFilter.max.toFixed(0)}`;
+  updateRateFill();
+}
+
+/* Paint the gradient "selected range" between the two rate thumbs. */
+function updateRateFill() {
+  const span = RATE_BOUNDS.max - RATE_BOUNDS.min || 1;
+  let lo = parseFloat($('rate-min').value), hi = parseFloat($('rate-max').value);
+  if (lo > hi) [lo, hi] = [hi, lo];
+  const ds = el('.dual-slider');
+  if (!ds) return;
+  ds.style.setProperty('--lo', ((lo - RATE_BOUNDS.min) / span * 100) + '%');
+  ds.style.setProperty('--ro', ((hi - RATE_BOUNDS.min) / span * 100) + '%');
+}
+
+/* Paint the gradient fill on the single cluster-radius slider. */
+function updateClusterFill() {
+  const cr = $('cluster-radius');
+  if (!cr) return;
+  const pct = (cr.value - cr.min) / ((cr.max - cr.min) || 1) * 100;
+  cr.style.setProperty('--fill', pct + '%');
 }
 
 /* ============================================================
@@ -286,11 +331,53 @@ function setPL(plKey) {
   STATE.plKey = plKey;
   document.querySelectorAll('.pl-btn').forEach(b => b.classList.toggle('active', b.dataset.pl === plKey));
   $('pl-desc').textContent = PL_CONFIG[plKey].label;
-  // recompute anything live
+  updatePlSliderReadout();
+  recomputeAnalyses();
+}
+
+/* Fine-tune slider committed (on release): apply the new intensity everywhere. */
+function setPlSlider(value) {
+  STATE.plSlider = value;
+  updatePlSliderReadout();
+  recomputeAnalyses();
+}
+
+/* Paint the slider fill + show the effective "% of field kept" and whether the
+   current setting is lighter / nominal / heavier than the preset. */
+function updatePlSliderReadout() {
+  const slider = $('pl-slider');
+  if (slider) {
+    const pct = (slider.value - slider.min) / ((slider.max - slider.min) || 1) * 100;
+    slider.style.setProperty('--fill', pct + '%');
+  }
+  const out = $('pl-slider-readout');
+  if (out) {
+    const keep = effectiveKeepFraction(STATE.plKey);
+    const word = STATE.plSlider <= PL_SLIDER.min ? 'nominal' : 'heavier';
+    out.textContent = `${Math.round(keep * 100)}% kept · ${word}`;
+  }
+}
+
+/* Re-run only the on-screen ANALYSES (incident table, open detail panel, and
+   any active overlay). Used when the PL preset / fine-tune slider changes:
+   crew-set membership is unchanged, so the sidebar list and markers are left
+   alone, and overlay caches are keyed by `plKey|plSlider` so they miss naturally
+   for the new setting (no manual invalidation needed). */
+function recomputeAnalyses() {
   if (STATE.incidentPin) renderIncident();
   if (STATE.selectedCrew && !$('detail-panel').hidden) renderDetail(STATE.selectedCrew);
   if (STATE.activeOverlay === 'moat' && STATE.selectedCrew) startMoat();
   if (STATE.activeOverlay === 'desert') startDesert();
+}
+
+/* Full recompute after the crew FIELD changes (hypothetical DDL add/re-rate/
+   remove): overlay caches share the same plKey|plSlider key but now describe a
+   different field, so they must be dropped; the sidebar list / markers refresh
+   to add or remove the hypo; then the analyses re-run. */
+function recomputeForFieldChange() {
+  MapView.invalidateOverlayCaches();
+  if (!STATE.incidentPin) applyFiltersAndRender(); // refresh list/markers (hypo in/out)
+  recomputeAnalyses();
 }
 
 /* ============================================================
@@ -400,16 +487,6 @@ function renderDetail(crew) {
         <div id="rate-results" class="hint" style="margin-top:8px">Adjust rate, then run the simulation above to see the impact.</div>
       </div>
 
-      <!-- Hypothetical DDP -->
-      <div class="section">
-        <div class="section-title"><span><span class="accent">⚲</span> Hypothetical DDP</span></div>
-        <div class="btn-row">
-          <button id="hypo-place" class="btn full">${STATE.hypoPin ? 'Re-drop test pin' : 'Click map to drop test pin'}</button>
-          ${STATE.hypoPin ? `<button id="hypo-clear" class="btn">Clear</button>` : ''}
-        </div>
-        <div id="hypo-results" class="hint" style="margin-top:8px">${STATE.hypoPin ? 'Run simulation to compare hypothetical vs. real DDP.' : 'Test a different home base location for this crew.'}</div>
-      </div>
-
       <!-- Moat -->
       <div class="section">
         <div class="section-title"><span><span class="accent">▦</span> Moat overlay</span></div>
@@ -433,8 +510,6 @@ function renderDetail(crew) {
     b.addEventListener('click', () => nudgeRate(crew, parseFloat(b.dataset.nudge))));
   $('rate-reset').addEventListener('click', () => { testRate = null; $('rate-test').value = crew.rate.toFixed(2); $('rate-results').innerHTML = 'Reset to current rate.'; });
   $('rate-test').addEventListener('change', () => { testRate = parseFloat($('rate-test').value); runRateAnalysis(crew); });
-  $('hypo-place').addEventListener('click', () => enterHypoMode());
-  if ($('hypo-clear')) $('hypo-clear').addEventListener('click', clearHypo);
   $('detail-moat').addEventListener('click', toggleMoat);
 
   // re-render persisted results if present
@@ -553,46 +628,200 @@ function runRateAnalysis(crew) {
 }
 
 /* ============================================================
-   Hypothetical DDP placement
+   Standalone hypothetical DDL tool
+   A user-placed "what-if" crew. Once dropped it is injected into DATA.crews and
+   therefore participates — as a normal competitor — in every analysis that runs
+   over the crew set: incident ranking, competitive radius, moat, and rate desert.
+   The rank/color fields are display-only; all NICC math keys off base_cost / rate
+   / lat / lng, so the hypo is exact in the analysis without re-ranking real crews.
    ============================================================ */
-function enterHypoMode() {
+
+/* Global rate-rank position among REAL crews (for display only; does not mutate
+   any real crew's rank). */
+function globalRankForRate(rate) {
+  let n = 1;
+  for (const c of DATA.crews) { if (!c.hypo && c.rate < rate) n++; }
+  return n;
+}
+
+/* Build a full crew object — same shape as a real crew — for the hypo DDL. */
+function createHypotheticalCrew(lat, lng, rate) {
+  const r = Math.round(Number(rate) * 100) / 100;
+  const rank = globalRankForRate(r);
+  return {
+    id: HYPO_CONFIG.id,
+    company: 'Hypothetical DDL',
+    hucc_code: '', hucc_name: 'Hypothetical', hucc: 'Hypothetical placement',
+    disp_unit_id: null,
+    ddl: `Hypothetical @ ${lat.toFixed(3)}, ${lng.toFixed(3)}`,
+    rate: r,
+    base_cost: baseCostFor(r),
+    lat, lng,
+    geo_quality: 'hypothetical', notes: '',
+    rank, color: tierForRank(rank),
+    hypo: true,
+  };
+}
+
+/* Inject the hypo crew into the live data structures (single instance). */
+function addHypotheticalCrewToAnalysis(crew) {
+  removeHypotheticalCrewFromAnalysis();
+  DATA.crews.push(crew);
+  DATA.crews.sort((a, b) => a.rank - b.rank);
+  DATA.byId[crew.id] = crew;
+  const key = `${crew.lat.toFixed(4)},${crew.lng.toFixed(4)}`;
+  (DATA.ddpGroups[key] ||= []).push(crew);
+  STATE.hypoCrew = crew;
+}
+
+/* Remove the hypo crew from the live data structures. */
+function removeHypotheticalCrewFromAnalysis() {
+  const existing = STATE.hypoCrew || DATA.byId[HYPO_CONFIG.id];
+  if (!existing) return;
+  DATA.crews = DATA.crews.filter(c => c.id !== HYPO_CONFIG.id);
+  delete DATA.byId[HYPO_CONFIG.id];
+  const key = `${existing.lat.toFixed(4)},${existing.lng.toFixed(4)}`;
+  if (DATA.ddpGroups[key]) {
+    DATA.ddpGroups[key] = DATA.ddpGroups[key].filter(c => c.id !== HYPO_CONFIG.id);
+    if (DATA.ddpGroups[key].length === 0) delete DATA.ddpGroups[key];
+  }
+  STATE.hypoCrew = null;
+}
+
+/* Open / close the tool panel. */
+function toggleHypoTool() {
+  const panel = $('hypo-panel');
+  if (!panel.hidden && STATE.mode !== 'hypo_placing') {
+    closeHypoTool();
+    return;
+  }
+  $('btn-hypo').classList.add('active');
+  renderHypotheticalDDLTool();
+}
+function closeHypoTool() {
+  if (STATE.mode === 'hypo_placing') { STATE.mode = 'browse'; MapView.setCrosshair(false); }
+  closePanel('hypo-panel');
+  $('btn-hypo').classList.remove('active');
+}
+
+/* Render the tool panel (placement, rate, and — once placed — standing). */
+function renderHypotheticalDDLTool() {
+  const panel = $('hypo-panel');
+  const h = STATE.hypoCrew;
+  const placing = STATE.mode === 'hypo_placing';
+  const rateVal = (h ? h.rate : hypoDraftRate).toFixed(2);
+  panel.innerHTML = `
+    <div class="panel-head">
+      <div>
+        <div class="panel-title" style="color:var(--violet)">⚲ Hypothetical DDL</div>
+        <div class="panel-sub">${h ? esc(h.ddl) : 'Place a what-if crew on the map'}</div>
+      </div>
+      <div class="panel-head-btns">
+        <button class="panel-min" data-min title="Minimize">–</button>
+        <button class="panel-close" data-pc="hypo-panel" title="Close">×</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="hint">A fully-simulated competitor. Once placed it’s ranked by exact NICC cost and counted in incident, competitive-radius, moat &amp; rate-desert analysis — just like a real crew.</div>
+
+      <div class="section" style="border-top:none;padding-top:0">
+        <div class="section-title"><span><span class="accent">⚑</span> Placement</span></div>
+        <button id="hypo-place" class="btn full ${placing ? 'active' : ''}">${placing ? 'Click map to drop pin…' : h ? 'Re-place pin' : 'Click map to place DDL'}</button>
+        ${h ? `<div class="hint" style="margin-top:6px">Location: ${h.lat.toFixed(3)}, ${h.lng.toFixed(3)}</div>` : ''}
+      </div>
+
+      <div class="section">
+        <div class="section-title"><span><span class="accent">$</span> Rate ($/hr)</span></div>
+        <div class="nudge-row">
+          <button class="btn nudge" data-hnudge="-0.5">−50¢</button>
+          <button class="btn nudge" data-hnudge="-0.1">−10¢</button>
+          <input id="hypo-rate" class="input" type="number" step="0.01" min="1" value="${rateVal}" />
+          <button class="btn nudge" data-hnudge="0.1">+10¢</button>
+          <button class="btn nudge" data-hnudge="0.5">+50¢</button>
+        </div>
+      </div>
+
+      ${h ? `
+      <div class="section">
+        <div class="section-title"><span><span class="accent">◈</span> Standing in the field</span></div>
+        <div class="result-grid">
+          <div class="result-cell"><div class="rc-val">#${h.rank}</div><div class="rc-label">Rate rank</div></div>
+          <div class="result-cell"><div class="rc-val"><span class="tdot" style="background:var(--${h.color})"></span>${capitalize(h.color)}</div><div class="rc-label">Tier</div></div>
+          <div class="result-cell"><div class="rc-val">${fmtMoney(h.base_cost)}</div><div class="rc-label">Base cost</div></div>
+        </div>
+        <div class="btn-row" style="margin-top:9px">
+          <button id="hypo-analyze" class="btn btn-primary full">Select &amp; analyze this crew</button>
+        </div>
+        <div class="btn-row" style="margin-top:6px">
+          <button id="hypo-remove" class="btn full">Remove hypothetical DDL</button>
+        </div>`
+      : `<div class="hint">Set a rate, then place the pin. Default $${HYPO_CONFIG.defaultRate.toFixed(2)} ≈ field median.</div>`}
+    </div>`;
+  panel.hidden = false;
+  wireMinimize(panel);
+
+  el('[data-pc]', panel).addEventListener('click', closeHypoTool);
+  $('hypo-place').addEventListener('click', enterHypoPlacement);
+  const rateInput = $('hypo-rate');
+  rateInput.addEventListener('change', () => commitHypoRate(parseFloat(rateInput.value)));
+  panel.querySelectorAll('.nudge[data-hnudge]').forEach(b =>
+    b.addEventListener('click', () => commitHypoRate((parseFloat(rateInput.value) || hypoDraftRate) + parseFloat(b.dataset.hnudge))));
+  if ($('hypo-analyze')) $('hypo-analyze').addEventListener('click', () => selectCrew(STATE.hypoCrew, { fly: true }));
+  if ($('hypo-remove')) $('hypo-remove').addEventListener('click', removeHypoCrew);
+}
+
+/* Arm placement mode — next map / marker click drops the hypo DDL. */
+function enterHypoPlacement() {
   STATE.mode = 'hypo_placing';
   MapView.setCrosshair(true);
-  $('hypo-place').textContent = 'Click map to place pin…';
+  renderHypotheticalDDLTool();
 }
-function placeHypo(lat, lng) {
-  STATE.hypoPin = { lat, lng };
+
+/* Drop the hypo DDL at a point with the current draft rate, inject, and refresh. */
+function placeHypoCrew(lat, lng) {
   STATE.mode = 'browse';
   MapView.setCrosshair(false);
+  const crew = createHypotheticalCrew(lat, lng, hypoDraftRate);
+  addHypotheticalCrewToAnalysis(crew);
   MapView.setHypoPin(lat, lng);
-  if (STATE.selectedCrew) {
-    renderDetail(STATE.selectedCrew);
-    runHypoAnalysis(STATE.selectedCrew);
+  renderHypotheticalDDLTool();
+  recomputeForFieldChange();
+}
+
+/* Apply a new rate to the (placed) hypo DDL, keeping its location. */
+function commitHypoRate(rate) {
+  if (isNaN(rate) || rate <= 0) return;
+  hypoDraftRate = Math.round(rate * 100) / 100;
+  if (STATE.hypoCrew) {
+    const { lat, lng } = STATE.hypoCrew;
+    const wasSelected = STATE.selectedCrew && STATE.selectedCrew.id === HYPO_CONFIG.id;
+    const crew = createHypotheticalCrew(lat, lng, hypoDraftRate);
+    addHypotheticalCrewToAnalysis(crew); // replaces the existing instance
+    if (wasSelected) STATE.selectedCrew = crew;
+    renderHypotheticalDDLTool();
+    recomputeForFieldChange();
+  } else {
+    renderHypotheticalDDLTool(); // just update the draft value shown
   }
 }
-function clearHypo() {
-  STATE.hypoPin = null;
+
+/* Remove the hypo DDL entirely and restore the real field. */
+function removeHypoCrew() {
+  const wasSelected = STATE.selectedCrew && STATE.selectedCrew.id === HYPO_CONFIG.id;
+  removeHypotheticalCrewFromAnalysis();
   MapView.clearHypoPin();
-  if (STATE.selectedCrew) renderDetail(STATE.selectedCrew);
+  if (wasSelected) closeDetail();
+  renderHypotheticalDDLTool();
+  recomputeForFieldChange();
 }
-function runHypoAnalysis(crew) {
-  if (!STATE.hypoPin) return;
-  const real = runZoneSimulation(crew, zoneRadius, DATA.crews, STATE.plKey);
-  const hypoCrew = { ...crew, lat: STATE.hypoPin.lat, lng: STATE.hypoPin.lng,
-    ddl: `Hypothetical (${STATE.hypoPin.lat.toFixed(3)}, ${STATE.hypoPin.lng.toFixed(3)})` };
-  const hypo = runZoneSimulation(hypoCrew, zoneRadius,
-    DATA.crews.map(c => c.id === crew.id ? hypoCrew : c), STATE.plKey);
-  const box = $('hypo-results');
-  if (!box) return;
-  box.innerHTML = `
-    <table class="dtable" style="margin-top:4px">
-      <thead><tr><th></th><th class="num">Win</th><th class="num">Top-10</th><th class="num">Avg rank</th></tr></thead>
-      <tbody>
-        <tr><td>Real DDP</td><td class="num">${real.win_pct}%</td><td class="num">${real.top10_pct}%</td><td class="num">${real.avg_rank}</td></tr>
-        <tr class="me"><td>Hypo DDP</td><td class="num">${hypo.win_pct}%</td><td class="num">${hypo.top10_pct}%</td><td class="num">${hypo.avg_rank}</td></tr>
-      </tbody>
-    </table>
-    <div class="hint" style="margin-top:6px">Δ top-10: <b>${(parseFloat(hypo.top10_pct) - parseFloat(real.top10_pct)).toFixed(1)}%</b> · simulated at ${zoneRadius}mi.</div>`;
+
+/* Clicking the hypo map marker: drop incident here / re-place / select & analyze. */
+function handleHypoMarkerClick() {
+  const h = STATE.hypoCrew;
+  if (!h) return;
+  if (STATE.mode === 'incident') return dropIncident(h.lat, h.lng);
+  if (STATE.mode === 'hypo_placing') return placeHypoCrew(h.lat, h.lng);
+  selectCrew(h, { fly: false });
 }
 
 /* ============================================================
@@ -645,8 +874,8 @@ function toggleDesert() {
   startDesert();
 }
 function startDesert() {
-  if (PL_CONFIG[STATE.plKey].keepFraction >= 1.0) {
-    showToastLegend('Rate desert is most meaningful at PL3+ when cheap crews are already deployed.');
+  if (effectiveKeepFraction(STATE.plKey) >= 1.0) {
+    showToastLegend('Rate desert is most meaningful at PL3+ (or a heavier filter) when cheap crews are already deployed.');
   }
   showProgress('Computing rate desert…');
   MapView.showDesert(DATA.crews, STATE.plKey, {
@@ -660,12 +889,29 @@ function showDesertLegend() {
     <div class="legend-title">Avg rate of cheapest ${DESERT_CONFIG.topN} available</div>
     <div class="legend-grad" style="background:linear-gradient(90deg,#14b8a6,#f59e0b,#ea580c)"></div>
     <div class="legend-grad-labels"><span>$${DESERT_CONFIG.lowRate} cheap field</span><span>$${DESERT_CONFIG.highRate}+ desert</span></div>
-    <div class="hint" style="margin-top:5px">Hover any cell for the exact surviving rate.</div>
-    ${PL_CONFIG[STATE.plKey].keepFraction >= 1.0 ? '<div class="hint" style="margin-top:5px">Raise PL to PL3+ to reveal structure.</div>' : ''}`;
+    <div class="hint" style="margin-top:5px">Hover any cell for avg, lowest &amp; highest surviving rate.</div>
+    ${effectiveKeepFraction(STATE.plKey) >= 1.0 ? '<div class="hint" style="margin-top:5px">Raise PL to PL3+ (or push the filter heavier) to reveal structure.</div>' : ''}`;
 }
 function showToastLegend(msg) {
   $('legend-overlay').hidden = false;
   $('legend-overlay').innerHTML = `<div class="hint">${esc(msg)}</div>`;
+}
+
+/* Live wildfire layer — a standalone informational toggle. Deliberately NOT part
+   of the exclusive moat/desert/zones set (no clearActiveOverlay), so it can be
+   shown alongside any of them. */
+function toggleWildfire() {
+  STATE.wildfireOn = !STATE.wildfireOn;
+  MapView.toggleWildfire(STATE.wildfireOn);
+  $('btn-wildfire').classList.toggle('active', STATE.wildfireOn);
+}
+
+/* Live WFIGS "last 24h" incident layer — a second standalone informational
+   toggle, independent of the wildfire layer and the exclusive overlays. */
+function toggleActiveIncidents() {
+  STATE.activeIncidentsOn = !STATE.activeIncidentsOn;
+  MapView.toggleActiveIncidents(STATE.activeIncidentsOn);
+  $('btn-active-incidents').classList.toggle('active', STATE.activeIncidentsOn);
 }
 
 function refreshDetailButtons() {
@@ -785,6 +1031,10 @@ function renderIncident() {
   const { lat, lng } = STATE.incidentPin;
   const rows = rankIncident(DATA.crews, lat, lng, STATE.plKey, STATE.timeFilter);
   lastIncidentRows = rows;
+  // Restrict the map to this incident's top-N crews (recomputed on every
+  // re-render, so PL / time-filter changes keep the visible set in sync).
+  incidentTopIds = new Set(rows.slice(0, INCIDENT_TOP_N).map(r => r.crew.id));
+  MapView.applyFilter(incidentTopIds);
   const panel = $('incident-panel');
   const shown = STATE.showAllIncident ? rows : rows.slice(0, 50);
 
@@ -836,6 +1086,8 @@ function clearIncident() {
   STATE.incidentPin = null;
   STATE.mode = 'browse';
   lastIncidentRows = [];
+  incidentTopIds = null;          // lift the top-N restriction
+  applyFiltersAndRender();        // restore the full set of map dots
   MapView.clearIncidentPin();
   MapView.setCrosshair(false);
   $('incident-controls').hidden = true;
@@ -851,12 +1103,12 @@ function clearIncident() {
    ============================================================ */
 function handleMapClick(lat, lng) {
   if (STATE.mode === 'incident') return dropIncident(lat, lng);
-  if (STATE.mode === 'hypo_placing') return placeHypo(lat, lng);
+  if (STATE.mode === 'hypo_placing') return placeHypoCrew(lat, lng);
 }
 
 function handleMarkerClick(group, key) {
   if (STATE.mode === 'incident') return dropIncident(group[0].lat, group[0].lng);
-  if (STATE.mode === 'hypo_placing') return placeHypo(group[0].lat, group[0].lng);
+  if (STATE.mode === 'hypo_placing') return placeHypoCrew(group[0].lat, group[0].lng);
   if (group.length === 1) return selectCrew(group[0]);
   renderDdpPanel(group);
 }
@@ -920,9 +1172,10 @@ function wireKeyboard() {
     const typing = tag === 'input' || tag === 'textarea';
     if (e.key === 'Escape') {
       if (!$('glossary').hidden) return closeModal('glossary');
-      if (STATE.mode === 'hypo_placing') { STATE.mode = 'browse'; MapView.setCrosshair(false); return; }
+      if (STATE.mode === 'hypo_placing') { STATE.mode = 'browse'; MapView.setCrosshair(false); renderHypotheticalDDLTool(); return; }
       if (STATE.incidentPin || STATE.mode === 'incident') return clearIncident();
       if (!$('detail-panel').hidden) return closeDetail();
+      if (!$('hypo-panel').hidden) return closeHypoTool();
       if (!$('ddp-panel').hidden) return closePanel('ddp-panel');
       return;
     }
@@ -932,10 +1185,13 @@ function wireKeyboard() {
     }
     switch (e.key.toLowerCase()) {
       case 'i': e.preventDefault(); toggleIncidentMode(); break;
+      case 'h': e.preventDefault(); toggleHypoTool(); break;
       case '/': e.preventDefault(); $('search').focus(); break;
       case 'z': toggleZones(); break;
       case 'm': if (STATE.selectedCrew) toggleMoat(); break;
       case 'd': toggleDesert(); break;
+      case 'w': toggleWildfire(); break;
+      case 'a': toggleActiveIncidents(); break;
       case 't': toggleTheme(); break;
     }
   });
@@ -953,17 +1209,20 @@ function buildGlossary() {
     ['Base cost', '<code>rate × 20 people × 14 days × 8 hrs</code> — the fixed labor cost of a dispatch, before travel.'],
     ['Rate tiers', 'Crews ranked globally by rate (ascending). <b>Green</b> = cheapest 100, <b>Yellow</b> = 101–210, <b>Orange</b> = 211–388, <b>Red</b> = 389+. Color encodes competitive pricing, not quality.'],
     ['Preparedness Level (PL)', 'Simulates competing fires drawing the cheapest crews away. Higher PL keeps a smaller fraction of the field available, opening the competitive field. PL2≈90%, PL3≈70%, PL4≈43%, PL5≈18%.'],
+    ['PL filter intensity', 'A slider beneath the PL presets. The preset sets the nominal field-kept fraction; the slider adds filtering intensity on top — the left edge is nominal (no change), and dragging right keeps less of the field (heavier). It feeds the same thinning used by every tool.'],
     ['Incident mode', 'Drop a pin anywhere; every available crew is ranked by NICC cost to that point. Time filter removes crews whose mobilization (travel + 3h buffer) exceeds the limit.'],
     ['Competitive radius', 'Simulates ~100 incidents inside a radius around a crew\'s DDP. The main metrics are top-10 and top-20 rate, average rank, median rank, and a rank-band breakdown. Being #1 is shown as a diagnostic — the goal is to stay competitive in the top-10 to top-20 band, not to be the cheapest option everywhere.'],
     ['Threats', 'Crews that out-rank the selected crew in ≥30% of sampled incidents — direct competitors in that radius.'],
     ['Rate sensitivity', 'Substitutes a hypothetical rate, re-runs the simulation, and shows the change in win rate, rank, and base cost. Breakeven is the rate at which you tie your top threat.'],
     ['Moat overlay', 'A grid (~350mi) around the selected crew. Each cell shows where the crew\'s rank falls in the competitive field at that location. Emerald = comfortably top-10; amber = near the top-20 boundary; red = outside the useful band. Hover any cell for the exact rank.'],
-    ['Rate desert', 'A CONUS grid showing the average rate of the cheapest available crews after PL thinning. Teal = cheap field; orange = "desert" where only expensive crews remain.'],
+    ['Rate desert', 'A CONUS grid showing the average rate of the cheapest available crews after PL thinning. Teal = cheap field; orange = "desert" where only expensive crews remain. Hover a cell for the average, lowest, and highest rate among the surviving top-15.'],
+    ['Hypothetical DDL', 'A standalone what-if crew. Open the ⚲ Hypo DDL tool, set a rate, and drop it anywhere. It becomes a normal crew object — exact NICC cost, a global rate rank, and full inclusion in incident, competitive-radius, moat, and rate-desert analysis. Select it to analyze it like any real crew; Remove to restore the real field.'],
     ['Shared DDP', 'Multiple crews dispatched from one address. Click the shared map pin to open a list and pick a specific crew.'],
+    ['Wildfire layer', 'Live current-incident wildfire points from the NIFC / ArcGIS <code>USA_Wildfires</code> service, loaded on demand via the 🔥 button. Click any point for incident name, size (acres), and containment. It’s purely informational — an independent overlay that can sit alongside the others and never affects crew ranking or any analysis.'],
   ];
   $('glossary-body').innerHTML = terms.map(([t, d]) =>
     `<div class="gloss-term"><h3>${t}</h3><p>${d}</p></div>`).join('') +
-    `<div class="gloss-term"><h3>Keyboard</h3><p><code>I</code> incident · <code>/</code> search · <code>Z</code> zones · <code>M</code> moat · <code>D</code> desert · <code>T</code> theme · <code>Esc</code> cancel</p></div>`;
+    `<div class="gloss-term"><h3>Keyboard</h3><p><code>I</code> incident · <code>H</code> hypo DDL · <code>/</code> search · <code>Z</code> zones · <code>M</code> moat · <code>D</code> desert · <code>W</code> wildfires · <code>T</code> theme · <code>Esc</code> cancel</p></div>`;
 }
 
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }

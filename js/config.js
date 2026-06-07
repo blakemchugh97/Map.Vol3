@@ -22,6 +22,27 @@ export const PL_CONFIG = {
   PL5:  { keepFraction: 0.18, label: '~18% of field available' },
 };
 
+/* ---------- PL fine-tune slider ----------
+   The PL preset sets the NOMINAL keepFraction (the fraction of the competitor
+   field that survives thinning). This slider ADDS filtering intensity on top of
+   the preset — it does not replace it. Left-anchored:
+     slider 0   = nominal (the preset's keepFraction, no added filtering)  ← default, left edge
+     slider 100 = heaviest filtering (keep = base * heavyFloorFactor)
+   Tune `heavyFloorFactor` to taste: at the heavy extreme the effective keep is
+   `base * heavyFloorFactor` (0.40 => remove up to 60% more of the field). */
+export const PL_SLIDER = {
+  min: 0, max: 100, default: 0, step: 1,
+  heavyFloorFactor: 0.40,
+};
+
+/* ---------- Hypothetical DDL tool ----------
+   A user-placed "what-if" crew. Once dropped it is injected into the live crew
+   set and behaves like any real competitor in every analysis. */
+export const HYPO_CONFIG = {
+  id:          'HYPO',   // single, reserved crew id for the hypothetical DDL
+  defaultRate: 61.00,    // $/hr starting rate (≈ field median); easy to tune
+};
+
 /* ---------- Rate tier breakpoints (global rank, ascending) ---------- */
 export const TIERS = {
   green:  { max: 100, label: 'Cheapest 100', css: 'green'  },
@@ -89,7 +110,26 @@ export const MAP_CONFIG = {
     light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   },
   tileAttribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  defaultClusterRadius: 60,
+  defaultClusterRadius: 0,
+};
+
+/* ---------- Wildfire layer (ArcGIS live incidents) ----------
+   NIFC "Current Incidents" point service, loaded on demand through the
+   esri-leaflet plugin. A standalone, informational toggle — independent of the
+   exclusive moat/desert/zones overlays and never feeds any crew analysis. */
+export const WILDFIRE_CONFIG = {
+  url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/USA_Wildfires_v1/FeatureServer/0',
+  markerSize: 12,  // px; rendered as a compact hazard-triangle divIcon (see .wildfire-marker)
+};
+
+/* ---------- Active incidents layer (WFIGS — last 24h) ----------
+   Wildland Fire Interagency Geospatial Services "Incident Locations" reported in
+   the last 24 hours, loaded on demand through esri-leaflet. A second standalone,
+   informational toggle that coexists with the wildfire layer and the exclusive
+   moat/desert/zones overlays; never feeds any crew analysis. */
+export const ACTIVE_INCIDENTS_CONFIG = {
+  url: 'https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/WFIGS_Incident_Locations_Last24h/FeatureServer/0',
+  markerSize: 13,  // px; rendered as a compact hazard-triangle divIcon (see .active-incident-marker)
 };
 
 /* ---------- Zone overlay styling ---------- */
@@ -105,9 +145,10 @@ export const STATE = {
   mode:         'browse',     // 'browse' | 'incident' | 'hypo_placing'
   selectedCrew: null,
   incidentPin:  null,         // { lat, lng }
-  hypoPin:      null,         // { lat, lng }
+  hypoCrew:     null,         // injected hypothetical crew object (or null)
   activeOverlay: null,        // 'moat' | 'desert' | 'zones' | null
   plKey:        'none',
+  plSlider:     0,            // 0..100 added filter intensity within the PL preset (0 = nominal)
   timeFilter:   null,         // hours or null
   incidentRadius: 0,          // miles, visual circle only
   rateFilter:   { min: 51, max: 68 },
@@ -115,8 +156,10 @@ export const STATE = {
   zoneFilter:   null,         // disp_unit_id or null
   theme:        'dark',
   sidebarOpen:  true,
-  clusterRadius: 60,
+  clusterRadius: 0,
   showAllIncident: false,     // incident list top-50 vs all
+  wildfireOn:   false,        // live ArcGIS wildfire layer toggle (independent)
+  activeIncidentsOn: false,   // WFIGS last-24h incident layer toggle (independent)
 };
 
 /* Loaded data (populated at startup by ui.js) */
@@ -133,4 +176,24 @@ export function tierForRank(rank) {
   if (rank <= TIERS.yellow.max) return 'yellow';
   if (rank <= TIERS.orange.max) return 'orange';
   return 'red';
+}
+
+/* ---------- PL slider → effective filtering ----------
+   Maps a preset's nominal keepFraction + the intensity slider (0..100) to the
+   effective keepFraction actually used by every filtering path. Single source
+   of truth so incident, radius, moat, and rate-desert all thin consistently.
+   Left-anchored: the slider only ADDS filtering on top of the preset.
+     slider 0   -> base (nominal, no change)
+     slider 100 -> base * heavyFloorFactor (heaviest)
+   Linear in between (more slider = heavier = keep less). */
+export function applyPlSliderToFiltering(baseKeepFraction, sliderValue = STATE.plSlider) {
+  const s = Math.max(0, Math.min(100, sliderValue)) / 100; // 0..1
+  const floor = baseKeepFraction * PL_SLIDER.heavyFloorFactor;
+  return baseKeepFraction + (floor - baseKeepFraction) * s;
+}
+
+/* Effective keepFraction for a PL key, given the current slider state. */
+export function effectiveKeepFraction(plKey, sliderValue = STATE.plSlider) {
+  const base = (PL_CONFIG[plKey] || PL_CONFIG.none).keepFraction;
+  return applyPlSliderToFiltering(base, sliderValue);
 }
