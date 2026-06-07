@@ -122,14 +122,13 @@ export const WILDFIRE_CONFIG = {
   markerSize: 12,  // px; rendered as a compact hazard-triangle divIcon (see .wildfire-marker)
 };
 
-/* ---------- Active incidents layer (WFIGS — last 24h) ----------
+/* ---------- Last-24h incident source (WFIGS) ----------
    Wildland Fire Interagency Geospatial Services "Incident Locations" reported in
-   the last 24 hours, loaded on demand through esri-leaflet. A second standalone,
-   informational toggle that coexists with the wildfire layer and the exclusive
-   moat/desert/zones overlays; never feeds any crew analysis. */
+   the last 24 hours. This is the SECOND data source merged into the wildfire
+   layer: it loads alongside USA_Wildfires_v1 under the single 🔥 toggle, shares
+   the same filter, and renders every feature with the "New (Past 24-hour)" icon. */
 export const ACTIVE_INCIDENTS_CONFIG = {
   url: 'https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/WFIGS_Incident_Locations_Last24h/FeatureServer/0',
-  markerSize: 13,  // px; rendered as a compact hazard-triangle divIcon (see .active-incident-marker)
 };
 
 /* ---------- Zone overlay styling ---------- */
@@ -158,8 +157,7 @@ export const STATE = {
   sidebarOpen:  true,
   clusterRadius: 0,
   showAllIncident: false,     // incident list top-50 vs all
-  wildfireOn:   false,        // live ArcGIS wildfire layer toggle (independent)
-  activeIncidentsOn: false,   // WFIGS last-24h incident layer toggle (independent)
+  wildfireOn:   false,        // merged wildfire layer toggle (current incidents + last-24h)
 };
 
 /* Loaded data (populated at startup by ui.js) */

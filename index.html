@@ -141,8 +141,8 @@
           <button id="btn-moat"   class="btn action-btn overlay-btn" title="Moat overlay (M)" disabled>◈ Moat</button>
           <button id="btn-desert" class="btn action-btn overlay-btn" title="Rate desert (D)">≋ Desert</button>
         </div>
-        <button id="btn-wildfire" class="btn action-btn fire-btn" title="Toggle live wildfire layer (W)">🔥 Wildfires</button>
-        <button id="btn-active-incidents" class="btn action-btn incident24-btn" title="Toggle WFIGS incidents reported in the last 24h (A)">⚠ Active Incidents (Last 24h)</button>
+        <button id="btn-wildfire" class="btn action-btn fire-btn" title="Toggle wildfire incidents — current + last 24h (W)">🔥 Wildfires</button>
+        <button id="btn-fire-filters" class="btn action-btn fire-filter-btn" title="Filter wildfire incidents (F)">⛯ Filters<span id="ff-badge" class="ff-badge" hidden>0</span></button>
         <div class="util-group">
           <button id="btn-theme" class="btn action-btn util-btn" title="Toggle theme (T)">☾</button>
           <button id="btn-help"  class="btn action-btn util-btn" title="Glossary &amp; help (?)">?</button>
@@ -187,6 +187,93 @@
         <div class="legend-row"><span class="ldot red"></span> Most expensive</div>
         <div id="legend-overlay" class="legend-overlay" hidden></div>
       </div>
+
+      <!-- ===== Wildfire filter drawer (right edge) =====
+           Server-side ArcGIS WHERE-clause filters for the 🔥 wildfire layer.
+           Every control updates the layer instantly (no Apply button); the
+           action stack slides left while this is open so both stay usable. -->
+      <aside id="fire-filters" class="fire-filters" hidden aria-label="Wildfire filters">
+        <header class="ff-head">
+          <div class="ff-title">🔥 Wildfire Filters</div>
+          <div class="ff-head-btns">
+            <button id="ff-reset" class="ff-reset" hidden>Reset all</button>
+            <button id="ff-close" class="ff-close" title="Close (F / Esc)">×</button>
+          </div>
+        </header>
+
+        <div class="ff-body">
+          <!-- 1. Name search -->
+          <div class="ff-block">
+            <label class="ff-label" for="ff-name">Search by name</label>
+            <div class="ff-search">
+              <input id="ff-name" class="input" type="text" placeholder="Fire name…" autocomplete="off" />
+              <button id="ff-name-clear" class="ff-name-clear" title="Clear" hidden>×</button>
+            </div>
+          </div>
+
+          <!-- 2. Incident type -->
+          <div class="ff-block">
+            <div class="ff-label">Incident type</div>
+            <label class="ff-check"><input type="checkbox" class="ff-type" data-type="WF" checked><span>Wildfires</span></label>
+            <label class="ff-check"><input type="checkbox" class="ff-type" data-type="RX" checked><span>Prescribed Burns</span></label>
+            <label class="ff-check"><input type="checkbox" class="ff-type" data-type="CX" checked><span>Incident Complexes</span></label>
+          </div>
+
+          <!-- 3. Fire cause -->
+          <div class="ff-block">
+            <div class="ff-label">Fire cause</div>
+            <label class="ff-check"><input type="checkbox" class="ff-cause" data-cause="Human" checked><span>Human</span></label>
+            <label class="ff-check"><input type="checkbox" class="ff-cause" data-cause="Lightning" checked><span>Lightning</span></label>
+            <label class="ff-check"><input type="checkbox" class="ff-cause" data-cause="Undetermined" checked><span>Undetermined</span></label>
+          </div>
+
+          <!-- 4. Containment -->
+          <div class="ff-block">
+            <div class="ff-label">Containment</div>
+            <div class="seg ff-seg" id="ff-containment">
+              <button class="seg-btn active" data-cont="all">All</button>
+              <button class="seg-btn" data-cont="active">Active &lt;100%</button>
+              <button class="seg-btn" data-cont="contained">Contained</button>
+            </div>
+          </div>
+
+          <!-- 5. New fires -->
+          <div class="ff-block">
+            <label class="ff-check"><input id="ff-new" type="checkbox"><span>New fires only (last 24h)</span></label>
+          </div>
+
+          <!-- 6. Minimum size (log-scaled) -->
+          <div class="ff-block">
+            <div class="ff-label-row">
+              <span class="ff-label">Minimum size</span>
+              <span id="ff-acres-readout" class="filter-readout">show all</span>
+            </div>
+            <input id="ff-acres" class="range" type="range" min="0" max="100" step="1" value="0" />
+          </div>
+
+          <!-- 7. States -->
+          <div class="ff-block">
+            <div class="ff-label-row">
+              <span class="ff-label">States</span>
+              <span id="ff-states-count" class="ff-mini">all</span>
+            </div>
+            <div id="ff-states" class="ff-checklist"><span class="ff-loading">Loading…</span></div>
+          </div>
+
+          <!-- 8. GACC -->
+          <div class="ff-block">
+            <div class="ff-label-row">
+              <span class="ff-label">GACC region</span>
+              <span id="ff-gaccs-count" class="ff-mini">all</span>
+            </div>
+            <div id="ff-gaccs" class="ff-checklist"><span class="ff-loading">Loading…</span></div>
+          </div>
+        </div>
+
+        <footer class="ff-foot">
+          <span id="ff-count" class="ff-count">—</span>
+        </footer>
+      </aside>
 
       <!-- Floating panel dock (bottom-left, stacks without overlap) -->
       <div id="panel-dock" class="panel-dock">
