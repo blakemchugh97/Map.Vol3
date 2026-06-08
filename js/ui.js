@@ -5,11 +5,11 @@
 
 import {
   STATE, DATA, PL_CONFIG, PL_SLIDER, HYPO_CONFIG, RATE_BOUNDS, ZONE_SIM,
-  MOAT_CONFIG, DESERT_CONFIG, effectiveKeepFraction, tierForRank,
+  MOAT_CONFIG, DESERT_CONFIG, TIERS, effectiveKeepFraction, tierForRank,
 } from './config.js';
 import {
   rankIncident, runZoneSimulation, rateSensitivity, breakevenRate,
-  makeRateVariant, baseCostFor, zoneStats,
+  makeRateVariant, baseCostFor, zoneStats, selectCoverageCrews,
 } from './dispatch.js';
 import * as MapView from './map.js';
 
@@ -24,6 +24,7 @@ const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;
 
 /* ---------- module state ---------- */
 let lastIncidentRows = [];
+let incidentFireMeta = null; // { name, id } when the active incident came from a fire click, else null
 let lastZoneResult = null;
 let zoneRadius = ZONE_SIM.defaultRadius;
 let testRate = null;
@@ -40,6 +41,15 @@ let incidentTopIds = null; // Set<crewId> when an incident is active, else null
 // Sample dots are a debugging aid only — hidden in normal use to keep the map
 // clean. Enable by loading the app with ?debugDots in the URL.
 const DEBUG_DOTS = new URLSearchParams(location.search).has('debugDots');
+
+// Company coverage view state: the chosen vendor company, the set of its crews
+// currently included, and a debounce handle for recompute on selection changes.
+let coverageCompany = null;          // company name or null
+let coverageSelectedIds = new Set(); // crew ids included within the company
+let coverageTimer = null;            // debounce handle for startCoverage()
+// Map-dot visibility while the coverage overlay is active. false = show all crew
+// dots (current behavior); true = show only the crews in the company analysis.
+let coverageShowOnlyAnalyzed = false;
 
 // Draw / update the violet competitive-radius circle for the selected crew.
 function showRadiusCircle() {
@@ -68,6 +78,7 @@ async function init() {
     onMarkerClick: handleMarkerClick,
     onZoneClick: handleZoneClick,
     onHypoMarkerClick: handleHypoMarkerClick,
+    onFireClick: handleFireClick,
   });
   MapView.buildMarkers(DATA.crews, DATA.ddpGroups, STATE.clusterRadius);
 
@@ -101,6 +112,7 @@ function loadData(crews) {
   DATA.byId = {};
   DATA.ddpGroups = {};
   for (const c of DATA.crews) {
+    c.color = tierForRank(c.rate);
     DATA.byId[c.id] = c;
     const key = `${c.lat.toFixed(4)},${c.lng.toFixed(4)}`;
     (DATA.ddpGroups[key] ||= []).push(c);
@@ -130,9 +142,20 @@ function applyFiltersAndRender() {
   const vis = visibleCrews();
   // When an incident is active, the map is restricted to that incident's top-N
   // crews; the sidebar list/chips still reflect the normal filters.
-  MapView.applyFilter(incidentTopIds || new Set(vis.map(c => c.id)));
+  let mapIds = incidentTopIds || new Set(vis.map(c => c.id));
+  // Company coverage "Show only analyzed crews": hide dots not in the analysis.
+  if (STATE.activeOverlay === 'coverage' && coverageShowOnlyAnalyzed) {
+    mapIds = new Set([...mapIds].filter(id => coverageSelectedIds.has(id)));
+  }
+  MapView.applyFilter(mapIds);
   renderList(vis);
   renderStatChips(vis);
+}
+
+/* Refresh map dots after a coverage selection change — only needed when the
+   "Show only analyzed crews" mode is active (otherwise dot visibility is fixed). */
+function refreshCoverageDots() {
+  if (STATE.activeOverlay === 'coverage' && coverageShowOnlyAnalyzed) applyFiltersAndRender();
 }
 
 /* ============================================================
@@ -174,32 +197,37 @@ function renderList(vis) {
 
 function renderStatChips(vis) {
   const counts = { green: 0, yellow: 0, orange: 0, red: 0 };
-  for (const c of vis) counts[c.color]++;
+  const ratesByTier = { green: [], yellow: [], orange: [], red: [] };
+  for (const c of vis) {
+    counts[c.color]++;
+    ratesByTier[c.color].push(c.rate);
+  }
   for (const tier of ['green', 'yellow', 'orange', 'red']) {
     $(`chip-${tier}`).textContent = counts[tier].toLocaleString();
+    const rangeEl = $(`chip-range-${tier}`);
+    if (rangeEl) rangeEl.textContent = counts[tier] ? TIERS[tier].range : '';
   }
   // mirror into floating mini-chips
   const mini = $('mini-chips');
-  mini.innerHTML = ['green', 'yellow', 'orange', 'red'].map(t =>
-    `<button class="chip chip-${t}" data-tier="${t}"><span class="chip-dot"></span><span class="chip-n">${counts[t].toLocaleString()}</span></button>`
-  ).join('');
+  mini.innerHTML = ['green', 'yellow', 'orange', 'red'].map(t => {
+    const range = counts[t] ? `<span class="chip-range">${TIERS[t].range}</span>` : '';
+    return `<button class="chip chip-${t}" data-tier="${t}"><span class="chip-dot"></span><span class="chip-body"><span class="chip-n">${counts[t].toLocaleString()}</span>${range}</span></button>`;
+  }).join('');
   mini.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => toggleTierFilter(c.dataset.tier)));
 }
 
 /* clicking a stat chip filters list to that tier's rate window (quick filter) */
 let activeTier = null;
 function toggleTierFilter(tier) {
-  // tiers map to rank bands; translate to a rate window using current data
-  const band = { green: [1, 100], yellow: [101, 210], orange: [211, 388], red: [389, Infinity] }[tier];
   if (activeTier === tier) {
     activeTier = null;
     STATE.rateFilter = { min: RATE_BOUNDS.min, max: RATE_BOUNDS.max };
   } else {
     activeTier = tier;
-    const inBand = DATA.crews.filter(c => c.rank >= band[0] && c.rank <= band[1]);
+    const inTier = DATA.crews.filter(c => c.color === tier);
     STATE.rateFilter = {
-      min: Math.min(...inBand.map(c => c.rate)),
-      max: Math.max(...inBand.map(c => c.rate)),
+      min: Math.min(...inTier.map(c => c.rate)),
+      max: Math.max(...inTier.map(c => c.rate)),
     };
   }
   syncRateSliders();
@@ -232,7 +260,8 @@ function wireControls() {
     STATE.rateFilter = { min: lo, max: hi };
     activeTier = null;
     document.querySelectorAll('.stat-chips .chip').forEach(ch => ch.classList.remove('muted'));
-    $('rate-readout').textContent = `$${lo.toFixed(0)} – $${hi.toFixed(0)}`;
+    $('rate-lo').textContent = `$${lo.toFixed(0)}`;
+    $('rate-hi').textContent = `$${hi.toFixed(0)}`;
     updateRateFill();
     applyFiltersAndRender();
   };
@@ -274,8 +303,10 @@ function wireControls() {
   $('btn-hypo').addEventListener('click', toggleHypoTool);
   $('btn-zones').addEventListener('click', toggleZones);
   $('btn-moat').addEventListener('click', toggleMoat);
+  $('btn-coverage').addEventListener('click', toggleCoverage);
   $('btn-desert').addEventListener('click', toggleDesert);
   $('btn-wildfire').addEventListener('click', toggleWildfire);
+  $('btn-watches').addEventListener('click', toggleWatches);
   $('btn-theme').addEventListener('click', toggleTheme);
   $('btn-help').addEventListener('click', () => openModal('glossary'));
 
@@ -305,7 +336,8 @@ function wireControls() {
 function syncRateSliders() {
   $('rate-min').value = STATE.rateFilter.min;
   $('rate-max').value = STATE.rateFilter.max;
-  $('rate-readout').textContent = `$${STATE.rateFilter.min.toFixed(0)} – $${STATE.rateFilter.max.toFixed(0)}`;
+  $('rate-lo').textContent = `$${STATE.rateFilter.min.toFixed(0)}`;
+  $('rate-hi').textContent = `$${STATE.rateFilter.max.toFixed(0)}`;
   updateRateFill();
 }
 
@@ -372,6 +404,7 @@ function recomputeAnalyses() {
   if (STATE.selectedCrew && !$('detail-panel').hidden) renderDetail(STATE.selectedCrew);
   if (STATE.activeOverlay === 'moat' && STATE.selectedCrew) startMoat();
   if (STATE.activeOverlay === 'desert') startDesert();
+  if (STATE.activeOverlay === 'coverage') startCoverage();
 }
 
 /* Full recompute after the crew FIELD changes (hypothetical DDL add/re-rate/
@@ -529,7 +562,7 @@ function closeDetail() {
   MapView.clearSampleDots();
   MapView.clearRadiusCircle();
   document.querySelectorAll('.crew-item.selected').forEach(n => n.classList.remove('selected'));
-  if (STATE.activeOverlay === 'moat') { STATE.activeOverlay = null; MapView.clearOverlayCells(); MapView.cancelOverlayJob(); updateOverlayButtons(); }
+  if (STATE.activeOverlay === 'moat') { STATE.activeOverlay = null; MapView.clearOverlayCells(); MapView.cancelOverlayJob(); updateOverlayButtons(); $('legend').hidden = true; }
   $('btn-moat').disabled = true;
 }
 
@@ -834,15 +867,22 @@ function handleHypoMarkerClick() {
 function updateOverlayButtons() {
   $('btn-zones').classList.toggle('active', STATE.activeOverlay === 'zones');
   $('btn-moat').classList.toggle('active', STATE.activeOverlay === 'moat');
+  $('btn-coverage').classList.toggle('active', STATE.activeOverlay === 'coverage');
   $('btn-desert').classList.toggle('active', STATE.activeOverlay === 'desert');
 }
 
 function clearActiveOverlay() {
-  if (STATE.activeOverlay === 'zones') MapView.hideZones();
+  const was = STATE.activeOverlay;
+  if (was === 'zones') MapView.hideZones();
   else { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); }
+  if (was === 'coverage') { clearTimeout(coverageTimer); MapView.clearCoverageHighlight(); closePanel('coverage-panel'); }
+  hideProgress(); // a cancelled job's onDone never fires, so clear the chip here
   STATE.activeOverlay = null;
-  $('legend-overlay').hidden = true;
+  $('legend').hidden = true;
   updateOverlayButtons();
+  // Coverage closed: restore normal crew-dot visibility (overlay is now null,
+  // so applyFiltersAndRender no longer applies the "only analyzed" filter).
+  if (was === 'coverage') applyFiltersAndRender();
 }
 
 function toggleMoat() {
@@ -862,8 +902,8 @@ function startMoat() {
   });
 }
 function showMoatLegend() {
-  $('legend-overlay').hidden = false;
-  $('legend-overlay').innerHTML = `
+  $('legend').hidden = false;
+  $('legend').innerHTML = `
     <div class="legend-title">Competitive reach · rank-band fade</div>
     <div class="legend-grad" style="background:linear-gradient(90deg,rgb(220,38,38),rgb(249,115,22),rgb(234,179,8),rgb(132,204,22),rgb(16,185,129))"></div>
     <div class="legend-grad-labels"><span>rank 35+</span><span>top-20 edge</span><span>top-10 ✓</span></div>
@@ -888,8 +928,8 @@ function startDesert() {
   });
 }
 function showDesertLegend() {
-  $('legend-overlay').hidden = false;
-  $('legend-overlay').innerHTML = `
+  $('legend').hidden = false;
+  $('legend').innerHTML = `
     <div class="legend-title">Avg rate of cheapest ${DESERT_CONFIG.topN} available</div>
     <div class="legend-grad" style="background:linear-gradient(90deg,#14b8a6,#f59e0b,#ea580c)"></div>
     <div class="legend-grad-labels"><span>$${DESERT_CONFIG.lowRate} cheap field</span><span>$${DESERT_CONFIG.highRate}+ desert</span></div>
@@ -897,8 +937,227 @@ function showDesertLegend() {
     ${effectiveKeepFraction(STATE.plKey) >= 1.0 ? '<div class="hint" style="margin-top:5px">Raise PL to PL3+ (or push the filter heavier) to reveal structure.</div>' : ''}`;
 }
 function showToastLegend(msg) {
-  $('legend-overlay').hidden = false;
-  $('legend-overlay').innerHTML = `<div class="hint">${esc(msg)}</div>`;
+  $('legend').hidden = false;
+  $('legend').innerHTML = `<div class="hint">${esc(msg)}</div>`;
+}
+
+/* ============================================================
+   Company coverage overlay (multi-crew moat)
+   An exclusive overlay (like moat/desert/zones) that maps the combined competitive
+   footprint of one vendor company's crews. Selection is scoped to a single company;
+   within it, crews are included by price tier (reusing tierForRank) and/or one-by-one.
+   It does not require a selected crew. Compute lives in MapView.showCoverage; this
+   block owns the panel UI, selection state, and debounced recompute.
+   ============================================================ */
+const COVERAGE_TIERS = ['green', 'yellow', 'orange', 'red'];
+
+// Real vendor companies (excludes the hypothetical DDL), with crew counts, A→Z.
+function companyList() {
+  const m = new Map();
+  for (const c of DATA.crews) { if (c.hypo) continue; m.set(c.company, (m.get(c.company) || 0) + 1); }
+  return [...m.entries()].map(([name, count]) => ({ name, count }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+// A company's crews, cheapest first (so the checklist reads green→red).
+function companyCrews(company) {
+  return DATA.crews.filter(c => c.company === company).sort((a, b) => a.rate - b.rate);
+}
+
+function toggleCoverage() {
+  if (STATE.activeOverlay === 'coverage') { clearActiveOverlay(); return; }
+  if (STATE.activeOverlay) clearActiveOverlay();
+  STATE.activeOverlay = 'coverage';
+  updateOverlayButtons();
+  renderCoveragePanel();
+  refreshCoverageDots(); // apply "only analyzed" dot filter if it was left on
+  if (coverageCompany) startCoverage(); // restore last company's footprint
+}
+
+function renderCoveragePanel() {
+  const panel = $('coverage-panel');
+  const companies = companyList();
+  const company = coverageCompany;
+  const crews = company ? companyCrews(company) : [];
+  const tierCounts = { green: 0, yellow: 0, orange: 0, red: 0 };
+  for (const c of crews) tierCounts[tierForRank(c.rate)]++;
+  const selN = crews.filter(c => coverageSelectedIds.has(c.id)).length;
+
+  panel.innerHTML = `
+    <div class="panel-head">
+      <div>
+        <div class="panel-title"><span class="accent">⧉</span> Company coverage</div>
+        <div class="panel-sub">${company ? `${esc(company)} · ${selN}/${crews.length} crews` : 'Pick a company to map its coverage'}</div>
+      </div>
+      <div class="panel-head-btns">
+        <button class="panel-min" data-min title="Minimize">–</button>
+        <button class="panel-close" data-pc="coverage-panel" title="Close (Esc)">×</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="section" style="border-top:none;padding-top:0">
+        <div class="section-title"><span><span class="accent">▦</span> Company</span></div>
+        <select id="cov-company" class="input cov-select">
+          <option value="">— Select a company —</option>
+          ${companies.map(c => `<option value="${esc(c.name)}"${c.name === company ? ' selected' : ''}>${esc(c.name)} (${c.count})</option>`).join('')}
+        </select>
+      </div>
+      ${company ? `
+      <div class="section">
+        <div class="section-title"><span><span class="accent">$</span> Price tiers</span>
+          <button id="cov-all" class="btn btn-sm">${selN === crews.length ? 'Clear all' : 'Select all'}</button></div>
+        <div class="cov-tiers">
+          ${COVERAGE_TIERS.map(t => coverageTierChip(t, tierCounts[t], crews)).join('')}
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title"><span>Crews</span><span class="filter-readout" id="cov-selected">${selN} selected</span></div>
+        <div class="cov-crewlist">
+          ${crews.map(coverageCrewRow).join('') || '<div class="hint">No crews for this company.</div>'}
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title"><span>Map dots</span></div>
+        <div class="cov-vismode">
+          <button class="btn btn-sm cov-vis${!coverageShowOnlyAnalyzed ? ' active' : ''}" data-vis="all">Show all crews</button>
+          <button class="btn btn-sm cov-vis${coverageShowOnlyAnalyzed ? ' active' : ''}" data-vis="analyzed">Show only analyzed crews</button>
+        </div>
+      </div>` : '<div class="hint" style="margin-top:4px">Then include crews by price tier or individually. Overlap shows redundant coverage; gaps show where competitive advantage is missing.</div>'}
+    </div>`;
+  panel.hidden = false;
+  wireMinimize(panel);
+
+  el('[data-pc]', panel).addEventListener('click', () => clearActiveOverlay());
+  $('cov-company').addEventListener('change', e => onCoverageCompany(e.target.value));
+  if (company) {
+    $('cov-all').addEventListener('click', toggleCoverageAll);
+    panel.querySelectorAll('.cov-vis').forEach(b =>
+      b.addEventListener('click', () => setCoverageVisMode(b.dataset.vis === 'analyzed')));
+    panel.querySelectorAll('.cov-tier').forEach(ch =>
+      ch.addEventListener('click', () => toggleCoverageTier(ch.dataset.tier)));
+    panel.querySelectorAll('.cov-crew').forEach(row => {
+      const id = row.dataset.id;
+      row.querySelector('input').addEventListener('change', (e) => {
+        if (e.target.checked) coverageSelectedIds.add(id); else coverageSelectedIds.delete(id);
+        refreshCoverageHeader();
+        refreshCoverageDots();
+        scheduleCoverage();
+      });
+      // Hover a row to light up just that crew's footprint (only if it's drawn).
+      row.addEventListener('mouseenter', () => {
+        if (STATE.activeOverlay === 'coverage' && coverageSelectedIds.has(id)) MapView.highlightCoverageCrew(id, STATE.plKey);
+      });
+      row.addEventListener('mouseleave', () => MapView.clearCoverageHighlight());
+    });
+  }
+}
+
+function coverageTierChip(tier, count, crews) {
+  const inTier = crews.filter(c => tierForRank(c.rate) === tier);
+  const allOn = inTier.length > 0 && inTier.every(c => coverageSelectedIds.has(c.id));
+  const someOn = inTier.some(c => coverageSelectedIds.has(c.id));
+  const state = allOn ? 'on' : someOn ? 'some' : 'off';
+  return `<button class="cov-tier chip chip-${tier}" data-tier="${tier}" data-state="${state}"${count === 0 ? ' disabled' : ''}>
+    <span class="chip-dot"></span>
+    <span class="chip-body"><span class="chip-n">${count}</span><span class="chip-range">${TIERS[tier].range}</span></span>
+  </button>`;
+}
+
+function coverageCrewRow(c) {
+  return `<label class="cov-crew" data-id="${esc(c.id)}">
+    <input type="checkbox"${coverageSelectedIds.has(c.id) ? ' checked' : ''}>
+    <span class="tdot" style="background:var(--${c.color})"></span>
+    <span class="cov-crew-id">${esc(c.id)}</span>
+    <span class="rate-badge ${c.color}">${fmtRate(c.rate)}</span>
+  </label>`;
+}
+
+/* Picking a company defaults to ALL its crews selected and renders immediately. */
+function onCoverageCompany(name) {
+  coverageCompany = name || null;
+  coverageSelectedIds = new Set(coverageCompany ? companyCrews(coverageCompany).map(c => c.id) : []);
+  renderCoveragePanel();
+  refreshCoverageDots();
+  if (coverageCompany) startCoverage();
+  else { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); $('legend').hidden = true; }
+}
+
+function toggleCoverageAll() {
+  const crews = companyCrews(coverageCompany);
+  const allOn = crews.every(c => coverageSelectedIds.has(c.id));
+  coverageSelectedIds = new Set(allOn ? [] : crews.map(c => c.id));
+  renderCoveragePanel();
+  refreshCoverageDots();
+  scheduleCoverage();
+}
+
+/* "Select by price range" — clicking a tier ISOLATES it (selects only that band's
+   crews), mirroring the sidebar stat-chip filter; clicking the already-isolated
+   tier returns to all crews. Built on the shared selectCoverageCrews() primitive
+   (the tier→crews mapping we unit-test). For arbitrary multi-tier sets, use the
+   crew checklist below. */
+function toggleCoverageTier(tier) {
+  const tierIds = selectCoverageCrews(DATA.crews, { company: coverageCompany, tiers: [tier] }).map(c => c.id);
+  if (!tierIds.length) return;
+  const allIds = companyCrews(coverageCompany).map(c => c.id);
+  const isolated = tierIds.length === coverageSelectedIds.size && tierIds.every(id => coverageSelectedIds.has(id));
+  coverageSelectedIds = new Set(isolated ? allIds : tierIds);
+  renderCoveragePanel();
+  refreshCoverageDots();
+  scheduleCoverage();
+}
+
+/* Toggle which crew dots are visible on the map while coverage is active:
+   all crews, or only the crews in the current company analysis. */
+function setCoverageVisMode(onlyAnalyzed) {
+  if (coverageShowOnlyAnalyzed === onlyAnalyzed) return;
+  coverageShowOnlyAnalyzed = onlyAnalyzed;
+  renderCoveragePanel();
+  applyFiltersAndRender();
+}
+
+/* Light header update on per-crew toggles (avoids rebuilding the scrolled list). */
+function refreshCoverageHeader() {
+  const panel = $('coverage-panel');
+  if (!coverageCompany) return;
+  const crews = companyCrews(coverageCompany);
+  const selN = crews.filter(c => coverageSelectedIds.has(c.id)).length;
+  const sub = el('.panel-sub', panel);
+  if (sub) sub.textContent = `${coverageCompany} · ${selN}/${crews.length} crews`;
+  if ($('cov-selected')) $('cov-selected').textContent = `${selN} selected`;
+  if ($('cov-all')) $('cov-all').textContent = selN === crews.length ? 'Clear all' : 'Select all';
+  panel.querySelectorAll('.cov-tier').forEach(ch => {
+    const inTier = crews.filter(c => tierForRank(c.rate) === ch.dataset.tier);
+    const allOn = inTier.length > 0 && inTier.every(c => coverageSelectedIds.has(c.id));
+    const someOn = inTier.some(c => coverageSelectedIds.has(c.id));
+    ch.dataset.state = allOn ? 'on' : someOn ? 'some' : 'off';
+  });
+}
+
+function scheduleCoverage() {
+  clearTimeout(coverageTimer);
+  coverageTimer = setTimeout(startCoverage, 250);
+}
+
+function startCoverage() {
+  if (STATE.activeOverlay !== 'coverage' || !coverageCompany) return;
+  const crews = companyCrews(coverageCompany).filter(c => coverageSelectedIds.has(c.id));
+  if (!crews.length) { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); hideProgress(); $('legend').hidden = true; return; }
+  showProgress('Computing coverage…');
+  MapView.showCoverage(crews, DATA.crews, STATE.plKey, {
+    onProgress: (d, t) => setProgress(`Computing coverage… ${Math.round(d / t * 100)}%`),
+    onDone: () => { hideProgress(); showCoverageLegend(crews.length); },
+  });
+}
+
+function showCoverageLegend(crewCount) {
+  $('legend').hidden = false;
+  // Same red→emerald gradient as the single-crew moat (each cell = best crew there).
+  $('legend').innerHTML = `
+    <div class="legend-title">Company moat · best of ${crewCount} crew${crewCount === 1 ? '' : 's'}</div>
+    <div class="legend-grad" style="background:linear-gradient(90deg,rgb(220,38,38),rgb(249,115,22),rgb(234,179,8),rgb(132,204,22),rgb(16,185,129))"></div>
+    <div class="legend-grad-labels"><span>no advantage</span><span>top-20</span><span>top-10 ✓</span></div>
+    <div class="hint" style="margin-top:5px">Each cell = the best-ranked selected crew there (the single-crew moat, unioned). Green corridors = at least one crew is competitive; red/empty = a gap.</div>
+    <div class="hint" style="margin-top:3px">Hover a crew row to light up its own moat.</div>`;
 }
 
 /* Merged wildfire layer — a standalone informational toggle showing both the
@@ -909,6 +1168,15 @@ function toggleWildfire() {
   STATE.wildfireOn = !STATE.wildfireOn;
   MapView.toggleWildfire(STATE.wildfireOn);
   $('btn-wildfire').classList.toggle('active', STATE.wildfireOn);
+}
+
+/* NWS watches & warnings — another standalone informational toggle (loaded on
+   demand). Like the wildfire layer it sits outside the exclusive moat/desert/
+   zones set, so it can overlay any of them and never touches crew analysis. */
+function toggleWatches() {
+  STATE.watchesOn = !STATE.watchesOn;
+  MapView.toggleWatches(STATE.watchesOn);
+  $('btn-watches').classList.toggle('active', STATE.watchesOn);
 }
 
 /* ============================================================
@@ -924,11 +1192,11 @@ const FIRE_TYPES  = ['WF', 'RX', 'CX'];
 const FIRE_CAUSES = ['Human', 'Lightning', 'Undetermined'];
 const fireFilterDefaults = () => ({
   nameSearch:  '',
-  minAcres:    0,
-  types:       { WF: true, RX: true, CX: true },
+  minAcres:    20,
+  types:       { WF: true, RX: false, CX: true },
   causes:      { Human: true, Lightning: true, Undetermined: true },
   containment: 'all',   // 'all' | 'active' | 'contained'
-  newOnly:     false,
+  newOnly:     true,
   states:      [],      // empty = all (no condition)
   gaccs:       [],      // empty = all (no condition)
 });
@@ -972,15 +1240,16 @@ function buildFireWhere(f, opts = {}) {
   return c.length ? c.join(' AND ') : '1=1';
 }
 
-// Count of filters differing from their default — drives the launcher badge.
+// Count of filters differing from the default — drives the launcher badge.
 function ffActiveCount(f) {
+  const d = fireFilterDefaults();
   let n = 0;
   if (f.nameSearch.trim()) n++;
-  if (f.minAcres > 0) n++;
-  if (!FIRE_TYPES.every((t) => f.types[t])) n++;
+  if (f.minAcres !== d.minAcres) n++;
+  if (FIRE_TYPES.some((t) => f.types[t] !== d.types[t])) n++;
   if (!FIRE_CAUSES.every((x) => f.causes[x])) n++;
   if (f.containment !== 'all') n++;
-  if (f.newOnly) n++;
+  if (f.newOnly !== d.newOnly) n++;
   if (f.states.length) n++;
   if (f.gaccs.length) n++;
   return n;
@@ -1001,20 +1270,34 @@ function applyFireFilters() {
 
   // Count queries are async and can resolve out of order under rapid changes;
   // tag each with a sequence number and ignore all but the most recent. The
-  // readout sums both sources (the merged total shown on the map).
+  // readout shows the DEDUPED union across both feeds (matches what's on the
+  // map after cross-source dedup), not the raw sum.
   const seq = ++ffCountSeq;
   $('ff-count').textContent = 'Counting…';
   Promise.all([
-    MapView.queryWildfireCount(wherePrimary, 'primary'),
-    MapView.queryWildfireCount(whereLast24, 'last24'),
+    MapView.queryWildfireIds(wherePrimary, 'primary'),
+    MapView.queryWildfireIds(whereLast24, 'last24'),
   ]).then(([a, b]) => {
     if (seq !== ffCountSeq) return; // superseded by a newer filter change
     if (a == null && b == null) { $('ff-count').textContent = 'Count unavailable'; return; }
-    const count = (a || 0) + (b || 0);
+    const count = dedupedCount(a, b);
     $('ff-count').innerHTML = fireTotalCount == null
       ? `Showing <b>${count.toLocaleString()}</b> incidents`
       : `Showing <b>${count.toLocaleString()}</b> of ${fireTotalCount.toLocaleString()} incidents`;
   });
+}
+
+// Size of the union of two queryWildfireIds() results: distinct IrwinIDs plus
+// any id-less features from each feed (those can't be deduped, so they count).
+function dedupedCount(...results) {
+  const set = new Set();
+  let loose = 0;
+  for (const r of results) {
+    if (!r) continue;
+    r.ids.forEach((id) => set.add(id));
+    loose += r.loose;
+  }
+  return set.size + loose;
 }
 
 // Slider position (0–100) → acreage on a log scale (1 … 100,000), snapped to a
@@ -1053,15 +1336,16 @@ const ffMergeDistinct = (a, b) => [...new Set([...(a || []), ...(b || [])])].sor
 // Fetch distinct states/GACCs + total counts once (across BOTH sources), then
 // build the two checklists so the one filter covers everything on the map.
 async function populateFireFacets() {
-  const [totP, totL, stP, stL, gaP, gaL] = await Promise.all([
-    MapView.queryWildfireCount('1=1', 'primary'),
-    MapView.queryWildfireCount('1=1', 'last24'),
+  const [idP, idL, stP, stL, gaP, gaL] = await Promise.all([
+    MapView.queryWildfireIds('1=1', 'primary'),
+    MapView.queryWildfireIds('1=1', 'last24'),
     MapView.queryWildfireDistinct('POOState', 'primary'),
     MapView.queryWildfireDistinct('POOState', 'last24'),
     MapView.queryWildfireDistinct('GACC', 'primary'),
     MapView.queryWildfireDistinct('GACC', 'last24'),
   ]);
-  fireTotalCount = (totP || 0) + (totL || 0);
+  // Deduped grand total (the "of Y" denominator) — union across both feeds.
+  fireTotalCount = (idP || idL) ? dedupedCount(idP, idL) : null;
   renderFacetList('ff-states', ffMergeDistinct(stP, stL), 'state', ffStateLabel);
   renderFacetList('ff-gaccs', ffMergeDistinct(gaP, gaL), 'gacc', ffGaccLabel);
   applyFireFilters(); // seed the count readout now that the total is known
@@ -1094,13 +1378,17 @@ function toggleFireFilters() { setFireFiltersOpen($('fire-filters').hidden); }
 
 function resetFireFilters() {
   fireFilters = fireFilterDefaults();
-  // name + new + acres
+  // name
   $('ff-name').value = ''; $('ff-name-clear').hidden = true;
-  $('ff-new').checked = false;
-  $('ff-acres').value = 0; ffUpdateAcresReadout();
-  // type + cause checkboxes
-  document.querySelectorAll('.ff-type').forEach((cb) => { cb.checked = true; });
-  document.querySelectorAll('.ff-cause').forEach((cb) => { cb.checked = true; });
+  // new fires toggle
+  $('ff-new').checked = fireFilters.newOnly;
+  // acres slider — invert ffSliderToAcres: pos = 100 * log10(acres) / log10(100000)
+  const acresPos = fireFilters.minAcres > 0
+    ? Math.round(100 * Math.log10(fireFilters.minAcres) / Math.log10(100000)) : 0;
+  $('ff-acres').value = acresPos; ffUpdateAcresReadout();
+  // type + cause checkboxes — sync to defaults
+  document.querySelectorAll('.ff-type').forEach((cb) => { cb.checked = !!fireFilters.types[cb.dataset.type]; });
+  document.querySelectorAll('.ff-cause').forEach((cb) => { cb.checked = !!fireFilters.causes[cb.dataset.cause]; });
   // containment segmented
   document.querySelectorAll('#ff-containment .seg-btn').forEach((b) => b.classList.toggle('active', b.dataset.cont === 'all'));
   // facet checklists
@@ -1258,11 +1546,32 @@ function toggleIncidentMode() {
 
 function dropIncident(lat, lng) {
   STATE.incidentPin = { lat, lng };
+  STATE.incidentSource = 'manual';
+  incidentFireMeta = null;
   STATE.mode = 'incident';
   MapView.setCrosshair(false);
   MapView.setIncidentPin(lat, lng);
   if (STATE.incidentRadius > 0) MapView.setIncidentRadius(lat, lng, STATE.incidentRadius);
   $('ic-coords').textContent = `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+  $('app').classList.add('incident-active');
+  renderIncident();
+}
+
+/* Open the incident ranking panel for a REAL fire's location. Mirrors
+   dropIncident()'s state + panel flow, but marks the source as 'fire' and draws
+   NO incident pin or radius circle — the only visible result is the panel. Stays
+   in 'browse' mode so it doesn't arm map-click placement. */
+function openIncidentFromFire(lat, lng, fireMeta = null) {
+  STATE.incidentPin = { lat, lng };
+  STATE.incidentSource = 'fire';
+  incidentFireMeta = fireMeta;
+  MapView.setCrosshair(false);
+  $('incident-controls').hidden = false;
+  $('ic-coords').textContent = fireMeta && fireMeta.name
+    ? `${fireMeta.name} · ${lat.toFixed(4)}, ${lng.toFixed(4)}`
+    : `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
+  $('btn-incident').classList.add('active');
+  $('btn-incident').textContent = '◎ Incident active';
   $('app').classList.add('incident-active');
   renderIncident();
 }
@@ -1283,7 +1592,7 @@ function renderIncident() {
     <div class="panel-head">
       <div>
         <div class="panel-title" style="color:var(--gold)">◎ Incident ranking</div>
-        <div class="panel-sub">${rows.length} crews available · ${PL_CONFIG[STATE.plKey].label}${STATE.timeFilter ? ` · ≤${STATE.timeFilter}h mob` : ''}</div>
+        <div class="panel-sub">${STATE.incidentSource === 'fire' && incidentFireMeta && incidentFireMeta.name ? `🔥 ${esc(incidentFireMeta.name)} · ` : ''}${rows.length} crews available · ${PL_CONFIG[STATE.plKey].label}${STATE.timeFilter ? ` · ≤${STATE.timeFilter}h mob` : ''}</div>
       </div>
       <div class="panel-head-btns">
         <button class="panel-min" data-min title="Minimize">–</button>
@@ -1325,11 +1634,13 @@ function renderIncident() {
 
 function clearIncident() {
   STATE.incidentPin = null;
+  STATE.incidentSource = null;
+  incidentFireMeta = null;
   STATE.mode = 'browse';
   lastIncidentRows = [];
   incidentTopIds = null;          // lift the top-N restriction
   applyFiltersAndRender();        // restore the full set of map dots
-  MapView.clearIncidentPin();
+  MapView.clearIncidentPin();     // defensive: no-op for fire-click incidents (no pin/circle)
   MapView.setCrosshair(false);
   $('incident-controls').hidden = true;
   $('btn-incident').classList.remove('active');
@@ -1352,6 +1663,15 @@ function handleMarkerClick(group, key) {
   if (STATE.mode === 'hypo_placing') return placeHypoCrew(group[0].lat, group[0].lng);
   if (group.length === 1) return selectCrew(group[0]);
   renderDdpPanel(group);
+}
+
+/* Clicking a REAL wildfire feature ranks crews against that fire's location with
+   no incident pin/radius. Routed here from map.js's onFireClick. */
+function handleFireClick(props, lat, lng) {
+  const p = props || {};
+  const name = p.IncidentName || p.FireName || null;
+  const id = p.IrwinID || p.OBJECTID || null;
+  openIncidentFromFire(lat, lng, { name, id });
 }
 
 function renderDdpPanel(group) {
@@ -1419,6 +1739,7 @@ function wireKeyboard() {
       if (!$('detail-panel').hidden) return closeDetail();
       if (!$('hypo-panel').hidden) return closeHypoTool();
       if (!$('ddp-panel').hidden) return closePanel('ddp-panel');
+      if (STATE.activeOverlay === 'coverage') return clearActiveOverlay();
       return;
     }
     if (typing) {
@@ -1431,8 +1752,10 @@ function wireKeyboard() {
       case '/': e.preventDefault(); $('search').focus(); break;
       case 'z': toggleZones(); break;
       case 'm': if (STATE.selectedCrew) toggleMoat(); break;
+      case 'c': toggleCoverage(); break;
       case 'd': toggleDesert(); break;
       case 'w': toggleWildfire(); break;
+      case 'a': toggleWatches(); break;
       case 'f': toggleFireFilters(); break;
       case 't': toggleTheme(); break;
     }
@@ -1457,6 +1780,7 @@ function buildGlossary() {
     ['Threats', 'Crews that out-rank the selected crew in ≥30% of sampled incidents — direct competitors in that radius.'],
     ['Rate sensitivity', 'Substitutes a hypothetical rate, re-runs the simulation, and shows the change in win rate, rank, and base cost. Breakeven is the rate at which you tie your top threat.'],
     ['Moat overlay', 'A grid (~350mi) around the selected crew. Each cell shows where the crew\'s rank falls in the competitive field at that location. Emerald = comfortably top-10; amber = near the top-20 boundary; red = outside the useful band. Hover any cell for the exact rank.'],
+    ['Company coverage', 'A company-wide moat: the single-crew moat run for each selected crew (ranked against the full field, exactly as normal) and then unioned. Pick a vendor company, then click a price-tier chip to isolate that band (click again for all crews), or check crews individually. Every cell uses the same red→emerald moat gradient, colored by the BEST-ranked selected crew there — so you get corridors of green wherever at least one crew is competitive (emerald = a crew is top-10, amber = top-20, red = a crew is near but uncompetitive, empty = no crew in range). Hover a crew row to light up its own moat, or a cell to see which crews are competitive there. Higher PL thins competitors and widens the green.'],
     ['Rate desert', 'A CONUS grid showing the average rate of the cheapest available crews after PL thinning. Teal = cheap field; orange = "desert" where only expensive crews remain. Hover a cell for the average, lowest, and highest rate among the surviving top-15.'],
     ['Hypothetical DDL', 'A standalone what-if crew. Open the ⚲ Hypo DDL tool, set a rate, and drop it anywhere. It becomes a normal crew object — exact NICC cost, a global rate rank, and full inclusion in incident, competitive-radius, moat, and rate-desert analysis. Select it to analyze it like any real crew; Remove to restore the real field.'],
     ['Shared DDP', 'Multiple crews dispatched from one address. Click the shared map pin to open a list and pick a specific crew.'],
@@ -1464,7 +1788,7 @@ function buildGlossary() {
   ];
   $('glossary-body').innerHTML = terms.map(([t, d]) =>
     `<div class="gloss-term"><h3>${t}</h3><p>${d}</p></div>`).join('') +
-    `<div class="gloss-term"><h3>Keyboard</h3><p><code>I</code> incident · <code>H</code> hypo DDL · <code>/</code> search · <code>Z</code> zones · <code>M</code> moat · <code>D</code> desert · <code>W</code> wildfires · <code>F</code> fire filters · <code>T</code> theme · <code>Esc</code> cancel</p></div>`;
+    `<div class="gloss-term"><h3>Keyboard</h3><p><code>I</code> incident · <code>H</code> hypo DDL · <code>/</code> search · <code>Z</code> zones · <code>M</code> moat · <code>C</code> coverage · <code>D</code> desert · <code>W</code> wildfires · <code>F</code> fire filters · <code>T</code> theme · <code>Esc</code> cancel</p></div>`;
 }
 
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }

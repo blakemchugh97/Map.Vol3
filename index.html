@@ -63,9 +63,10 @@
 
         <!-- Rate range filter -->
         <div class="filter-block">
-          <div class="filter-label-row">
-            <span class="filter-label">Rate range</span>
-            <span id="rate-readout" class="filter-readout">$51 – $68</span>
+          <div class="rate-range-row">
+            <span id="rate-lo" class="filter-readout">$51</span>
+            <span class="filter-label">Rate Range</span>
+            <span id="rate-hi" class="filter-readout">$68</span>
           </div>
           <div class="dual-slider">
             <input id="rate-min" class="range" type="range" min="51" max="68" step="0.5" value="51" />
@@ -84,10 +85,10 @@
 
         <!-- Stat chips -->
         <div id="stat-chips" class="stat-chips">
-          <button class="chip chip-green"  data-tier="green"  title="Cheapest 100"><span class="chip-dot"></span><span class="chip-n" id="chip-green">0</span></button>
-          <button class="chip chip-yellow" data-tier="yellow" title="Mid-tier"><span class="chip-dot"></span><span class="chip-n" id="chip-yellow">0</span></button>
-          <button class="chip chip-orange" data-tier="orange" title="Expensive"><span class="chip-dot"></span><span class="chip-n" id="chip-orange">0</span></button>
-          <button class="chip chip-red"    data-tier="red"    title="Most expensive"><span class="chip-dot"></span><span class="chip-n" id="chip-red">0</span></button>
+          <button class="chip chip-green"  data-tier="green"  title="Under $59.50"><span class="chip-dot"></span><span class="chip-body"><span class="chip-n" id="chip-green">0</span><span class="chip-range" id="chip-range-green"></span></span></button>
+          <button class="chip chip-yellow" data-tier="yellow" title="$59.50 – $61"><span class="chip-dot"></span><span class="chip-body"><span class="chip-n" id="chip-yellow">0</span><span class="chip-range" id="chip-range-yellow"></span></span></button>
+          <button class="chip chip-orange" data-tier="orange" title="$61 – $63"><span class="chip-dot"></span><span class="chip-body"><span class="chip-n" id="chip-orange">0</span><span class="chip-range" id="chip-range-orange"></span></span></button>
+          <button class="chip chip-red"    data-tier="red"    title="$63+"><span class="chip-dot"></span><span class="chip-body"><span class="chip-n" id="chip-red">0</span><span class="chip-range" id="chip-range-red"></span></span></button>
         </div>
       </div>
 
@@ -135,15 +136,19 @@
       <!-- Top-right action stack -->
       <div class="action-stack">
         <button id="btn-incident" class="btn btn-gold action-btn" title="Drop incident pin (I)">⊕ Drop Incident</button>
-        <button id="btn-hypo" class="btn action-btn hypo-btn" title="Hypothetical DDL tool (H)">⚲ Hypo DDL</button>
-        <div class="overlay-group">
-          <button id="btn-zones"  class="btn action-btn overlay-btn" title="Zone overlay (Z)">▦ Zones</button>
-          <button id="btn-moat"   class="btn action-btn overlay-btn" title="Moat overlay (M)" disabled>◈ Moat</button>
-          <button id="btn-desert" class="btn action-btn overlay-btn" title="Rate desert (D)">≋ Desert</button>
+        <div class="tool-group">
+          <button id="btn-hypo" class="btn action-btn hypo-btn" title="Hypothetical DDL tool (H)">⚲ Hypo DDL</button>
+          <button id="btn-wildfire" class="btn action-btn fire-btn" title="Toggle wildfire incidents — current + last 24h (W)">🔥 Wildfires</button>
+          <button id="btn-watches" class="btn action-btn alert-btn" title="Toggle NWS weather watches &amp; warnings (A)">⚠ Alerts</button>
         </div>
-        <button id="btn-wildfire" class="btn action-btn fire-btn" title="Toggle wildfire incidents — current + last 24h (W)">🔥 Wildfires</button>
-        <button id="btn-fire-filters" class="btn action-btn fire-filter-btn" title="Filter wildfire incidents (F)">⛯ Filters<span id="ff-badge" class="ff-badge" hidden>0</span></button>
+        <div class="overlay-group">
+          <button id="btn-zones"    class="btn action-btn overlay-btn" title="Zone overlay (Z)">▦ Zones</button>
+          <button id="btn-moat"     class="btn action-btn overlay-btn" title="Moat overlay (M)" disabled>◈ Moat</button>
+          <button id="btn-coverage" class="btn action-btn overlay-btn" title="Company coverage (C)">⧉ Coverage</button>
+          <button id="btn-desert"   class="btn action-btn overlay-btn" title="Rate desert (D)">≋ Desert</button>
+        </div>
         <div class="util-group">
+          <button id="btn-fire-filters" class="btn action-btn fire-filter-btn" title="Filter wildfire incidents (F)">⛯ Filters<span id="ff-badge" class="ff-badge" hidden>0</span></button>
           <button id="btn-theme" class="btn action-btn util-btn" title="Toggle theme (T)">☾</button>
           <button id="btn-help"  class="btn action-btn util-btn" title="Glossary &amp; help (?)">?</button>
         </div>
@@ -178,15 +183,8 @@
         </div>
       </div>
 
-      <!-- Legend (bottom-right) -->
-      <div id="legend" class="legend">
-        <div class="legend-title">Rate tier</div>
-        <div class="legend-row"><span class="ldot green"></span> Cheapest 100 <span class="lmuted">· moat</span></div>
-        <div class="legend-row"><span class="ldot yellow"></span> Mid-tier <span class="lmuted">· parity</span></div>
-        <div class="legend-row"><span class="ldot orange"></span> Expensive <span class="lmuted">· exposed</span></div>
-        <div class="legend-row"><span class="ldot red"></span> Most expensive</div>
-        <div id="legend-overlay" class="legend-overlay" hidden></div>
-      </div>
+      <!-- Overlay legend (bottom-right) — shown only when moat/desert is active -->
+      <div id="legend" class="legend" hidden></div>
 
       <!-- ===== Wildfire filter drawer (right edge) =====
            Server-side ArcGIS WHERE-clause filters for the 🔥 wildfire layer.
@@ -215,7 +213,7 @@
           <div class="ff-block">
             <div class="ff-label">Incident type</div>
             <label class="ff-check"><input type="checkbox" class="ff-type" data-type="WF" checked><span>Wildfires</span></label>
-            <label class="ff-check"><input type="checkbox" class="ff-type" data-type="RX" checked><span>Prescribed Burns</span></label>
+            <label class="ff-check"><input type="checkbox" class="ff-type" data-type="RX"><span>Prescribed Burns</span></label>
             <label class="ff-check"><input type="checkbox" class="ff-type" data-type="CX" checked><span>Incident Complexes</span></label>
           </div>
 
@@ -239,7 +237,7 @@
 
           <!-- 5. New fires -->
           <div class="ff-block">
-            <label class="ff-check"><input id="ff-new" type="checkbox"><span>New fires only (last 24h)</span></label>
+            <label class="ff-check"><input id="ff-new" type="checkbox" checked><span>New fires only (last 24h)</span></label>
           </div>
 
           <!-- 6. Minimum size (log-scaled) -->
@@ -248,7 +246,7 @@
               <span class="ff-label">Minimum size</span>
               <span id="ff-acres-readout" class="filter-readout">show all</span>
             </div>
-            <input id="ff-acres" class="range" type="range" min="0" max="100" step="1" value="0" />
+            <input id="ff-acres" class="range" type="range" min="0" max="100" step="1" value="26" />
           </div>
 
           <!-- 7. States -->
@@ -280,6 +278,7 @@
         <section id="detail-panel" class="float-panel" hidden></section>
         <section id="incident-panel" class="float-panel incident-panel" hidden></section>
         <section id="hypo-panel" class="float-panel hypo-panel" hidden></section>
+        <section id="coverage-panel" class="float-panel coverage-panel" hidden></section>
         <section id="ddp-panel" class="float-panel ddp-panel" hidden></section>
       </div>
     </main>
