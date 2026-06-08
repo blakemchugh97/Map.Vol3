@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Coverage tests — T2C Dispatch Map</title>
+  <style>
+    body { font: 14px/1.5 -apple-system, system-ui, sans-serif; background: #0f1117; color: #f0f4ff; margin: 24px; }
+    h1 { font-size: 18px; }
+    #summary { font-weight: 700; margin: 12px 0; }
+    .ok { color: #2dd47f; } .fail { color: #f05252; }
+    ul { list-style: none; padding: 0; } li { padding: 3px 0; border-bottom: 1px solid #2a3347; }
+    code { color: #f59e0b; }
+  </style>
+</head>
+<body>
+  <h1>Company-coverage logic tests</h1>
+  <div id="summary">Running…</div>
+  <ul id="results"></ul>
+  <script type="module">
+    import { runCoverageTests } from './coverage.test.js';
+    runCoverageTests().then((results) => {
+      const passed = results.filter(r => r.ok).length;
+      const failed = results.length - passed;
+      const summary = document.getElementById('summary');
+      summary.textContent = `${passed}/${results.length} passed${failed ? ` · ${failed} FAILED` : ' · all green'}`;
+      summary.className = failed ? 'fail' : 'ok';
+      document.getElementById('results').innerHTML = results.map(r =>
+        r.ok ? `<li><span class="ok">✓</span> ${r.name}</li>`
+             : `<li><span class="fail">✗ ${r.name}</span> — <code>${r.err}</code></li>`).join('');
+      // Machine-readable hooks for the preview/console verification path.
+      window.__coverageTestSummary = { passed, failed, total: results.length };
+      console.log(`[coverage.test] ${passed}/${results.length} passed; ${failed} failed`);
+      results.filter(r => !r.ok).forEach(r => console.error(`[coverage.test] FAIL ${r.name}: ${r.err}`));
+    }).catch((e) => {
+      const summary = document.getElementById('summary');
+      summary.textContent = 'Harness error: ' + e.message;
+      summary.className = 'fail';
+      console.error('[coverage.test] harness error', e);
+    });
+  </script>
+</body>
+</html>

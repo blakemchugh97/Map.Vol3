@@ -5,10 +5,11 @@
 
 import {
   MAP_CONFIG, ZONE_STYLE, MOAT_CONFIG, DESERT_CONFIG, PL_CONFIG, STATE,
-  WILDFIRE_CONFIG, ACTIVE_INCIDENTS_CONFIG, effectiveKeepFraction,
+  WILDFIRE_CONFIG, ACTIVE_INCIDENTS_CONFIG, WATCHES_CONFIG, effectiveKeepFraction,
 } from './config.js';
 import {
   haversine, computeRankAtPoint, bandScore, computeRateDesertHoverStats, isUSLand, runChunked,
+  moatLatticePoints, moatScoreCell, aggregateCoverageCells, coverageCellKey,
 } from './dispatch.js';
 
 let map, tileLayer, handlers = {};
@@ -22,9 +23,11 @@ let zoneLayer = null, zoneByUnit = {}, activeZoneLayer = null;
 let overlayCells = null;     // L.layerGroup for moat/desert
 let sampleDots = null;       // L.layerGroup for zone-sim dots
 let overlayJob = null;       // active chunked job (cancel handle)
+let coverageHighlight = null, coverageHighlightRenderer = null; // hovered-crew footprint outline
 
 const moatCache = {};        // `${crewId}|${plKey}` -> cells
 const desertCache = {};      // plKey -> cells
+const coverageCache = {};    // `${crewId}|${plKey}|${plSlider}` -> footprint cells (company coverage)
 
 /* ---------- helpers ---------- */
 const ddpKey = (c) => `${c.lat.toFixed(4)},${c.lng.toFixed(4)}`;
@@ -62,6 +65,13 @@ export function initMap(h) {
 
   overlayCells = L.layerGroup().addTo(map);
   sampleDots = L.layerGroup().addTo(map);
+  // Dedicated pane above the overlay canvas for the coverage hover-highlight, so a
+  // single crew's footprint draws cleanly on top of the blended cells.
+  const hlPane = map.createPane('coverageHighlight');
+  hlPane.style.zIndex = 450;
+  hlPane.style.pointerEvents = 'none';
+  coverageHighlightRenderer = L.svg({ pane: 'coverageHighlight' });
+  coverageHighlight = L.layerGroup().addTo(map);
   return map;
 }
 
@@ -360,6 +370,116 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
 }
 
 /* ============================================================
+   Company coverage overlay (company-wide moat)
+   Runs the normal single-crew moat for each selected crew (rank vs the full field
+   → band score), then UNIONS them: every cell takes the best (max) band score
+   across the crews, colored with the same red→emerald moat gradient. The result is
+   one "company-wide moat" with corridors of green wherever at least one crew is
+   competitive. Per-crew moats are cached (keyed crew|pl|slider) so toggling crews
+   re-unions instantly and only newly-needed crews compute.
+   ============================================================ */
+const coverageKey = (crewId, plKey) => `${crewId}|${plKey}|${STATE.plSlider}`;
+// Coverage union uses a larger reach than the single-crew moat (so the map extends
+// until advantage fades) at the same cell size, with cells clipped to US land.
+const coverageCfg = { cellDegrees: MOAT_CONFIG.cellDegrees, maxRadius: MOAT_CONFIG.coverageRadius };
+
+// Fit the map to the selected crews' DDPs (padded). Fallback for when no cells were
+// drawn (no crews) — the multi-crew analog of focusMoat().
+function focusCoverage(crews) {
+  if (!crews.length || !map) return;
+  const lats = crews.map((c) => c.lat), lngs = crews.map((c) => c.lng);
+  const pad = 0.6;
+  map.fitBounds(
+    [[Math.min(...lats) - pad, Math.min(...lngs) - pad], [Math.max(...lats) + pad, Math.max(...lngs) + pad]],
+    { animate: true, padding: [20, 20] },
+  );
+}
+
+// Hover readout for a unioned cell: which selected crews are competitive here
+// (top-20), best first, plus how many crews reach this cell at all.
+function coverageTip(agg) {
+  const comp = agg.crews.filter((c) => c.rank <= MOAT_CONFIG.bandOuter).sort((a, b) => a.rank - b.rank);
+  if (!comp.length) {
+    const n = agg.crews.length;
+    return `No selected crew is competitive here<br><span style="opacity:.7">${n} crew${n === 1 ? '' : 's'} in range, all ranked &gt;20</span>`;
+  }
+  const head = `<b>${comp.length}</b> of ${agg.crews.length} selected crew${agg.crews.length === 1 ? '' : 's'} competitive here`;
+  const lines = comp.slice(0, 8).map((c) => `<b>${c.id}</b> · #${c.rank} · ${bandBucket(c.rank)}`).join('<br>');
+  const more = comp.length > 8 ? `<br><span style="opacity:.7">+${comp.length - 8} more…</span>` : '';
+  return `${head}<br>${lines}${more}`;
+}
+
+// Union the cached per-crew moats and draw one gradient layer (best band score per
+// cell). Returns the drawn cells' lat/lng bounds (or null if none) to frame them.
+function drawCoverage(selectedCrews, plKey) {
+  clearOverlayCells();
+  clearCoverageHighlight();
+  const perCrew = selectedCrews.map((c) => ({ crew: c, cells: coverageCache[coverageKey(c.id, plKey)] || [] }));
+  const byCell = aggregateCoverageCells(perCrew);
+  let minLat = Infinity, maxLat = -Infinity, minLng = Infinity, maxLng = -Infinity, n = 0;
+  for (const agg of byCell.values()) {
+    const { color, opacity } = bandMoatColor(agg.best); // same gradient as the single-crew moat
+    const rect = drawRect(agg.lat, agg.lng, MOAT_CONFIG.cellDegrees, color, opacity, coverageTip(agg));
+    if (rect) overlayCells.addLayer(rect);
+    minLat = Math.min(minLat, agg.lat); maxLat = Math.max(maxLat, agg.lat);
+    minLng = Math.min(minLng, agg.lng); maxLng = Math.max(maxLng, agg.lng); n++;
+  }
+  if (!n) return null;
+  const h = MOAT_CONFIG.cellDegrees / 2; // include the cell extent (centers → edges)
+  return [[minLat - h, minLng - h], [maxLat + h, maxLng + h]];
+}
+
+/* ---- Hover highlight: light up where ONE crew is competitive (its own moat's
+   top-20 area) on a pane above the unioned cells, so you can attribute a corridor
+   to a specific crew. ---- */
+export function highlightCoverageCrew(crewId, plKey) {
+  clearCoverageHighlight();
+  const cells = coverageCache[coverageKey(crewId, plKey)];
+  if (!cells || !cells.length || !map) return;
+  const step = MOAT_CONFIG.cellDegrees;
+  for (const c of cells) {
+    if (c.rank > MOAT_CONFIG.bandOuter) continue; // only where THIS crew is competitive (top-20)
+    L.rectangle(
+      [[c.lat - step / 2, c.lng - step / 2], [c.lat + step / 2, c.lng + step / 2]],
+      { renderer: coverageHighlightRenderer, stroke: false,
+        fillColor: '#ffffff', fillOpacity: c.rank <= MOAT_CONFIG.bandTop ? 0.5 : 0.25, interactive: false },
+    ).addTo(coverageHighlight);
+  }
+}
+export function clearCoverageHighlight() { if (coverageHighlight) coverageHighlight.clearLayers(); }
+
+export function showCoverage(selectedCrews, allCrews, plKey, { onProgress, onDone } = {}) {
+  cancelOverlayJob();
+  clearOverlayCells();
+  if (!selectedCrews.length) { onDone && onDone({ crews: 0, cells: 0 }); return; }
+  const keepFraction = effectiveKeepFraction(plKey);
+
+  // Only crews without a cached footprint (for this pl|slider) need computing.
+  const need = selectedCrews.filter((c) => !coverageCache[coverageKey(c.id, plKey)]);
+  const acc = new Map();
+  need.forEach((c) => acc.set(c.id, []));
+  const work = [];
+  for (const crew of need)
+    for (const [lat, lng] of moatLatticePoints(crew, coverageCfg, { landMask: true })) work.push({ crew, lat, lng });
+
+  const finish = () => {
+    need.forEach((c) => { coverageCache[coverageKey(c.id, plKey)] = acc.get(c.id); });
+    const bounds = drawCoverage(selectedCrews, plKey);
+    // Frame the actual footprint (full competitive reach); if it's empty, at least
+    // frame the selected crews so the user sees where coverage is missing.
+    if (bounds && map) map.fitBounds(bounds, { animate: true, padding: [30, 30] });
+    else focusCoverage(selectedCrews);
+    onDone && onDone({ crews: selectedCrews.length, cells: overlayCells.getLayers().length });
+  };
+
+  if (!work.length) { finish(); return; }
+  overlayJob = runChunked(work, ({ crew, lat, lng }) => {
+    const { rank, score } = moatScoreCell(crew, lat, lng, allCrews, keepFraction);
+    acc.get(crew.id).push({ key: coverageCellKey(lat, lng), lat, lng, rank, score });
+  }, { chunk: 150, onProgress, onDone: finish });
+}
+
+/* ============================================================
    Rate desert overlay
    ============================================================ */
 // teal (cheap field) -> amber -> deep orange (rate desert), across lowRate..highRate.
@@ -444,6 +564,7 @@ export function cancelOverlayJob() { if (overlayJob) { overlayJob.cancel(); over
 export function invalidateOverlayCaches() {
   for (const k in moatCache) delete moatCache[k];
   for (const k in desertCache) delete desertCache[k];
+  for (const k in coverageCache) delete coverageCache[k];
 }
 
 /* ============================================================
@@ -621,6 +742,18 @@ function addWildfireLayers() {
   if (last24Layer) last24Layer.addTo(map);
 }
 
+// Route a fire feature click into ui.js (non-visual incident ranking) while
+// keeping the feature's own popup. Mirrors the zone/hypo click-router pattern:
+// stop propagation so the underlying map-click handler doesn't also fire.
+function bindFireClick(feature, layer) {
+  layer.on('click', (e) => {
+    L.DomEvent.stopPropagation(e);
+    if (!handlers.onFireClick) return;
+    const ll = (layer.getLatLng && layer.getLatLng()) || e.latlng;
+    handlers.onFireClick(feature.properties || {}, ll.lat, ll.lng, layer);
+  });
+}
+
 /* ---- Cross-source dedup ----
    The same brand-new fire can appear in BOTH feeds. We keep the primary marker
    (richer acreage data) and hide the last-24h duplicate. Done client-side so it
@@ -676,9 +809,13 @@ export function toggleWildfire(on) {
           icon: symbols ? getFireIcon(symbols, geojson.properties || {}) : wildfireTriangleIcon(),
           keyboard: false,
         }),
-        onEachFeature: (feature, layer) =>
-          layer.bindPopup(wildfirePopup(feature.properties), { className: 'wildfire-popup' }),
+        onEachFeature: (feature, layer) => {
+          layer.bindPopup(wildfirePopup(feature.properties), { className: 'wildfire-popup' });
+          bindFireClick(feature, layer);
+        },
       });
+      // Primary set changes (stream-in / filter / pan) → re-evaluate duplicates.
+      wildfireLayer.on('load createfeature removefeature', scheduleDedup);
     }
     if (!last24Layer) {
       last24Layer = L.esri.featureLayer({
@@ -689,9 +826,13 @@ export function toggleWildfire(on) {
           icon: symbols ? fireIconForLabel(symbols, 'New (Past 24-hour)') : wildfireTriangleIcon(),
           keyboard: false,
         }),
-        onEachFeature: (feature, layer) =>
-          layer.bindPopup(activeIncidentPopup(feature.properties), { className: 'wildfire-popup' }),
+        onEachFeature: (feature, layer) => {
+          layer.bindPopup(activeIncidentPopup(feature.properties), { className: 'wildfire-popup' });
+          bindFireClick(feature, layer);
+        },
       });
+      // New last-24h features arrive un-hidden; reconcile to hide any duplicates.
+      last24Layer.on('load createfeature removefeature', scheduleDedup);
     }
     if (wildfireWanted) addWildfireLayers(); // toggled back off mid-load? leave detached.
   });
@@ -738,6 +879,71 @@ function fmtReported(ms) {
   if (isNaN(d.getTime())) return '';
   const when = d.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   return `<br><span style="opacity:.75">Reported: ${when}</span>`;
+}
+
+/* ============================================================
+   NWS Watches & Warnings overlay (live ArcGIS polygons via esri-leaflet)
+   Lazily built on first show, then added/removed on toggle. Like the wildfire
+   layer it's independent of the analytic overlays, so it can coexist with
+   moat / desert / zones and never feeds any crew analysis.
+   ============================================================ */
+let watchesLayer = null;
+let watchesWanted = false; // desired on/off (kept for symmetry with the toggle)
+
+// Polygon style keyed on the layer's CAP `Severity` field.
+function watchesStyle(feature) {
+  const sev = feature && feature.properties && feature.properties.Severity;
+  const color = WATCHES_CONFIG.severityColors[sev] || WATCHES_CONFIG.severityColors.Unknown;
+  return { color, weight: 1, opacity: 0.9, fillColor: color, fillOpacity: WATCHES_CONFIG.fillOpacity };
+}
+
+// External feed → escape values before injecting into popup HTML.
+function watchesPopup(p) {
+  p = p || {};
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const event = p.Event ? esc(p.Event) : 'Weather alert';
+  const sev = p.Severity ? esc(p.Severity) : '';
+  const affected = p.Affected ? `<br><span style="opacity:.75">${esc(p.Affected)}</span>` : '';
+  const expiry = fmtWatchExpiry(p.HrsUntilExpiration, p.End_);
+  return `<b>${event}</b>${sev ? ` · ${sev}` : ''}${expiry}${affected}`;
+}
+
+// Friendly expiry line from HrsUntilExpiration (preferred) or the End_ date.
+function fmtWatchExpiry(hrs, endMs) {
+  if (hrs != null && !isNaN(hrs)) {
+    if (hrs <= 0)  return '<br><span style="opacity:.75">Expiring now</span>';
+    if (hrs < 24)  return `<br><span style="opacity:.75">Expires in ~${hrs}h</span>`;
+    return `<br><span style="opacity:.75">Expires in ~${Math.round(hrs / 24)}d</span>`;
+  }
+  if (endMs != null && !isNaN(endMs)) {
+    const d = new Date(endMs);
+    if (!isNaN(d.getTime())) {
+      const when = d.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      return `<br><span style="opacity:.75">Until ${when}</span>`;
+    }
+  }
+  return '';
+}
+
+export function toggleWatches(on) {
+  if (!map) return;
+  watchesWanted = on;
+  if (!on) {
+    if (watchesLayer) map.removeLayer(watchesLayer);
+    return;
+  }
+  if (watchesLayer) { watchesLayer.addTo(map).bringToBack(); return; }
+  // First show: build the polygon layer once; subsequent toggles reuse it.
+  watchesLayer = L.esri.featureLayer({
+    url: WATCHES_CONFIG.url,
+    style: watchesStyle,
+    onEachFeature: (feature, layer) => {
+      layer.bindPopup(watchesPopup(feature.properties), { className: 'watches-popup', maxWidth: 280 });
+      // Show the alert on click; don't let it bubble into a map-click (incident drop).
+      layer.on('click', (e) => L.DomEvent.stopPropagation(e));
+    },
+  });
+  if (watchesWanted) watchesLayer.addTo(map).bringToBack();
 }
 
 /* ============================================================

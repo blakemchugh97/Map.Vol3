@@ -3,7 +3,7 @@
    No DOM. No Leaflet. Deterministic, testable functions.
    ============================================================ */
 
-import { NICC, ZONE_SIM, MOAT_CONFIG, DESERT_CONFIG, effectiveKeepFraction } from './config.js';
+import { NICC, ZONE_SIM, MOAT_CONFIG, DESERT_CONFIG, effectiveKeepFraction, tierForRank } from './config.js';
 
 /* ---------- Geometry ---------- */
 export function haversine(lat1, lng1, lat2, lng2) {
@@ -115,6 +115,92 @@ export function computeRankAtPoint(selectedCrew, lat, lng, allCrews, keepFractio
     if (cost < bestCompCost) { bestCompCost = cost; bestComp = c; }
   }
   return { rank, myCost, fieldSize: field.length + 1, bestComp, bestCompCost };
+}
+
+/* ============================================================
+   Company-wide coverage (multi-crew moat) — pure helpers
+   These reuse the EXACT single-crew rank math (computeRankAtPoint) so the
+   company view follows identical behavior; only the rendering differs (map.js).
+   ============================================================ */
+
+/* Stable cell id for a lattice point. Footprints from different crews are snapped
+   to the same global lattice (see moatLatticePoints), so coincident cells share a
+   key and can be aggregated into overlap. */
+export const coverageCellKey = (lat, lng) => `${lat.toFixed(4)},${lng.toFixed(4)}`;
+
+/* Crew selection for the coverage view — the "select by price range" primitive.
+   Returns the subset of allCrews constrained by company, price tier(s), and/or an
+   explicit id set (all provided constraints are AND-ed; null/empty = unconstrained).
+   Tier reuses the app-wide price→color mapping (tierForRank), so a "range" is a
+   tier band — no new mapping is invented. */
+export function selectCoverageCrews(allCrews, { company = null, tiers = null, ids = null } = {}) {
+  const tierSet = tiers && tiers.length ? new Set(tiers) : null;
+  const idSet   = ids && ids.length ? new Set(ids) : null;
+  return allCrews.filter((c) => {
+    if (company != null && c.company !== company) return false;
+    if (tierSet && !tierSet.has(tierForRank(c.rate))) return false;
+    if (idSet && !idSet.has(c.id)) return false;
+    return true;
+  });
+}
+
+/* Lattice points (cell centers) within a crew's competitive disc, snapped to a
+   GLOBAL grid of cfg.cellDegrees so footprints from different crews coincide.
+   Geometry only — no ranking. With { landMask: true }, cells over ocean / Canada /
+   Mexico are dropped (same US-land polygon the rate-desert overlay uses), so the
+   company-coverage map cuts off at the coastline and border. Returns [lat, lng][]. */
+export function moatLatticePoints(crew, cfg = MOAT_CONFIG, { landMask = false } = {}) {
+  const step = cfg.cellDegrees, r = cfg.maxRadius;
+  const degLat = r / 69.0;
+  const degLng = r / (69.0 * Math.cos(crew.lat * Math.PI / 180));
+  const snap = (v) => Math.round(v / step) * step;
+  const pts = [];
+  for (let lat = snap(crew.lat - degLat); lat <= crew.lat + degLat + 1e-9; lat += step)
+    for (let lng = snap(crew.lng - degLng); lng <= crew.lng + degLng + 1e-9; lng += step) {
+      if (haversine(crew.lat, crew.lng, lat, lng) > r) continue;
+      if (landMask && !isUSLand(lat, lng)) continue;
+      pts.push([lat, lng]);
+    }
+  return pts;
+}
+
+/* Evaluate ONE cell for a crew using the EXACT single-crew moat math: the crew's
+   rank vs the full field (computeRankAtPoint) mapped to the 0..1 band score
+   (bandScore) the single-crew moat colors by. Every cell in the disc is returned
+   (no threshold) so the company map shows the same red→emerald gradient. */
+export function moatScoreCell(crew, lat, lng, allCrews, keepFraction) {
+  const { rank, fieldSize, bestComp } = computeRankAtPoint(crew, lat, lng, allCrews, keepFraction);
+  return { rank, fieldSize, bestComp, score: bandScore(rank) };
+}
+
+/* A crew's full moat: every cell across its disc with rank + band score. This is
+   exactly the single-crew moat, just returned as data. Synchronous convenience for
+   tests; the live overlay runs the same per-cell evaluation through runChunked. */
+export function computeCrewFootprint(crew, allCrews, keepFraction, cfg = MOAT_CONFIG) {
+  const out = [];
+  for (const [lat, lng] of moatLatticePoints(crew, cfg)) {
+    const { rank, score } = moatScoreCell(crew, lat, lng, allCrews, keepFraction);
+    out.push({ key: coverageCellKey(lat, lng), lat, lng, rank, score });
+  }
+  return out;
+}
+
+/* Union many crews' moats into one cell map: each cell takes the BEST (max) band
+   score across the crews whose disc covers it — i.e. "is ANY selected crew
+   competitive here?" — so coloring by that score yields corridors of green where
+   at least one crew has an advantage. `crews` keeps every covering crew (id, rank,
+   score) for the hover readout. Pure. Input: [{ crew, cells }]. */
+export function aggregateCoverageCells(perCrew) {
+  const byCell = new Map();
+  for (const { crew, cells } of perCrew) {
+    for (const cell of cells) {
+      let agg = byCell.get(cell.key);
+      if (!agg) { agg = { key: cell.key, lat: cell.lat, lng: cell.lng, best: -Infinity, bestCrew: null, crews: [] }; byCell.set(cell.key, agg); }
+      agg.crews.push({ id: crew.id, rank: cell.rank, score: cell.score });
+      if (cell.score > agg.best) { agg.best = cell.score; agg.bestCrew = crew.id; }
+    }
+  }
+  return byCell;
 }
 
 /* ---------- Zone (competitive radius) simulation ----------

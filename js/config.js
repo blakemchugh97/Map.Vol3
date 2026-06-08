@@ -43,12 +43,12 @@ export const HYPO_CONFIG = {
   defaultRate: 61.00,    // $/hr starting rate (≈ field median); easy to tune
 };
 
-/* ---------- Rate tier breakpoints (global rank, ascending) ---------- */
+/* ---------- Rate tier breakpoints ($/hr) ---------- */
 export const TIERS = {
-  green:  { max: 100, label: 'Cheapest 100', css: 'green'  },
-  yellow: { max: 210, label: 'Mid-tier',     css: 'yellow' },
-  orange: { max: 388, label: 'Expensive',    css: 'orange' },
-  red:    { max: Infinity, label: 'Most expensive', css: 'red' },
+  green:  { max: 59.50,    label: 'Under $59.50',  range: '<$59.50',   css: 'green'  },
+  yellow: { max: 61.00,    label: '$59.50 – $61',  range: '$59.50–61', css: 'yellow' },
+  orange: { max: 63.00,    label: '$61 – $63',     range: '$61–63',    css: 'orange' },
+  red:    { max: Infinity, label: '$63+',           range: '$63+',      css: 'red'    },
 };
 export const TIER_COLORS = { green: '#2dd47f', yellow: '#eab308', orange: '#f97316', red: '#f05252' };
 
@@ -74,7 +74,11 @@ export const ZONE_SIM = {
 // A yellow deadband around $0 stops tiny margins from rendering deep green/red.
 export const MOAT_CONFIG = {
   cellDegrees:     0.4,   // ~27mi cells
-  maxRadius:       350,   // competitive disc reach from the crew DDP
+  maxRadius:       350,   // competitive disc reach from the crew DDP (single-crew moat)
+  coverageRadius:  700,   // company-coverage union ONLY: larger reach so the unioned
+                          //   map extends out until each crew's advantage fully fades.
+                          //   Coverage cells are also clipped to US land. The single-crew
+                          //   moat is unaffected (it uses maxRadius).
   fillOpacity:     0.52,
   // Rank-band thresholds for the band-based moat score
   bandTop:         10,    // "useful band" top-N (comfortably competitive)
@@ -131,6 +135,24 @@ export const ACTIVE_INCIDENTS_CONFIG = {
   url: 'https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/WFIGS_Incident_Locations_Last24h/FeatureServer/0',
 };
 
+/* ---------- NWS Watches & Warnings overlay (ArcGIS live) ----------
+   National Weather Service active watches / warnings / advisories polygon feed
+   ("Events Ordered by Size and Severity"). A standalone informational toggle,
+   loaded on demand through esri-leaflet — independent of the exclusive
+   moat/desert/zones overlays and never feeding any crew analysis. Polygons are
+   colored by the layer's CAP `Severity` field. */
+export const WATCHES_CONFIG = {
+  url: 'https://services9.arcgis.com/RHVPKKiFTONKtxq3/arcgis/rest/services/NWS_Watches_Warnings_v1/FeatureServer/6',
+  fillOpacity: 0.18,
+  severityColors: {
+    Extreme:  '#b91c1c',   // deep red
+    Severe:   '#ea580c',   // orange-red
+    Moderate: '#eab308',   // amber
+    Minor:    '#38bdf8',   // sky blue
+    Unknown:  '#94a3b8',   // slate (missing/unknown severity)
+  },
+};
+
 /* ---------- Zone overlay styling ---------- */
 export const ZONE_STYLE = {
   default: { fillColor: '#1e3a5f', fillOpacity: 0.15, color: '#3b82f6', weight: 1.5, opacity: 0.7 },
@@ -144,6 +166,7 @@ export const STATE = {
   mode:         'browse',     // 'browse' | 'incident' | 'hypo_placing'
   selectedCrew: null,
   incidentPin:  null,         // { lat, lng }
+  incidentSource: null,       // 'manual' (map-click, visible pin) | 'fire' (fire-click, no pin) | null
   hypoCrew:     null,         // injected hypothetical crew object (or null)
   activeOverlay: null,        // 'moat' | 'desert' | 'zones' | null
   plKey:        'none',
@@ -158,6 +181,7 @@ export const STATE = {
   clusterRadius: 0,
   showAllIncident: false,     // incident list top-50 vs all
   wildfireOn:   false,        // merged wildfire layer toggle (current incidents + last-24h)
+  watchesOn:    false,        // NWS watches & warnings polygon overlay toggle
 };
 
 /* Loaded data (populated at startup by ui.js) */
@@ -168,11 +192,11 @@ export const DATA = {
   zones: null,       // geojson, lazy-loaded
 };
 
-/* Derived: assign a tier css name from rank */
-export function tierForRank(rank) {
-  if (rank <= TIERS.green.max)  return 'green';
-  if (rank <= TIERS.yellow.max) return 'yellow';
-  if (rank <= TIERS.orange.max) return 'orange';
+/* Assign a tier css name from rate ($/hr) */
+export function tierForRank(rate) {
+  if (rate < TIERS.green.max)  return 'green';
+  if (rate < TIERS.yellow.max) return 'yellow';
+  if (rate < TIERS.orange.max) return 'orange';
   return 'red';
 }
 
