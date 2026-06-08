@@ -147,10 +147,24 @@
           <button id="btn-coverage" class="btn action-btn overlay-btn" title="Company coverage (C)">⧉ Coverage</button>
           <button id="btn-desert"   class="btn action-btn overlay-btn" title="Rate desert (D)">≋ Desert</button>
         </div>
+        <!-- Zone view mode — shown while the Zones overlay is on. Defaults to GACC. -->
+        <div id="zone-mode" class="zone-mode" hidden aria-label="Zone view mode">
+          <span class="zm-label">Zone view</span>
+          <div class="seg zm-seg">
+            <button class="seg-btn active" data-zmode="gacc">GACC regions</button>
+            <button class="seg-btn" data-zmode="dispatch">Dispatch centers</button>
+          </div>
+        </div>
         <div class="util-group">
           <button id="btn-fire-filters" class="btn action-btn fire-filter-btn" title="Filter wildfire incidents (F)">⛯ Filters<span id="ff-badge" class="ff-badge" hidden>0</span></button>
           <button id="btn-theme" class="btn action-btn util-btn" title="Toggle theme (T)">☾</button>
           <button id="btn-help"  class="btn action-btn util-btn" title="Glossary &amp; help (?)">?</button>
+        </div>
+        <!-- Weather-alert type filter — shown while Alerts is on; buttons built
+             from WATCHES_CONFIG.categories in ui.js -->
+        <div id="watch-filter" class="watch-filter" hidden aria-label="Weather alert filter">
+          <span class="wa-label">Alert type</span>
+          <div id="wa-cats" class="seg wa-seg"></div>
         </div>
       </div>
 

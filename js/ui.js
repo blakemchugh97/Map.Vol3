@@ -5,11 +5,11 @@
 
 import {
   STATE, DATA, PL_CONFIG, PL_SLIDER, HYPO_CONFIG, RATE_BOUNDS, ZONE_SIM,
-  MOAT_CONFIG, DESERT_CONFIG, TIERS, effectiveKeepFraction, tierForRank,
+  MOAT_CONFIG, DESERT_CONFIG, TIERS, WATCHES_CONFIG, effectiveKeepFraction, tierForRank,
 } from './config.js';
 import {
   rankIncident, runZoneSimulation, rateSensitivity, breakevenRate,
-  makeRateVariant, baseCostFor, zoneStats, selectCoverageCrews,
+  makeRateVariant, baseCostFor, zoneStats, gaccStats, selectCoverageCrews,
 } from './dispatch.js';
 import * as MapView from './map.js';
 
@@ -29,6 +29,9 @@ let lastZoneResult = null;
 let zoneRadius = ZONE_SIM.defaultRadius;
 let testRate = null;
 let zonesGeojsonFailed = false;
+// disp_unit_id -> GACC abbreviation, derived from the zone geojson on first load.
+// Drives GACC-mode grouping, stats aggregation, and region list-filtering.
+let gaccByUnit = null;
 // Pending rate for the hypothetical DDL (the value shown before a pin is placed,
 // and retained between placements). Initialized in init() from HYPO_CONFIG.
 let hypoDraftRate = HYPO_CONFIG.defaultRate;
@@ -86,6 +89,7 @@ async function init() {
   wireControls();
   wireKeyboard();
   wireFireFilters();
+  wireWatchFilter();
   updateRateFill();
   updateClusterFill();
   updatePlSliderReadout();
@@ -130,6 +134,7 @@ function visibleCrews() {
   return DATA.crews.filter(c => {
     if (c.rate < min || c.rate > max) return false;
     if (STATE.zoneFilter && c.disp_unit_id !== STATE.zoneFilter) return false;
+    if (STATE.gaccFilter && (!gaccByUnit || gaccByUnit[c.disp_unit_id] !== STATE.gaccFilter)) return false;
     if (q) {
       const hay = (c.id + ' ' + c.company + ' ' + c.hucc).toLowerCase();
       if (!hay.includes(q)) return false;
@@ -302,6 +307,8 @@ function wireControls() {
   $('btn-incident').addEventListener('click', toggleIncidentMode);
   $('btn-hypo').addEventListener('click', toggleHypoTool);
   $('btn-zones').addEventListener('click', toggleZones);
+  document.querySelectorAll('#zone-mode .seg-btn').forEach(b =>
+    b.addEventListener('click', () => setZoneMode(b.dataset.zmode)));
   $('btn-moat').addEventListener('click', toggleMoat);
   $('btn-coverage').addEventListener('click', toggleCoverage);
   $('btn-desert').addEventListener('click', toggleDesert);
@@ -873,7 +880,7 @@ function updateOverlayButtons() {
 
 function clearActiveOverlay() {
   const was = STATE.activeOverlay;
-  if (was === 'zones') MapView.hideZones();
+  if (was === 'zones') { MapView.hideZones(); $('zone-mode').hidden = true; }
   else { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); }
   if (was === 'coverage') { clearTimeout(coverageTimer); MapView.clearCoverageHighlight(); closePanel('coverage-panel'); }
   hideProgress(); // a cancelled job's onDone never fires, so clear the chip here
@@ -1177,6 +1184,38 @@ function toggleWatches() {
   STATE.watchesOn = !STATE.watchesOn;
   MapView.toggleWatches(STATE.watchesOn);
   $('btn-watches').classList.toggle('active', STATE.watchesOn);
+  // Reveal the alert-type filter while alerts are on; the selected category is
+  // kept in STATE.watchesCategory, so toggling off and back on preserves it.
+  $('watch-filter').hidden = !STATE.watchesOn;
+}
+
+/* ---- Weather-alert type filter (Red Flag / Wind / …) ----
+   A category maps to a server-side WHERE on the CAP `Event` field, pushed to the
+   watches layer via MapView.setWatchesWhere(). Categories come from
+   WATCHES_CONFIG.categories so new groups need no code here. */
+
+// Build a WHERE that case-insensitively matches the category's event substrings.
+function buildWatchWhere(catKey) {
+  const cat = WATCHES_CONFIG.categories.find((c) => c.key === catKey);
+  if (!cat || !cat.match || !cat.match.length) return '1=1';
+  const q = (s) => s.replace(/'/g, "''");
+  return '(' + cat.match.map((m) => `UPPER(Event) LIKE UPPER('%${q(m)}%')`).join(' OR ') + ')';
+}
+
+// Push the active category to the layer and reflect it on the segmented control.
+function applyWatchFilter() {
+  MapView.setWatchesWhere(buildWatchWhere(STATE.watchesCategory));
+  document.querySelectorAll('#wa-cats .seg-btn').forEach((b) =>
+    b.classList.toggle('active', b.dataset.cat === STATE.watchesCategory));
+}
+
+function wireWatchFilter() {
+  const seg = $('wa-cats');
+  seg.innerHTML = WATCHES_CONFIG.categories.map((c) =>
+    `<button class="seg-btn${c.key === STATE.watchesCategory ? ' active' : ''}" data-cat="${esc(c.key)}">${esc(c.label)}</button>`).join('');
+  seg.querySelectorAll('.seg-btn').forEach((b) =>
+    b.addEventListener('click', () => { STATE.watchesCategory = b.dataset.cat; applyWatchFilter(); }));
+  applyWatchFilter(); // seed the layer's WHERE before its first show
 }
 
 /* ============================================================
@@ -1481,14 +1520,73 @@ async function toggleZones() {
     }
     hideProgress();
   }
+  // Build the disp_unit_id -> GACC lookup once, from the zone geojson itself.
+  if (!gaccByUnit) {
+    gaccByUnit = {};
+    for (const f of DATA.zones.features) {
+      const p = f.properties || {};
+      if (p.DispUnitID) gaccByUnit[p.DispUnitID] = p.GACCAbbreviation || '';
+    }
+  }
   STATE.activeOverlay = 'zones';
   updateOverlayButtons();
-  MapView.showZones(DATA.zones, (unitId) => zoneStats(unitId, DATA.crews));
+  syncZoneModeControl();
+  $('zone-mode').hidden = false;
+  renderZones();
 }
 
-function handleZoneClick(props, stats, layer) {
-  MapView.setActiveZone(props.DispUnitID);
-  const html = stats ? `
+// (Re)draw the zone overlay for the current mode. Switching modes calls this
+// after hiding the previous layer, so the map updates live.
+function renderZones() {
+  if (STATE.zoneMode === 'gacc') {
+    MapView.showZones(DATA.zones, {
+      keyOf: (p) => p.GACCAbbreviation || '',
+      statsFor: (gacc) => gaccStats(gacc, DATA.crews, gaccByUnit),
+    });
+  } else {
+    MapView.showZones(DATA.zones, {
+      keyOf: (p) => p.DispUnitID,
+      statsFor: (unitId) => zoneStats(unitId, DATA.crews),
+    });
+  }
+}
+
+// Apply a new Zones view mode and redraw live. No-op if unchanged.
+function setZoneMode(mode) {
+  if (mode === STATE.zoneMode) return;
+  STATE.zoneMode = mode;
+  syncZoneModeControl();
+  if (STATE.activeOverlay === 'zones') { MapView.hideZones(); renderZones(); }
+}
+
+// Reflect STATE.zoneMode in the segmented control's active button.
+function syncZoneModeControl() {
+  document.querySelectorAll('#zone-mode .seg-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.zmode === STATE.zoneMode));
+}
+
+function handleZoneClick(props, stats, layer, key) {
+  MapView.setActiveZone(key);
+  const html = STATE.zoneMode === 'gacc'
+    ? gaccPopupHtml(key, stats)
+    : dispatchPopupHtml(props, stats);
+  MapView.bindZonePopup(layer, html);
+  if (stats) {
+    setTimeout(() => {
+      if (STATE.zoneMode === 'gacc') {
+        const btn = $(`zp-region-${cssId(key)}`);
+        if (btn) btn.addEventListener('click', () => filterToRegion(key));
+      } else {
+        const btn = $(`zp-filter-${props.DispUnitID}`);
+        if (btn) btn.addEventListener('click', () => filterToZone(props.DispUnitID, props.DispName));
+      }
+    }, 0);
+  }
+}
+
+// Dispatch-center popup (unchanged behavior).
+function dispatchPopupHtml(props, stats) {
+  return stats ? `
     <div class="zone-popup">
       <div class="zp-title">${esc(props.DispName)}</div>
       <div class="zp-sub">${esc(props.DispLocation || '')} · ${esc(props.GACCAbbreviation || '')}</div>
@@ -1506,28 +1604,59 @@ function handleZoneClick(props, stats, layer) {
       <div class="zp-sub">${esc(props.DispLocation || '')} · ${esc(props.GACCAbbreviation || '')}</div>
       <div class="zp-stats">No T2C crews based in this zone.</div>
     </div>`;
-  MapView.bindZonePopup(layer, html);
-  if (stats) {
-    setTimeout(() => {
-      const btn = $(`zp-filter-${props.DispUnitID}`);
-      if (btn) btn.addEventListener('click', () => filterToZone(props.DispUnitID, props.DispName));
-    }, 0);
-  }
 }
 
+// GACC-level popup: aggregated across all dispatch zones in the region. Avoids
+// dispatch-center wording.
+function gaccPopupHtml(gacc, stats) {
+  const title = esc(gacc || 'GACC');
+  return stats ? `
+    <div class="zone-popup">
+      <div class="zp-title">${title} region</div>
+      <div class="zp-sub">Geographic Area Coordination Center</div>
+      <div class="zp-stats">
+        <b>${stats.crew_count}</b> crews · <b>${stats.company_count}</b> companies<br>
+        Avg rate: <b>${fmtRate(stats.avg_rate)}</b> · Range: ${fmtRate(stats.min_rate)}–${fmtRate(stats.max_rate)}<br>
+        Cheapest: <b>${esc(stats.cheapest.id)}</b> · ${fmtRate(stats.cheapest.rate)} · ${esc(stats.cheapest.company)}
+      </div>
+      <div class="zp-actions">
+        <button class="btn btn-sm" id="zp-region-${cssId(gacc)}">Filter list to region</button>
+      </div>
+    </div>` : `
+    <div class="zone-popup">
+      <div class="zp-title">${title} region</div>
+      <div class="zp-sub">Geographic Area Coordination Center</div>
+      <div class="zp-stats">No T2C crews based in this region.</div>
+    </div>`;
+}
+
+// Sanitize a key for use in an element id (GACC abbreviations are alnum already).
+const cssId = (s) => String(s).replace(/[^a-zA-Z0-9_-]/g, '_');
+
 function filterToZone(unitId, name) {
+  STATE.gaccFilter = null;
   STATE.zoneFilter = unitId;
   renderActiveFilters(name);
   applyFiltersAndRender();
   if (!STATE.sidebarOpen) toggleSidebar();
 }
+function filterToRegion(gacc) {
+  STATE.zoneFilter = null;
+  STATE.gaccFilter = gacc;
+  renderActiveFilters();
+  applyFiltersAndRender();
+  if (!STATE.sidebarOpen) toggleSidebar();
+}
 function renderActiveFilters(zoneName) {
   const wrap = $('active-filters');
-  if (!STATE.zoneFilter) { wrap.hidden = true; wrap.innerHTML = ''; return; }
+  if (!STATE.zoneFilter && !STATE.gaccFilter) { wrap.hidden = true; wrap.innerHTML = ''; return; }
   wrap.hidden = false;
-  wrap.innerHTML = `<span class="filter-chip">Zone: ${esc(zoneName || STATE.zoneFilter)} <button id="clear-zone-filter" title="Clear">×</button></span>`;
+  const label = STATE.gaccFilter
+    ? `Region: ${esc(STATE.gaccFilter)}`
+    : `Zone: ${esc(zoneName || STATE.zoneFilter)}`;
+  wrap.innerHTML = `<span class="filter-chip">${label} <button id="clear-zone-filter" title="Clear">×</button></span>`;
   $('clear-zone-filter').addEventListener('click', () => {
-    STATE.zoneFilter = null; renderActiveFilters(); applyFiltersAndRender();
+    STATE.zoneFilter = null; STATE.gaccFilter = null; renderActiveFilters(); applyFiltersAndRender();
   });
 }
 

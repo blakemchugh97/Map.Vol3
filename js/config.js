@@ -151,6 +151,16 @@ export const WATCHES_CONFIG = {
     Minor:    '#38bdf8',   // sky blue
     Unknown:  '#94a3b8',   // slate (missing/unknown severity)
   },
+  // Alert-type filter categories for the small popover on the Alerts control.
+  // Each category becomes a server-side WHERE on the CAP `Event` field (matched
+  // case-insensitively as a substring, so wording variants still match). `match`
+  // is a list of substrings OR'd together; `null` clears the filter (show all).
+  // Add new groups here — the filter UI builds itself from this list.
+  categories: [
+    { key: 'all',     label: 'All',      match: null },
+    { key: 'redflag', label: 'Red Flag', match: ['Red Flag', 'Fire Weather'] },
+    { key: 'wind',    label: 'Wind',     match: ['Wind'] },
+  ],
 };
 
 /* ---------- Zone overlay styling ---------- */
@@ -176,12 +186,15 @@ export const STATE = {
   rateFilter:   { min: 51, max: 68 },
   searchQuery:  '',
   zoneFilter:   null,         // disp_unit_id or null
+  gaccFilter:   null,         // GACC abbreviation or null (region-level list filter)
+  zoneMode:     'gacc',       // Zones overlay view: 'gacc' (regions) | 'dispatch' (centers). Defaults to GACC.
   theme:        'dark',
   sidebarOpen:  true,
   clusterRadius: 0,
   showAllIncident: false,     // incident list top-50 vs all
   wildfireOn:   false,        // merged wildfire layer toggle (current incidents + last-24h)
   watchesOn:    false,        // NWS watches & warnings polygon overlay toggle
+  watchesCategory: 'redflag', // active alert-type filter key (see WATCHES_CONFIG.categories)
 };
 
 /* Loaded data (populated at startup by ui.js) */
