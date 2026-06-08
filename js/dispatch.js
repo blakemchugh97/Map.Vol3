@@ -413,8 +413,8 @@ export function pointInPoly(lng, lat, poly) {
 export function isUSLand(lat, lng) { return pointInPoly(lng, lat, US_LAND_POLY); }
 
 /* ---------- Zone stats ---------- */
-export function zoneStats(dispUnitID, allCrews) {
-  const zoneCrew = allCrews.filter(c => c.disp_unit_id === dispUnitID);
+// Summarize a set of crews into the popup stat shape (or null if empty).
+function summarizeCrew(zoneCrew) {
   if (zoneCrew.length === 0) return null;
   const rates = zoneCrew.map(c => c.rate);
   const companies = [...new Set(zoneCrew.map(c => c.company))];
@@ -427,6 +427,17 @@ export function zoneStats(dispUnitID, allCrews) {
     max_rate: Math.max(...rates).toFixed(2),
     cheapest: sorted[0],
   };
+}
+
+export function zoneStats(dispUnitID, allCrews) {
+  return summarizeCrew(allCrews.filter(c => c.disp_unit_id === dispUnitID));
+}
+
+// Aggregate stats across every dispatch zone in a GACC. `gaccOfUnit` maps a
+// crew's disp_unit_id -> GACC abbreviation (built from the zone geojson).
+export function gaccStats(gacc, allCrews, gaccOfUnit) {
+  if (!gacc) return null;
+  return summarizeCrew(allCrews.filter(c => gaccOfUnit[c.disp_unit_id] === gacc));
 }
 
 /* ---------- Async chunked iteration (non-blocking overlays) ----------

@@ -19,7 +19,7 @@ let crewKeyById = {};       // crew.id -> ddpKey
 let selectedMarkerKey = null;
 
 let incidentMarker, incidentCircle, hypoMarker, radiusCircle;
-let zoneLayer = null, zoneByUnit = {}, activeZoneLayer = null;
+let zoneLayer = null, zonesByKey = {}, activeZoneKey = null;
 let overlayCells = null;     // L.layerGroup for moat/desert
 let sampleDots = null;       // L.layerGroup for zone-sim dots
 let overlayJob = null;       // active chunked job (cancel handle)
@@ -257,35 +257,43 @@ export function setCrosshair(on) {
 /* ============================================================
    Zone overlay (geojson)
    ============================================================ */
-export function showZones(geojson, computeStats) {
+// Render the zone overlay. `keyOf(props)` groups features (DispUnitID in dispatch
+// mode, GACCAbbreviation in GACC mode) and `statsFor(key)` returns popup stats for
+// a key. Several features can share a key (a GACC dissolves many dispatch zones):
+// they share one style, hover/active highlight as a unit, and click reports the key.
+export function showZones(geojson, { keyOf, statsFor }) {
   if (zoneLayer) return;
-  zoneByUnit = {};
+  zonesByKey = {};
+  activeZoneKey = null;
   zoneLayer = L.geoJSON(geojson, {
     style(feature) {
-      const stats = computeStats(feature.properties.DispUnitID);
+      const stats = statsFor(keyOf(feature.properties));
       return stats ? { ...ZONE_STYLE.default } : { ...ZONE_STYLE.empty };
     },
     onEachFeature(feature, layer) {
-      const id = feature.properties.DispUnitID;
-      zoneByUnit[id] = layer;
-      const stats = computeStats(id);
-      layer.on('mouseover', () => { if (layer !== activeZoneLayer) layer.setStyle(ZONE_STYLE.hover); });
-      layer.on('mouseout',  () => { if (layer !== activeZoneLayer) layer.setStyle(stats ? ZONE_STYLE.default : ZONE_STYLE.empty); });
+      const key = keyOf(feature.properties);
+      (zonesByKey[key] ||= []).push(layer);
+      const stats = statsFor(key);
+      const restStyle = () => (stats ? ZONE_STYLE.default : ZONE_STYLE.empty);
+      layer.on('mouseover', () => { if (key !== activeZoneKey) setKeyStyle(key, ZONE_STYLE.hover); });
+      layer.on('mouseout',  () => { if (key !== activeZoneKey) setKeyStyle(key, restStyle()); });
       layer.on('click', (e) => {
         L.DomEvent.stopPropagation(e);
-        if (handlers.onZoneClick) handlers.onZoneClick(feature.properties, stats, layer);
+        if (handlers.onZoneClick) handlers.onZoneClick(feature.properties, stats, layer, key);
       });
     },
   }).addTo(map);
   zoneLayer.bringToBack();
 }
-export function hideZones() {
-  if (zoneLayer) { map.removeLayer(zoneLayer); zoneLayer = null; activeZoneLayer = null; zoneByUnit = {}; }
+function setKeyStyle(key, style) {
+  (zonesByKey[key] || []).forEach(l => l.setStyle(style));
 }
-export function setActiveZone(unitId) {
-  if (activeZoneLayer) activeZoneLayer.setStyle(ZONE_STYLE.default);
-  const layer = zoneByUnit[unitId];
-  if (layer) { layer.setStyle(ZONE_STYLE.active); activeZoneLayer = layer; }
+export function hideZones() {
+  if (zoneLayer) { map.removeLayer(zoneLayer); zoneLayer = null; activeZoneKey = null; zonesByKey = {}; }
+}
+export function setActiveZone(key) {
+  if (activeZoneKey) setKeyStyle(activeZoneKey, ZONE_STYLE.default);
+  if (zonesByKey[key]) { setKeyStyle(key, ZONE_STYLE.active); activeZoneKey = key; }
 }
 export function bindZonePopup(layer, html) { layer.bindPopup(html, { className: 'zone-popup', maxWidth: 280 }).openPopup(); }
 
@@ -889,6 +897,7 @@ function fmtReported(ms) {
    ============================================================ */
 let watchesLayer = null;
 let watchesWanted = false; // desired on/off (kept for symmetry with the toggle)
+let watchesWhere  = '1=1'; // active alert-type filter (server-side WHERE on Event)
 
 // Polygon style keyed on the layer's CAP `Severity` field.
 function watchesStyle(feature) {
@@ -936,6 +945,7 @@ export function toggleWatches(on) {
   // First show: build the polygon layer once; subsequent toggles reuse it.
   watchesLayer = L.esri.featureLayer({
     url: WATCHES_CONFIG.url,
+    where: watchesWhere, // honor any alert-type filter set while the layer was off
     style: watchesStyle,
     onEachFeature: (feature, layer) => {
       layer.bindPopup(watchesPopup(feature.properties), { className: 'watches-popup', maxWidth: 280 });
@@ -944,6 +954,14 @@ export function toggleWatches(on) {
     },
   });
   if (watchesWanted) watchesLayer.addTo(map).bringToBack();
+}
+
+// Server-side alert-type filter for the watches layer. Stored even while the
+// layer is hidden so it's applied on next (re)build; esri-leaflet's setWhere()
+// re-fetches only matching polygons, so filtering hides them from the map.
+export function setWatchesWhere(where) {
+  watchesWhere = where || '1=1';
+  if (watchesLayer && watchesLayer.setWhere) watchesLayer.setWhere(watchesWhere);
 }
 
 /* ============================================================

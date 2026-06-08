@@ -316,6 +316,26 @@ input { font-family: inherit; }
 .alert-btn.active { background: color-mix(in srgb, #f59e0b 22%, var(--surface2)); border-color: #f59e0b; color: #fcd34d; }
 [data-theme="light"] .alert-btn.active { color: #92500a; }
 
+/* Weather-alert type filter — compact popover under the Alerts control, amber
+   to match the Alerts button. Built from WATCHES_CONFIG.categories. */
+.watch-filter {
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
+  background: var(--surface); border: 1px solid #f59e0b; border-radius: var(--radius-lg);
+  padding: 8px 10px; box-shadow: var(--shadow-sm);
+}
+.watch-filter .wa-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); font-weight: 600; }
+.wa-seg .seg-btn.active { background: #f59e0b; color: #1a1205; }
+
+/* Zone view mode — compact segmented control shown while the Zones overlay is on,
+   blue to match the zone polygons. GACC regions vs Dispatch centers. */
+.zone-mode {
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
+  background: var(--surface); border: 1px solid #3b82f6; border-radius: var(--radius-lg);
+  padding: 8px 10px; box-shadow: var(--shadow-sm);
+}
+.zone-mode .zm-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); font-weight: 600; }
+.zm-seg .seg-btn.active { background: #3b82f6; color: #fff; }
+
 /* Wildfire filter launcher — warm amber to read as "fire", with an active-count badge */
 .fire-filter-btn { display: inline-flex; align-items: center; gap: 6px; }
 .fire-filter-btn.active { background: color-mix(in srgb, var(--gold) 22%, var(--surface2)); border-color: var(--gold); color: #fcd34d; }
