@@ -203,6 +203,35 @@ export function aggregateCoverageCells(perCrew) {
   return byCell;
 }
 
+/* "Competitive here" for the coverage view: a crew counts as competitive at a cell
+   when its rank falls within the moat's outer band (top-20). This is the SAME
+   threshold the coverage hover readout and per-crew highlight already use, reused
+   here so the single-company gradient and the two-company discrete coloring agree
+   on what "competitive" means. */
+export function isCoverageCompetitive(rank) { return rank <= MOAT_CONFIG.bandOuter; }
+
+/* Two-company classification for a unioned coverage cell. `groupOf(id)` maps a
+   covering crew id to 'A' | 'B' | null (null = assigned to neither company, e.g. an
+   excluded hypo). Returns { a, b, category, strengthA, strengthB } where:
+     - a/b      = "this company has at least one competitive crew (top-20) here"
+     - category ∈ 'both' | 'a' | 'b' | 'neither'
+     - strengthA/strengthB = each company's best-rank moat strength here, the SAME
+       0..1 bandScore the single-company moat shades by (bandScore of the company's
+       best/lowest rank among its covering crews; 0 if the company isn't here).
+   The strengths drive the one-sided company tint in map.js (companyBlendColor),
+   reusing the existing rank-band fade rather than any new scoring. Pure. */
+export function classifyDuoCell(agg, groupOf) {
+  let a = false, b = false, bestRankA = Infinity, bestRankB = Infinity;
+  for (const c of agg.crews) {
+    const g = groupOf(c.id);
+    if (g === 'A') { if (c.rank < bestRankA) bestRankA = c.rank; if (isCoverageCompetitive(c.rank)) a = true; }
+    else if (g === 'B') { if (c.rank < bestRankB) bestRankB = c.rank; if (isCoverageCompetitive(c.rank)) b = true; }
+  }
+  const strengthA = bestRankA === Infinity ? 0 : bandScore(bestRankA);
+  const strengthB = bestRankB === Infinity ? 0 : bandScore(bestRankB);
+  return { a, b, category: a && b ? 'both' : a ? 'a' : b ? 'b' : 'neither', strengthA, strengthB };
+}
+
 /* ---------- Zone (competitive radius) simulation ----------
    Model D: the analyzed crew is the hypothesis ("if dispatched here") and is
    ALWAYS available. PL thinning models *competitors* being drawn to other fires,

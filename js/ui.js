@@ -21,6 +21,7 @@ const fmtRate   = (n) => '$' + Number(n).toFixed(2);
 const fmtMiles  = (n) => Math.round(n).toLocaleString() + ' mi';
 const fmtHours  = (h) => h < 1 ? Math.round(h * 60) + 'm' : h.toFixed(1) + 'h';
 const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const rgbCss = (a) => `rgb(${a[0]},${a[1]},${a[2]})`; // [r,g,b] → css (two-company swatches)
 
 /* ---------- module state ---------- */
 let lastIncidentRows = [];
@@ -45,14 +46,51 @@ let incidentTopIds = null; // Set<crewId> when an incident is active, else null
 // clean. Enable by loading the app with ?debugDots in the URL.
 const DEBUG_DOTS = new URLSearchParams(location.search).has('debugDots');
 
-// Company coverage view state: the chosen vendor company, the set of its crews
-// currently included, and a debounce handle for recompute on selection changes.
-let coverageCompany = null;          // company name or null
-let coverageSelectedIds = new Set(); // crew ids included within the company
+// Company coverage view state. Supports one OR two companies: Company A is the
+// primary slot, Company B is optional. When both are set, the overlay switches from
+// the single red→emerald gradient to the four-case two-company coloring (see
+// startCoverage / showCoverageLegend). `coverageSelectedIds` is the single source of
+// truth for which crews are in the analysis and spans BOTH companies' crews.
+let coverageCompanyA = null;         // primary company name or null
+let coverageCompanyB = null;         // optional second company name or null
+let coverageSelectedIds = new Set(); // crew ids included, across both companies
 let coverageTimer = null;            // debounce handle for startCoverage()
+// When a hypothetical DDL exists, optionally layer it onto the selected crews as one
+// more analyzed crew in the moat union. Guarded by STATE.hypoCrew, so it has no
+// effect (and the control is hidden) when no hypo is placed.
+let coverageIncludeHypo = false;
+// Which company the hypo counts for in two-company mode: 'A' or 'B'. Ignored in
+// single-company mode (the gradient doesn't distinguish companies). Defaults to A.
+let coverageHypoGroup = 'A';
 // Map-dot visibility while the coverage overlay is active. false = show all crew
 // dots (current behavior); true = show only the crews in the company analysis.
 let coverageShowOnlyAnalyzed = false;
+
+// The selected companies, A first, with blanks dropped.
+function coverageCompanies() { return [coverageCompanyA, coverageCompanyB].filter(Boolean); }
+// Two-company mode is active only when BOTH slots are filled (with distinct names).
+function coverageIsDuo() { return !!(coverageCompanyA && coverageCompanyB); }
+// Every crew belonging to the selected companies (A's crews then B's), cheapest
+// first within each — the candidate pool the tier chips and checklists act on.
+function coverageAllCompanyCrews() { return coverageCompanies().flatMap(companyCrews); }
+// Which company a crew id belongs to in the current view: 'A', 'B', or null. The
+// hypo follows its assigned group; real crews follow their company field.
+function coverageGroupOf(id) {
+  if (STATE.hypoCrew && id === STATE.hypoCrew.id) return coverageHypoGroup;
+  const c = DATA.byId[id];
+  if (!c) return null;
+  if (c.company === coverageCompanyA) return 'A';
+  if (c.company === coverageCompanyB) return 'B';
+  return null;
+}
+
+// Crew ids currently in the coverage analysis: the selected crews (both companies),
+// plus the hypothetical DDL when it exists and is toggled on.
+function coverageAnalyzedIds() {
+  const ids = new Set(coverageSelectedIds);
+  if (coverageIncludeHypo && STATE.hypoCrew) ids.add(STATE.hypoCrew.id);
+  return ids;
+}
 
 // Draw / update the violet competitive-radius circle for the selected crew.
 function showRadiusCircle() {
@@ -150,7 +188,8 @@ function applyFiltersAndRender() {
   let mapIds = incidentTopIds || new Set(vis.map(c => c.id));
   // Company coverage "Show only analyzed crews": hide dots not in the analysis.
   if (STATE.activeOverlay === 'coverage' && coverageShowOnlyAnalyzed) {
-    mapIds = new Set([...mapIds].filter(id => coverageSelectedIds.has(id)));
+    const analyzed = coverageAnalyzedIds();
+    mapIds = new Set([...mapIds].filter(id => analyzed.has(id)));
   }
   MapView.applyFilter(mapIds);
   renderList(vis);
@@ -421,6 +460,10 @@ function recomputeAnalyses() {
 function recomputeForFieldChange() {
   MapView.invalidateOverlayCaches();
   if (!STATE.incidentPin) applyFiltersAndRender(); // refresh list/markers (hypo in/out)
+  // Coverage panel shows an "Include hypothetical DDL" control that only exists
+  // while a hypo is placed; rebuild it so the row appears/updates/disappears in
+  // step with the hypo. recomputeAnalyses() below handles the footprint recompute.
+  if (STATE.activeOverlay === 'coverage') renderCoveragePanel();
   recomputeAnalyses();
 }
 
@@ -793,10 +836,8 @@ function renderHypotheticalDDLTool() {
           <div class="result-cell"><div class="rc-val"><span class="tdot" style="background:var(--${h.color})"></span>${capitalize(h.color)}</div><div class="rc-label">Tier</div></div>
           <div class="result-cell"><div class="rc-val">${fmtMoney(h.base_cost)}</div><div class="rc-label">Base cost</div></div>
         </div>
+        <div class="hint" style="margin-top:6px">Live in incident, competitive-radius, moat &amp; coverage analysis. Adjust the rate or re-place the pin above; everything recomputes instantly.</div>
         <div class="btn-row" style="margin-top:9px">
-          <button id="hypo-analyze" class="btn btn-primary full">Select &amp; analyze this crew</button>
-        </div>
-        <div class="btn-row" style="margin-top:6px">
           <button id="hypo-remove" class="btn full">Remove hypothetical DDL</button>
         </div>`
       : `<div class="hint">Set a rate, then place the pin. Default $${HYPO_CONFIG.defaultRate.toFixed(2)} ≈ field median.</div>`}
@@ -810,7 +851,6 @@ function renderHypotheticalDDLTool() {
   rateInput.addEventListener('change', () => commitHypoRate(parseFloat(rateInput.value)));
   panel.querySelectorAll('.nudge[data-hnudge]').forEach(b =>
     b.addEventListener('click', () => commitHypoRate((parseFloat(rateInput.value) || hypoDraftRate) + parseFloat(b.dataset.hnudge))));
-  if ($('hypo-analyze')) $('hypo-analyze').addEventListener('click', () => selectCrew(STATE.hypoCrew, { fly: true }));
   if ($('hypo-remove')) $('hypo-remove').addEventListener('click', removeHypoCrew);
 }
 
@@ -849,23 +889,31 @@ function commitHypoRate(rate) {
   }
 }
 
-/* Remove the hypo DDL entirely and restore the real field. */
+/* Remove the hypo DDL entirely and restore the real field. Tears down the whole
+   hypo workflow: close the detail panel if the hypo was selected, close the hypo
+   panel itself, and clear the pin — nothing stale is left on screen. The coverage
+   panel re-renders via recomputeForFieldChange() and reverts to its "Add
+   hypothetical crew" entry point. */
 function removeHypoCrew() {
   const wasSelected = STATE.selectedCrew && STATE.selectedCrew.id === HYPO_CONFIG.id;
+  coverageIncludeHypo = false; // drop it from any active coverage analysis
   removeHypotheticalCrewFromAnalysis();
   MapView.clearHypoPin();
   if (wasSelected) closeDetail();
-  renderHypotheticalDDLTool();
+  closeHypoTool();
   recomputeForFieldChange();
 }
 
-/* Clicking the hypo map marker: drop incident here / re-place / select & analyze. */
+/* Clicking the hypo map marker: drop incident here / re-place / open its panel.
+   The hypo panel is the crew's home, so a normal click reopens it rather than
+   bouncing into the generic crew-detail/analysis panel. */
 function handleHypoMarkerClick() {
   const h = STATE.hypoCrew;
   if (!h) return;
   if (STATE.mode === 'incident') return dropIncident(h.lat, h.lng);
   if (STATE.mode === 'hypo_placing') return placeHypoCrew(h.lat, h.lng);
-  selectCrew(h, { fly: false });
+  $('btn-hypo').classList.add('active');
+  renderHypotheticalDDLTool();
 }
 
 /* ============================================================
@@ -977,23 +1025,47 @@ function toggleCoverage() {
   updateOverlayButtons();
   renderCoveragePanel();
   refreshCoverageDots(); // apply "only analyzed" dot filter if it was left on
-  if (coverageCompany) startCoverage(); // restore last company's footprint
+  if (coverageCompanies().length) startCoverage(); // restore last companies' footprint
 }
 
 function renderCoveragePanel() {
   const panel = $('coverage-panel');
   const companies = companyList();
-  const company = coverageCompany;
-  const crews = company ? companyCrews(company) : [];
+  const A = coverageCompanyA, B = coverageCompanyB;
+  const active = coverageCompanies();
+  const duo = coverageIsDuo();
+  const pool = coverageAllCompanyCrews();
   const tierCounts = { green: 0, yellow: 0, orange: 0, red: 0 };
-  for (const c of crews) tierCounts[tierForRank(c.rate)]++;
-  const selN = crews.filter(c => coverageSelectedIds.has(c.id)).length;
+  for (const c of pool) tierCounts[tierForRank(c.rate)]++;
+  const selN = pool.filter(c => coverageSelectedIds.has(c.id)).length;
+  const subtitle = active.length
+    ? `${active.map(esc).join(' vs ')} · ${selN}/${pool.length} crews`
+    : 'Pick a company to map its coverage';
+
+  // <option>s for a slot, hiding the name already chosen in the OTHER slot so the
+  // same company can't be picked twice.
+  const optionsFor = (selected, exclude) => companies
+    .filter(c => c.name !== exclude)
+    .map(c => `<option value="${esc(c.name)}"${c.name === selected ? ' selected' : ''}>${esc(c.name)} (${c.count})</option>`)
+    .join('');
+
+  // One company's crew checklist, with a colored sub-header in two-company mode so
+  // each list is attributable to its company / advantage color.
+  const crewSection = (company, group) => {
+    const swatch = group
+      ? `<span class="cov-legend-swatch" style="background:${rgbCss(MOAT_CONFIG.duoColors[group])}"></span>`
+      : '';
+    const head = duo ? `<div class="cov-sub-head">${swatch}${esc(company)}</div>` : '';
+    return `${head}<div class="cov-crewlist${duo ? ' cov-crewlist-duo' : ''}">
+      ${companyCrews(company).map(coverageCrewRow).join('') || '<div class="hint">No crews for this company.</div>'}
+    </div>`;
+  };
 
   panel.innerHTML = `
     <div class="panel-head">
       <div>
         <div class="panel-title"><span class="accent">⧉</span> Company coverage</div>
-        <div class="panel-sub">${company ? `${esc(company)} · ${selN}/${crews.length} crews` : 'Pick a company to map its coverage'}</div>
+        <div class="panel-sub">${subtitle}</div>
       </div>
       <div class="panel-head-btns">
         <button class="panel-min" data-min title="Minimize">–</button>
@@ -1002,25 +1074,51 @@ function renderCoveragePanel() {
     </div>
     <div class="panel-body">
       <div class="section" style="border-top:none;padding-top:0">
-        <div class="section-title"><span><span class="accent">▦</span> Company</span></div>
-        <select id="cov-company" class="input cov-select">
-          <option value="">— Select a company —</option>
-          ${companies.map(c => `<option value="${esc(c.name)}"${c.name === company ? ' selected' : ''}>${esc(c.name)} (${c.count})</option>`).join('')}
+        <div class="section-title"><span><span class="accent">▦</span> Companies</span></div>
+        <select id="cov-company-a" class="input cov-select">
+          <option value="">— Company A —</option>
+          ${optionsFor(A, B)}
         </select>
+        <select id="cov-company-b" class="input cov-select" style="margin-top:6px">
+          <option value="">— Company B (optional) —</option>
+          ${optionsFor(B, A)}
+        </select>
+        ${duo ? `<div class="cov-duo-key">
+          <span><span class="cov-legend-swatch" style="background:${rgbCss(MOAT_CONFIG.duoColors.a)}"></span>${esc(A)} only</span>
+          <span><span class="cov-legend-swatch" style="background:${rgbCss(MOAT_CONFIG.duoColors.b)}"></span>${esc(B)} only</span>
+        </div>` : ''}
       </div>
-      ${company ? `
       <div class="section">
-        <div class="section-title"><span><span class="accent">$</span> Price tiers</span>
-          <button id="cov-all" class="btn btn-sm">${selN === crews.length ? 'Clear all' : 'Select all'}</button></div>
+        ${STATE.hypoCrew ? `
+        <label class="cov-crew" style="cursor:pointer">
+          <input type="checkbox" id="cov-hypo"${coverageIncludeHypo ? ' checked' : ''}>
+          <span class="tdot" style="background:var(--violet)"></span>
+          <span class="cov-crew-id" style="color:var(--violet)">Include hypothetical DDL</span>
+          <span class="rate-badge ${STATE.hypoCrew.color}">${fmtRate(STATE.hypoCrew.rate)}</span>
+        </label>
+        ${duo && coverageIncludeHypo ? `
+        <div class="cov-hypo-group">
+          <span class="cov-mini-label">Counts as</span>
+          <button class="btn btn-sm cov-hgrp${coverageHypoGroup === 'A' ? ' active' : ''}" data-hgrp="A">A · ${esc(A)}</button>
+          <button class="btn btn-sm cov-hgrp${coverageHypoGroup === 'B' ? ' active' : ''}" data-hgrp="B">B · ${esc(B)}</button>
+        </div>` : ''}
+        <button id="cov-hypo-edit" class="btn btn-sm" style="margin-top:6px">Edit hypothetical…</button>`
+        : `
+        <button id="cov-add-hypo" class="btn full"><span style="color:var(--violet)">⚲</span>&nbsp; Add hypothetical crew</button>
+        <div class="hint" style="margin-top:6px">Drops a what-if competitor — your next map click places it. Default $${HYPO_CONFIG.defaultRate.toFixed(2)}/hr.</div>`}
+      </div>
+      ${active.length ? `
+      <div class="section">
+        <div class="section-title"><span><span class="accent">$</span> Price tiers${duo ? ' · both companies' : ''}</span>
+          <button id="cov-all" class="btn btn-sm">${pool.length && selN === pool.length ? 'Clear all' : 'Select all'}</button></div>
         <div class="cov-tiers">
-          ${COVERAGE_TIERS.map(t => coverageTierChip(t, tierCounts[t], crews)).join('')}
+          ${COVERAGE_TIERS.map(t => coverageTierChip(t, tierCounts[t], pool)).join('')}
         </div>
+        ${duo ? '<div class="hint" style="margin-top:6px">Tiers select the matching price band from <b>both</b> companies.</div>' : ''}
       </div>
       <div class="section">
         <div class="section-title"><span>Crews</span><span class="filter-readout" id="cov-selected">${selN} selected</span></div>
-        <div class="cov-crewlist">
-          ${crews.map(coverageCrewRow).join('') || '<div class="hint">No crews for this company.</div>'}
-        </div>
+        ${active.map((co, i) => crewSection(co, duo ? (i === 0 ? 'a' : 'b') : null)).join('')}
       </div>
       <div class="section">
         <div class="section-title"><span>Map dots</span></div>
@@ -1028,20 +1126,46 @@ function renderCoveragePanel() {
           <button class="btn btn-sm cov-vis${!coverageShowOnlyAnalyzed ? ' active' : ''}" data-vis="all">Show all crews</button>
           <button class="btn btn-sm cov-vis${coverageShowOnlyAnalyzed ? ' active' : ''}" data-vis="analyzed">Show only analyzed crews</button>
         </div>
-      </div>` : '<div class="hint" style="margin-top:4px">Then include crews by price tier or individually. Overlap shows redundant coverage; gaps show where competitive advantage is missing.</div>'}
+      </div>` : '<div class="hint" style="margin-top:4px">Then include crews by price tier or individually. Add a Company B to color where only one company is competitive.</div>'}
     </div>`;
   panel.hidden = false;
   wireMinimize(panel);
 
   el('[data-pc]', panel).addEventListener('click', () => clearActiveOverlay());
-  $('cov-company').addEventListener('change', e => onCoverageCompany(e.target.value));
-  if (company) {
+  $('cov-company-a').addEventListener('change', e => onCoverageCompany('A', e.target.value));
+  $('cov-company-b').addEventListener('change', e => onCoverageCompany('B', e.target.value));
+  if ($('cov-hypo')) $('cov-hypo').addEventListener('change', e => {
+    coverageIncludeHypo = e.target.checked;
+    renderCoveragePanel(); // show/hide the A/B group toggle
+    refreshCoverageDots();
+    scheduleCoverage();
+  });
+  // Pick which company the hypo counts for in two-company mode.
+  panel.querySelectorAll('.cov-hgrp').forEach(b => b.addEventListener('click', () => {
+    coverageHypoGroup = b.dataset.hgrp;
+    renderCoveragePanel();
+    scheduleCoverage();
+  }));
+  // Start a hypo crew without leaving coverage: arm map placement immediately and
+  // pre-include it so it lands inside the analysis the moment the pin drops.
+  if ($('cov-add-hypo')) $('cov-add-hypo').addEventListener('click', () => {
+    coverageIncludeHypo = true;
+    $('btn-hypo').classList.add('active');
+    enterHypoPlacement();
+  });
+  // Open the hypo panel to edit rate / re-place — those controls live only there.
+  if ($('cov-hypo-edit')) $('cov-hypo-edit').addEventListener('click', () => {
+    $('btn-hypo').classList.add('active');
+    renderHypotheticalDDLTool();
+  });
+  if (active.length) {
     $('cov-all').addEventListener('click', toggleCoverageAll);
     panel.querySelectorAll('.cov-vis').forEach(b =>
       b.addEventListener('click', () => setCoverageVisMode(b.dataset.vis === 'analyzed')));
     panel.querySelectorAll('.cov-tier').forEach(ch =>
       ch.addEventListener('click', () => toggleCoverageTier(ch.dataset.tier)));
-    panel.querySelectorAll('.cov-crew').forEach(row => {
+    // Crew rows only — the hypo label also carries .cov-crew but has no data-id.
+    panel.querySelectorAll('.cov-crew[data-id]').forEach(row => {
       const id = row.dataset.id;
       row.querySelector('input').addEventListener('change', (e) => {
         if (e.target.checked) coverageSelectedIds.add(id); else coverageSelectedIds.delete(id);
@@ -1078,36 +1202,70 @@ function coverageCrewRow(c) {
   </label>`;
 }
 
-/* Picking a company defaults to ALL its crews selected and renders immediately. */
-function onCoverageCompany(name) {
-  coverageCompany = name || null;
-  coverageSelectedIds = new Set(coverageCompany ? companyCrews(coverageCompany).map(c => c.id) : []);
+/* Pick a company into slot 'A' or 'B'. Picking the name already in the other slot is
+   ignored (deduped by the dropdowns). Newly added companies default to ALL crews
+   selected; selections for a company that's still active are preserved. */
+function onCoverageCompany(slot, name) {
+  name = name || null;
+  if (slot === 'A') {
+    coverageCompanyA = name;
+    if (coverageCompanyB === name) coverageCompanyB = null; // no self-vs-self
+  } else {
+    coverageCompanyB = name;
+    if (coverageCompanyA === name) coverageCompanyA = null;
+  }
+  syncCoverageSelectionDefault();
   renderCoveragePanel();
   refreshCoverageDots();
-  if (coverageCompany) startCoverage();
+  startOrClearCoverage();
+}
+
+/* Reconcile the selection set after the company slots change: drop crews whose
+   company is no longer selected, and auto-select ALL crews of any newly added
+   company (one with no current selection) so adding a company behaves like before. */
+function syncCoverageSelectionDefault() {
+  const active = new Set(coverageCompanies());
+  coverageSelectedIds = new Set([...coverageSelectedIds].filter(id => {
+    const c = DATA.byId[id];
+    return c && active.has(c.company);
+  }));
+  for (const co of coverageCompanies()) {
+    const crews = companyCrews(co);
+    if (crews.length && !crews.some(c => coverageSelectedIds.has(c.id)))
+      for (const c of crews) coverageSelectedIds.add(c.id);
+  }
+}
+
+/* Recompute if anything is selected, otherwise tear the overlay down. */
+function startOrClearCoverage() {
+  if (coverageCompanies().length || (coverageIncludeHypo && STATE.hypoCrew)) startCoverage();
   else { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); $('legend').hidden = true; }
 }
 
+/* Select-all / clear-all across BOTH selected companies. */
 function toggleCoverageAll() {
-  const crews = companyCrews(coverageCompany);
-  const allOn = crews.every(c => coverageSelectedIds.has(c.id));
+  const crews = coverageAllCompanyCrews();
+  const allOn = crews.length && crews.every(c => coverageSelectedIds.has(c.id));
   coverageSelectedIds = new Set(allOn ? [] : crews.map(c => c.id));
   renderCoveragePanel();
   refreshCoverageDots();
   scheduleCoverage();
 }
 
-/* "Select by price range" — clicking a tier ISOLATES it (selects only that band's
-   crews), mirroring the sidebar stat-chip filter; clicking the already-isolated
-   tier returns to all crews. Built on the shared selectCoverageCrews() primitive
-   (the tier→crews mapping we unit-test). For arbitrary multi-tier sets, use the
-   crew checklist below. */
+/* "Select by price range" — a shared multi-tier toggle: clicking a tier toggles that
+   price band's membership across BOTH selected companies at once (add the band's
+   crews if any are missing, remove them if the whole band is already in). This is
+   what aligns the selection across vendors — "compare the same pricing band across
+   both." Built on the shared selectCoverageCrews() primitive (the tier→crews mapping
+   we unit-test), applied per active company and unioned. */
 function toggleCoverageTier(tier) {
-  const tierIds = selectCoverageCrews(DATA.crews, { company: coverageCompany, tiers: [tier] }).map(c => c.id);
+  const tierIds = coverageCompanies()
+    .flatMap(co => selectCoverageCrews(DATA.crews, { company: co, tiers: [tier] }))
+    .map(c => c.id);
   if (!tierIds.length) return;
-  const allIds = companyCrews(coverageCompany).map(c => c.id);
-  const isolated = tierIds.length === coverageSelectedIds.size && tierIds.every(id => coverageSelectedIds.has(id));
-  coverageSelectedIds = new Set(isolated ? allIds : tierIds);
+  const allOn = tierIds.every(id => coverageSelectedIds.has(id));
+  if (allOn) tierIds.forEach(id => coverageSelectedIds.delete(id));
+  else tierIds.forEach(id => coverageSelectedIds.add(id));
   renderCoveragePanel();
   refreshCoverageDots();
   scheduleCoverage();
@@ -1122,18 +1280,20 @@ function setCoverageVisMode(onlyAnalyzed) {
   applyFiltersAndRender();
 }
 
-/* Light header update on per-crew toggles (avoids rebuilding the scrolled list). */
+/* Light header update on per-crew toggles (avoids rebuilding the scrolled list).
+   Counts span both selected companies (the shared crew pool). */
 function refreshCoverageHeader() {
   const panel = $('coverage-panel');
-  if (!coverageCompany) return;
-  const crews = companyCrews(coverageCompany);
-  const selN = crews.filter(c => coverageSelectedIds.has(c.id)).length;
+  const active = coverageCompanies();
+  if (!active.length) return;
+  const pool = coverageAllCompanyCrews();
+  const selN = pool.filter(c => coverageSelectedIds.has(c.id)).length;
   const sub = el('.panel-sub', panel);
-  if (sub) sub.textContent = `${coverageCompany} · ${selN}/${crews.length} crews`;
+  if (sub) sub.textContent = `${active.join(' vs ')} · ${selN}/${pool.length} crews`;
   if ($('cov-selected')) $('cov-selected').textContent = `${selN} selected`;
-  if ($('cov-all')) $('cov-all').textContent = selN === crews.length ? 'Clear all' : 'Select all';
+  if ($('cov-all')) $('cov-all').textContent = pool.length && selN === pool.length ? 'Clear all' : 'Select all';
   panel.querySelectorAll('.cov-tier').forEach(ch => {
-    const inTier = crews.filter(c => tierForRank(c.rate) === ch.dataset.tier);
+    const inTier = pool.filter(c => tierForRank(c.rate) === ch.dataset.tier);
     const allOn = inTier.length > 0 && inTier.every(c => coverageSelectedIds.has(c.id));
     const someOn = inTier.some(c => coverageSelectedIds.has(c.id));
     ch.dataset.state = allOn ? 'on' : someOn ? 'some' : 'off';
@@ -1146,19 +1306,44 @@ function scheduleCoverage() {
 }
 
 function startCoverage() {
-  if (STATE.activeOverlay !== 'coverage' || !coverageCompany) return;
-  const crews = companyCrews(coverageCompany).filter(c => coverageSelectedIds.has(c.id));
+  const companies = coverageCompanies();
+  const hypo = (coverageIncludeHypo && STATE.hypoCrew) ? STATE.hypoCrew : null;
+  if (STATE.activeOverlay !== 'coverage' || (!companies.length && !hypo)) return;
+  const crews = coverageAllCompanyCrews().filter(c => coverageSelectedIds.has(c.id));
+  if (hypo) crews.push(hypo); // one more analyzed crew in the moat union
   if (!crews.length) { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); hideProgress(); $('legend').hidden = true; return; }
+  const duo = coverageIsDuo();
   showProgress('Computing coverage…');
   MapView.showCoverage(crews, DATA.crews, STATE.plKey, {
     onProgress: (d, t) => setProgress(`Computing coverage… ${Math.round(d / t * 100)}%`),
-    onDone: () => { hideProgress(); showCoverageLegend(crews.length); },
+    onDone: () => { hideProgress(); showCoverageLegend(crews.length, duo); },
+    // Two-company coloring context — ignored by map.js when duo is false.
+    groupOf: coverageGroupOf,
+    duo,
+    labels: { A: coverageCompanyA, B: coverageCompanyB },
   });
 }
 
-function showCoverageLegend(crewCount) {
+function showCoverageLegend(crewCount, duo) {
   $('legend').hidden = false;
-  // Same red→emerald gradient as the single-crew moat (each cell = best crew there).
+  // Two-company: the same red→emerald rank-band moat, with one-sided cells tinted
+  // toward a company hue (strength-blended via the SAME top-20 → top-10 qualifier).
+  if (duo) {
+    const dc = MOAT_CONFIG.duoColors;
+    // A soft→strong tint ramp for each company hue, mirroring the duoTint levels:
+    // a faded (mostly-gradient) end → the full company hue.
+    const ramp = (hue) => `linear-gradient(90deg,rgb(234,179,8),${rgbCss(hue)})`;
+    $('legend').innerHTML = `
+      <div class="legend-title">Two-company moat · ${crewCount} crew${crewCount === 1 ? '' : 's'}</div>
+      <div class="legend-grad" style="background:linear-gradient(90deg,rgb(220,38,38),rgb(249,115,22),rgb(234,179,8),rgb(132,204,22),rgb(16,185,129))"></div>
+      <div class="legend-grad-labels"><span>no advantage</span><span>top-20</span><span>top-10 ✓</span></div>
+      <div class="hint" style="margin-top:5px">Both / neither competitive use the moat gradient above. One-sided cells tint it toward a company:</div>
+      <div class="legend-row" style="margin-top:4px"><span class="cov-legend-swatch" style="background:${ramp(dc.a)}"></span>${esc(coverageCompanyA)} only · soft → strong</div>
+      <div class="legend-row"><span class="cov-legend-swatch" style="background:${ramp(dc.b)}"></span>${esc(coverageCompanyB)} only · soft → strong</div>
+      <div class="hint" style="margin-top:5px">Full hue only where one company is top-10 and the other has no top-20 presence; weaker edges soften toward the gradient. Hover a crew row to light up its own moat.</div>`;
+    return;
+  }
+  // Single company: the same red→emerald gradient as the single-crew moat.
   $('legend').innerHTML = `
     <div class="legend-title">Company moat · best of ${crewCount} crew${crewCount === 1 ? '' : 's'}</div>
     <div class="legend-grad" style="background:linear-gradient(90deg,rgb(220,38,38),rgb(249,115,22),rgb(234,179,8),rgb(132,204,22),rgb(16,185,129))"></div>

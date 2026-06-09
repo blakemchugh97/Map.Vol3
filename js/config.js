@@ -40,7 +40,7 @@ export const PL_SLIDER = {
    set and behaves like any real competitor in every analysis. */
 export const HYPO_CONFIG = {
   id:          'HYPO',   // single, reserved crew id for the hypothetical DDL
-  defaultRate: 61.00,    // $/hr starting rate (≈ field median); easy to tune
+  defaultRate: 60.00,    // $/hr starting rate (≈ field median); easy to tune
 };
 
 /* ---------- Rate tier breakpoints ($/hr) ---------- */
@@ -82,7 +82,38 @@ export const MOAT_CONFIG = {
   fillOpacity:     0.52,
   // Rank-band thresholds for the band-based moat score
   bandTop:         10,    // "useful band" top-N (comfortably competitive)
-  bandOuter:       20,    // outer band boundary (marginal zone)
+  bandOuter:       20,    // outer band boundary (marginal zone) — also the
+                          //   "competitive here" cutoff for two-company coverage
+  // Two-company coverage. `both` / `neither` cells are NOT special-cased anymore:
+  // they render with the exact single-crew red→emerald rank-band gradient
+  // (bandMoatColor), so the overlay reads as the normal moat first. Only one-sided
+  // cells tint that gradient toward a company hue. `a` / `b` are the company base
+  // hues blended IN by companyBlendColor(); `both` / `neither` are kept for the
+  // legend swatches (they equal the gradient's emerald / red ends). RGB triples,
+  // shared by map.js fill + ui.js legend.
+  duoColors: {
+    both:    [ 16, 185, 129],  // emerald — gradient top (both competitive); legend only
+    a:       [ 56, 189, 248],  // sky blue — Company A hue blended into the moat gradient
+    b:       [232,  84, 178],  // magenta — Company B hue blended into the moat gradient
+    neither: [220,  38,  38],  // deep red — gradient bottom (neither competitive); legend only
+  },
+  // One-sided tint strength. A one-sided cell starts from the moat gradient at the
+  // competitive company's own rank-band strength (bandScore of its best rank), then
+  // is mixed toward that company's hue by one of three fractions. The level is the
+  // SAME rank-band qualifier the single-company moat uses (top-10 vs top-20), plus
+  // whether the opponent has any lurking presence near the band:
+  //   strong (full hue): company top-10  AND opponent has no meaningful presence
+  //   medium:            company top-10  OR  opponent absent (one of the two holds)
+  //   soft:              company only top-20 (marginal) and opponent is lurking
+  duoTint: {
+    strong: 1.00,   // full company hue
+    medium: 0.60,   // mostly company hue, softened toward the moat gradient
+    soft:   0.34,   // gentle company tint over the moat gradient
+    // Opponent counts as "present/lurking" when its best-rank bandScore is >= this.
+    // In a one-sided cell the opponent is always outside top-20 (bandScore < 0.35),
+    // so this distinguishes an opponent at ~rank 21–28 (lurking) from far outside.
+    opponentPresent: 0.25,
+  },
   // Legacy dollar field kept so moatReadout() doesn't break if called externally
   strongAdvantage: 2500,
   normScale:       12000,
