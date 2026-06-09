@@ -9,7 +9,7 @@ import {
 } from './config.js';
 import {
   haversine, computeRankAtPoint, bandScore, computeRateDesertHoverStats, isUSLand, runChunked,
-  moatLatticePoints, moatScoreCell, aggregateCoverageCells, coverageCellKey,
+  moatLatticePoints, moatScoreCell, aggregateCoverageCells, coverageCellKey, classifyDuoCell,
 } from './dispatch.js';
 
 let map, tileLayer, handlers = {};
@@ -302,7 +302,7 @@ export function bindZonePopup(layer, html) { layer.bindPopup(html, { className: 
    ============================================================ */
 // Five-stop gradient: deep-red → orange → amber → lime → emerald.
 // score: 0..1 from bandScore() — 1 = comfortably in top-10, 0 = outside top-20+.
-function bandMoatColor(score) {
+function bandMoatRGB(score) {
   const s = clamp(score, 0, 1);
   const stops = [
     [220,  38,  38],  // 0.00  deep red   — outside useful band
@@ -315,7 +315,11 @@ function bandMoatColor(score) {
   const i = Math.min(Math.floor(t), stops.length - 2);
   const u = t - i;
   const [r1, g1, b1] = stops[i], [r2, g2, b2] = stops[i + 1];
-  return { color: rgb(lerp(r1, r2, u), lerp(g1, g2, u), lerp(b1, b2, u)), opacity: MOAT_CONFIG.fillOpacity };
+  return [lerp(r1, r2, u), lerp(g1, g2, u), lerp(b1, b2, u)];
+}
+function bandMoatColor(score) {
+  const [r, g, b] = bandMoatRGB(score);
+  return { color: rgb(r, g, b), opacity: MOAT_CONFIG.fillOpacity };
 }
 function bandBucket(rank) {
   if (rank <= 5)  return 'top-5 — strong';
@@ -345,17 +349,10 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
 
   const keepFraction = effectiveKeepFraction(plKey);
   const step = MOAT_CONFIG.cellDegrees;
-  const r = MOAT_CONFIG.maxRadius;
-  const degLat = r / 69.0;
-  const degLng = r / (69.0 * Math.cos(selectedCrew.lat * Math.PI / 180));
   const plLabel = (PL_CONFIG[plKey] || PL_CONFIG.none).label;
-  const cells = [];
-  for (let lat = selectedCrew.lat - degLat; lat <= selectedCrew.lat + degLat; lat += step) {
-    for (let lng = selectedCrew.lng - degLng; lng <= selectedCrew.lng + degLng; lng += step) {
-      if (haversine(selectedCrew.lat, selectedCrew.lng, lat, lng) > r) continue;
-      cells.push([lat, lng]);
-    }
-  }
+  // Source cells from the shared land-masked lattice so the single-crew moat cuts
+  // off at the coastline / Canada-Mexico border, matching the company coverage moat.
+  const cells = moatLatticePoints(selectedCrew, MOAT_CONFIG, { landMask: true });
   const computed = [];
   overlayJob = runChunked(cells, ([lat, lng]) => {
     const ro = computeRankAtPoint(selectedCrew, lat, lng, allCrews, keepFraction);
@@ -417,17 +414,84 @@ function coverageTip(agg) {
   return `${head}<br>${lines}${more}`;
 }
 
-// Union the cached per-crew moats and draw one gradient layer (best band score per
-// cell). Returns the drawn cells' lat/lng bounds (or null if none) to frame them.
-function drawCoverage(selectedCrews, plKey) {
+/* ---- Two-company coloring. The union math is unchanged (same per-crew moats,
+   same aggregate). `both` / `neither` cells render with the EXACT single-crew moat
+   gradient (bandMoatColor(agg.best)), so the overlay still reads as the moat first.
+   Only one-sided cells diverge: the moat gradient at the competitive company's own
+   rank-band strength, tinted toward that company's hue.
+
+   companyBlendColor reuses the single-company rank-band qualifier (bandScore →
+   top-10 / top-20) via the strengths from classifyDuoCell. The tint LEVEL is:
+     strong (full hue): company top-10  AND opponent has no lurking presence
+     medium:            exactly one of {company top-10, opponent absent} holds
+     soft:              company only top-20 (marginal) and opponent is lurking
+   so company hues read as modulations of the moat palette, not flat ownership blocks. */
+const DUO_TOP10 = bandScore(MOAT_CONFIG.bandTop); // moat strength at the top-10 boundary
+function duoTintFraction(strength, opponentStrength) {
+  const t = MOAT_CONFIG.duoTint;
+  const top10 = strength >= DUO_TOP10;                       // company comfortably competitive
+  const oppAbsent = opponentStrength < t.opponentPresent;    // opponent not lurking near the band
+  if (top10 && oppAbsent) return t.strong;
+  if (top10 || oppAbsent) return t.medium;
+  return t.soft;
+}
+function companyBlendColor(company, strength, opponentStrength) {
+  const base = bandMoatRGB(strength);                        // moat gradient at this strength
+  const hue = MOAT_CONFIG.duoColors[company === 'A' ? 'a' : 'b'];
+  const f = duoTintFraction(strength, opponentStrength);
+  return {
+    color: rgb(lerp(base[0], hue[0], f), lerp(base[1], hue[1], f), lerp(base[2], hue[2], f)),
+    opacity: MOAT_CONFIG.fillOpacity,
+  };
+}
+
+// Hover readout for a two-company cell: the case (both / one-sided / neither) plus
+// the competitive crews here, each tagged with its company name.
+function coverageDuoTip(agg, render, cls) {
+  const { groupOf, labels = {} } = render;
+  const nameA = labels.A || 'Company A', nameB = labels.B || 'Company B';
+  const nameFor = (g) => (g === 'A' ? nameA : g === 'B' ? nameB : '—');
+  const head = { both: 'Both companies competitive here', a: `${nameA} only`, b: `${nameB} only`, neither: 'Neither company competitive here' }[cls.category];
+  const comp = agg.crews.filter((c) => c.rank <= MOAT_CONFIG.bandOuter).sort((a, b) => a.rank - b.rank);
+  if (!comp.length) {
+    const n = agg.crews.length;
+    return `<b>${head}</b><br><span style="opacity:.7">${n} crew${n === 1 ? '' : 's'} in range, all ranked &gt;${MOAT_CONFIG.bandOuter}</span>`;
+  }
+  const lines = comp.slice(0, 8).map((c) => `<b>${c.id}</b> · #${c.rank} · ${nameFor(groupOf(c.id))}`).join('<br>');
+  const more = comp.length > 8 ? `<br><span style="opacity:.7">+${comp.length - 8} more…</span>` : '';
+  return `<b>${head}</b><br>${lines}${more}`;
+}
+
+// Union the cached per-crew moats and draw one layer. Single-company: the best-band
+// red→emerald gradient (unchanged). Two-company (render.duo): the four discrete
+// presence colors. Returns the drawn cells' lat/lng bounds (or null if none).
+function drawCoverage(selectedCrews, plKey, render = {}) {
   clearOverlayCells();
   clearCoverageHighlight();
   const perCrew = selectedCrews.map((c) => ({ crew: c, cells: coverageCache[coverageKey(c.id, plKey)] || [] }));
   const byCell = aggregateCoverageCells(perCrew);
+  const duo = render.duo && typeof render.groupOf === 'function';
   let minLat = Infinity, maxLat = -Infinity, minLng = Infinity, maxLng = -Infinity, n = 0;
   for (const agg of byCell.values()) {
-    const { color, opacity } = bandMoatColor(agg.best); // same gradient as the single-crew moat
-    const rect = drawRect(agg.lat, agg.lng, MOAT_CONFIG.cellDegrees, color, opacity, coverageTip(agg));
+    let color, opacity, tip;
+    if (duo) {
+      const cls = classifyDuoCell(agg, render.groupOf);
+      if (cls.category === 'a' || cls.category === 'b') {
+        // One-sided: tint the moat gradient toward the competitive company's hue.
+        const company = cls.category === 'a' ? 'A' : 'B';
+        const strength = company === 'A' ? cls.strengthA : cls.strengthB;
+        const oppStrength = company === 'A' ? cls.strengthB : cls.strengthA;
+        ({ color, opacity } = companyBlendColor(company, strength, oppStrength));
+      } else {
+        // both / neither: the plain single-crew moat gradient (no company tint).
+        ({ color, opacity } = bandMoatColor(agg.best));
+      }
+      tip = coverageDuoTip(agg, render, cls);
+    } else {
+      ({ color, opacity } = bandMoatColor(agg.best)); // same gradient as the single-crew moat
+      tip = coverageTip(agg);
+    }
+    const rect = drawRect(agg.lat, agg.lng, MOAT_CONFIG.cellDegrees, color, opacity, tip);
     if (rect) overlayCells.addLayer(rect);
     minLat = Math.min(minLat, agg.lat); maxLat = Math.max(maxLat, agg.lat);
     minLng = Math.min(minLng, agg.lng); maxLng = Math.max(maxLng, agg.lng); n++;
@@ -456,11 +520,12 @@ export function highlightCoverageCrew(crewId, plKey) {
 }
 export function clearCoverageHighlight() { if (coverageHighlight) coverageHighlight.clearLayers(); }
 
-export function showCoverage(selectedCrews, allCrews, plKey, { onProgress, onDone } = {}) {
+export function showCoverage(selectedCrews, allCrews, plKey, { onProgress, onDone, groupOf, duo, labels } = {}) {
   cancelOverlayJob();
   clearOverlayCells();
   if (!selectedCrews.length) { onDone && onDone({ crews: 0, cells: 0 }); return; }
   const keepFraction = effectiveKeepFraction(plKey);
+  const render = { groupOf, duo, labels }; // two-company coloring context (ignored when !duo)
 
   // Only crews without a cached footprint (for this pl|slider) need computing.
   const need = selectedCrews.filter((c) => !coverageCache[coverageKey(c.id, plKey)]);
@@ -472,7 +537,7 @@ export function showCoverage(selectedCrews, allCrews, plKey, { onProgress, onDon
 
   const finish = () => {
     need.forEach((c) => { coverageCache[coverageKey(c.id, plKey)] = acc.get(c.id); });
-    const bounds = drawCoverage(selectedCrews, plKey);
+    const bounds = drawCoverage(selectedCrews, plKey, render);
     // Frame the actual footprint (full competitive reach); if it's empty, at least
     // frame the selected crews so the user sees where coverage is missing.
     if (bounds && map) map.fitBounds(bounds, { animate: true, padding: [30, 30] });

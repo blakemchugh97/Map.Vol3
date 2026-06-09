@@ -12,6 +12,7 @@ import { tierForRank } from '../js/config.js';
 import {
   selectCoverageCrews, computeCrewFootprint, aggregateCoverageCells,
   moatLatticePoints, coverageCellKey, moatScoreCell, isUSLand,
+  isCoverageCompetitive, classifyDuoCell,
 } from '../js/dispatch.js';
 
 /* ---- tiny test harness ---- */
@@ -147,11 +148,63 @@ function footprintTests(crews) {
   });
 }
 
+/* ---------- two-company coloring (classifyDuoCell) ----------
+   Pure classifier over a unioned cell's covering crews. Build cells by hand so the
+   four cases are exercised independently of the live map. A crew counts as
+   "competitive" at rank <= 20 (MOAT_CONFIG.bandOuter), the same threshold the
+   single-company gradient's "competitive corridor" uses. */
+function duoTests() {
+  // groupOf: a1/a2 -> Company A, b1/b2 -> Company B, x1 -> neither (e.g. excluded hypo).
+  const groupOf = (id) => (id[0] === 'a' ? 'A' : id[0] === 'b' ? 'B' : null);
+  const cell = (...crews) => ({ key: 'k', lat: 40, lng: -120, crews });
+  const crew = (id, rank) => ({ id, rank, score: 0 });
+
+  test('isCoverageCompetitive: top-20 is competitive, 21+ is not', () => {
+    assert(isCoverageCompetitive(1), 'rank 1');
+    assert(isCoverageCompetitive(20), 'rank 20 (boundary)');
+    assert(!isCoverageCompetitive(21), 'rank 21');
+    assert(!isCoverageCompetitive(99), 'rank 99');
+  });
+
+  test('classifyDuoCell: both companies competitive -> both (green)', () => {
+    const cls = classifyDuoCell(cell(crew('a1', 5), crew('b1', 8)), groupOf);
+    assert(cls.a && cls.b, 'a and b both true');
+    eq(cls.category, 'both');
+  });
+
+  test('classifyDuoCell: only A competitive -> a (Company A color)', () => {
+    // B reaches the cell but is NOT competitive here (rank 30).
+    const cls = classifyDuoCell(cell(crew('a1', 4), crew('b1', 30)), groupOf);
+    assert(cls.a && !cls.b, 'a only');
+    eq(cls.category, 'a');
+  });
+
+  test('classifyDuoCell: only B competitive -> b (Company B color)', () => {
+    const cls = classifyDuoCell(cell(crew('a1', 25), crew('b1', 3)), groupOf);
+    assert(!cls.a && cls.b, 'b only');
+    eq(cls.category, 'b');
+  });
+
+  test('classifyDuoCell: neither competitive -> neither (red)', () => {
+    const cls = classifyDuoCell(cell(crew('a1', 40), crew('b1', 55)), groupOf);
+    assert(!cls.a && !cls.b, 'neither');
+    eq(cls.category, 'neither');
+  });
+
+  test('classifyDuoCell: ungrouped (neither-company) crews never flip a/b', () => {
+    // x1 is competitive but assigned to neither company (e.g. an excluded hypo).
+    const cls = classifyDuoCell(cell(crew('x1', 2)), groupOf);
+    assert(!cls.a && !cls.b, 'ungrouped ignored');
+    eq(cls.category, 'neither');
+  });
+}
+
 /* ---- run ---- */
 export async function runCoverageTests() {
   const crews = await (await fetch('../crews.json')).json();
   selectionTests(crews);
   footprintTests(crews);
+  duoTests();
 
   const results = [];
   for (const { name, fn } of cases) {
