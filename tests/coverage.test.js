@@ -8,11 +8,13 @@
    functions the app uses. Emphasis (per the brief) is the price-range → crews
    selection.
    ============================================================ */
-import { tierForRank } from '../js/config.js';
+import { tierForRank, effectiveKeepFraction } from '../js/config.js';
 import {
   selectCoverageCrews, computeCrewFootprint, aggregateCoverageCells,
   moatLatticePoints, coverageCellKey, moatScoreCell, isUSLand,
   isCoverageCompetitive, classifyDuoCell,
+  computeRankAtPoint, rankIncident, bandScore, competitiveField,
+  thinField, thinFieldGlobal, costToPoint,
 } from '../js/dispatch.js';
 
 /* ---- tiny test harness ---- */
@@ -199,12 +201,124 @@ function duoTests() {
   });
 }
 
+/* ---------- PL thinning must be GLOBAL, not point-local (the green-square bug) ----
+   PL thinning models "the cheapest crews are already committed elsewhere." It must
+   key off each crew's OWN base cost (rate), GLOBALLY — never the cost to the point
+   being scored. Point-local thinning is circular: it deletes the very competitors
+   that beat the subject AT THAT CELL, so an expensive ($66) crew false-ranks #1
+   across huge areas at PL3 and the moat paints it green. These tests pin the fix. */
+function consistencyTests(crews) {
+  const expensive = crews.slice().sort((a, b) => b.rate - a.rate)[0]; // most expensive crew
+  const cheap     = crews.slice().sort((a, b) => a.rate - b.rate)[0]; // cheapest crew
+  const lat = expensive.lat, lng = expensive.lng;                     // its own DDP
+  const keep = effectiveKeepFraction('PL3');
+
+  test('bandScore: anchors (1/10/20) preserved, tail hits 0 by rank 40', () => {
+    eq(bandScore(1), 1.0, 'rank 1');
+    assert(Math.abs(bandScore(10) - 0.703) < 1e-9, 'rank 10 anchor unchanged (~0.703)');
+    assert(Math.abs(bandScore(20) - 0.35) < 1e-9, 'rank 20 anchor = 0.35');
+    eq(bandScore(40), 0, 'rank 40 → 0');
+    eq(bandScore(90), 0, 'rank 90 → 0 (was ~0 only here before)');
+    assert(bandScore(30) < 0.20, 'rank 30 no longer lingers orange');
+  });
+
+  test('thinFieldGlobal: removes the cheapest-by-base fraction, point-independently', () => {
+    const survivors = thinFieldGlobal(crews, keep);
+    eq(survivors.length, crews.length - Math.floor(crews.length * (1 - keep)), 'kept count = keepFraction');
+    assert(!survivors.some(c => c.id === cheap.id), 'cheapest crew (lowest base) is removed');
+    assert(survivors.some(c => c.id === expensive.id), 'most expensive crew survives');
+    const maxRemovedBase = Math.max(...crews.filter(c => !survivors.includes(c)).map(c => c.base_cost));
+    const minKeptBase = Math.min(...survivors.map(c => c.base_cost));
+    assert(maxRemovedBase <= minKeptBase, 'a clean base-cost split (cheapest removed, dearest kept)');
+  });
+
+  test('PL3: GLOBAL thinning fixes the false-#1 green-square bug for an expensive crew', () => {
+    // The exact regression: point-local thinning deleted the crews beating the
+    // expensive crew at each cell, collapsing it to ~#1 (green) across its disc.
+    let pointLocalTop10 = 0, globalTop10 = 0, n = 0;
+    for (const [la, ln] of moatLatticePoints(expensive)) {
+      n++;
+      // current/global behavior (what computeRankAtPoint now does):
+      if (computeRankAtPoint(expensive, la, ln, crews, keep).rank <= 10) globalTop10++;
+      // simulate the OLD point-local thinning at the same cell:
+      const survivors = thinField(crews.filter(c => c.id !== expensive.id), la, ln, keep);
+      const myCost = costToPoint(expensive, la, ln);
+      const plRank = 1 + survivors.filter(c => costToPoint(c, la, ln) < myCost).length;
+      if (plRank <= 10) pointLocalTop10++;
+    }
+    assert(pointLocalTop10 > n * 0.5, `point-local bug: expensive crew falsely top-10 in >50% of cells (${pointLocalTop10}/${n})`);
+    assert(globalTop10 < n * 0.15, `global fix: expensive crew rarely top-10 (${globalTop10}/${n})`);
+  });
+
+  test('PL3: subject present and incident rank === moat rank (Model D, global thinning)', () => {
+    const moat = computeRankAtPoint(expensive, lat, lng, crews, keep);
+    const myRow = rankIncident(crews, lat, lng, 'PL3', null, expensive).find(r => r.crew.id === expensive.id);
+    assert(myRow, 'subject is present in the incident table (Model D exemption)');
+    eq(myRow.rank, moat.rank, 'incident rank === moat rank (one shared field)');
+  });
+
+  test('PL3: global thinning removes a CHEAP crew unless it is the exempt subject', () => {
+    const p = { lat: 41.0, lng: -114.0 };
+    const notSubject = rankIncident(crews, p.lat, p.lng, 'PL3', null, expensive).find(r => r.crew.id === cheap.id);
+    assert(!notSubject, 'cheap crew is committed elsewhere (thinned) when it is NOT the subject');
+    const asSubject = rankIncident(crews, p.lat, p.lng, 'PL3', null, cheap).find(r => r.crew.id === cheap.id);
+    assert(asSubject, 'cheap crew present when it IS the subject (Model D exemption)');
+  });
+
+  test('competitiveField: subject prepended; null subject thins globally', () => {
+    const withSubj = competitiveField(crews, lat, lng, keep, expensive);
+    assert(withSubj.some(c => c.id === expensive.id), 'subject kept');
+    eq(withSubj[0].id, expensive.id, 'subject prepended (cost-tie favors it)');
+    const literal = competitiveField(crews, lat, lng, keep, null);
+    eq(literal.length, thinFieldGlobal(crews, keep).length, 'null subject → global thinning applied');
+    assert(!literal.some(c => c.id === cheap.id), 'global thinning dropped the cheapest crew');
+  });
+
+  test('time filter HIDES rows but never renumbers: visible incident rank === moat rank', () => {
+    const plat = expensive.lat + 4, plng = expensive.lng + 4;
+    for (const tf of [6, 8, 10]) {
+      const moat = computeRankAtPoint(expensive, plat, plng, crews, effectiveKeepFraction('none'));
+      const rows = rankIncident(crews, plat, plng, 'none', tf, expensive);
+      const myRow = rows.find(r => r.crew.id === expensive.id);
+      for (let i = 1; i < rows.length; i++) assert(rows[i].rank > rows[i - 1].rank, 'ranks strictly increasing (no renumber)');
+      assert(rows.every(r => r.mobHours <= tf), `all visible rows within ${tf}h`);
+      if (myRow) eq(myRow.rank, moat.rank, `tf=${tf}: visible subject rank === moat rank`);
+    }
+  });
+
+  test('PL3: rank is subject-dependent via the exemption — UI must re-rank on select', () => {
+    // A cheap crew is competitive on its OWN moat (exempt) but is thinned out of a
+    // table ranked around a DIFFERENT subject — so the UI must recompute on select.
+    const ownMoat = computeRankAtPoint(cheap, cheap.lat, cheap.lng, crews, keep).rank;
+    const ownRow  = rankIncident(crews, cheap.lat, cheap.lng, 'PL3', null, cheap).find(r => r.crew.id === cheap.id);
+    assert(ownRow && ownRow.rank === ownMoat, 'as subject: incident rank === moat rank');
+    const otherRow = rankIncident(crews, cheap.lat, cheap.lng, 'PL3', null, expensive).find(r => r.crew.id === cheap.id);
+    assert(!otherRow, 'absent from a table ranked around a different subject (globally thinned)');
+  });
+
+  test('PL none: rank is subject-INDEPENDENT (no thinning → exemption is a no-op)', () => {
+    const moatB = computeRankAtPoint(expensive, lat, lng, crews, effectiveKeepFraction('none')).rank;
+    const subjB = rankIncident(crews, lat, lng, 'none', null, expensive).find(r => r.crew.id === expensive.id);
+    const subjOther = rankIncident(crews, lat, lng, 'none', null, cheap).find(r => r.crew.id === expensive.id);
+    assert(subjB && subjOther, 'B present under either subject at PL none');
+    eq(subjB.rank, moatB, 'subject=B matches moat');
+    eq(subjOther.rank, moatB, 'subject=other ALSO matches moat (no thinning → subject irrelevant)');
+  });
+
+  test('time filter: subject hidden when unreachable is NOT a contradiction', () => {
+    const plat = expensive.lat + 6, plng = expensive.lng + 6;
+    const rows = rankIncident(crews, plat, plng, 'none', 6, expensive);
+    assert(!rows.some(r => r.crew.id === expensive.id), 'subject correctly hidden by the time filter');
+  });
+}
+
 /* ---- run ---- */
 export async function runCoverageTests() {
   const crews = await (await fetch('../crews.json')).json();
   selectionTests(crews);
   footprintTests(crews);
   duoTests();
+  consistencyTests(crews);
 
   const results = [];
   for (const { name, fn } of cases) {

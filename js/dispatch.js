@@ -31,9 +31,16 @@ export function costToPoint(crew, lat, lng) {
   return niccCost(crew, haversine(crew.lat, crew.lng, lat, lng));
 }
 
-/* ---------- PL thinning ----------
-   Keep only the top keepFraction of crews by cost to a point.
-   The cheapest (1 - keepFraction) are assumed already dispatched. */
+/* ---------- PL thinning (POINT-LOCAL) ----------
+   Drop the cheapest (1 - keepFraction) of crews BY COST TO A SPECIFIC POINT.
+   This models "the cheapest option AT THIS POINT is already taken" and is the
+   right lens for the rate-desert overlay (a per-location market-structure view).
+
+   ⚠️ Do NOT use this to thin a crew's competitors for ranking. Ranking by cost to
+   the same point you thinned by is circular: it deletes exactly the competitors
+   that beat the subject *here*, so an expensive crew with no real local advantage
+   rockets to rank #1 (its 42 beaters get thinned). Ranking views use the GLOBAL
+   thinning below instead. See [[competitiveField]]. */
 export function thinField(crews, incidentLat, incidentLng, keepFraction) {
   if (keepFraction >= 1.0) return crews.slice();
   // Precompute each cost once (N haversines), then sort — NOT in the comparator,
@@ -44,12 +51,71 @@ export function thinField(crews, incidentLat, incidentLng, keepFraction) {
   return ranked.slice(Math.floor(ranked.length * (1 - keepFraction))).map(x => x.c);
 }
 
+/* ---------- PL thinning (GLOBAL — the availability model for ranking) ----------
+   Drop the cheapest (1 - keepFraction) of crews BY THEIR OWN BASE COST (≡ rate,
+   since base_cost = rate × crewSize × rotation × hoursPerDay). This is the correct
+   model of "the cheapest crews are already committed to other fires": a crew's
+   chance of being unavailable depends on its general desirability (low rate), NOT
+   on how close it happens to be to the hypothetical point we're scoring.
+
+   Because the surviving set is point-INDEPENDENT (the higher-rate crews, the same
+   everywhere), ranking the survivors by cost-to-point is no longer circular: an
+   expensive crew is still beaten by the cheaper survivors near it, so it only looks
+   competitive where it genuinely has a geographic moat. Deterministic. */
+export function thinFieldGlobal(crews, keepFraction) {
+  if (keepFraction >= 1.0) return crews.slice();
+  const ranked = crews.slice().sort((a, b) => a.base_cost - b.base_cost);
+  return ranked.slice(Math.floor(ranked.length * (1 - keepFraction)));
+}
+
+/* ---------- The ONE competitive field (Model D) ----------
+   Single source of truth for "who is available to fight a fire at this point,"
+   shared by every ranking view (moat color/hover, zone sim, dropped incident) so
+   they can never disagree. Two independent ideas combine here:
+
+   1. AVAILABILITY (PL thinning) — uses GLOBAL thinning (thinFieldGlobal, by base
+      cost/rate). The cheapest crews are committed elsewhere regardless of this
+      point. This must NOT be point-local: thinning competitors by cost-to-THIS-point
+      and then ranking by cost-to-THIS-point is circular and deletes exactly the
+      crews that beat the subject here, so an expensive crew false-ranks #1 across
+      huge areas (a $66 crew read #1 at PL3 where its true rank was ~#43). Global
+      thinning keeps the surviving set point-independent, so the rank reflects the
+      crew's REAL standing among who's actually available.
+
+   2. THE SUBJECT (Model D) — the analyzed/selected crew is the hypothesis ("if I
+      dispatch THIS crew here") and is ALWAYS available: it is exempt from thinning
+      and prepended. (Matters for a CHEAP subject, which global thinning would
+      otherwise remove.) With `selectedCrew` null there is no hypothesis, so the
+      whole field is thinned literally.
+
+   `lat`/`lng` are accepted for signature stability but unused now that thinning is
+   global (the ranking caller still uses them to rank the returned field by cost). */
+export function competitiveField(allCrews, lat, lng, keepFraction, selectedCrew = null) {
+  if (!selectedCrew) return thinFieldGlobal(allCrews, keepFraction);
+  const competitors = allCrews.filter(c => c.id !== selectedCrew.id);
+  const survivors = keepFraction >= 1.0 ? competitors : thinFieldGlobal(competitors, keepFraction);
+  return [selectedCrew, ...survivors]; // subject first so cost-ties resolve in its favor
+}
+
 /* ---------- Incident ranking ----------
-   Rank every (thinned) crew by cost to the incident point.
-   Returns rows with distance, travel/mob hours, cost. Optional time filter. */
-export function rankIncident(crews, lat, lng, plKey, timeFilter) {
+   Rank every available crew by cost to the incident point, over the SAME Model-D
+   field the moat/zone sim use (so a selected crew's incident rank equals the rank
+   the moat overlay shows at that point). Returns rows with distance, travel/mob
+   hours, cost. `selectedCrew` is the hypothesis to keep always-available (null when
+   no crew is selected → literal full-field thinning).
+
+   THE TIME FILTER IS A DISPLAY LENS, NOT A RANK INPUT. Rank is a pure function of
+   the NICC cost ordering, so it is assigned over the FULL cost field FIRST, and the
+   time filter only HIDES rows whose mobilization exceeds the limit afterward. The
+   ranks of the surviving rows are therefore their true cost ranks (with gaps where
+   unreachable crews were removed). If we filtered before ranking — the old behavior
+   — removing far-but-cheap crews silently renumbered everyone, inflating a nearby
+   expensive crew from (say) #130 to #15 and CONTRADICTING the moat overlay, which
+   never time-filters. Ranking first guarantees moat rank === incident rank for any
+   crew the time filter leaves visible. */
+export function rankIncident(crews, lat, lng, plKey, timeFilter, selectedCrew = null) {
   const keepFraction = effectiveKeepFraction(plKey);
-  let field = thinField(crews, lat, lng, keepFraction);
+  const field = competitiveField(crews, lat, lng, keepFraction, selectedCrew);
 
   let rows = field.map(crew => {
     const dist = haversine(crew.lat, crew.lng, lat, lng);
@@ -58,10 +124,12 @@ export function rankIncident(crews, lat, lng, plKey, timeFilter) {
     return { crew, dist, travelHours, mobHours, cost: niccCost(crew, dist) };
   });
 
-  if (timeFilter != null) rows = rows.filter(r => r.mobHours <= timeFilter);
-
+  // Rank over the full cost ordering BEFORE hiding anything, so ranks match the moat.
   rows.sort((a, b) => a.cost - b.cost);
   rows.forEach((r, i) => { r.rank = i + 1; });
+
+  // Time filter hides unreachable crews from the list; it does NOT renumber ranks.
+  if (timeFilter != null) rows = rows.filter(r => r.mobHours <= timeFilter);
   return rows;
 }
 
@@ -90,31 +158,38 @@ export function generateGridPoints(centerLat, centerLng, radiusMiles, n = ZONE_S
 }
 
 /* ---------- Band-based moat scoring ----------
-   Maps a crew's rank at a point to a 0..1 score representing how safely
-   it sits in the "useful competitive band" (top-10 to top-20).
-   1.0 = deeply in top-10 | 0.0 = well outside top-20+ */
+   Maps a crew's rank at a point to a 0..1 score representing how safely it sits in
+   the "useful competitive band" (top-10 to top-20). 1.0 = deeply in top-10 |
+   0.0 = at/beyond ~2× the outer band (rank 40+).
+   The anchors at rank 1 (1.0), 10 (0.70) and 20 (0.35) are load-bearing: the
+   two-company coverage tints (classifyDuoCell / duoTintFraction, DUO_TOP10) read
+   strength against them, so they MUST NOT move. Only the post-top-20 tail was
+   steepened — it used to crawl to ~0.10 at rank 40 and not reach 0 until rank ~90,
+   which painted ranks the incident table calls "weak" (25–40) as lingering orange.
+   It now fades linearly to 0 by rank 40 so color stops over-implying competitiveness
+   past the band. */
 export function bandScore(rank) {
   if (rank <= 10) return Math.max(0.70, 1.0 - (rank - 1) * 0.033); // 1→1.0, 10→0.70
   if (rank <= 20) return 0.70 - (rank - 10) * 0.035;                // 10→0.70, 20→0.35
-  if (rank <= 40) return 0.35 - (rank - 20) * 0.0125;               // 20→0.35, 40→0.10
-  return Math.max(0, 0.10 - (rank - 40) * 0.002);                   // 40+→0
+  if (rank <= 40) return Math.max(0, 0.35 - (rank - 20) * 0.0175);  // 20→0.35, 40→0.00
+  return 0;                                                          // 40+ → no moat strength
 }
 
-/* Exact rank of selectedCrew at a point after PL thinning of competitors.
+/* Exact rank of selectedCrew at a point over the shared Model-D field (subject
+   always available, competitors thinned). This is the SAME field rankIncident
+   builds, so the moat's rank here equals the subject's rank in the incident table.
    Returns { rank, myCost, fieldSize, bestComp, bestCompCost }. */
 export function computeRankAtPoint(selectedCrew, lat, lng, allCrews, keepFraction) {
-  const competitors = allCrews.filter(c => c.id !== selectedCrew.id);
+  const field = competitiveField(allCrews, lat, lng, keepFraction, selectedCrew); // subject first
   const myCost = costToPoint(selectedCrew, lat, lng);
-  const field = keepFraction >= 1.0
-    ? competitors
-    : thinField(competitors, lat, lng, keepFraction);
   let rank = 1, bestComp = null, bestCompCost = Infinity;
   for (const c of field) {
+    if (c.id === selectedCrew.id) continue; // skip the subject; rank it against competitors
     const cost = costToPoint(c, lat, lng);
     if (cost < myCost) rank++;
     if (cost < bestCompCost) { bestCompCost = cost; bestComp = c; }
   }
-  return { rank, myCost, fieldSize: field.length + 1, bestComp, bestCompCost };
+  return { rank, myCost, fieldSize: field.length, bestComp, bestCompCost };
 }
 
 /* ============================================================
@@ -243,7 +318,6 @@ export function classifyDuoCell(agg, groupOf) {
 export function runZoneSimulation(selectedCrew, radiusMiles, allCrews, plKey) {
   const points = generateGridPoints(selectedCrew.lat, selectedCrew.lng, radiusMiles);
   const keepFraction = effectiveKeepFraction(plKey);
-  const competitors = allCrews.filter(c => c.id !== selectedCrew.id);
   const results = {
     ranks: [], win: 0, top5: 0, top10: 0, top20: 0,
     band1_5: 0, band6_10: 0, band11_20: 0, band21plus: 0,
@@ -251,10 +325,9 @@ export function runZoneSimulation(selectedCrew, radiusMiles, allCrews, plKey) {
   };
 
   for (const [lat, lng] of points) {
-    const field = thinField(competitors, lat, lng, keepFraction);
-    // precompute costs once, then sort (avoid haversine in the comparator).
-    // selectedCrew is prepended so it is always ranked, never thinned out.
-    const ranked = [selectedCrew, ...field]
+    // Same Model-D field as the moat + incident table (subject always available,
+    // competitors thinned), so the zone sim's ranks match what they show.
+    const ranked = competitiveField(allCrews, lat, lng, keepFraction, selectedCrew)
       .map(c => ({ c, cost: costToPoint(c, lat, lng) }))
       .sort((a, b) => a.cost - b.cost)
       .map(x => x.c);
@@ -358,7 +431,7 @@ export function moatReadout(selectedCrew, cellLat, cellLng, allCrews, keepFracti
   // only needs the allocated/sorted path when PL actually removes the cheap field.
   let field, needsSkip;
   if (keepFraction >= 1.0) { field = allCrews; needsSkip = true; }
-  else { field = thinField(allCrews.filter(c => c.id !== selectedCrew.id), cellLat, cellLng, keepFraction); needsSkip = false; }
+  else { field = thinFieldGlobal(allCrews.filter(c => c.id !== selectedCrew.id), keepFraction); needsSkip = false; }
   let bestCompCost = Infinity, bestCompCrew = null;
   for (const c of field) {
     if (needsSkip && c.id === selectedCrew.id) continue;
@@ -373,6 +446,39 @@ export function computeMoatCell(cellLat, cellLng, selectedCrew, allCrews, keepFr
   const dist = haversine(selectedCrew.lat, selectedCrew.lng, cellLat, cellLng);
   if (dist > MOAT_CONFIG.maxRadius) return null;
   return moatReadout(selectedCrew, cellLat, cellLng, allCrews, keepFraction).margin;
+}
+
+/* ---------- Debug: cross-check the four views at one point ----------
+   Side-by-side readout of everything that should agree at a coordinate, for the
+   PL-thinning consistency audit. Returns the moat color/hover rank
+   (computeRankAtPoint) + its band score, the legacy dollar margin (moatReadout,
+   a DIFFERENT concept — kept here so the audit shows it explicitly), and the
+   subject's rank in the dropped-incident table (rankIncident) at the SAME coords
+   and PL. After the Model-D unification `moatRank === incidentRank` (consistent:true).
+   Pure; ui.js exposes it on window.__moatAudit for manual console testing. */
+export function auditMoatPoint(selectedCrew, lat, lng, allCrews, plKey, timeFilter = null) {
+  const keepFraction = effectiveKeepFraction(plKey);
+  const ro = computeRankAtPoint(selectedCrew, lat, lng, allCrews, keepFraction);
+  const incident = rankIncident(allCrews, lat, lng, plKey, timeFilter, selectedCrew);
+  const myRow = incident.find(r => r.crew.id === selectedCrew.id);
+  const { margin } = moatReadout(selectedCrew, lat, lng, allCrews, keepFraction);
+  // The time filter only HIDES rows; it never changes rank. So the subject is either
+  // visible with its true (moat-matching) rank, or hidden because it cannot mobilize
+  // in time — which is an availability fact, NOT a moat/incident contradiction.
+  const mobHours = haversine(selectedCrew.lat, selectedCrew.lng, lat, lng) / NICC.speed + NICC.mobBufferHours;
+  const subjectReachable = timeFilter == null || mobHours <= timeFilter;
+  return {
+    crew: selectedCrew.id, rate: selectedCrew.rate, coords: { lat, lng }, plKey, keepFraction, timeFilter,
+    moatRank: ro.rank, moatFieldSize: ro.fieldSize, bandScore: bandScore(ro.rank),
+    cheapestCompetitor: ro.bestComp ? ro.bestComp.id : null,
+    moatMargin: margin, // moatReadout's dollar gap to the cheapest competitor (legacy concept)
+    incidentRank: myRow ? myRow.rank : null,       // null === hidden by the time filter
+    incidentVisible: !!myRow, subjectReachable, mobHours: +mobHours.toFixed(1),
+    incidentFieldSize: incident.length,
+    // Consistent when the subject's visible rank equals the moat rank, OR when it is
+    // hidden purely because the time filter says it can't reach in time.
+    consistent: myRow ? myRow.rank === ro.rank : !subjectReachable,
+  };
 }
 
 /* ---------- Rate desert hover stats ----------
