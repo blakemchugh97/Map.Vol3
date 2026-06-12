@@ -5,7 +5,8 @@
 
 import {
   MAP_CONFIG, ZONE_STYLE, MOAT_CONFIG, DESERT_CONFIG, PL_CONFIG, STATE,
-  WILDFIRE_CONFIG, ACTIVE_INCIDENTS_CONFIG, WATCHES_CONFIG, effectiveKeepFraction,
+  WILDFIRE_CONFIG, ACTIVE_INCIDENTS_CONFIG, WATCHES_CONFIG, ARCGIS_OVERLAY_CONFIG,
+  effectiveKeepFraction,
 } from './config.js';
 import {
   haversine, computeRankAtPoint, bandScore, computeRateDesertHoverStats, isUSLand, runChunked,
@@ -55,9 +56,16 @@ export function initMap(h) {
   L.control.zoom({ position: 'bottomright' }).addTo(map);
   map.attributionControl.setPosition('bottomright');
 
-  tileLayer = L.tileLayer(MAP_CONFIG.tiles.dark, {
+  // Default basemap = Esri World Topo (MAP_CONFIG.tiles.light), loaded at full
+  // opacity as the actual background. setTheme() swaps this same layer's URL to the
+  // CARTO dark basemap for dark mode, so the existing theme logic is preserved.
+  tileLayer = L.tileLayer(MAP_CONFIG.tiles.light, {
     attribution: MAP_CONFIG.tileAttribution, subdomains: 'abcd', maxZoom: 19,
   }).addTo(map);
+
+  // Subtle, fixed-opacity ArcGIS transportation overlay (esri-leaflet), drawn just
+  // above the basemap and beneath the analytic overlays/markers. Not toggleable.
+  addArcgisOverlay();
 
   map.on('click', (e) => {
     if (handlers.onMapClick) handlers.onMapClick(e.latlng.lat, e.latlng.lng);
@@ -80,6 +88,20 @@ export function getMap() { return map; }
 export function setTheme(theme) {
   if (!tileLayer) return;
   tileLayer.setUrl(theme === 'light' ? MAP_CONFIG.tiles.light : MAP_CONFIG.tiles.dark);
+}
+
+/* ---- ArcGIS transportation overlay (fixed transparency) ----
+   Transportation_v1 FeatureServer polylines on layer /0 → L.esri.featureLayer,
+   styled with a fixed, subtle opacity (0.25 = 75% transparent). Drawn above the
+   basemap and beneath the analytic overlays/markers. World Topo is the default
+   basemap now (MAP_CONFIG.tiles.light) — not an overlay. */
+function addArcgisOverlay() {
+  const cfg = ARCGIS_OVERLAY_CONFIG;
+  L.esri.featureLayer({
+    url: cfg.roads.url,
+    attribution: cfg.roads.attribution,
+    style: () => ({ color: cfg.roads.color, weight: cfg.roads.weight, opacity: cfg.opacity }),
+  }).addTo(map);
 }
 
 /* ============================================================
@@ -321,12 +343,14 @@ function bandMoatColor(score) {
   const [r, g, b] = bandMoatRGB(score);
   return { color: rgb(r, g, b), opacity: MOAT_CONFIG.fillOpacity };
 }
+// Text band for the hover; cutoffs track bandScore so the words match the fill
+// color (bandScore fades to 0 by rank 40 — past which the cell is red, "outside").
 function bandBucket(rank) {
   if (rank <= 5)  return 'top-5 — strong';
   if (rank <= 10) return 'top-10 — competitive';
   if (rank <= 20) return 'top-20 — marginal';
-  if (rank <= 35) return 'rank 21–35 — fading';
-  return 'rank 35+ — outside useful band';
+  if (rank <= 40) return 'rank 21–40 — fading';
+  return 'rank 40+ — outside useful band';
 }
 
 // Frame the crew's competitive disc so the moat fills the view (a continental

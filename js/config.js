@@ -141,10 +141,17 @@ export const MAP_CONFIG = {
   maxZoom: 14,
   conus: { minLat: 24, maxLat: 50, minLng: -125, maxLng: -65 },
   tiles: {
+    // Default/light basemap = Esri World Topo, served as standard cached XYZ tiles
+    // (.../MapServer/tile/{z}/{y}/{x}). It loads at init as the actual full-opacity
+    // map background. Dark mode keeps the CARTO dark basemap; setTheme() swaps
+    // between these two by calling tileLayer.setUrl() — so the topo base must be a
+    // plain L.tileLayer URL (not an esri-leaflet layer) to preserve that structure.
+    light: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
     dark:  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   },
-  tileAttribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  // One tileLayer is reused across themes (setUrl swaps the URL but not attribution),
+  // so credit both basemap sources: Esri (World Topo, default) and CARTO/OSM (dark).
+  tileAttribution: 'Topo &copy; <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, USGS, NPS &middot; &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
   defaultClusterRadius: 0,
 };
 
@@ -192,6 +199,27 @@ export const WATCHES_CONFIG = {
     { key: 'redflag', label: 'Red Flag', match: ['Red Flag', 'Fire Weather'] },
     { key: 'wind',    label: 'Wind',     match: ['Wind'] },
   ],
+};
+
+/* ---------- ArcGIS transportation overlay (fixed transparency, no UI) ----------
+   A single, subtle reference overlay drawn ABOVE the basemap and BENEATH the
+   analytic overlays/markers, loaded through esri-leaflet (already on the page). It
+   is NOT toggleable and the transparency is NOT adjustable — opacity is fixed at
+   0.25 (i.e. 75% transparent). World_Topo_Map is NO LONGER an overlay here: it is
+   now the default basemap (see MAP_CONFIG.tiles.light).
+     • roads — Esri Transportation_v1. A FeatureServer REQUIRES a layer index;
+               /0 = Primary_Roads_Interstates (5M scale), the tier that fits this
+               continental view. Rendered via L.esri.featureLayer (polylines),
+               kept subtle so it sits lightly over the topo base. */
+export const ARCGIS_OVERLAY_CONFIG = {
+  opacity: 0.25,   // fixed, subtle: 75% transparent (1 − 0.25). No slider, not adjustable.
+  roads: {
+    // FeatureServer needs a layer index — /0 = Primary_Roads_Interstates (5M scale).
+    url: 'https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Transportation_v1/FeatureServer/0',
+    attribution: 'Transportation: Esri',
+    color: '#64748b',  // slate road lines, kept subtle over the light topo base
+    weight: 1,
+  },
 };
 
 /* ---------- Zone overlay styling ---------- */

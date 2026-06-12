@@ -10,6 +10,7 @@ import {
 import {
   rankIncident, runZoneSimulation, rateSensitivity, breakevenRate,
   makeRateVariant, baseCostFor, zoneStats, gaccStats, selectCoverageCrews,
+  auditMoatPoint,
 } from './dispatch.js';
 import * as MapView from './map.js';
 
@@ -161,6 +162,13 @@ function loadData(crews) {
   }
   // keep each ddp group sorted by rank so cheapest drives the marker color
   for (const k in DATA.ddpGroups) DATA.ddpGroups[k].sort((a, b) => a.rank - b.rank);
+
+  // Debug hook for the moat/incident consistency audit: select a crew, then in the
+  // console run __moatAudit(lat, lng) to compare the moat rank/band, the legacy
+  // dollar margin, and the incident-table rank at one point (consistent:true means
+  // moatRank === incidentRank). e.g. __moatAudit(41.2, -114.0)
+  window.__moatAudit = (lat, lng) =>
+    auditMoatPoint(STATE.selectedCrew, lat, lng, DATA.crews, STATE.plKey, STATE.timeFilter);
 }
 
 /* ============================================================
@@ -501,7 +509,18 @@ function selectCrew(crew, { fly = false } = {}) {
   MapView.highlightCrew(crew);
   if (fly) MapView.flyToCrew(crew);
   closePanel('ddp-panel');
-  renderDetail(crew);
+  // The incident ranking AND the moat are computed with the selected crew as the
+  // Model-D subject (it is exempt from PL thinning; competitors are thinned around
+  // it). So when the selection changes, BOTH must be recomputed for the new subject —
+  // otherwise the detail badge / incident table / moat still describe the PREVIOUS
+  // crew's hypothesis. This only drifts once PL thinning is active: at PL none nobody
+  // is thinned, so the exempt subject is irrelevant and every crew's rank is the same
+  // regardless of who is selected. (A locally-cheap crew is rank #1 on its own moat
+  // but gets thinned out of a table ranked around a DIFFERENT subject — the exact
+  // "moat says #1, incident says thinned out" contradiction seen at PL3/PL5.)
+  if (STATE.incidentPin) renderIncident();          // re-rank with the new subject → fresh lastIncidentRows
+  if (STATE.activeOverlay === 'moat') startMoat();  // redraw the moat for the newly selected crew
+  renderDetail(crew);                               // reads the now-current lastIncidentRows
   // refresh list selection state
   document.querySelectorAll('.crew-item').forEach(n =>
     n.classList.toggle('selected', n.dataset.id === crew.id));
@@ -518,9 +537,11 @@ function renderDetail(crew) {
   let incidentBadge = '';
   if (STATE.incidentPin && lastIncidentRows.length) {
     const row = lastIncidentRows.find(r => r.crew.id === crew.id);
+    // The selected crew is the Model-D subject, so PL thinning never removes it; the
+    // only reason it can be absent is the time filter putting the incident out of reach.
     incidentBadge = row
       ? `<div class="rank-badge-lg" title="Rank at the active incident">◎ Rank #${row.rank} at incident · ${fmtMoney(row.cost)}</div>`
-      : `<div class="note-flag">Thinned out at ${STATE.plKey.toUpperCase()} / time filter for the active incident.</div>`;
+      : `<div class="note-flag">${STATE.timeFilter ? `Beyond the ${STATE.timeFilter}h mobilization window` : 'Not in the available field'} for the active incident.</div>`;
   }
 
   const noteFlag = crew.notes
@@ -961,7 +982,7 @@ function showMoatLegend() {
   $('legend').innerHTML = `
     <div class="legend-title">Competitive reach · rank-band fade</div>
     <div class="legend-grad" style="background:linear-gradient(90deg,rgb(220,38,38),rgb(249,115,22),rgb(234,179,8),rgb(132,204,22),rgb(16,185,129))"></div>
-    <div class="legend-grad-labels"><span>rank 35+</span><span>top-20 edge</span><span>top-10 ✓</span></div>
+    <div class="legend-grad-labels"><span>rank 40+</span><span>top-20 edge</span><span>top-10 ✓</span></div>
     <div class="hint" style="margin-top:5px">Hover any cell to see exact rank, band, and cheapest competitor.</div>`;
 }
 
@@ -1893,7 +1914,11 @@ function openIncidentFromFire(lat, lng, fireMeta = null) {
 function renderIncident() {
   if (!STATE.incidentPin) return;
   const { lat, lng } = STATE.incidentPin;
-  const rows = rankIncident(DATA.crews, lat, lng, STATE.plKey, STATE.timeFilter);
+  // Pass the selected crew so the incident table uses the SAME Model-D field as the
+  // moat overlay (subject always available). Without this, a crew that is locally
+  // cheapest near its own DDP thins ITSELF out of the table even though the moat
+  // shows it rank #1 there — the moat/incident contradiction this view must avoid.
+  const rows = rankIncident(DATA.crews, lat, lng, STATE.plKey, STATE.timeFilter, STATE.selectedCrew);
   lastIncidentRows = rows;
   // Restrict the map to this incident's top-N crews (recomputed on every
   // re-render, so PL / time-filter changes keep the visible set in sync).
@@ -1915,7 +1940,7 @@ function renderIncident() {
     </div>
     <div class="panel-body" style="padding-top:8px">
       <div class="btn-row" style="justify-content:space-between;align-items:center">
-        <span class="hint">${STATE.showAllIncident ? `All ${rows.length}` : `Top ${Math.min(50, rows.length)}`} by NICC cost</span>
+        <span class="hint">${STATE.showAllIncident ? `All ${rows.length}` : `Top ${Math.min(50, rows.length)}`} by NICC cost${STATE.timeFilter ? ' · # = full-field rank (unreachable hidden)' : ''}</span>
         <button id="toggle-all-incident" class="btn btn-sm">${STATE.showAllIncident ? 'Show top 50' : 'Show all crews'}</button>
       </div>
       <div class="incident-table-wrap">
@@ -2089,7 +2114,7 @@ function buildGlossary() {
     ['Rate tiers', 'Crews ranked globally by rate (ascending). <b>Green</b> = cheapest 100, <b>Yellow</b> = 101–210, <b>Orange</b> = 211–388, <b>Red</b> = 389+. Color encodes competitive pricing, not quality.'],
     ['Preparedness Level (PL)', 'Simulates competing fires drawing the cheapest crews away. Higher PL keeps a smaller fraction of the field available, opening the competitive field. PL2≈90%, PL3≈70%, PL4≈43%, PL5≈18%.'],
     ['PL filter intensity', 'A slider beneath the PL presets. The preset sets the nominal field-kept fraction; the slider adds filtering intensity on top — the left edge is nominal (no change), and dragging right keeps less of the field (heavier). It feeds the same thinning used by every tool.'],
-    ['Incident mode', 'Drop a pin anywhere; every available crew is ranked by NICC cost to that point. Time filter removes crews whose mobilization (travel + 3h buffer) exceeds the limit.'],
+    ['Incident mode', 'Drop a pin anywhere; every available crew is ranked by NICC cost to that point — the same rank the moat overlay shows. The time filter only hides crews whose mobilization (travel + 3h buffer) exceeds the limit; it does not change anyone\'s rank, so the surviving rows keep their true full-field cost rank (numbers may skip).'],
     ['Competitive radius', 'Simulates ~100 incidents inside a radius around a crew\'s DDP. The main metrics are top-10 and top-20 rate, average rank, median rank, and a rank-band breakdown. Being #1 is shown as a diagnostic — the goal is to stay competitive in the top-10 to top-20 band, not to be the cheapest option everywhere.'],
     ['Threats', 'Crews that out-rank the selected crew in ≥30% of sampled incidents — direct competitors in that radius.'],
     ['Rate sensitivity', 'Substitutes a hypothetical rate, re-runs the simulation, and shows the change in win rate, rank, and base cost. Breakeven is the rate at which you tie your top threat.'],
