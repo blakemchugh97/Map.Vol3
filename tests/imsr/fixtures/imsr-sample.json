@@ -1,0 +1,63 @@
+{
+  "_comment": "FAKE / HAND-ENTERED TEST DATA — NOT real IMSR values. Invented by hand to exercise the schema validator only. Demonstrates the HUMAN_VERIFIED_ONLY readiness state (all three buckets valid + a filled verification block). Do not treat any number here as real situation data.",
+  "meta": {
+    "source_type": "MANUAL_FIXTURE",
+    "source_date": "2026-06-11",
+    "report_label": "FAKE IMSR fixture — 2026-06-11 (scaffold demo)",
+    "parser_version": "0.0.0-fixture",
+    "ingested_at": "2026-06-12T16:00:00Z",
+    "is_fixture": true,
+    "notes": "All values are fictional. This file exists to prove the validator accepts a well-formed, human-attested fixture.",
+    "verification": {
+      "verified_by": "blakemchugh (manual fixture author)",
+      "verified_at": "2026-06-12T16:05:00Z",
+      "verification_method": "MANUAL_FIXTURE_ENTRY",
+      "verification_notes": "Hand-entered and eyeballed for schema shape only. Values are fictional and were NOT cross-checked against any real IMSR PDF or open-data feed."
+    }
+  },
+  "gac_pl_daily": [
+    { "gacc": "NW",   "gacc_name": "Northwest",           "preparedness_level": 2, "date": "2026-06-11" },
+    { "gacc": "ONCC", "gacc_name": "Northern California", "preparedness_level": 3, "date": "2026-06-11" },
+    { "gacc": "OSCC", "gacc_name": "Southern California", "preparedness_level": 3, "date": "2026-06-11" },
+    { "gacc": "GB",   "gacc_name": "Great Basin",         "preparedness_level": 2, "date": "2026-06-11" },
+    { "gacc": "SW",   "gacc_name": "Southwest",           "preparedness_level": 4, "date": "2026-06-11" },
+    { "gacc": "RM",   "gacc_name": "Rocky Mountain",      "preparedness_level": 1, "date": "2026-06-11" }
+  ],
+  "national_resource_totals_daily": {
+    "date": "2026-06-11",
+    "national_preparedness_level": 3,
+    "totals": {
+      "crews": 120,
+      "engines": 540,
+      "helicopters": 75,
+      "overhead": 980,
+      "total_personnel": 8450
+    }
+  },
+  "incident_resources_daily": [
+    {
+      "incident_id": "FAKE-SW-0001",
+      "incident_name": "FAKE Mesa Ridge Fire",
+      "gacc": "SW",
+      "state": "AZ",
+      "date": "2026-06-11",
+      "size_acres": 12450,
+      "percent_contained": 25,
+      "resources": { "crews": 8, "engines": 22, "helicopters": 3, "total_personnel": 540 },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FAKE-ONCC-0002",
+      "incident_name": "FAKE Pine Hollow Fire",
+      "gacc": "ONCC",
+      "state": "CA",
+      "date": "2026-06-11",
+      "size_acres": 3120,
+      "percent_contained": 60,
+      "resources": { "crews": 4, "engines": 11, "helicopters": 1, "total_personnel": 210 },
+      "lat": null,
+      "lng": null
+    }
+  ]
+}

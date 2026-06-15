@@ -1,0 +1,169 @@
+{
+  "_comment": "Field-mapping manifest for the IMSR dated 2026-06-12. Documents, per normalized target field, where it comes from in the report, its unit/type, whether it is required, and a verbatim example snippet from the source text. This manifest is DOCUMENTATION — the extractor implements equivalent logic but does not read this file.",
+  "report_date": "2026-06-12",
+  "source_pdf": "tests/imsr/source/imsr-2026-06-12.pdf",
+  "source_text": "tests/imsr/source/imsr-2026-06-12.txt",
+  "fields": [
+    {
+      "target": "meta.source_date",
+      "imsr_source": "Page 1 header line",
+      "unit_type": "ISO date (YYYY-MM-DD)",
+      "required": true,
+      "example_raw": "Friday June 12, 2026 – 0730 MDT"
+    },
+    {
+      "target": "national_resource_totals_daily.national_preparedness_level",
+      "imsr_source": "Page 1 header line 'National Preparedness Level'",
+      "unit_type": "integer 1-5",
+      "required": false,
+      "example_raw": "National Preparedness Level 2"
+    },
+    {
+      "target": "national_resource_totals_daily.totals.crews",
+      "imsr_source": "Page 1, Active Incident Resource Summary, 'Total' row, 'Crews' column",
+      "unit_type": "integer (count)",
+      "required": false,
+      "example_raw": "Total 31 135,209 54 216 22 2,559 156",
+      "note": "Order in Total row: Incidents, Cumulative Acres, Crews, Engines, Helicopters, Total Personnel, Change in Personnel."
+    },
+    {
+      "target": "national_resource_totals_daily.totals.engines",
+      "imsr_source": "Page 1, Active Incident Resource Summary, 'Total' row, 'Engines' column",
+      "unit_type": "integer (count)",
+      "required": false,
+      "example_raw": "Total 31 135,209 54 216 22 2,559 156"
+    },
+    {
+      "target": "national_resource_totals_daily.totals.helicopters",
+      "imsr_source": "Page 1, Active Incident Resource Summary, 'Total' row, 'Helicopters' column",
+      "unit_type": "integer (count)",
+      "required": false,
+      "example_raw": "Total 31 135,209 54 216 22 2,559 156"
+    },
+    {
+      "target": "national_resource_totals_daily.totals.total_personnel",
+      "imsr_source": "Page 1, Active Incident Resource Summary, 'Total' row, 'Total Personnel' column",
+      "unit_type": "integer (count); commas stripped",
+      "required": true,
+      "example_raw": "Total 31 135,209 54 216 22 2,559 156"
+    },
+    {
+      "target": "national_resource_totals_daily.totals.overhead",
+      "imsr_source": "NOT PRESENT in this report",
+      "unit_type": "integer (count)",
+      "required": false,
+      "example_raw": "",
+      "note": "The national IMSR does not break out an 'overhead' total. Left absent; do not fabricate."
+    },
+    {
+      "target": "gac_pl_daily[].gacc",
+      "imsr_source": "Per-area section header (pages 2-3), e.g. 'Rocky Mountain Area (PL 2)'; area name mapped to the GACC abbreviation used in the page-1 summary (AICC/NWCC/ONCC/OSCC/NRCC/GBCC/SWCC/RMCC/EACC/SACC).",
+      "unit_type": "string (GACC abbreviation)",
+      "required": true,
+      "example_raw": "Rocky Mountain Area (PL 2)",
+      "note": "ONLY present for areas that have a large-incident section. NWCC, OSCC, NRCC, EACC have no section in this report, so their per-GACC PL is NOT derivable here."
+    },
+    {
+      "target": "gac_pl_daily[].preparedness_level",
+      "imsr_source": "Per-area section header parenthetical '(PL n)'",
+      "unit_type": "integer 1-5",
+      "required": true,
+      "example_raw": "Southwest Area (PL 3)"
+    },
+    {
+      "target": "incident_resources_daily[].incident_name",
+      "imsr_source": "Per-area incident table, 'Incident Name' column",
+      "unit_type": "string",
+      "required": true,
+      "example_raw": "South Fork NE-NBF 23,112 14,123 7 Ctn 7/1 245 100 2 51 0 0 1.1M FS",
+      "note": "Name may be multi-word or numeric (e.g. '340'). Boundary with Unit is anchored on the Unit code pattern [A-Z]{2}-[A-Z]{3}."
+    },
+    {
+      "target": "incident_resources_daily[].incident_id",
+      "imsr_source": "DERIVED: '<Unit>/<Incident Name>' (the IMSR has no stable incident id)",
+      "unit_type": "string (synthetic key)",
+      "required": true,
+      "example_raw": "South Fork NE-NBF ...",
+      "note": "Convention chosen so fixture and extractor key consistently. NOT an official id."
+    },
+    {
+      "target": "incident_resources_daily[].state",
+      "imsr_source": "DERIVED from the first two letters of the Unit code",
+      "unit_type": "string (2-letter state)",
+      "required": false,
+      "example_raw": "NE-NBF -> NE"
+    },
+    {
+      "target": "incident_resources_daily[].gacc",
+      "imsr_source": "The enclosing per-area section header (current area while parsing rows)",
+      "unit_type": "string (GACC abbreviation)",
+      "required": false,
+      "example_raw": "Rocky Mountain Area (PL 2)  ... South Fork NE-NBF ..."
+    },
+    {
+      "target": "incident_resources_daily[].size_acres",
+      "imsr_source": "Incident table, 'Total Acres' column",
+      "unit_type": "integer acres; commas stripped",
+      "required": false,
+      "example_raw": "Seven Cabins NM-LNF 31,860 0 100 Ctn --- 121 -38 1 2 2 0 39.1M FS"
+    },
+    {
+      "target": "incident_resources_daily[].percent_contained",
+      "imsr_source": "Incident table, '% Ctn' column (the integer immediately before the 'Ctn' token)",
+      "unit_type": "integer 0-100",
+      "required": false,
+      "example_raw": "Papa AZ-COF 118 0 75 Ctn 6/13 79 -22 3 2 0 0 350K FS"
+    },
+    {
+      "target": "incident_resources_daily[].resources.total_personnel",
+      "imsr_source": "Incident table, 'Total PPL' column (2 tokens after the 'Ctn' token)",
+      "unit_type": "integer (count)",
+      "required": false,
+      "example_raw": "Putah CA-LNU 860 0 70 Ctn 6/14 442 -2 19 18 0 0 3.1M ST"
+    },
+    {
+      "target": "incident_resources_daily[].resources.crews",
+      "imsr_source": "Incident table, 'Crw' column (4 tokens after the 'Ctn' token)",
+      "unit_type": "integer (count)",
+      "required": false,
+      "example_raw": "Putah CA-LNU 860 0 70 Ctn 6/14 442 -2 19 18 0 0 3.1M ST",
+      "note": "NOTE: Putah detail 'Crw' = 19, but the page-1 ONCC summary 'Crews' = 22. Intra-document disagreement; the incident bucket uses the detail value."
+    },
+    {
+      "target": "incident_resources_daily[].resources.engines",
+      "imsr_source": "Incident table, 'Eng' column (5 tokens after the 'Ctn' token)",
+      "unit_type": "integer (count)",
+      "required": false,
+      "example_raw": "Tower UT-WDD 1,369 0 95 Ctn 6/14 142 2 3 8 1 0 1.2M BLM"
+    },
+    {
+      "target": "incident_resources_daily[].resources.helicopters",
+      "imsr_source": "Incident table, 'Heli' column (6 tokens after the 'Ctn' token)",
+      "unit_type": "integer (count)",
+      "required": false,
+      "example_raw": "Bear NM-GNF 2,000 1,850 0 Ctn 7/10 227 95 6 13 5 0 2M FS"
+    },
+    {
+      "target": "incident_resources_daily[].lat",
+      "imsr_source": "NOT PRESENT (report gives only textual locations, e.g. 'Twelve miles west of Crawford, NE')",
+      "unit_type": "number or null",
+      "required": false,
+      "example_raw": "South Fork, Nebraska NF, USFS. ... Twelve miles west of Crawford, NE.",
+      "note": "Always null. Geocoding is explicitly out of scope and not trusted."
+    },
+    {
+      "target": "incident_resources_daily[].lng",
+      "imsr_source": "NOT PRESENT (same as lat)",
+      "unit_type": "number or null",
+      "required": false,
+      "example_raw": "",
+      "note": "Always null."
+    }
+  ],
+  "not_extracted": [
+    "Fires and Acres Yesterday / Year-to-Date by Protection tables (pages 4-5) - out of scope for the 3 buckets",
+    "Predictive Services Discussion narrative (page 6)",
+    "Per-incident estimated containment date, change-in-acres, change-in-personnel, structures lost, cost-to-date, ownership - present in the table but not in our schema",
+    "The 19 active incidents counted in the page-1 summary that have no detailed table row"
+  ]
+}

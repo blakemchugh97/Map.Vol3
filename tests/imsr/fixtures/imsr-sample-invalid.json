@@ -1,0 +1,22 @@
+{
+  "_comment": "FAKE INVALID fixture — DELIBERATELY BROKEN to prove the validator rejects bad shapes instead of silently trusting them. Expect: INVALID, ok=false, and a list of specific errors + missing_fields. Each problem below is intentional.",
+  "meta": {
+    "source_type": "MYSTERY_SOURCE",
+    "source_date": "06/11/2026",
+    "is_fixture": "yes",
+    "verification": {
+      "verified_by": null
+    }
+  },
+  "gac_pl_daily": [
+    { "gacc": "NW", "preparedness_level": 9, "date": "2026-06-11" },
+    { "gacc_name": "Southwest", "preparedness_level": "high" }
+  ],
+  "national_resource_totals_daily": {
+    "national_preparedness_level": 3,
+    "totals": { "crews": "lots" }
+  },
+  "incident_resources_daily": [
+    { "incident_name": "FAKE Broken Fire", "resources": {} }
+  ]
+}

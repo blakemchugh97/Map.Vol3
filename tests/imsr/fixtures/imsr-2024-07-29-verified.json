@@ -1,0 +1,48 @@
+{
+  "_comment": "HAND-VERIFIED GROUND TRUTH for the REAL IMSR dated 2024-07-29 (0730 MDT, National PL 5). Transcribed by reading tests/imsr/source/imsr-2024-07-29.txt. SCOPE: national totals = COMPLETE; gac_pl_daily = COMPLETE (all 8 area headers present; Alaska/Eastern have no section so no per-GACC PL); incident_resources_daily = the FIRST 12 detailed incident rows in document order (Northwest area table). Incident coverage is intentionally a bounded, document-order sample (this is a 14-page PL5 report with ~93 incident rows); the diff is scoped to these incident_ids via meta._diff_incident_scope. These 12 deliberately include drift cases: wrapped names ('Battle Mountain Complex', 'Badland Complex') and non-standard unit codes ('OR-973S', 'OR-953S'). incident_id is DERIVED as '<unit>/<name>'. lat/lng null (no coordinates in report).",
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2024-07-29",
+    "report_label": "IMSR — July 29, 2024 0730 MDT (HAND-VERIFIED ground truth)",
+    "parser_version": "hand-transcription",
+    "ingested_at": "2026-06-12T18:00:00Z",
+    "is_fixture": true,
+    "_diff_incident_scope": "listed_only",
+    "notes": "Higher-PL peak-season report. National totals + GACC PLs complete; incidents scoped to the first 12 detail rows (document order) to keep hand-transcription accurate.",
+    "verification": {
+      "verified_by": "claude (manual transcription from PDF text)",
+      "verified_at": "2026-06-12T18:00:00Z",
+      "verification_method": "MANUAL_TRANSCRIPTION_FROM_PDF",
+      "verification_notes": "Read off the original report. Pending independent human spot-check. Incident bucket is a document-order sample, not full coverage."
+    }
+  },
+  "gac_pl_daily": [
+    { "gacc": "NWCC", "gacc_name": "Northwest",           "preparedness_level": 5, "date": "2024-07-29" },
+    { "gacc": "GBCC", "gacc_name": "Great Basin",         "preparedness_level": 4, "date": "2024-07-29" },
+    { "gacc": "ONCC", "gacc_name": "Northern California", "preparedness_level": 4, "date": "2024-07-29" },
+    { "gacc": "OSCC", "gacc_name": "Southern California", "preparedness_level": 3, "date": "2024-07-29" },
+    { "gacc": "NRCC", "gacc_name": "Northern Rockies",    "preparedness_level": 4, "date": "2024-07-29" },
+    { "gacc": "SWCC", "gacc_name": "Southwest",           "preparedness_level": 3, "date": "2024-07-29" },
+    { "gacc": "RMCC", "gacc_name": "Rocky Mountain",      "preparedness_level": 2, "date": "2024-07-29" },
+    { "gacc": "SACC", "gacc_name": "Southern",            "preparedness_level": 1, "date": "2024-07-29" }
+  ],
+  "national_resource_totals_daily": {
+    "date": "2024-07-29",
+    "national_preparedness_level": 5,
+    "totals": { "crews": 604, "engines": 1625, "helicopters": 157, "total_personnel": 27110 }
+  },
+  "incident_resources_daily": [
+    { "incident_id": "WA-COA/Swawilla I",             "incident_name": "Swawilla I",             "gacc": "NWCC", "state": "WA", "date": "2024-07-29", "size_acres": 46324,  "percent_contained": 26, "resources": { "crews": 9,  "engines": 36,  "helicopters": 0, "total_personnel": 469 },  "lat": null, "lng": null },
+    { "incident_id": "WA-NES/Bridge Creek",           "incident_name": "Bridge Creek",           "gacc": "NWCC", "state": "WA", "date": "2024-07-29", "size_acres": 3950,   "percent_contained": 43, "resources": { "crews": 1,  "engines": 8,   "helicopters": 0, "total_personnel": 136 },  "lat": null, "lng": null },
+    { "incident_id": "OR-MAF/Falls",                  "incident_name": "Falls",                  "gacc": "NWCC", "state": "OR", "date": "2024-07-29", "size_acres": 142307, "percent_contained": 69, "resources": { "crews": 40, "engines": 47,  "helicopters": 5, "total_personnel": 1290 }, "lat": null, "lng": null },
+    { "incident_id": "OR-MAF/Telephone",              "incident_name": "Telephone",              "gacc": "NWCC", "state": "OR", "date": "2024-07-29", "size_acres": 26000,  "percent_contained": 0,  "resources": { "crews": 12, "engines": 11,  "helicopters": 0, "total_personnel": 199 },  "lat": null, "lng": null },
+    { "incident_id": "OR-BUD/Ritter",                 "incident_name": "Ritter",                 "gacc": "NWCC", "state": "OR", "date": "2024-07-29", "size_acres": 459,    "percent_contained": 52, "resources": { "crews": 3,  "engines": 10,  "helicopters": 0, "total_personnel": 100 },  "lat": null, "lng": null },
+    { "incident_id": "WA-SES/Retreat",                "incident_name": "Retreat",                "gacc": "NWCC", "state": "WA", "date": "2024-07-29", "size_acres": 22421,  "percent_contained": 4,  "resources": { "crews": 7,  "engines": 35,  "helicopters": 0, "total_personnel": 442 },  "lat": null, "lng": null },
+    { "incident_id": "OR-973S/Battle Mountain Complex","incident_name": "Battle Mountain Complex","gacc": "NWCC", "state": "OR", "date": "2024-07-29", "size_acres": 172334, "percent_contained": 8,  "resources": { "crews": 53, "engines": 104, "helicopters": 5, "total_personnel": 1745 }, "lat": null, "lng": null },
+    { "incident_id": "OR-953S/Courtrock",             "incident_name": "Courtrock",              "gacc": "NWCC", "state": "OR", "date": "2024-07-29", "size_acres": 17066,  "percent_contained": 24, "resources": { "crews": 10, "engines": 34,  "helicopters": 0, "total_personnel": 356 },  "lat": null, "lng": null },
+    { "incident_id": "OR-VAD/Badland Complex",        "incident_name": "Badland Complex",        "gacc": "NWCC", "state": "OR", "date": "2024-07-29", "size_acres": 54566,  "percent_contained": 40, "resources": { "crews": 2,  "engines": 25,  "helicopters": 1, "total_personnel": 278 },  "lat": null, "lng": null },
+    { "incident_id": "OR-VAD/Durkee",                 "incident_name": "Durkee",                 "gacc": "NWCC", "state": "OR", "date": "2024-07-29", "size_acres": 288690, "percent_contained": 49, "resources": { "crews": 8,  "engines": 31,  "helicopters": 5, "total_personnel": 483 },  "lat": null, "lng": null },
+    { "incident_id": "OR-VAD/Cow Valley",             "incident_name": "Cow Valley",             "gacc": "NWCC", "state": "OR", "date": "2024-07-29", "size_acres": 133490, "percent_contained": 99, "resources": { "crews": 0,  "engines": 0,   "helicopters": 0, "total_personnel": 0 },    "lat": null, "lng": null },
+    { "incident_id": "WA-SES/Pioneer",                "incident_name": "Pioneer",                "gacc": "NWCC", "state": "WA", "date": "2024-07-29", "size_acres": 33276,  "percent_contained": 15, "resources": { "crews": 10, "engines": 28,  "helicopters": 4, "total_personnel": 698 },  "lat": null, "lng": null }
+  ]
+}
