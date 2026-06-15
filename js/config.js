@@ -141,17 +141,22 @@ export const MAP_CONFIG = {
   maxZoom: 14,
   conus: { minLat: 24, maxLat: 50, minLng: -125, maxLng: -65 },
   tiles: {
-    // Default/light basemap = Esri World Topo, served as standard cached XYZ tiles
-    // (.../MapServer/tile/{z}/{y}/{x}). It loads at init as the actual full-opacity
-    // map background. Dark mode keeps the CARTO dark basemap; setTheme() swaps
-    // between these two by calling tileLayer.setUrl() — so the topo base must be a
-    // plain L.tileLayer URL (not an esri-leaflet layer) to preserve that structure.
+    // Two DIFFERENT basemap kinds, swapped by setTheme() (see js/map.js):
+    //   light = Esri World Topo raster XYZ (.../MapServer/tile/{z}/{y}/{x}) — the
+    //           default/standard basemap, a real full-opacity background (L.tileLayer).
+    //   dark  = ArcGIS ITEM ID for "World Navigation Map (Dark)" — an Esri vector
+    //           basemap STYLE, passed to L.esri.Vector.vectorTileLayer() which resolves
+    //           the item to its dark style + vector source (+ maplibre-gl renderer).
+    //           This MUST be the item id, NOT the bare VectorTileServer URL: many Esri
+    //           basemaps share one service (World_Basemap_v2) and differ only by item
+    //           style, so the URL loads the service's DEFAULT (topographic) style, not
+    //           the dark one. setTheme() adds/removes whole layers (different types).
     light: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-    dark:  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    dark:  'b69e76a446ac479998ff31de839ba323',
   },
-  // One tileLayer is reused across themes (setUrl swaps the URL but not attribution),
-  // so credit both basemap sources: Esri (World Topo, default) and CARTO/OSM (dark).
-  tileAttribution: 'Topo &copy; <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, USGS, NPS &middot; &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  // Attribution for the light raster topo basemap. The dark vector basemap supplies
+  // its own attribution automatically (esri-leaflet-vector reads the service copyright).
+  tileAttribution: 'Topo &copy; <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, USGS, NPS &middot; &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
   defaultClusterRadius: 0,
 };
 
@@ -222,7 +227,11 @@ export const ARCGIS_OVERLAY_CONFIG = {
   },
 };
 
-/* ---------- Zone overlay styling ---------- */
+/* ---------- Zone overlay styling ----------
+   Shared by both Zones views. "Dispatch centers" mode strokes each dispatch zone as
+   its own outline; "GACC regions" mode renders pre-dissolved region features (one per
+   GACC, from gacc_regions.geojson), so the same stroke draws one clean region outline
+   with no internal dispatch-center seams. */
 export const ZONE_STYLE = {
   default: { fillColor: '#1e3a5f', fillOpacity: 0.15, color: '#3b82f6', weight: 1.5, opacity: 0.7 },
   hover:   { fillOpacity: 0.30, weight: 2 },
@@ -247,7 +256,7 @@ export const STATE = {
   zoneFilter:   null,         // disp_unit_id or null
   gaccFilter:   null,         // GACC abbreviation or null (region-level list filter)
   zoneMode:     'gacc',       // Zones overlay view: 'gacc' (regions) | 'dispatch' (centers). Defaults to GACC.
-  theme:        'dark',
+  theme:        'light',
   sidebarOpen:  true,
   clusterRadius: 0,
   showAllIncident: false,     // incident list top-50 vs all
@@ -261,7 +270,8 @@ export const DATA = {
   crews: [],
   byId: {},          // id -> crew
   ddpGroups: {},     // "lat,lng" -> [crews]
-  zones: null,       // geojson, lazy-loaded
+  zones: null,       // dispatch-zone geojson, lazy-loaded (Dispatch centers view)
+  gaccZones: null,   // dissolved GACC-region geojson, lazy-loaded (GACC regions view)
 };
 
 /* Assign a tier css name from rate ($/hr) */
@@ -286,8 +296,25 @@ export function applyPlSliderToFiltering(baseKeepFraction, sliderValue = STATE.p
   return baseKeepFraction + (floor - baseKeepFraction) * s;
 }
 
+/* ---------- IMSR-LIVE (removable): optional keep-fraction override ----------
+   Default null = byte-identical PL behavior below. When the optional sit-rep
+   thinning mode is selected, ui.js installs an override fn here; a returned
+   FINITE value in (0,1] is used, anything else is ignored (fail safe back to the
+   PL preset). This does NOT change the PL presets, the slider math, or the
+   thinning algorithms — only which keep-fraction VALUE is returned, and only when
+   a mode is explicitly selected. Remove this block + the setKeepFractionOverride
+   call in ui.js to fully revert. */
+let _keepFractionOverride = null;
+export function setKeepFractionOverride(fn) {
+  _keepFractionOverride = (typeof fn === 'function') ? fn : null;
+}
+
 /* Effective keepFraction for a PL key, given the current slider state. */
 export function effectiveKeepFraction(plKey, sliderValue = STATE.plSlider) {
+  if (_keepFractionOverride) {                                   // IMSR-LIVE (removable)
+    const v = _keepFractionOverride(plKey, sliderValue);
+    if (typeof v === 'number' && isFinite(v) && v > 0 && v <= 1) return v;
+  }
   const base = (PL_CONFIG[plKey] || PL_CONFIG.none).keepFraction;
   return applyPlSliderToFiltering(base, sliderValue);
 }

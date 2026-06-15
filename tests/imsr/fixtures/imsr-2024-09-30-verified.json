@@ -1,0 +1,43 @@
+{
+  "_comment": "HAND-VERIFIED GROUND TRUTH for the REAL IMSR dated 2024-09-30 (0730 MDT, National PL 3). Transcribed from tests/imsr/source/imsr-2024-09-30.txt. SCOPE: national totals = COMPLETE; gac_pl_daily = COMPLETE (5 area headers present); incident_resources_daily = the COMPLETE first-area detail table (Northwest, 10 rows). Diff scoped to these incident_ids via meta._diff_incident_scope. Drift cases included: wrapped names ('Willamette Complex', 'Homestead Complex', 'Diamond Complex', 'Bachelor Complex') and non-standard unit code 'OR-721S'. incident_id derived as '<unit>/<name>'. lat/lng null.",
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2024-09-30",
+    "report_label": "IMSR — September 30, 2024 0730 MDT (HAND-VERIFIED ground truth)",
+    "parser_version": "hand-transcription",
+    "ingested_at": "2026-06-12T18:00:00Z",
+    "is_fixture": true,
+    "_diff_incident_scope": "listed_only",
+    "notes": "Incident bucket = the complete first-area (Northwest) detail table, 10 rows. National totals + GACC PLs complete.",
+    "verification": {
+      "verified_by": "claude (manual transcription from PDF text)",
+      "verified_at": "2026-06-12T18:00:00Z",
+      "verification_method": "MANUAL_TRANSCRIPTION_FROM_PDF",
+      "verification_notes": "Read off the original report. Pending independent human spot-check. Incident bucket = first area only."
+    }
+  },
+  "gac_pl_daily": [
+    { "gacc": "NWCC", "gacc_name": "Northwest",           "preparedness_level": 3, "date": "2024-09-30" },
+    { "gacc": "GBCC", "gacc_name": "Great Basin",         "preparedness_level": 3, "date": "2024-09-30" },
+    { "gacc": "OSCC", "gacc_name": "Southern California", "preparedness_level": 3, "date": "2024-09-30" },
+    { "gacc": "RMCC", "gacc_name": "Rocky Mountain",      "preparedness_level": 2, "date": "2024-09-30" },
+    { "gacc": "SWCC", "gacc_name": "Southwest",           "preparedness_level": 2, "date": "2024-09-30" }
+  ],
+  "national_resource_totals_daily": {
+    "date": "2024-09-30",
+    "national_preparedness_level": 3,
+    "totals": { "crews": 176, "engines": 430, "helicopters": 57, "total_personnel": 9905 }
+  },
+  "incident_resources_daily": [
+    { "incident_id": "OR-PRD/Rail Ridge",         "incident_name": "Rail Ridge",         "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 165743, "percent_contained": 80, "resources": { "crews": 28, "engines": 29, "helicopters": 8, "total_personnel": 1038 }, "lat": null, "lng": null },
+    { "incident_id": "OR-OCF/Wiley Flat",         "incident_name": "Wiley Flat",         "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 30186,  "percent_contained": 94, "resources": { "crews": 0,  "engines": 1,  "helicopters": 0, "total_personnel": 27 },   "lat": null, "lng": null },
+    { "incident_id": "OR-WIF/Willamette Complex", "incident_name": "Willamette Complex", "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 26841,  "percent_contained": 54, "resources": { "crews": 8,  "engines": 24, "helicopters": 0, "total_personnel": 722 },  "lat": null, "lng": null },
+    { "incident_id": "OR-DEF/Red",                "incident_name": "Red",                "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 2154,   "percent_contained": 11, "resources": { "crews": 2,  "engines": 4,  "helicopters": 0, "total_personnel": 69 },   "lat": null, "lng": null },
+    { "incident_id": "OR-UPF/Homestead Complex",  "incident_name": "Homestead Complex",  "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 10023,  "percent_contained": 35, "resources": { "crews": 8,  "engines": 16, "helicopters": 3, "total_personnel": 427 },  "lat": null, "lng": null },
+    { "incident_id": "OR-UPF/Diamond Complex",    "incident_name": "Diamond Complex",    "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 11142,  "percent_contained": 90, "resources": { "crews": 1,  "engines": 7,  "helicopters": 0, "total_personnel": 93 },   "lat": null, "lng": null },
+    { "incident_id": "WA-NES/Goosmus",            "incident_name": "Goosmus",            "gacc": "NWCC", "state": "WA", "date": "2024-09-30", "size_acres": 1738,   "percent_contained": 7,  "resources": { "crews": 5,  "engines": 30, "helicopters": 0, "total_personnel": 268 },  "lat": null, "lng": null },
+    { "incident_id": "OR-DEF/Bachelor Complex",   "incident_name": "Bachelor Complex",   "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 11742,  "percent_contained": 50, "resources": { "crews": 2,  "engines": 6,  "helicopters": 0, "total_personnel": 135 },  "lat": null, "lng": null },
+    { "incident_id": "OR-721S/Bottom Creek",      "incident_name": "Bottom Creek",       "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 232,    "percent_contained": 35, "resources": { "crews": 10, "engines": 6,  "helicopters": 1, "total_personnel": 243 },  "lat": null, "lng": null },
+    { "incident_id": "OR-FWF/Buck Creek",         "incident_name": "Buck Creek",         "gacc": "NWCC", "state": "OR", "date": "2024-09-30", "size_acres": 5758,   "percent_contained": 98, "resources": { "crews": 3,  "engines": 7,  "helicopters": 1, "total_personnel": 82 },   "lat": null, "lng": null }
+  ]
+}

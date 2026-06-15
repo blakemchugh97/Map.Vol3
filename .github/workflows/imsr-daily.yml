@@ -1,0 +1,61 @@
+name: IMSR daily refresh
+
+# Rebuilds the prebuilt imsr-live.json the app serves, off-Mac, once a day.
+# All work happens in tools/imsr_refresh.py (fetch PDF + incident layer, run the
+# existing offline pipeline, build the live artifact, back it up, prune old
+# copies). Nothing here runs in the browser, so the app's load path is unchanged.
+
+on:
+  schedule:
+    # 15:00 UTC daily — a buffer after NICC publishes the morning IMSR
+    # (~07:30 MT ≈ 13:30 UTC). Cron is always UTC; adjust to taste.
+    - cron: "0 15 * * *"
+  workflow_dispatch: {}        # also runnable on demand from the Actions tab
+
+# Let the job commit the refreshed artifact back with the default GITHUB_TOKEN.
+permissions:
+  contents: write
+
+# Never let two refreshes race a push.
+concurrency:
+  group: imsr-daily
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pypdf (only dep — PDF text extraction)
+        run: python -m pip install --quiet pypdf
+
+      - name: Refresh IMSR data
+        id: refresh
+        env:
+          # Optional overrides via repo Settings → Secrets and variables → Actions
+          # → Variables. Unset = the script's built-in defaults (NICC sitreprt.pdf
+          # + the app's USA_Wildfires_v1 layer).
+          IMSR_PDF_URL: ${{ vars.IMSR_PDF_URL }}
+          IMSR_LAYER_URL: ${{ vars.IMSR_LAYER_URL }}
+        run: python tools/imsr_refresh.py
+
+      - name: Commit refreshed artifact (only on a real change)
+        if: steps.refresh.outputs.status == 'refreshed'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # -A also stages the pruned (deleted) old-day files under these paths.
+          git add -A -- imsr-live.json tests/imsr
+          if git diff --cached --quiet; then
+            echo "status was 'refreshed' but nothing staged — skipping commit."
+          else
+            git commit -m "chore(imsr): daily refresh ${{ steps.refresh.outputs.date }}"
+            git push
+          fi

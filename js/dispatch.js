@@ -401,7 +401,11 @@ export function rateSensitivity(selectedCrew, testRate, radius, allCrews, plKey)
     delta_win:   (parseFloat(test.win_pct)   - parseFloat(base.win_pct)).toFixed(1),
     delta_rank:  (parseFloat(test.avg_rank)  - parseFloat(base.avg_rank)).toFixed(1),
     delta_base:  (testRate - selectedCrew.rate) * 20 * 14 * 8,
-    new_gl_rank: allCrews.filter(c => c.rate < testRate).length + 1,
+    // Rank among the OTHER crews at the test rate. Excluding the subject is
+    // load-bearing: allCrews still holds the subject at its CURRENT rate, so a
+    // raise (testRate > current) would otherwise count the subject's own old self
+    // as "cheaper" and inflate the new rank by one.
+    new_gl_rank: allCrews.filter(c => c.id !== selectedCrew.id && c.rate < testRate).length + 1,
   };
 }
 
@@ -547,6 +551,25 @@ export function pointInPoly(lng, lat, poly) {
 }
 export function isUSLand(lat, lng) { return pointInPoly(lng, lat, US_LAND_POLY); }
 
+// True point-in-polygon for a GeoJSON Polygon/MultiPolygon, layered on pointInPoly.
+// A point is inside a part when it's inside that part's outer ring and outside its
+// holes; for a MultiPolygon it's inside if inside ANY part (so islands count). Border
+// points resolve deterministically via pointInPoly's half-open (yi>lat)!==(yj>lat)
+// rule, so a crew exactly on a shared GACC border lands in exactly one region.
+export function pointInGeometry(lng, lat, geom) {
+  const parts = geom.type === 'Polygon' ? [geom.coordinates]
+              : geom.type === 'MultiPolygon' ? geom.coordinates : [];
+  for (const rings of parts) {
+    if (!pointInPoly(lng, lat, rings[0])) continue;        // outside this part's outer ring
+    let inHole = false;
+    for (let k = 1; k < rings.length; k++) {
+      if (pointInPoly(lng, lat, rings[k])) { inHole = true; break; }
+    }
+    if (!inHole) return true;
+  }
+  return false;
+}
+
 /* ---------- Zone stats ---------- */
 // Summarize a set of crews into the popup stat shape (or null if empty).
 function summarizeCrew(zoneCrew) {
@@ -568,11 +591,12 @@ export function zoneStats(dispUnitID, allCrews) {
   return summarizeCrew(allCrews.filter(c => c.disp_unit_id === dispUnitID));
 }
 
-// Aggregate stats across every dispatch zone in a GACC. `gaccOfUnit` maps a
-// crew's disp_unit_id -> GACC abbreviation (built from the zone geojson).
-export function gaccStats(gacc, allCrews, gaccOfUnit) {
+// Aggregate stats across a GACC region. `gaccOfCrew` maps crew.id -> GACC
+// abbreviation by true point-in-polygon membership (see ui.js buildCrewGacc), so the
+// popup stats match the auto-filtered list exactly.
+export function gaccStats(gacc, allCrews, gaccOfCrew) {
   if (!gacc) return null;
-  return summarizeCrew(allCrews.filter(c => gaccOfUnit[c.disp_unit_id] === gacc));
+  return summarizeCrew(allCrews.filter(c => gaccOfCrew[c.id] === gacc));
 }
 
 /* ---------- Async chunked iteration (non-blocking overlays) ----------

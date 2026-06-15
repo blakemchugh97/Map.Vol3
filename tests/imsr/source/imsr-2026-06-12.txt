@@ -1,0 +1,288 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Friday June 12, 2026 – 0730 MDT 
+National Preparedness Level 2 
+ 
+ 
+National Fire Activity: 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (85 fires) 
+New large incidents: 0 
+Large fires contained: 1 
+Uncontained large fires:  11 
+CIMTs committed: 1 
+NIMOs committed: 0 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+ 
+Active Incident Resource Summary 
+GACC Incidents Cumulative 
+Acres Crews Engines Helicopters Total 
+Personnel 
+Change in 
+Personnel 
+AICC 2 1,497 3 0 0 73 -37 
+NWCC 2 3,446 1 19 0 87 -54 
+ONCC 1 860 22 18 0 442 -2 
+OSCC 1 2,525 4 13 0 212 0 
+NRCC 0 0 0 0 0 0 0 
+GBCC 4 18,873 5 24 3 282 -18 
+SWCC 3 33,978 11 17 7 427 31 
+RMCC 6 63,336 7 71 2 472 65 
+EACC 0 0 0 0 0 0 0 
+SACC 12 10,694 1 54 10 564 171 
+Total 31 135,209 54 216 22 2,559 156 
+ 
+  
+===== PAGE 2 =====
+Rocky Mountain Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 6 
+New large incidents: 0 
+Uncontained large fires: 2 
+CIMTs Committed: 1 
+ 
+South Fork, Nebraska NF, USFS. CIMT (RM Team 2). Twelve miles west of Crawford, NE. Grass and timber. 
+Active fire behavior with wind-driven runs, running and flanking. Numerous residences threatened. 
+Evacuations, area and road closures in effect. 
+ 
+Bee Hive, Uncompahgre Field Office, BLM. Fifteen miles northwest of Naturita, CO. Chaparral and grass. 
+Active fire behavior with creeping and smoldering. Residences threatened. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+South Fork NE-NBF 23,112 14,123 7 Ctn 7/1 245 100 2 51 0 0 1.1M FS 
+Bee Hive CO-UPD 320 1 20 Ctn 6/18 114 15 3 4 1 0 500K BLM 
+ 
+ 
+Southwest Area (PL 3)   
+Fire Activity and Teams Assigned Totals 
+New fires: 8 
+New large incidents: 0 
+Uncontained large fires: 2 
+ 
+Bear, Gila NF, USFS. Eighteen miles southeast of Quemado, NM. Timber and brush. Active fire behavior with 
+running, group torching and short-range spotting. Structures and communication infrastructure threatened. 
+Area closures in effect. 
+ 
+Papa, Coconino NF, USFS. Thirteen miles northeast of Flagstaff, AZ. Timber. Minimal fire behavior with 
+creeping and smoldering. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Bear NM-GNF 2,000 1,850 0 Ctn 7/10 227 95 6 13 5 0 2M FS 
+Papa AZ-COF 118 0 75 Ctn 6/13 79 -22 3 2 0 0 350K FS 
+Seven Cabins NM-LNF 31,860 0 100 Ctn --- 121 -38 1 2 2 0 39.1M FS 
+LNF – Lincoln NF, USFS 
+ 
+ 
+Great Basin Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 5 
+New large incidents: 0 
+Uncontained large fires: 2 
+ 
+South Mountain, Northwest Area, Utah DOF. Three miles west of Stockton, UT. Grass, brush and timber. 
+Minimal fire behavior with smoldering and creeping. Structures threatened. 
+ 
+Tower, West Desert District, BLM. Thirty-one miles southeast of Nephi, UT. Chaparral and brush. Minimal fire 
+behavior with smoldering. Road closures in effect. 
+ 
+===== PAGE 3 =====
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+South Mountain UT-NWS 1,863 0 75 Ctn 6/12 0 0 0 0 0 0 500K ST 
+Tower UT-WDD 1,369 0 95 Ctn 6/14 142 2 3 8 1 0 1.2M BLM 
+ 
+ 
+Northern California Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 14 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Putah, Sonoma-Lake-Napa Unit, Cal Fire. Ten miles west of Winters, CA. Grass and brush. Minimal fire 
+behavior with smoldering and creeping. Energy infrastructure threatened. Area and trail closures in effect. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Putah CA-LNU 860 0 70 Ctn 6/14 442 -2 19 18 0 0 3.1M ST 
+ 
+ 
+Southern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 29 
+New large incidents: 0 
+Uncontained large fires: 3 
+ 
+Rose Bay Canal, North Carolina Forest Service. Ten miles southwest of Fairfield, NC. Timber. Active fire 
+behavior with running. 
+ 
+Shell, National Forests in Florida, USFS. Thirteen miles west of Deland, FL. Southern rough. Minimal fire 
+behavior. 
+ 
+340, National Forests in Florida, USFS. Twenty-six miles southwest of Tallahassee, FL. Southern rough. 
+Minimal fire behavior. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Rose Bay Canal NC-NCS 618 156 24 Ctn 7/1 92 -3 0 20 1 0 476K ST 
+Shell FL-FNF 2,822 0 70 Ctn 6/12 13 0 0 2 0 0 300K FS 
+340 FL-FNF 3,400 0 75 Ctn 6/16 34 0 0 6 0 0 375K FS 
+ 
+ 
+Alaska Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 0 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Kopshesut, Galena Zone, BLM. Started on Alaska Native Corporation land one mile west of Ambler, AK. 
+Timber and grass. Minimal fire behavior with smoldering and creeping. Numerous structures threatened. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Kopshesut AK-GAD 1,444 0 50 Ctn 7/4 51 -6 2 0 0 0 1.1M PRI 
+  
+===== PAGE 4 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ 
+Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 1 0 0 0 5 0 6 
+Northwest ACRES 0 0 0 0 3 0 3 
+Northern California FIRES 0 0 0 0 13 1 14 
+Northern California ACRES 0 0 0 0 53 0 53 
+Southern California FIRES 0 0 0 0 14 1 15 
+Southern California ACRES 0 0 0 0 103 0 103 
+Northern Rockies FIRES 0 0 0 0 0 0 0 
+Northern Rockies ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 0 0 0 5 0 5 
+Great Basin ACRES 0 0 0 0 18 0 18 
+Southwest FIRES 1 1 0 0 3 3 8 
+Southwest ACRES 0 0 0 0 7 11 18 
+Rocky Mountain FIRES 0 1 0 0 4 1 6 
+Rocky Mountain ACRES 0 4 0 0 157 0 161 
+Eastern Area FIRES 0 0 0 0 2 0 2 
+Eastern Area ACRES 0 0 0 0 0 0 0 
+Southern Area FIRES 4 0 0 0 24 1 29 
+Southern Area ACRES 7 0 0 0 65 0 72 
+TOTAL FIRES:  6 2 0 0 70 7 85 
+TOTAL ACRES:  8 4 0 0 406 11 429 
+  
+===== PAGE 5 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ 
+Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 27 0 0 103 7 137 
+Alaska ACRES 0 2,763 0 0 144 1 2,908 
+Northwest FIRES 60 42 10 4 264 101 481 
+Northwest ACRES 552 7,063 3,396 1 2,129 2,784 15,925 
+Northern California FIRES 2 4 0 1 761 98 866 
+Northern California ACRES 1 6 0 0 2,061 126 2,194 
+Southern California FIRES 6 29 3 8 1,384 124 1,554 
+Southern California ACRES 1 3,204 0 18,402 42,464 1,608 65,678 
+Northern Rockies FIRES 81 17 4 2 283 72 459 
+Northern Rockies ACRES 2,419 1,414 396 5 17,395 2,146 23,774 
+Great Basin FIRES 10 138 0 3 254 51 456 
+Great Basin ACRES 2,770 37,116 0 0 4,823 9,097 53,807 
+Southwest FIRES 285 75 2 4 446 258 1,070 
+Southwest ACRES 719 1,945 3,980 63 70,538 50,244 127,489 
+Rocky Mountain FIRES 76 64 11 14 410 106 681 
+Rocky Mountain ACRES 1,413 773 1,885 1,406 1,069,839 85,723 1,161,038 
+Eastern Area FIRES 153 0 18 6 6,220 261 6,658 
+Eastern Area ACRES 1,083 0 115 7 62,584 6,275 70,064 
+Southern Area FIRES 615 1 57 58 18,767 513 20,011 
+Southern Area ACRES 75,436 72 4,427 26,613 834,245 57,751 998,544 
+TOTAL FIRES:  1,288 397 105 100 28,892 1,591 32,373 
+TOTAL ACRES:  84,394 54,356 14,199 46,498 2,106,221 215,754 2,521,421 
+ 
+Ten Year Average Quantity 
+Fires (2016 – 2025 as of today) 23,626 
+Acres (2016 – 2025 as of today) 1,431,515 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+  
+===== PAGE 6 =====
+Predictive Services Discussion:  
+ 
+Widespread elevated to critical conditions will persist across portions of the Southwest, Great Basin, and Rocky 
+Mountain areas, as well as California today. Across these areas, variable winds between 10-15 mph with gusts 
+15-35 mph and relative humidity values between 5- 15% are expected, with the highest winds across the West 
+Slope and central Great Plains. Across central California valleys, Las Vegas, and southern portions of the 
+Southwest, temperatures exceeding 100 degrees are expected. A storm threat begins to return to the Southwest 
+Area today with the chance for isolated storms across portions of Arizona, with more widespread thunderstorms 
+across the eastern half of New Mexico and southeastern Colorado. In the northern Rockies, scattered 
+thunderstorms will continue to move east across northern Idaho and Montana accompanied by higher relative 
+humidity values and gusty winds.  
+ 
+In the eastern U.S., scattered showers and thunderstorms will continue to move east across the Southern and 
+Eastern areas. Coastal relative humidity values will be between 35-45%, with the lowest values in the Carolinas 
+where triple digit temperatures are expected. In Alaska, moderate conditions are expected, with scattered 
+thunderstorms across the eastern half of the state and relative humidity values across portions of central Alaska 
+between 25-35%.   
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 

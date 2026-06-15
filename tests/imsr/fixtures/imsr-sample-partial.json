@@ -1,0 +1,19 @@
+{
+  "_comment": "FAKE PARTIAL fixture — structurally parseable but INCOMPLETE. Demonstrates the PARTIAL readiness state: meta is valid, gac_pl_daily is fine, but national_resource_totals_daily is missing entirely and incident_resources_daily is present-but-empty. No hard type errors → not INVALID, but not fully shaped → PARTIAL. Verification is left null (nobody attested).",
+  "meta": {
+    "source_type": "MANUAL_FIXTURE",
+    "source_date": "2026-06-10",
+    "is_fixture": true,
+    "notes": "Intentionally missing the national totals bucket and carrying zero incident records.",
+    "verification": {
+      "verified_by": null,
+      "verified_at": null,
+      "verification_method": null,
+      "verification_notes": null
+    }
+  },
+  "gac_pl_daily": [
+    { "gacc": "GB", "gacc_name": "Great Basin", "preparedness_level": 2, "date": "2026-06-10" }
+  ],
+  "incident_resources_daily": []
+}

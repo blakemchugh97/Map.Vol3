@@ -1,0 +1,1345 @@
+{
+  "compared_at": "2026-06-13T00:17:57.344905+00:00",
+  "fixture_date": "2025-08-27",
+  "extractor_date": "2025-08-27",
+  "extractor_unverified": true,
+  "incident_scope": "listed_only",
+  "extractor_extra_incidents": 36,
+  "extractor_extra_incident_ids": [
+    "AZ-ASG/Fishhook",
+    "AZ-GCP/Dragon Bravo",
+    "AZ-TNF/Billy",
+    "AZ-TNF/Washington",
+    "CA-AEU/Coyote",
+    "CA-LNU/Pickett",
+    "CA-LPF/Gifford",
+    "CA-SHF/Peak",
+    "CA-SNF/Garnet",
+    "CA-SQF/Little",
+    "CA-SRF/Dillon",
+    "CO-GRD/Turner Gulch",
+    "CO-PSF/La Plata",
+    "CO-SJF/Stoner Mesa",
+    "CO-WRD/Lee",
+    "CO-WRF/Derby",
+    "FL-FLS/Mile Marker 39",
+    "ID-BOD/Box",
+    "ID-BOF/Rock",
+    "NM-GNF/Packstring",
+    "NV-EKD/Big Butte",
+    "NV-EKD/Cottonwood Peak",
+    "OR-955S/Flat",
+    "OR-WIF/Emigrant",
+    "UT-BRS/Willard Peak",
+    "UT-FIF/Monroe Canyon",
+    "UT-FIF/Widemouth",
+    "UT-UWF/Beulah",
+    "UT-UWF/Buckley Draw",
+    "WA-OLF/Bear Gulch",
+    "WA-OWF/Pomas",
+    "WY-BTF/Dollar Lake",
+    "WY-BTF/Willow Creek",
+    "WY-WAX/Spring Creek",
+    "WY-WBD/Red Canyon",
+    "WY-WRA/Bull Lake"
+  ],
+  "summary": {
+    "fields_compared": 184,
+    "exact_match_pct": 100.0,
+    "exact": 184,
+    "mismatch": 0,
+    "missing": 0,
+    "ambiguous": 0
+  },
+  "extractor_warnings": [],
+  "results": [
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.national_preparedness_level",
+      "category": "exact",
+      "verified": 4,
+      "extracted": 4
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.crews",
+      "category": "exact",
+      "verified": 384,
+      "extracted": 384
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.engines",
+      "category": "exact",
+      "verified": 943,
+      "extracted": 943
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.helicopters",
+      "category": "exact",
+      "verified": 122,
+      "extracted": 122
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.total_personnel",
+      "category": "exact",
+      "verified": 19045,
+      "extracted": 19045
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "GBCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "GBCC.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "NRCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "NRCC.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "NWCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "NWCC.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "ONCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "ONCC.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "OSCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "OSCC.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "RMCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "RMCC.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SACC.preparedness_level",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SACC.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SWCC.preparedness_level",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SWCC.date",
+      "category": "exact",
+      "verified": "2025-08-27",
+      "extracted": "2025-08-27"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.incident_name",
+      "category": "exact",
+      "verified": "Lightning Creek",
+      "extracted": "Lightning Creek"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.state",
+      "category": "exact",
+      "verified": "ID",
+      "extracted": "ID"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.size_acres",
+      "category": "exact",
+      "verified": 2525,
+      "extracted": 2525
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.percent_contained",
+      "category": "exact",
+      "verified": 25,
+      "extracted": 25
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-IPF/Lightning Creek.resources.total_personnel",
+      "category": "exact",
+      "verified": 8,
+      "extracted": 8
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.incident_name",
+      "category": "exact",
+      "verified": "East",
+      "extracted": "East"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.state",
+      "category": "exact",
+      "verified": "ID",
+      "extracted": "ID"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.size_acres",
+      "category": "exact",
+      "verified": 636,
+      "extracted": 636
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.resources.crews",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.resources.engines",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/East.resources.total_personnel",
+      "category": "exact",
+      "verified": 97,
+      "extracted": 97
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.incident_name",
+      "category": "exact",
+      "verified": "Island Creek",
+      "extracted": "Island Creek"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.state",
+      "category": "exact",
+      "verified": "ID",
+      "extracted": "ID"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.size_acres",
+      "category": "exact",
+      "verified": 11591,
+      "extracted": 11591
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.percent_contained",
+      "category": "exact",
+      "verified": 5,
+      "extracted": 5
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.resources.crews",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.resources.engines",
+      "category": "exact",
+      "verified": 7,
+      "extracted": 7
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Island Creek.resources.total_personnel",
+      "category": "exact",
+      "verified": 133,
+      "extracted": 133
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.incident_name",
+      "category": "exact",
+      "verified": "Mire",
+      "extracted": "Mire"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.state",
+      "category": "exact",
+      "verified": "ID",
+      "extracted": "ID"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.size_acres",
+      "category": "exact",
+      "verified": 744,
+      "extracted": 744
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Mire.resources.total_personnel",
+      "category": "exact",
+      "verified": 8,
+      "extracted": 8
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.incident_name",
+      "category": "exact",
+      "verified": "Rhoda Creek",
+      "extracted": "Rhoda Creek"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.state",
+      "category": "exact",
+      "verified": "ID",
+      "extracted": "ID"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.size_acres",
+      "category": "exact",
+      "verified": 1334,
+      "extracted": 1334
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-NCF/Rhoda Creek.resources.total_personnel",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.incident_name",
+      "category": "exact",
+      "verified": "Sunset",
+      "extracted": "Sunset"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.state",
+      "category": "exact",
+      "verified": "ID",
+      "extracted": "ID"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.size_acres",
+      "category": "exact",
+      "verified": 3230,
+      "extracted": 3230
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.percent_contained",
+      "category": "exact",
+      "verified": 52,
+      "extracted": 52
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.resources.crews",
+      "category": "exact",
+      "verified": 17,
+      "extracted": 17
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.resources.engines",
+      "category": "exact",
+      "verified": 13,
+      "extracted": 13
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.resources.helicopters",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "ID-POS/Sunset.resources.total_personnel",
+      "category": "exact",
+      "verified": 605,
+      "extracted": 605
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.incident_name",
+      "category": "exact",
+      "verified": "Bivens Creek",
+      "extracted": "Bivens Creek"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.size_acres",
+      "category": "exact",
+      "verified": 2233,
+      "extracted": 2233
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.percent_contained",
+      "category": "exact",
+      "verified": 34,
+      "extracted": 34
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.resources.crews",
+      "category": "exact",
+      "verified": 8,
+      "extracted": 8
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.resources.engines",
+      "category": "exact",
+      "verified": 47,
+      "extracted": 47
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.resources.helicopters",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Bivens Creek.resources.total_personnel",
+      "category": "exact",
+      "verified": 674,
+      "extracted": 674
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.incident_name",
+      "category": "exact",
+      "verified": "Cloudrest",
+      "extracted": "Cloudrest"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.size_acres",
+      "category": "exact",
+      "verified": 2628,
+      "extracted": 2628
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.percent_contained",
+      "category": "exact",
+      "verified": 12,
+      "extracted": 12
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.resources.crews",
+      "category": "exact",
+      "verified": 6,
+      "extracted": 6
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.resources.engines",
+      "category": "exact",
+      "verified": 7,
+      "extracted": 7
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BDF/Cloudrest.resources.total_personnel",
+      "category": "exact",
+      "verified": 249,
+      "extracted": 249
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.incident_name",
+      "category": "exact",
+      "verified": "Waldo Bar",
+      "extracted": "Waldo Bar"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.size_acres",
+      "category": "exact",
+      "verified": 115,
+      "extracted": 115
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-BRF/Waldo Bar.resources.total_personnel",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.incident_name",
+      "category": "exact",
+      "verified": "West Fork",
+      "extracted": "West Fork"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.size_acres",
+      "category": "exact",
+      "verified": 853,
+      "extracted": 853
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.percent_contained",
+      "category": "exact",
+      "verified": 40,
+      "extracted": 40
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.resources.crews",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.resources.engines",
+      "category": "exact",
+      "verified": 5,
+      "extracted": 5
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.resources.helicopters",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-CGF/West Fork.resources.total_personnel",
+      "category": "exact",
+      "verified": 122,
+      "extracted": 122
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.incident_name",
+      "category": "exact",
+      "verified": "Pot Mountain",
+      "extracted": "Pot Mountain"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.size_acres",
+      "category": "exact",
+      "verified": 404,
+      "extracted": 404
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-FNF/Pot Mountain.resources.total_personnel",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.incident_name",
+      "category": "exact",
+      "verified": "Sandbar 2",
+      "extracted": "Sandbar 2"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.size_acres",
+      "category": "exact",
+      "verified": 243,
+      "extracted": 243
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.percent_contained",
+      "category": "exact",
+      "verified": 45,
+      "extracted": 45
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.resources.crews",
+      "category": "exact",
+      "verified": 6,
+      "extracted": 6
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.resources.engines",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.resources.helicopters",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-HLF/Sandbar 2.resources.total_personnel",
+      "category": "exact",
+      "verified": 242,
+      "extracted": 242
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.incident_name",
+      "category": "exact",
+      "verified": "Ransome",
+      "extracted": "Ransome"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.size_acres",
+      "category": "exact",
+      "verified": 474,
+      "extracted": 474
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.resources.crews",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.resources.engines",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-KNF/Ransome.resources.total_personnel",
+      "category": "exact",
+      "verified": 106,
+      "extracted": 106
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.incident_name",
+      "category": "exact",
+      "verified": "McAllister",
+      "extracted": "McAllister"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.size_acres",
+      "category": "exact",
+      "verified": 3560,
+      "extracted": 3560
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.percent_contained",
+      "category": "exact",
+      "verified": 100,
+      "extracted": 100
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LG25/McAllister.resources.total_personnel",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.incident_name",
+      "category": "exact",
+      "verified": "Corral Creek",
+      "extracted": "Corral Creek"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.size_acres",
+      "category": "exact",
+      "verified": 368,
+      "extracted": 368
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.percent_contained",
+      "category": "exact",
+      "verified": 15,
+      "extracted": 15
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.resources.crews",
+      "category": "exact",
+      "verified": 5,
+      "extracted": 5
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.resources.engines",
+      "category": "exact",
+      "verified": 4,
+      "extracted": 4
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.resources.helicopters",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-LNF/Corral Creek.resources.total_personnel",
+      "category": "exact",
+      "verified": 171,
+      "extracted": 171
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.incident_name",
+      "category": "exact",
+      "verified": "Knowles",
+      "extracted": "Knowles"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.size_acres",
+      "category": "exact",
+      "verified": 3790,
+      "extracted": 3790
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.percent_contained",
+      "category": "exact",
+      "verified": 21,
+      "extracted": 21
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.resources.crews",
+      "category": "exact",
+      "verified": 6,
+      "extracted": 6
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.resources.engines",
+      "category": "exact",
+      "verified": 5,
+      "extracted": 5
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-NWS/Knowles.resources.total_personnel",
+      "category": "exact",
+      "verified": 235,
+      "extracted": 235
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.incident_name",
+      "category": "exact",
+      "verified": "Devil Mountain",
+      "extracted": "Devil Mountain"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.size_acres",
+      "category": "exact",
+      "verified": 1618,
+      "extracted": 1618
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Devil Mountain.resources.total_personnel",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.incident_name",
+      "category": "exact",
+      "verified": "Windy Rock",
+      "extracted": "Windy Rock"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.gacc",
+      "category": "exact",
+      "verified": "NRCC",
+      "extracted": "NRCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.state",
+      "category": "exact",
+      "verified": "MT",
+      "extracted": "MT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.size_acres",
+      "category": "exact",
+      "verified": 3426,
+      "extracted": 3426
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.resources.crews",
+      "category": "exact",
+      "verified": 14,
+      "extracted": 14
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.resources.engines",
+      "category": "exact",
+      "verified": 28,
+      "extracted": 28
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.resources.helicopters",
+      "category": "exact",
+      "verified": 7,
+      "extracted": 7
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "MT-SWS/Windy Rock.resources.total_personnel",
+      "category": "exact",
+      "verified": 542,
+      "extracted": 542
+    }
+  ]
+}

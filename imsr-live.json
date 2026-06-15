@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "source_date": "2026-06-12",
+    "generated_at": "2026-06-13T04:26:10.570019+00:00",
+    "generator": "tools/imsr_build_live.py",
+    "review_only": true,
+    "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
+    "counts": {
+      "gac_pl": 6,
+      "exact_incidents": 12
+    }
+  },
+  "gac_pl": {
+    "RMCC": 2,
+    "SWCC": 3,
+    "GBCC": 2,
+    "ONCC": 2,
+    "SACC": 1,
+    "AICC": 2
+  },
+  "national_totals": {
+    "date": "2026-06-12",
+    "national_preparedness_level": 2,
+    "crews": 54,
+    "engines": 216,
+    "helicopters": 22,
+    "total_personnel": 2559
+  },
+  "exact_incidents": {
+    "2026-NENBF-260530": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "NE-NBF/South Fork",
+      "imsr_name": "South Fork",
+      "layer_name": "South Fork",
+      "state": "NE",
+      "crews": 2,
+      "engines": 51,
+      "helicopters": 0,
+      "total_personnel": 245
+    },
+    "2026-COUPD-000064": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "CO-UPD/Bee Hive",
+      "imsr_name": "Bee Hive",
+      "layer_name": "Bee Hive",
+      "state": "CO",
+      "crews": 3,
+      "engines": 4,
+      "helicopters": 1,
+      "total_personnel": 114
+    },
+    "2026-NMGNF-000307": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "NM-GNF/Bear",
+      "imsr_name": "Bear",
+      "layer_name": "Bear",
+      "state": "NM",
+      "crews": 6,
+      "engines": 13,
+      "helicopters": 5,
+      "total_personnel": 227
+    },
+    "2026-AZCOF-000681": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "AZ-COF/Papa",
+      "imsr_name": "Papa",
+      "layer_name": "Papa",
+      "state": "AZ",
+      "crews": 3,
+      "engines": 2,
+      "helicopters": 0,
+      "total_personnel": 79
+    },
+    "2026-NMLNF-000335": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "NM-LNF/Seven Cabins",
+      "imsr_name": "Seven Cabins",
+      "layer_name": "SEVEN CABINS",
+      "state": "NM",
+      "crews": 1,
+      "engines": 2,
+      "helicopters": 2,
+      "total_personnel": 121
+    },
+    "2026-UTNWS-200220": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "UT-NWS/South Mountain",
+      "imsr_name": "South Mountain",
+      "layer_name": "South Mountain",
+      "state": "UT",
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 0
+    },
+    "2026-UTWDD-260151": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "UT-WDD/Tower",
+      "imsr_name": "Tower",
+      "layer_name": "Tower",
+      "state": "UT",
+      "crews": 3,
+      "engines": 8,
+      "helicopters": 1,
+      "total_personnel": 142
+    },
+    "2026-CALNU-009543": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "CA-LNU/Putah",
+      "imsr_name": "Putah",
+      "layer_name": "PUTAH",
+      "state": "CA",
+      "crews": 19,
+      "engines": 18,
+      "helicopters": 0,
+      "total_personnel": 442
+    },
+    "2026-NCNCS-260058": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "NC-NCS/Rose Bay Canal",
+      "imsr_name": "Rose Bay Canal",
+      "layer_name": "ROSE BAY CANAL",
+      "state": "NC",
+      "crews": 0,
+      "engines": 20,
+      "helicopters": 1,
+      "total_personnel": 92
+    },
+    "2026-FLFNF-001638": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "FL-FNF/Shell",
+      "imsr_name": "Shell",
+      "layer_name": "Shell",
+      "state": "FL",
+      "crews": 0,
+      "engines": 2,
+      "helicopters": 0,
+      "total_personnel": 13
+    },
+    "2026-FLFNF-001659": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "FL-FNF/340",
+      "imsr_name": "340",
+      "layer_name": "340",
+      "state": "FL",
+      "crews": 0,
+      "engines": 6,
+      "helicopters": 0,
+      "total_personnel": 34
+    },
+    "2026-AKGAD-000137": {
+      "tier": "EXACT",
+      "report_date": "2026-06-12",
+      "imsr_id": "AK-GAD/Kopshesut",
+      "imsr_name": "Kopshesut",
+      "layer_name": "Kopshesut",
+      "state": "AK",
+      "crews": 2,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 51
+    }
+  }
+}

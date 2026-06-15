@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IMSR fixture validator — T2C Dispatch Map (dev scaffold)</title>
+  <style>
+    body { font: 14px/1.5 -apple-system, system-ui, sans-serif; background: #0f1117; color: #f0f4ff; margin: 24px; max-width: 980px; }
+    h1 { font-size: 18px; margin-bottom: 2px; }
+    .sub { color: #9aa4b8; margin: 0 0 16px; }
+    .banner { border: 1px solid #2a3347; border-radius: 8px; padding: 10px 14px; margin: 12px 0 20px; background: #161a24; }
+    .banner b { color: #f59e0b; }
+    .card { border: 1px solid #2a3347; border-radius: 10px; padding: 14px 16px; margin: 14px 0; background: #141823; }
+    .card h2 { font-size: 15px; margin: 0 0 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .file { color: #f59e0b; font-family: ui-monospace, monospace; font-size: 13px; }
+    .badge { font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; color: #0f1117; }
+    .meta-line { color: #9aa4b8; font-size: 13px; margin: 2px 0 8px; }
+    .kv { display: grid; grid-template-columns: 180px 1fr; gap: 2px 12px; font-size: 13px; margin: 6px 0; }
+    .kv .k { color: #9aa4b8; }
+    .buckets { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+    .chip { font-size: 12px; padding: 3px 8px; border-radius: 6px; background: #1b2130; border: 1px solid #2a3347; }
+    .chip .n { color: #f0f4ff; font-weight: 700; }
+    ul { list-style: none; padding: 0; margin: 6px 0; }
+    li { padding: 2px 0; font-size: 13px; font-family: ui-monospace, monospace; }
+    .err  { color: #f05252; }
+    .soft { color: #eab308; }
+    .warn { color: #9aa4b8; }
+    .ok   { color: #2dd47f; }
+    details summary { cursor: pointer; color: #9aa4b8; font-size: 13px; margin-top: 6px; }
+    .disclaimer { color: #9aa4b8; font-size: 12px; margin-top: 22px; border-top: 1px solid #2a3347; padding-top: 12px; }
+  </style>
+</head>
+<body>
+  <h1>IMSR fixture validator <span style="color:#9aa4b8;font-weight:400">· dev scaffold</span></h1>
+  <p class="sub">Validation-first harness. Checks fixture <em>shape</em> only — never asserts the values are correct.</p>
+
+  <div id="flag-banner" class="banner">Reading feature flag…</div>
+  <div id="summary" class="sub">Running…</div>
+  <div id="cards"></div>
+
+  <p class="disclaimer">
+    This page is isolated from the live map: the app (<code>index.html</code> → <code>js/ui.js</code>) never imports
+    anything under <code>tests/imsr/</code>. Nothing here is wired into the map, ranking, PL thinning, or popups.
+    The highest readiness state is <b>HUMAN_VERIFIED_ONLY</b> — a person checked the shape. That is <b>not</b>
+    "production ready". Delete <code>tests/imsr/</code> to fully revert.
+  </p>
+
+  <script type="module">
+    import { validateImsrFixture, formatReportLine } from './imsr-validator.js';
+    import { READINESS, READINESS_ORDER } from './imsr-schema.js';
+    import { IMSR_ENABLED, imsrEnabled } from './imsr-flag.js';
+
+    const BADGE_COLOR = {
+      INVALID:             '#f05252',
+      PARTIAL:             '#eab308',
+      STRUCTURALLY_VALID:  '#38bdf8',
+      HUMAN_VERIFIED_ONLY: '#2dd47f',
+    };
+
+    // Feature-flag banner — make the OFF-by-default state unmistakable.
+    document.getElementById('flag-banner').innerHTML =
+      `Feature flag <code>IMSR_ENABLED</code> = <b>${IMSR_ENABLED}</b> ` +
+      `(effective for this page: <b>${imsrEnabled()}</b>). ` +
+      `Integration is OFF — this harness only inspects fixtures.`;
+
+    const FIXTURES = [
+      { file: './fixtures/imsr-sample.json',         expect: 'HUMAN_VERIFIED_ONLY' },
+      { file: './fixtures/imsr-sample-partial.json', expect: 'PARTIAL' },
+      { file: './fixtures/imsr-sample-invalid.json', expect: 'INVALID' },
+    ];
+
+    function renderCard(label, report, expect) {
+      const c = BADGE_COLOR[report.readiness_flag] || '#9aa4b8';
+      const expectNote = expect
+        ? (report.readiness_flag === expect
+            ? `<span class="ok">✓ matches expected ${expect}</span>`
+            : `<span class="err">✗ expected ${expect}</span>`)
+        : '';
+      const bucketChips = Object.entries(report.buckets).map(([name, b]) =>
+        `<span class="chip">${name}: <span class="n">${b.present ? b.count : '—'}</span>${b.issues ? ` · ${b.issues} issue(s)` : ''}</span>`
+      ).join('');
+      const list = (arr, cls) => arr.length
+        ? `<ul>${arr.map(s => `<li class="${cls}">${s}</li>`).join('')}</ul>`
+        : `<div class="${cls}" style="font-size:13px">none</div>`;
+
+      return `<div class="card">
+        <h2><span class="file">${label}</span>
+          <span class="badge" style="background:${c}">${report.readiness_flag}</span>
+          ${expectNote}</h2>
+        <div class="meta-line">source_type=<b>${report.source_type}</b> · source_date=<b>${report.source_date}</b>
+          · is_fixture=<b>${report.is_fixture}</b> · human_verified=<b>${report.human_verified}</b></div>
+        <div class="kv">
+          <span class="k">ok (structurally usable)</span><span>${report.ok}</span>
+          <span class="k">validation_status</span><span>${report.validation_status}</span>
+          <span class="k">parse_confidence</span><span>${report.parse_confidence} <span class="warn">(${report.confidence_basis})</span></span>
+        </div>
+        <div class="buckets">${bucketChips}</div>
+        <details${report.errors.length ? ' open' : ''}><summary>errors (${report.errors.length}) · missing_fields (${report.missing_fields.length})</summary>
+          <div class="warn" style="margin-top:6px">errors:</div>${list(report.errors, 'err')}
+          <div class="warn" style="margin-top:6px">missing_fields:</div>${list(report.missing_fields, 'err')}
+        </details>
+        <details><summary>soft_issues (${report.soft_issues.length}) · warnings (${report.warnings.length})</summary>
+          <div class="warn" style="margin-top:6px">soft_issues:</div>${list(report.soft_issues, 'soft')}
+          <div class="warn" style="margin-top:6px">warnings:</div>${list(report.warnings, 'warn')}
+        </details>
+      </div>`;
+    }
+
+    async function run() {
+      const cards = [];
+      const results = [];
+
+      for (const fx of FIXTURES) {
+        let data, report, ok = false;
+        try {
+          const res = await fetch(fx.file);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          data = await res.json();
+          report = validateImsrFixture(data);
+          ok = report.readiness_flag === fx.expect;
+          cards.push(renderCard(fx.file, report, fx.expect));
+          console.log(formatReportLine(report, fx.file) + (ok ? ' ✓' : ` ✗ expected ${fx.expect}`));
+        } catch (e) {
+          cards.push(`<div class="card"><h2><span class="file">${fx.file}</span>
+            <span class="badge" style="background:#f05252">LOAD ERROR</span></h2>
+            <div class="err">${e.message}</div></div>`);
+          console.error(`[imsr] ${fx.file} load error`, e);
+        }
+        results.push({ file: fx.file, expect: fx.expect, got: report && report.readiness_flag, ok });
+      }
+
+      // Bonus in-memory case: the valid sample with its verification block blanked,
+      // to demonstrate STRUCTURALLY_VALID (valid shape, but nobody attested).
+      try {
+        const res = await fetch('./fixtures/imsr-sample.json');
+        const clone = await res.json();
+        clone.meta.verification = { verified_by: null, verified_at: null, verification_method: null, verification_notes: null };
+        const report = validateImsrFixture(clone);
+        const ok = report.readiness_flag === 'STRUCTURALLY_VALID';
+        cards.push(renderCard('imsr-sample.json (verification blanked, in-memory)', report, 'STRUCTURALLY_VALID'));
+        results.push({ file: 'in-memory: sample w/o verification', expect: 'STRUCTURALLY_VALID', got: report.readiness_flag, ok });
+        console.log(formatReportLine(report, 'in-memory unverified') + (ok ? ' ✓' : ' ✗'));
+      } catch (e) { console.error('[imsr] in-memory case error', e); }
+
+      document.getElementById('cards').innerHTML = cards.join('');
+      const passed = results.filter(r => r.ok).length;
+      const summary = document.getElementById('summary');
+      const allGreen = passed === results.length;
+      summary.innerHTML = `<b>${passed}/${results.length}</b> fixtures matched their expected readiness state` +
+        (allGreen ? ' · <span class="ok">all green</span>' : ' · <span class="err">mismatch</span>');
+
+      // Machine-readable hooks for the preview/console verification path.
+      window.__imsrValidate = { passed, total: results.length, results };
+      console.log(`[imsr.validate] ${passed}/${results.length} fixtures matched expected readiness`);
+    }
+
+    run().catch((e) => {
+      document.getElementById('summary').innerHTML = `<span class="err">Harness error: ${e.message}</span>`;
+      console.error('[imsr.validate] harness error', e);
+    });
+  </script>
+</body>
+</html>

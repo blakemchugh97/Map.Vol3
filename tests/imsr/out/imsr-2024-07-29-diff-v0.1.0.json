@@ -1,0 +1,838 @@
+{
+  "compared_at": "2026-06-13T00:14:07.990620+00:00",
+  "fixture_date": "2024-07-29",
+  "extractor_date": "2024-07-29",
+  "extractor_unverified": true,
+  "incident_scope": "listed_only",
+  "extractor_extra_incidents": 76,
+  "extractor_extra_incident_ids": [
+    "AZ-CRD/Windy Mesa",
+    "AZ-SCA/Summit",
+    "AZ-TNF/Adessa",
+    "AZ-TNF/Sand Stone",
+    "CA-ANF/Fork",
+    "CA-BTU/Park",
+    "CA-KNF/Shelly",
+    "CA-LNU/Ridge",
+    "CA-LPF/Apache",
+    "CA-LPF/Lake",
+    "CA-PNF/Gold Complex",
+    "CA-SCU/Creek",
+    "CA-SCU/Flynn",
+    "CA-SCU/Point",
+    "CA-SDU/Grove 2",
+    "CA-SQF/Borel",
+    "CA-SQF/Long",
+    "CA-SQF/Trout",
+    "CA-SRF/Hill",
+    "FL-FLS/* C-41",
+    "ID-BOF/Boulder",
+    "ID-CMS/Rock Creek",
+    "ID-IPF/Complex",
+    "ID-NCF/Wye",
+    "ID-NPT/Gwen",
+    "ID-PAF/Limepoint",
+    "ID-PAF/Oxbow",
+    "ID-PAF/Wolf Creek",
+    "ID-SCF/Thunder",
+    "ID-STF/Bench Lake",
+    "ID-STF/Clarks",
+    "MT-BDF/* Grouse",
+    "MT-FHA/Mill Pocket",
+    "MT-FHA/Sullivan",
+    "MT-LNF/Miller Peak",
+    "NM-CAF/Mestenas Canyon",
+    "NM-SNF/Tanques",
+    "NV-WID/Stockade Canyon",
+    "OR-CLP/Middle Fork",
+    "OR-DEF/Red",
+    "OR-DEF/Wickiup",
+    "OR-MHF/Whisky Creek",
+    "OR-OCF/Crazy Creek",
+    "OR-PRD/Camp Creek",
+    "OR-PRD/Lone Rock",
+    "OR-UMF/Double Snag",
+    "OR-UPF/Adam Mountain",
+    "OR-UPF/Complex",
+    "OR-VAD/Cedar Creek",
+    "OR-VAD/Complex",
+    "OR-VAD/Deer Creek",
+    "OR-VAD/Grasshopper",
+    "OR-VAD/Ground",
+    "OR-WIF/208",
+    "OR-WIF/Chalk",
+    "OR-WIF/Coffeepot",
+    "OR-WIF/Moss Mountain",
+    "OR-WIF/Ore",
+    "OR-WIF/Pyramid",
+    "OR-WWF/Cliff Mountain",
+    "UT-ASF/Speirs",
+    "UT-CPD/Third Canyon",
+    "UT-FIF/Dry Wash",
+    "UT-FIF/Little Twist",
+    "UT-FIF/Silver King",
+    "UT-NES/Dikker Hill",
+    "UT-SWS/Kolob",
+    "WA-MSF/Miners",
+    "WA-OWF/Easy",
+    "WA-SES/Black Canyon",
+    "WA-SES/Cougar Creek",
+    "WA-SPD/* Umtanum",
+    "WA-WFS/Big Horn",
+    "WY-CMX/* 3 Mile Creek",
+    "WY-HPD/* Beaver Creek",
+    "WY-SHF/* Clearwater"
+  ],
+  "summary": {
+    "fields_compared": 106,
+    "exact_match_pct": 91.5,
+    "exact": 97,
+    "mismatch": 0,
+    "missing": 9,
+    "ambiguous": 0
+  },
+  "extractor_warnings": [
+    "national_totals: 'Total' summary row not found"
+  ],
+  "results": [
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.date",
+      "category": "missing",
+      "verified": "2024-07-29",
+      "extracted": null
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.national_preparedness_level",
+      "category": "missing",
+      "verified": 5,
+      "extracted": null
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.crews",
+      "category": "missing",
+      "verified": 604,
+      "extracted": null
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.engines",
+      "category": "missing",
+      "verified": 1625,
+      "extracted": null
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.helicopters",
+      "category": "missing",
+      "verified": 157,
+      "extracted": null
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.total_personnel",
+      "category": "missing",
+      "verified": 27110,
+      "extracted": null
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "GBCC.preparedness_level",
+      "category": "exact",
+      "verified": 4,
+      "extracted": 4
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "GBCC.date",
+      "category": "exact",
+      "verified": "2024-07-29",
+      "extracted": "2024-07-29"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "NRCC.preparedness_level",
+      "category": "exact",
+      "verified": 4,
+      "extracted": 4
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "NRCC.date",
+      "category": "exact",
+      "verified": "2024-07-29",
+      "extracted": "2024-07-29"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "NWCC.preparedness_level",
+      "category": "exact",
+      "verified": 5,
+      "extracted": 5
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "NWCC.date",
+      "category": "exact",
+      "verified": "2024-07-29",
+      "extracted": "2024-07-29"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "ONCC.preparedness_level",
+      "category": "exact",
+      "verified": 4,
+      "extracted": 4
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "ONCC.date",
+      "category": "exact",
+      "verified": "2024-07-29",
+      "extracted": "2024-07-29"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "OSCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "OSCC.date",
+      "category": "exact",
+      "verified": "2024-07-29",
+      "extracted": "2024-07-29"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "RMCC.preparedness_level",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "RMCC.date",
+      "category": "exact",
+      "verified": "2024-07-29",
+      "extracted": "2024-07-29"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SACC.preparedness_level",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SACC.date",
+      "category": "exact",
+      "verified": "2024-07-29",
+      "extracted": "2024-07-29"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SWCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SWCC.date",
+      "category": "exact",
+      "verified": "2024-07-29",
+      "extracted": "2024-07-29"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-953S/Courtrock",
+      "category": "missing",
+      "why": "record present in fixture but not produced by extractor"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-973S/Battle Mountain Complex",
+      "category": "missing",
+      "why": "record present in fixture but not produced by extractor"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.incident_name",
+      "category": "exact",
+      "verified": "Ritter",
+      "extracted": "Ritter"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.state",
+      "category": "exact",
+      "verified": "OR",
+      "extracted": "OR"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.size_acres",
+      "category": "exact",
+      "verified": 459,
+      "extracted": 459
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.percent_contained",
+      "category": "exact",
+      "verified": 52,
+      "extracted": 52
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.resources.crews",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.resources.engines",
+      "category": "exact",
+      "verified": 10,
+      "extracted": 10
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-BUD/Ritter.resources.total_personnel",
+      "category": "exact",
+      "verified": 100,
+      "extracted": 100
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.incident_name",
+      "category": "exact",
+      "verified": "Falls",
+      "extracted": "Falls"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.state",
+      "category": "exact",
+      "verified": "OR",
+      "extracted": "OR"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.size_acres",
+      "category": "exact",
+      "verified": 142307,
+      "extracted": 142307
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.percent_contained",
+      "category": "exact",
+      "verified": 69,
+      "extracted": 69
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.resources.crews",
+      "category": "exact",
+      "verified": 40,
+      "extracted": 40
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.resources.engines",
+      "category": "exact",
+      "verified": 47,
+      "extracted": 47
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.resources.helicopters",
+      "category": "exact",
+      "verified": 5,
+      "extracted": 5
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Falls.resources.total_personnel",
+      "category": "exact",
+      "verified": 1290,
+      "extracted": 1290
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.incident_name",
+      "category": "exact",
+      "verified": "Telephone",
+      "extracted": "Telephone"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.state",
+      "category": "exact",
+      "verified": "OR",
+      "extracted": "OR"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.size_acres",
+      "category": "exact",
+      "verified": 26000,
+      "extracted": 26000
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.resources.crews",
+      "category": "exact",
+      "verified": 12,
+      "extracted": 12
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.resources.engines",
+      "category": "exact",
+      "verified": 11,
+      "extracted": 11
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-MAF/Telephone.resources.total_personnel",
+      "category": "exact",
+      "verified": 199,
+      "extracted": 199
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Badland Complex",
+      "category": "missing",
+      "why": "record present in fixture but not produced by extractor"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.incident_name",
+      "category": "exact",
+      "verified": "Cow Valley",
+      "extracted": "Cow Valley"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.state",
+      "category": "exact",
+      "verified": "OR",
+      "extracted": "OR"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.size_acres",
+      "category": "exact",
+      "verified": 133490,
+      "extracted": 133490
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.percent_contained",
+      "category": "exact",
+      "verified": 99,
+      "extracted": 99
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Cow Valley.resources.total_personnel",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.incident_name",
+      "category": "exact",
+      "verified": "Durkee",
+      "extracted": "Durkee"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.state",
+      "category": "exact",
+      "verified": "OR",
+      "extracted": "OR"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.size_acres",
+      "category": "exact",
+      "verified": 288690,
+      "extracted": 288690
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.percent_contained",
+      "category": "exact",
+      "verified": 49,
+      "extracted": 49
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.resources.crews",
+      "category": "exact",
+      "verified": 8,
+      "extracted": 8
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.resources.engines",
+      "category": "exact",
+      "verified": 31,
+      "extracted": 31
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.resources.helicopters",
+      "category": "exact",
+      "verified": 5,
+      "extracted": 5
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "OR-VAD/Durkee.resources.total_personnel",
+      "category": "exact",
+      "verified": 483,
+      "extracted": 483
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.incident_name",
+      "category": "exact",
+      "verified": "Swawilla I",
+      "extracted": "Swawilla I"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.state",
+      "category": "exact",
+      "verified": "WA",
+      "extracted": "WA"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.size_acres",
+      "category": "exact",
+      "verified": 46324,
+      "extracted": 46324
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.percent_contained",
+      "category": "exact",
+      "verified": 26,
+      "extracted": 26
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.resources.crews",
+      "category": "exact",
+      "verified": 9,
+      "extracted": 9
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.resources.engines",
+      "category": "exact",
+      "verified": 36,
+      "extracted": 36
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-COA/Swawilla I.resources.total_personnel",
+      "category": "exact",
+      "verified": 469,
+      "extracted": 469
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.incident_name",
+      "category": "exact",
+      "verified": "Bridge Creek",
+      "extracted": "Bridge Creek"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.state",
+      "category": "exact",
+      "verified": "WA",
+      "extracted": "WA"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.size_acres",
+      "category": "exact",
+      "verified": 3950,
+      "extracted": 3950
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.percent_contained",
+      "category": "exact",
+      "verified": 43,
+      "extracted": 43
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.resources.crews",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.resources.engines",
+      "category": "exact",
+      "verified": 8,
+      "extracted": 8
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-NES/Bridge Creek.resources.total_personnel",
+      "category": "exact",
+      "verified": 136,
+      "extracted": 136
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.incident_name",
+      "category": "exact",
+      "verified": "Pioneer",
+      "extracted": "Pioneer"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.state",
+      "category": "exact",
+      "verified": "WA",
+      "extracted": "WA"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.size_acres",
+      "category": "exact",
+      "verified": 33276,
+      "extracted": 33276
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.percent_contained",
+      "category": "exact",
+      "verified": 15,
+      "extracted": 15
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.resources.crews",
+      "category": "exact",
+      "verified": 10,
+      "extracted": 10
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.resources.engines",
+      "category": "exact",
+      "verified": 28,
+      "extracted": 28
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.resources.helicopters",
+      "category": "exact",
+      "verified": 4,
+      "extracted": 4
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Pioneer.resources.total_personnel",
+      "category": "exact",
+      "verified": 698,
+      "extracted": 698
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.incident_name",
+      "category": "exact",
+      "verified": "Retreat",
+      "extracted": "Retreat"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.gacc",
+      "category": "exact",
+      "verified": "NWCC",
+      "extracted": "NWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.state",
+      "category": "exact",
+      "verified": "WA",
+      "extracted": "WA"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.size_acres",
+      "category": "exact",
+      "verified": 22421,
+      "extracted": 22421
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.percent_contained",
+      "category": "exact",
+      "verified": 4,
+      "extracted": 4
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.resources.crews",
+      "category": "exact",
+      "verified": 7,
+      "extracted": 7
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.resources.engines",
+      "category": "exact",
+      "verified": 35,
+      "extracted": 35
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "WA-SES/Retreat.resources.total_personnel",
+      "category": "exact",
+      "verified": 442,
+      "extracted": 442
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "_comment": "HAND-VERIFIED GROUND TRUTH for the REAL IMSR dated 2025-08-27 (0730 MDT, National PL 4). Transcribed from tests/imsr/source/imsr-2025-08-27.txt. SCOPE: national totals = COMPLETE; gac_pl_daily = COMPLETE (8 area headers present); incident_resources_daily = the COMPLETE first-area detail table (Northern Rockies, 18 rows). Diff scoped to these incident_ids via meta._diff_incident_scope. Drift cases included: leading-space rows ('West Fork','Corral Creek','Pot Mountain'), asterisk-prefixed new incidents ('Rhoda Creek','Waldo Bar'), 'Comp' (completion) containment code, a name containing a digit ('Sandbar 2'), and a non-standard unit code 'MT-LG25'. Names are recorded CLEAN (leading '* ' and spaces removed). incident_id derived as '<unit>/<name>'. lat/lng null.",
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2025-08-27",
+    "report_label": "IMSR — August 27, 2025 0730 MDT (HAND-VERIFIED ground truth)",
+    "parser_version": "hand-transcription",
+    "ingested_at": "2026-06-12T18:00:00Z",
+    "is_fixture": true,
+    "_diff_incident_scope": "listed_only",
+    "notes": "Incident bucket = the complete first-area (Northern Rockies) detail table, 18 rows, chosen because it concentrates the most layout drift. National totals + GACC PLs complete.",
+    "verification": {
+      "verified_by": "claude (manual transcription from PDF text)",
+      "verified_at": "2026-06-12T18:00:00Z",
+      "verification_method": "MANUAL_TRANSCRIPTION_FROM_PDF",
+      "verification_notes": "Read off the original report. Pending independent human spot-check. Incident bucket = first area only."
+    }
+  },
+  "gac_pl_daily": [
+    { "gacc": "NRCC", "gacc_name": "Northern Rockies",    "preparedness_level": 3, "date": "2025-08-27" },
+    { "gacc": "NWCC", "gacc_name": "Northwest",           "preparedness_level": 3, "date": "2025-08-27" },
+    { "gacc": "ONCC", "gacc_name": "Northern California", "preparedness_level": 3, "date": "2025-08-27" },
+    { "gacc": "OSCC", "gacc_name": "Southern California", "preparedness_level": 3, "date": "2025-08-27" },
+    { "gacc": "GBCC", "gacc_name": "Great Basin",         "preparedness_level": 3, "date": "2025-08-27" },
+    { "gacc": "RMCC", "gacc_name": "Rocky Mountain",      "preparedness_level": 3, "date": "2025-08-27" },
+    { "gacc": "SWCC", "gacc_name": "Southwest",           "preparedness_level": 2, "date": "2025-08-27" },
+    { "gacc": "SACC", "gacc_name": "Southern",            "preparedness_level": 1, "date": "2025-08-27" }
+  ],
+  "national_resource_totals_daily": {
+    "date": "2025-08-27",
+    "national_preparedness_level": 4,
+    "totals": { "crews": 384, "engines": 943, "helicopters": 122, "total_personnel": 19045 }
+  },
+  "incident_resources_daily": [
+    { "incident_id": "ID-POS/Sunset",         "incident_name": "Sunset",         "gacc": "NRCC", "state": "ID", "date": "2025-08-27", "size_acres": 3230,  "percent_contained": 52,  "resources": { "crews": 17, "engines": 13, "helicopters": 1, "total_personnel": 605 }, "lat": null, "lng": null },
+    { "incident_id": "MT-SWS/Windy Rock",     "incident_name": "Windy Rock",     "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 3426,  "percent_contained": 0,   "resources": { "crews": 14, "engines": 28, "helicopters": 7, "total_personnel": 542 }, "lat": null, "lng": null },
+    { "incident_id": "MT-SWS/Devil Mountain", "incident_name": "Devil Mountain", "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 1618,  "percent_contained": 0,   "resources": { "crews": 0,  "engines": 0,  "helicopters": 0, "total_personnel": 0 },   "lat": null, "lng": null },
+    { "incident_id": "MT-BDF/Bivens Creek",   "incident_name": "Bivens Creek",   "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 2233,  "percent_contained": 34,  "resources": { "crews": 8,  "engines": 47, "helicopters": 3, "total_personnel": 674 }, "lat": null, "lng": null },
+    { "incident_id": "MT-BDF/Cloudrest",      "incident_name": "Cloudrest",      "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 2628,  "percent_contained": 12,  "resources": { "crews": 6,  "engines": 7,  "helicopters": 0, "total_personnel": 249 }, "lat": null, "lng": null },
+    { "incident_id": "MT-CGF/West Fork",      "incident_name": "West Fork",      "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 853,   "percent_contained": 40,  "resources": { "crews": 3,  "engines": 5,  "helicopters": 1, "total_personnel": 122 }, "lat": null, "lng": null },
+    { "incident_id": "MT-LNF/Corral Creek",   "incident_name": "Corral Creek",   "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 368,   "percent_contained": 15,  "resources": { "crews": 5,  "engines": 4,  "helicopters": 1, "total_personnel": 171 }, "lat": null, "lng": null },
+    { "incident_id": "MT-NWS/Knowles",        "incident_name": "Knowles",        "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 3790,  "percent_contained": 21,  "resources": { "crews": 6,  "engines": 5,  "helicopters": 0, "total_personnel": 235 }, "lat": null, "lng": null },
+    { "incident_id": "MT-KNF/Ransome",        "incident_name": "Ransome",        "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 474,   "percent_contained": 0,   "resources": { "crews": 1,  "engines": 2,  "helicopters": 0, "total_personnel": 106 }, "lat": null, "lng": null },
+    { "incident_id": "ID-NCF/Island Creek",   "incident_name": "Island Creek",   "gacc": "NRCC", "state": "ID", "date": "2025-08-27", "size_acres": 11591, "percent_contained": 5,   "resources": { "crews": 1,  "engines": 7,  "helicopters": 0, "total_personnel": 133 }, "lat": null, "lng": null },
+    { "incident_id": "MT-HLF/Sandbar 2",      "incident_name": "Sandbar 2",      "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 243,   "percent_contained": 45,  "resources": { "crews": 6,  "engines": 3,  "helicopters": 1, "total_personnel": 242 }, "lat": null, "lng": null },
+    { "incident_id": "ID-IPF/Lightning Creek","incident_name": "Lightning Creek","gacc": "NRCC", "state": "ID", "date": "2025-08-27", "size_acres": 2525,  "percent_contained": 25,  "resources": { "crews": 0,  "engines": 0,  "helicopters": 0, "total_personnel": 8 },   "lat": null, "lng": null },
+    { "incident_id": "ID-NCF/Rhoda Creek",    "incident_name": "Rhoda Creek",    "gacc": "NRCC", "state": "ID", "date": "2025-08-27", "size_acres": 1334,  "percent_contained": 0,   "resources": { "crews": 0,  "engines": 0,  "helicopters": 0, "total_personnel": 0 },   "lat": null, "lng": null },
+    { "incident_id": "MT-BRF/Waldo Bar",      "incident_name": "Waldo Bar",      "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 115,   "percent_contained": 0,   "resources": { "crews": 0,  "engines": 0,  "helicopters": 0, "total_personnel": 1 },   "lat": null, "lng": null },
+    { "incident_id": "ID-NCF/East",           "incident_name": "East",           "gacc": "NRCC", "state": "ID", "date": "2025-08-27", "size_acres": 636,   "percent_contained": 0,   "resources": { "crews": 2,  "engines": 3,  "helicopters": 0, "total_personnel": 97 },  "lat": null, "lng": null },
+    { "incident_id": "MT-FNF/Pot Mountain",   "incident_name": "Pot Mountain",   "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 404,   "percent_contained": 0,   "resources": { "crews": 0,  "engines": 0,  "helicopters": 0, "total_personnel": 1 },   "lat": null, "lng": null },
+    { "incident_id": "ID-NCF/Mire",           "incident_name": "Mire",           "gacc": "NRCC", "state": "ID", "date": "2025-08-27", "size_acres": 744,   "percent_contained": 0,   "resources": { "crews": 0,  "engines": 0,  "helicopters": 0, "total_personnel": 8 },   "lat": null, "lng": null },
+    { "incident_id": "MT-LG25/McAllister",    "incident_name": "McAllister",     "gacc": "NRCC", "state": "MT", "date": "2025-08-27", "size_acres": 3560,  "percent_contained": 100, "resources": { "crews": 0,  "engines": 0,  "helicopters": 0, "total_personnel": 0 },   "lat": null, "lng": null }
+  ]
+}

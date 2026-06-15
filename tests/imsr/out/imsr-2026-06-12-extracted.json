@@ -1,0 +1,272 @@
+{
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2026-06-12",
+    "report_label": "IMSR \u2014 2026-06-12 (auto-extracted, UNVERIFIED)",
+    "parser_version": "imsr_extract.py 0.2.0",
+    "ingested_at": "2026-06-13T00:17:57.047809+00:00",
+    "is_fixture": false,
+    "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
+    "verification": {
+      "verified_by": null,
+      "verified_at": null,
+      "verification_method": null,
+      "verification_notes": null
+    }
+  },
+  "gac_pl_daily": [
+    {
+      "gacc": "RMCC",
+      "gacc_name": "Rocky Mountain",
+      "preparedness_level": 2,
+      "date": "2026-06-12"
+    },
+    {
+      "gacc": "SWCC",
+      "gacc_name": "Southwest",
+      "preparedness_level": 3,
+      "date": "2026-06-12"
+    },
+    {
+      "gacc": "GBCC",
+      "gacc_name": "Great Basin",
+      "preparedness_level": 2,
+      "date": "2026-06-12"
+    },
+    {
+      "gacc": "ONCC",
+      "gacc_name": "Northern California",
+      "preparedness_level": 2,
+      "date": "2026-06-12"
+    },
+    {
+      "gacc": "SACC",
+      "gacc_name": "Southern",
+      "preparedness_level": 1,
+      "date": "2026-06-12"
+    },
+    {
+      "gacc": "AICC",
+      "gacc_name": "Alaska",
+      "preparedness_level": 2,
+      "date": "2026-06-12"
+    }
+  ],
+  "national_resource_totals_daily": {
+    "date": "2026-06-12",
+    "national_preparedness_level": 2,
+    "totals": {
+      "crews": 54,
+      "engines": 216,
+      "helicopters": 22,
+      "total_personnel": 2559
+    }
+  },
+  "incident_resources_daily": [
+    {
+      "incident_id": "NE-NBF/South Fork",
+      "incident_name": "South Fork",
+      "gacc": "RMCC",
+      "state": "NE",
+      "date": "2026-06-12",
+      "size_acres": 23112,
+      "percent_contained": 7,
+      "resources": {
+        "crews": 2,
+        "engines": 51,
+        "helicopters": 0,
+        "total_personnel": 245
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "CO-UPD/Bee Hive",
+      "incident_name": "Bee Hive",
+      "gacc": "RMCC",
+      "state": "CO",
+      "date": "2026-06-12",
+      "size_acres": 320,
+      "percent_contained": 20,
+      "resources": {
+        "crews": 3,
+        "engines": 4,
+        "helicopters": 1,
+        "total_personnel": 114
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NM-GNF/Bear",
+      "incident_name": "Bear",
+      "gacc": "SWCC",
+      "state": "NM",
+      "date": "2026-06-12",
+      "size_acres": 2000,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 6,
+        "engines": 13,
+        "helicopters": 5,
+        "total_personnel": 227
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AZ-COF/Papa",
+      "incident_name": "Papa",
+      "gacc": "SWCC",
+      "state": "AZ",
+      "date": "2026-06-12",
+      "size_acres": 118,
+      "percent_contained": 75,
+      "resources": {
+        "crews": 3,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 79
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NM-LNF/Seven Cabins",
+      "incident_name": "Seven Cabins",
+      "gacc": "SWCC",
+      "state": "NM",
+      "date": "2026-06-12",
+      "size_acres": 31860,
+      "percent_contained": 100,
+      "resources": {
+        "crews": 1,
+        "engines": 2,
+        "helicopters": 2,
+        "total_personnel": 121
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-NWS/South Mountain",
+      "incident_name": "South Mountain",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-06-12",
+      "size_acres": 1863,
+      "percent_contained": 75,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-WDD/Tower",
+      "incident_name": "Tower",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-06-12",
+      "size_acres": 1369,
+      "percent_contained": 95,
+      "resources": {
+        "crews": 3,
+        "engines": 8,
+        "helicopters": 1,
+        "total_personnel": 142
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "CA-LNU/Putah",
+      "incident_name": "Putah",
+      "gacc": "ONCC",
+      "state": "CA",
+      "date": "2026-06-12",
+      "size_acres": 860,
+      "percent_contained": 70,
+      "resources": {
+        "crews": 19,
+        "engines": 18,
+        "helicopters": 0,
+        "total_personnel": 442
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NC-NCS/Rose Bay Canal",
+      "incident_name": "Rose Bay Canal",
+      "gacc": "SACC",
+      "state": "NC",
+      "date": "2026-06-12",
+      "size_acres": 618,
+      "percent_contained": 24,
+      "resources": {
+        "crews": 0,
+        "engines": 20,
+        "helicopters": 1,
+        "total_personnel": 92
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FNF/Shell",
+      "incident_name": "Shell",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-06-12",
+      "size_acres": 2822,
+      "percent_contained": 70,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 13
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FNF/340",
+      "incident_name": "340",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-06-12",
+      "size_acres": 3400,
+      "percent_contained": 75,
+      "resources": {
+        "crews": 0,
+        "engines": 6,
+        "helicopters": 0,
+        "total_personnel": 34
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-GAD/Kopshesut",
+      "incident_name": "Kopshesut",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-12",
+      "size_acres": 1444,
+      "percent_contained": 50,
+      "resources": {
+        "crews": 2,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 51
+      },
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "_extractor_warnings": []
+}

@@ -1,0 +1,902 @@
+{
+  "compared_at": "2026-06-13T00:17:57.092653+00:00",
+  "fixture_date": "2026-06-12",
+  "extractor_date": "2026-06-12",
+  "extractor_unverified": true,
+  "incident_scope": "full",
+  "extractor_extra_incidents": 0,
+  "extractor_extra_incident_ids": [],
+  "summary": {
+    "fields_compared": 126,
+    "exact_match_pct": 100.0,
+    "exact": 126,
+    "mismatch": 0,
+    "missing": 0,
+    "ambiguous": 0
+  },
+  "extractor_warnings": [],
+  "results": [
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.date",
+      "category": "exact",
+      "verified": "2026-06-12",
+      "extracted": "2026-06-12"
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.national_preparedness_level",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.crews",
+      "category": "exact",
+      "verified": 54,
+      "extracted": 54
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.engines",
+      "category": "exact",
+      "verified": 216,
+      "extracted": 216
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.helicopters",
+      "category": "exact",
+      "verified": 22,
+      "extracted": 22
+    },
+    {
+      "bucket": "national_resource_totals_daily",
+      "key": "national_resource_totals_daily.totals.total_personnel",
+      "category": "exact",
+      "verified": 2559,
+      "extracted": 2559
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "AICC.preparedness_level",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "AICC.date",
+      "category": "exact",
+      "verified": "2026-06-12",
+      "extracted": "2026-06-12"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "GBCC.preparedness_level",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "GBCC.date",
+      "category": "exact",
+      "verified": "2026-06-12",
+      "extracted": "2026-06-12"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "ONCC.preparedness_level",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "ONCC.date",
+      "category": "exact",
+      "verified": "2026-06-12",
+      "extracted": "2026-06-12"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "RMCC.preparedness_level",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "RMCC.date",
+      "category": "exact",
+      "verified": "2026-06-12",
+      "extracted": "2026-06-12"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SACC.preparedness_level",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SACC.date",
+      "category": "exact",
+      "verified": "2026-06-12",
+      "extracted": "2026-06-12"
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SWCC.preparedness_level",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "gac_pl_daily",
+      "key": "SWCC.date",
+      "category": "exact",
+      "verified": "2026-06-12",
+      "extracted": "2026-06-12"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.incident_name",
+      "category": "exact",
+      "verified": "Kopshesut",
+      "extracted": "Kopshesut"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.gacc",
+      "category": "exact",
+      "verified": "AICC",
+      "extracted": "AICC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.state",
+      "category": "exact",
+      "verified": "AK",
+      "extracted": "AK"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.size_acres",
+      "category": "exact",
+      "verified": 1444,
+      "extracted": 1444
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.percent_contained",
+      "category": "exact",
+      "verified": 50,
+      "extracted": 50
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.resources.crews",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AK-GAD/Kopshesut.resources.total_personnel",
+      "category": "exact",
+      "verified": 51,
+      "extracted": 51
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.incident_name",
+      "category": "exact",
+      "verified": "Papa",
+      "extracted": "Papa"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.gacc",
+      "category": "exact",
+      "verified": "SWCC",
+      "extracted": "SWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.state",
+      "category": "exact",
+      "verified": "AZ",
+      "extracted": "AZ"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.size_acres",
+      "category": "exact",
+      "verified": 118,
+      "extracted": 118
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.percent_contained",
+      "category": "exact",
+      "verified": 75,
+      "extracted": 75
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.resources.crews",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.resources.engines",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "AZ-COF/Papa.resources.total_personnel",
+      "category": "exact",
+      "verified": 79,
+      "extracted": 79
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.incident_name",
+      "category": "exact",
+      "verified": "Putah",
+      "extracted": "Putah"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.gacc",
+      "category": "exact",
+      "verified": "ONCC",
+      "extracted": "ONCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.state",
+      "category": "exact",
+      "verified": "CA",
+      "extracted": "CA"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.size_acres",
+      "category": "exact",
+      "verified": 860,
+      "extracted": 860
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.percent_contained",
+      "category": "exact",
+      "verified": 70,
+      "extracted": 70
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.resources.crews",
+      "category": "exact",
+      "verified": 19,
+      "extracted": 19
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.resources.engines",
+      "category": "exact",
+      "verified": 18,
+      "extracted": 18
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CA-LNU/Putah.resources.total_personnel",
+      "category": "exact",
+      "verified": 442,
+      "extracted": 442
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.incident_name",
+      "category": "exact",
+      "verified": "Bee Hive",
+      "extracted": "Bee Hive"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.gacc",
+      "category": "exact",
+      "verified": "RMCC",
+      "extracted": "RMCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.state",
+      "category": "exact",
+      "verified": "CO",
+      "extracted": "CO"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.size_acres",
+      "category": "exact",
+      "verified": 320,
+      "extracted": 320
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.percent_contained",
+      "category": "exact",
+      "verified": 20,
+      "extracted": 20
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.resources.crews",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.resources.engines",
+      "category": "exact",
+      "verified": 4,
+      "extracted": 4
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.resources.helicopters",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "CO-UPD/Bee Hive.resources.total_personnel",
+      "category": "exact",
+      "verified": 114,
+      "extracted": 114
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.incident_name",
+      "category": "exact",
+      "verified": "340",
+      "extracted": "340"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.gacc",
+      "category": "exact",
+      "verified": "SACC",
+      "extracted": "SACC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.state",
+      "category": "exact",
+      "verified": "FL",
+      "extracted": "FL"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.size_acres",
+      "category": "exact",
+      "verified": 3400,
+      "extracted": 3400
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.percent_contained",
+      "category": "exact",
+      "verified": 75,
+      "extracted": 75
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.resources.engines",
+      "category": "exact",
+      "verified": 6,
+      "extracted": 6
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/340.resources.total_personnel",
+      "category": "exact",
+      "verified": 34,
+      "extracted": 34
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.incident_name",
+      "category": "exact",
+      "verified": "Shell",
+      "extracted": "Shell"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.gacc",
+      "category": "exact",
+      "verified": "SACC",
+      "extracted": "SACC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.state",
+      "category": "exact",
+      "verified": "FL",
+      "extracted": "FL"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.size_acres",
+      "category": "exact",
+      "verified": 2822,
+      "extracted": 2822
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.percent_contained",
+      "category": "exact",
+      "verified": 70,
+      "extracted": 70
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.resources.engines",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "FL-FNF/Shell.resources.total_personnel",
+      "category": "exact",
+      "verified": 13,
+      "extracted": 13
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.incident_name",
+      "category": "exact",
+      "verified": "Rose Bay Canal",
+      "extracted": "Rose Bay Canal"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.gacc",
+      "category": "exact",
+      "verified": "SACC",
+      "extracted": "SACC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.state",
+      "category": "exact",
+      "verified": "NC",
+      "extracted": "NC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.size_acres",
+      "category": "exact",
+      "verified": 618,
+      "extracted": 618
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.percent_contained",
+      "category": "exact",
+      "verified": 24,
+      "extracted": 24
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.resources.engines",
+      "category": "exact",
+      "verified": 20,
+      "extracted": 20
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.resources.helicopters",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NC-NCS/Rose Bay Canal.resources.total_personnel",
+      "category": "exact",
+      "verified": 92,
+      "extracted": 92
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.incident_name",
+      "category": "exact",
+      "verified": "South Fork",
+      "extracted": "South Fork"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.gacc",
+      "category": "exact",
+      "verified": "RMCC",
+      "extracted": "RMCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.state",
+      "category": "exact",
+      "verified": "NE",
+      "extracted": "NE"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.size_acres",
+      "category": "exact",
+      "verified": 23112,
+      "extracted": 23112
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.percent_contained",
+      "category": "exact",
+      "verified": 7,
+      "extracted": 7
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.resources.crews",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.resources.engines",
+      "category": "exact",
+      "verified": 51,
+      "extracted": 51
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NE-NBF/South Fork.resources.total_personnel",
+      "category": "exact",
+      "verified": 245,
+      "extracted": 245
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.incident_name",
+      "category": "exact",
+      "verified": "Bear",
+      "extracted": "Bear"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.gacc",
+      "category": "exact",
+      "verified": "SWCC",
+      "extracted": "SWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.state",
+      "category": "exact",
+      "verified": "NM",
+      "extracted": "NM"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.size_acres",
+      "category": "exact",
+      "verified": 2000,
+      "extracted": 2000
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.percent_contained",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.resources.crews",
+      "category": "exact",
+      "verified": 6,
+      "extracted": 6
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.resources.engines",
+      "category": "exact",
+      "verified": 13,
+      "extracted": 13
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.resources.helicopters",
+      "category": "exact",
+      "verified": 5,
+      "extracted": 5
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-GNF/Bear.resources.total_personnel",
+      "category": "exact",
+      "verified": 227,
+      "extracted": 227
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.incident_name",
+      "category": "exact",
+      "verified": "Seven Cabins",
+      "extracted": "Seven Cabins"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.gacc",
+      "category": "exact",
+      "verified": "SWCC",
+      "extracted": "SWCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.state",
+      "category": "exact",
+      "verified": "NM",
+      "extracted": "NM"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.size_acres",
+      "category": "exact",
+      "verified": 31860,
+      "extracted": 31860
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.percent_contained",
+      "category": "exact",
+      "verified": 100,
+      "extracted": 100
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.resources.crews",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.resources.engines",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.resources.helicopters",
+      "category": "exact",
+      "verified": 2,
+      "extracted": 2
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "NM-LNF/Seven Cabins.resources.total_personnel",
+      "category": "exact",
+      "verified": 121,
+      "extracted": 121
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.incident_name",
+      "category": "exact",
+      "verified": "South Mountain",
+      "extracted": "South Mountain"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.gacc",
+      "category": "exact",
+      "verified": "GBCC",
+      "extracted": "GBCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.state",
+      "category": "exact",
+      "verified": "UT",
+      "extracted": "UT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.size_acres",
+      "category": "exact",
+      "verified": 1863,
+      "extracted": 1863
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.percent_contained",
+      "category": "exact",
+      "verified": 75,
+      "extracted": 75
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.resources.crews",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.resources.engines",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.resources.helicopters",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-NWS/South Mountain.resources.total_personnel",
+      "category": "exact",
+      "verified": 0,
+      "extracted": 0
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.incident_name",
+      "category": "exact",
+      "verified": "Tower",
+      "extracted": "Tower"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.gacc",
+      "category": "exact",
+      "verified": "GBCC",
+      "extracted": "GBCC"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.state",
+      "category": "exact",
+      "verified": "UT",
+      "extracted": "UT"
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.size_acres",
+      "category": "exact",
+      "verified": 1369,
+      "extracted": 1369
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.percent_contained",
+      "category": "exact",
+      "verified": 95,
+      "extracted": 95
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.resources.crews",
+      "category": "exact",
+      "verified": 3,
+      "extracted": 3
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.resources.engines",
+      "category": "exact",
+      "verified": 8,
+      "extracted": 8
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.resources.helicopters",
+      "category": "exact",
+      "verified": 1,
+      "extracted": 1
+    },
+    {
+      "bucket": "incident_resources_daily",
+      "key": "UT-WDD/Tower.resources.total_personnel",
+      "category": "exact",
+      "verified": 142,
+      "extracted": 142
+    }
+  ]
+}

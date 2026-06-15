@@ -1,0 +1,439 @@
+{
+  "matched_at": "2026-06-13T00:56:41.125467+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-06-12-extracted.json",
+  "imsr_date": "2026-06-12",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-06-12.json",
+  "layer_records": 343,
+  "extractor_unverified": true,
+  "summary": {
+    "imsr_incidents": 12,
+    "match_rate_pct": 100.0,
+    "exact": 12,
+    "strong": 0,
+    "weak": 0,
+    "ambiguous": 0,
+    "no_match": 0,
+    "layer_only_count": 331
+  },
+  "failure_reasons": {},
+  "results": [
+    {
+      "imsr_id": "NE-NBF/South Fork",
+      "imsr_name": "South Fork",
+      "imsr_unit": "NENBF",
+      "imsr_state": "NE",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NENBF-260530",
+        "name": "South Fork",
+        "state": "NE",
+        "acres": 23112,
+        "lat": 42.659167000000025,
+        "lng": -103.63833299999999
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CO-UPD/Bee Hive",
+      "imsr_name": "Bee Hive",
+      "imsr_unit": "COUPD",
+      "imsr_state": "CO",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-COUPD-000064",
+        "name": "Bee Hive",
+        "state": "CO",
+        "acres": 328,
+        "lat": 38.41809200000006,
+        "lng": -108.88838199999998
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NM-GNF/Bear",
+      "imsr_name": "Bear",
+      "imsr_unit": "NMGNF",
+      "imsr_state": "NM",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NMGNF-000307",
+        "name": "Bear",
+        "state": "NM",
+        "acres": 5038,
+        "lat": 34.04650000000004,
+        "lng": -108.29266699999994
+      },
+      "other_candidates": [
+        {
+          "ufi": "2026-COLSX-000905",
+          "name": "Bear",
+          "tier": "STATE_CONFLICT",
+          "score": 0.55
+        },
+        {
+          "ufi": "2026-CAMEU-006731",
+          "name": "BEAR",
+          "tier": "STATE_CONFLICT",
+          "score": 0.55
+        }
+      ]
+    },
+    {
+      "imsr_id": "AZ-COF/Papa",
+      "imsr_name": "Papa",
+      "imsr_unit": "AZCOF",
+      "imsr_state": "AZ",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-AZCOF-000681",
+        "name": "Papa",
+        "state": "AZ",
+        "acres": 118,
+        "lat": 35.25398300000006,
+        "lng": -111.42431699999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NM-LNF/Seven Cabins",
+      "imsr_name": "Seven Cabins",
+      "imsr_unit": "NMLNF",
+      "imsr_state": "NM",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NMLNF-000335",
+        "name": "SEVEN CABINS",
+        "state": "NM",
+        "acres": 31860,
+        "lat": 33.60641700000008,
+        "lng": -105.35749999999996
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "UT-NWS/South Mountain",
+      "imsr_name": "South Mountain",
+      "imsr_unit": "UTNWS",
+      "imsr_state": "UT",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-UTNWS-200220",
+        "name": "South Mountain",
+        "state": "UT",
+        "acres": 1863,
+        "lat": 40.46001700000005,
+        "lng": -112.41016699999994
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "UT-WDD/Tower",
+      "imsr_name": "Tower",
+      "imsr_unit": "UTWDD",
+      "imsr_state": "UT",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-UTWDD-260151",
+        "name": "Tower",
+        "state": "UT",
+        "acres": 1369,
+        "lat": 39.205895000000055,
+        "lng": -112.16404199999994
+      },
+      "other_candidates": [
+        {
+          "ufi": "2026-AZSCA-000787",
+          "name": "Tower",
+          "tier": "STATE_CONFLICT",
+          "score": 0.55
+        }
+      ]
+    },
+    {
+      "imsr_id": "CA-LNU/Putah",
+      "imsr_name": "Putah",
+      "imsr_unit": "CALNU",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CALNU-009543",
+        "name": "PUTAH",
+        "state": "CA",
+        "acres": 860,
+        "lat": 38.51480000000004,
+        "lng": -122.07539999999995
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NC-NCS/Rose Bay Canal",
+      "imsr_name": "Rose Bay Canal",
+      "imsr_unit": "NCNCS",
+      "imsr_state": "NC",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NCNCS-260058",
+        "name": "ROSE BAY CANAL",
+        "state": "NC",
+        "acres": 618,
+        "lat": 35.48200000000003,
+        "lng": -76.34346666999994
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "FL-FNF/Shell",
+      "imsr_name": "Shell",
+      "imsr_unit": "FLFNF",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-FLFNF-001638",
+        "name": "Shell",
+        "state": "FL",
+        "acres": 2822,
+        "lat": 29.073833000000036,
+        "lng": -81.50716699999998
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "FL-FNF/340",
+      "imsr_name": "340",
+      "imsr_unit": "FLFNF",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-FLFNF-001659",
+        "name": "340",
+        "state": "FL",
+        "acres": 3400,
+        "lat": 30.053136000000052,
+        "lng": -84.56566399999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "AK-GAD/Kopshesut",
+      "imsr_name": "Kopshesut",
+      "imsr_unit": "AKGAD",
+      "imsr_state": "AK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-AKGAD-000137",
+        "name": "Kopshesut",
+        "state": "AK",
+        "acres": 1444.27,
+        "lat": 67.09246700000006,
+        "lng": -157.92871699999998
+      },
+      "other_candidates": []
+    }
+  ],
+  "layer_only_sample": [
+    {
+      "ufi": "2026-GAGAS-320025",
+      "name": "Pineland Road",
+      "state": "GA",
+      "acres": 32031
+    },
+    {
+      "ufi": "2026-GAGAS-130044",
+      "name": "Hwy 82",
+      "state": "GA",
+      "acres": 22419
+    },
+    {
+      "ufi": "2026-CACNP-001159",
+      "name": "Santa Rosa Island",
+      "state": "CA",
+      "acres": 18379
+    },
+    {
+      "ufi": "2026-NENES-260153",
+      "name": "Anderson Bridge",
+      "state": "NE",
+      "acres": 17229
+    },
+    {
+      "ufi": "2025-CORBX-000995",
+      "name": "Elk RBX",
+      "state": "CO",
+      "acres": 14518
+    },
+    {
+      "ufi": "2026-SDSDS-260142",
+      "name": "Qury",
+      "state": "SD",
+      "acres": 9168
+    },
+    {
+      "ufi": "2026-FLLXR-001817",
+      "name": "LXR Lower Third RX 0609",
+      "state": "FL",
+      "acres": 7609
+    },
+    {
+      "ufi": "2026-FLAPQ-001647",
+      "name": "WaWa 2",
+      "state": "FL",
+      "acres": 7121
+    },
+    {
+      "ufi": "2026-WYNAX-000051",
+      "name": "Sandpiper",
+      "state": "WY",
+      "acres": 6287
+    },
+    {
+      "ufi": "2026-WASPD-260182",
+      "name": "MOXEE ORCHARD",
+      "state": "WA",
+      "acres": 5918
+    }
+  ]
+}

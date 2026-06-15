@@ -1,0 +1,2 @@
+# Dated backups of imsr-live.json written by the daily refresh workflow.
+# Retention keeps today + one previous day (see tools/imsr_refresh.py).
