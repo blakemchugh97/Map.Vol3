@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <!-- MapLibre GL: required renderer for the dark-theme ArcGIS vector basemap (see js/map.js setTheme) -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" />
 
   <link rel="stylesheet" href="css/app.css" />
 </head>
@@ -157,7 +159,7 @@
         </div>
         <div class="util-group">
           <button id="btn-fire-filters" class="btn action-btn fire-filter-btn" title="Filter wildfire incidents (F)">⛯ Filters<span id="ff-badge" class="ff-badge" hidden>0</span></button>
-          <button id="btn-theme" class="btn action-btn util-btn" title="Toggle theme (T)">☾</button>
+          <button id="btn-theme" class="btn action-btn util-btn" title="Toggle theme (T)">☀</button>
           <button id="btn-help"  class="btn action-btn util-btn" title="Glossary &amp; help (?)">?</button>
         </div>
         <!-- Weather-alert type filter — shown while Alerts is on; buttons built
@@ -356,6 +358,11 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="https://unpkg.com/esri-leaflet@3.1.0/dist/esri-leaflet.js"></script>
+  <!-- Dark-theme basemap = ArcGIS World_Basemap_v2 vector tiles. esri-leaflet-vector
+       renders ArcGIS VectorTileServer layers but needs a GL renderer (maplibre-gl)
+       as a peer dependency; both must load AFTER esri-leaflet and BEFORE ui.js. -->
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/esri-leaflet-vector@4.2.3/dist/esri-leaflet-vector.js"></script>
   <script type="module" src="js/ui.js"></script>
 </body>
 </html>

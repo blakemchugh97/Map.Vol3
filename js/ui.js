@@ -6,13 +6,15 @@
 import {
   STATE, DATA, PL_CONFIG, PL_SLIDER, HYPO_CONFIG, RATE_BOUNDS, ZONE_SIM,
   MOAT_CONFIG, DESERT_CONFIG, TIERS, WATCHES_CONFIG, effectiveKeepFraction, tierForRank,
+  setKeepFractionOverride,
 } from './config.js';
 import {
   rankIncident, runZoneSimulation, rateSensitivity, breakevenRate,
   makeRateVariant, baseCostFor, zoneStats, gaccStats, selectCoverageCrews,
-  auditMoatPoint,
+  auditMoatPoint, pointInGeometry,
 } from './dispatch.js';
 import * as MapView from './map.js';
+import * as ImsrLive from './imsr_live.js';  // IMSR-LIVE (removable)
 
 /* ---------- tiny DOM helpers ---------- */
 const $  = (id) => document.getElementById(id);
@@ -31,9 +33,11 @@ let lastZoneResult = null;
 let zoneRadius = ZONE_SIM.defaultRadius;
 let testRate = null;
 let zonesGeojsonFailed = false;
-// disp_unit_id -> GACC abbreviation, derived from the zone geojson on first load.
-// Drives GACC-mode grouping, stats aggregation, and region list-filtering.
-let gaccByUnit = null;
+// crew.id -> GACC abbreviation, by TRUE point-in-polygon membership against the
+// dispatch-zone geometry (built once on first Zones load). Drives GACC stats and
+// region list-filtering, so both match where each crew's dot actually sits — unlike
+// the old disp_unit_id lookup, which misfiled ~17% of crews near region edges.
+let crewGacc = null;
 // Pending rate for the hypothetical DDL (the value shown before a pin is placed,
 // and retained between placements). Initialized in init() from HYPO_CONFIG.
 let hypoDraftRate = HYPO_CONFIG.defaultRate;
@@ -122,6 +126,9 @@ async function init() {
     onHypoMarkerClick: handleHypoMarkerClick,
     onFireClick: handleFireClick,
   });
+  // Sync the basemap to the current theme at boot so the two never diverge (dark
+  // theme must show the dark vector basemap immediately, no toggle required).
+  MapView.setTheme(STATE.theme);
   MapView.buildMarkers(DATA.crews, DATA.ddpGroups, STATE.clusterRadius);
 
   buildGlossary();
@@ -129,6 +136,7 @@ async function init() {
   wireKeyboard();
   wireFireFilters();
   wireWatchFilter();
+  await initImsrLive();   // IMSR-LIVE (removable): no-op unless IMSR_LIVE.enabled
   updateRateFill();
   updateClusterFill();
   updatePlSliderReadout();
@@ -180,7 +188,7 @@ function visibleCrews() {
   return DATA.crews.filter(c => {
     if (c.rate < min || c.rate > max) return false;
     if (STATE.zoneFilter && c.disp_unit_id !== STATE.zoneFilter) return false;
-    if (STATE.gaccFilter && (!gaccByUnit || gaccByUnit[c.disp_unit_id] !== STATE.gaccFilter)) return false;
+    if (STATE.gaccFilter && (!crewGacc || crewGacc[c.id] !== STATE.gaccFilter)) return false;
     if (q) {
       const hay = (c.id + ' ' + c.company + ' ' + c.hucc).toLowerCase();
       if (!hay.includes(q)) return false;
@@ -459,6 +467,66 @@ function recomputeAnalyses() {
   if (STATE.activeOverlay === 'moat' && STATE.selectedCrew) startMoat();
   if (STATE.activeOverlay === 'desert') startDesert();
   if (STATE.activeOverlay === 'coverage') startCoverage();
+}
+
+/* ============================================================
+   IMSR-LIVE (removable): first live IMSR integration wiring.
+   Inert unless ImsrLive.IMSR_LIVE.enabled AND imsr-live.json loaded. The default
+   thinning mode stays 'pl' (existing behavior, untouched). Remove this section +
+   the `// IMSR-LIVE` hooks elsewhere (imports, init, renderZones, handleFireClick,
+   renderIncident) plus js/imsr_live.js + imsr-live.json to fully revert.
+   ============================================================ */
+let imsrThinningMode = 'pl';   // 'pl' (default = current behavior) | 'sitrep' (experimental)
+
+async function initImsrLive() {
+  if (!ImsrLive.IMSR_LIVE.enabled) return;   // master switch OFF → app unchanged
+  await ImsrLive.loadImsrLive();             // fails safe; helpers stay inert on failure
+  if (!ImsrLive.isReady()) return;
+  injectThinningToggle();
+}
+
+// Small "Thinning" segmented control appended to the PL bar (mirrors #zone-mode).
+function injectThinningToggle() {
+  const bar = $('pl-bar');
+  if (!bar || $('imsr-thin-mode')) return;
+  const box = document.createElement('div');
+  box.id = 'imsr-thin-mode';
+  box.className = 'imsr-thin-mode';
+  box.innerHTML = `
+    <span class="imsr-thin-label">Thinning</span>
+    <div class="seg imsr-thin-seg">
+      <button class="seg-btn active" data-tmode="pl">PL</button>
+      <button class="seg-btn" data-tmode="sitrep" title="Experimental: derive thinning from IMSR national crew totals (review-only)">Sit-rep (exp.)</button>
+    </div>
+    <span id="imsr-thin-readout" class="imsr-thin-readout"></span>`;
+  bar.appendChild(box);
+  box.querySelectorAll('.seg-btn').forEach(b =>
+    b.addEventListener('click', () => setThinningMode(b.dataset.tmode)));
+  updateThinningUI();
+}
+
+function setThinningMode(mode) {
+  if (mode === imsrThinningMode) return;
+  imsrThinningMode = mode;
+  // Install / clear the keep-fraction override. config.js ignores a null/invalid
+  // return, so a missing/invalid sit-rep value fails safe back to PL behavior.
+  if (mode === 'sitrep') setKeepFractionOverride(() => ImsrLive.sitrepKeepFraction());
+  else setKeepFractionOverride(null);
+  updateThinningUI();
+  updatePlSliderReadout();             // readout reflects the now-active keep-fraction
+  MapView.invalidateOverlayCaches();   // keep-fraction changed though plKey/plSlider didn't
+  recomputeAnalyses();                 // same refresh path a PL change uses
+}
+
+function updateThinningUI() {
+  const box = $('imsr-thin-mode');
+  if (!box) return;
+  box.querySelectorAll('.seg-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.tmode === imsrThinningMode));
+  const out = $('imsr-thin-readout');
+  if (out) out.textContent = imsrThinningMode === 'sitrep' ? ImsrLive.sitrepReadout() : '';
+  const bar = $('pl-bar');
+  if (bar) bar.classList.toggle('imsr-sitrep-active', imsrThinningMode === 'sitrep');
 }
 
 /* Full recompute after the crew FIELD changes (hypothetical DDL add/re-rate/
@@ -766,7 +834,7 @@ function createHypotheticalCrew(lat, lng, rate) {
     base_cost: baseCostFor(r),
     lat, lng,
     geo_quality: 'hypothetical', notes: '',
-    rank, color: tierForRank(rank),
+    rank, color: tierForRank(r),   // tier from RATE (like real crews), not rank
     hypo: true,
   };
 }
@@ -956,6 +1024,11 @@ function clearActiveOverlay() {
   STATE.activeOverlay = null;
   $('legend').hidden = true;
   updateOverlayButtons();
+  // Keep the detail panel's moat button in sync: switching AWAY from the moat to
+  // another overlay (desert/zones/coverage) clears the moat here, so the button
+  // must drop its "Hide moat map" active state — otherwise it lies about state and
+  // a click would re-show the moat under the wrong label.
+  refreshDetailButtons();
   // Coverage closed: restore normal crew-dot visibility (overlay is now null,
   // so applyFiltersAndRender no longer applies the "only analyzed" filter).
   if (was === 'coverage') applyFiltersAndRender();
@@ -1708,15 +1781,21 @@ function hideProgress() { $('overlay-progress').hidden = true; }
    Zone overlay
    ============================================================ */
 async function toggleZones() {
-  if (STATE.activeOverlay === 'zones') { clearActiveOverlay(); return; }
+  if (STATE.activeOverlay === 'zones') { clearActiveOverlay(); updateImsrPlLegend(); return; }  // IMSR-LIVE
   if (STATE.activeOverlay) clearActiveOverlay();
   if (zonesGeojsonFailed) return;
-  if (!DATA.zones) {
+  if (!DATA.zones || !DATA.gaccZones) {
     showProgress('Loading dispatch zones…');
     try {
-      const res = await fetch('dispatch_zones.geojson');
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      DATA.zones = await res.json();
+      // Dispatch zones drive the "Dispatch centers" view + crew membership; the
+      // pre-dissolved GACC regions (slivers/seams removed offline) drive the clean
+      // "GACC regions" outlines. Fetch both up front (GACC is the default view).
+      const [zres, gres] = await Promise.all([
+        DATA.zones     ? null : fetch('dispatch_zones.geojson'),
+        DATA.gaccZones ? null : fetch('gacc_regions.geojson'),
+      ]);
+      if (zres) { if (!zres.ok) throw new Error('HTTP ' + zres.status); DATA.zones = await zres.json(); }
+      if (gres) { if (!gres.ok) throw new Error('HTTP ' + gres.status); DATA.gaccZones = await gres.json(); }
     } catch (err) {
       hideProgress();
       zonesGeojsonFailed = true;
@@ -1726,14 +1805,7 @@ async function toggleZones() {
     }
     hideProgress();
   }
-  // Build the disp_unit_id -> GACC lookup once, from the zone geojson itself.
-  if (!gaccByUnit) {
-    gaccByUnit = {};
-    for (const f of DATA.zones.features) {
-      const p = f.properties || {};
-      if (p.DispUnitID) gaccByUnit[p.DispUnitID] = p.GACCAbbreviation || '';
-    }
-  }
+  buildCrewGacc();
   STATE.activeOverlay = 'zones';
   updateOverlayButtons();
   syncZoneModeControl();
@@ -1741,13 +1813,46 @@ async function toggleZones() {
   renderZones();
 }
 
+// Assign every crew to its GACC by true point-in-polygon membership against the
+// dispatch-zone geometry (the same geojson the map renders). A crew belongs to the
+// first zone whose polygon contains its lat/lng; that zone's GACCAbbreviation wins.
+// Border points are deterministic (see pointInGeometry). Built once and cached.
+function buildCrewGacc() {
+  if (crewGacc) return;
+  crewGacc = {};
+  // Per-feature bbox so we skip the (expensive) ring test for far-away zones.
+  const feats = DATA.zones.features.map((f) => ({ f, bbox: geomBBox(f.geometry) }));
+  for (const c of DATA.crews) {
+    for (const { f, bbox } of feats) {
+      if (c.lng < bbox[0] || c.lng > bbox[2] || c.lat < bbox[1] || c.lat > bbox[3]) continue;
+      if (pointInGeometry(c.lng, c.lat, f.geometry)) {
+        crewGacc[c.id] = f.properties.GACCAbbreviation || '';
+        break;
+      }
+    }
+  }
+}
+// [minLng, minLat, maxLng, maxLat] of a GeoJSON Polygon/MultiPolygon.
+function geomBBox(geom) {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  const parts = geom.type === 'Polygon' ? [geom.coordinates]
+              : geom.type === 'MultiPolygon' ? geom.coordinates : [];
+  for (const rings of parts) for (const [x, y] of rings[0]) {
+    if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+  }
+  return [x0, y0, x1, y1];
+}
+
 // (Re)draw the zone overlay for the current mode. Switching modes calls this
 // after hiding the previous layer, so the map updates live.
 function renderZones() {
   if (STATE.zoneMode === 'gacc') {
-    MapView.showZones(DATA.zones, {
+    // Pre-dissolved region features: one clean outline per GACC, no internal seams.
+    MapView.showZones(DATA.gaccZones, {
       keyOf: (p) => p.GACCAbbreviation || '',
-      statsFor: (gacc) => gaccStats(gacc, DATA.crews, gaccByUnit),
+      statsFor: (gacc) => gaccStats(gacc, DATA.crews, crewGacc),
+      // IMSR-LIVE (removable): tint regions by IMSR PL when loaded; null per-region → unchanged.
+      styleOf: ImsrLive.isReady() ? (gacc) => ImsrLive.plFillStyle(gacc) : null,
     });
   } else {
     MapView.showZones(DATA.zones, {
@@ -1755,6 +1860,22 @@ function renderZones() {
       statsFor: (unitId) => zoneStats(unitId, DATA.crews),
     });
   }
+  updateImsrPlLegend();   // IMSR-LIVE (removable)
+}
+
+// IMSR-LIVE (removable): show the PL color legend only while GACC regions are on.
+function updateImsrPlLegend() {
+  let leg = $('imsr-pl-legend-box');
+  const show = ImsrLive.isReady() && STATE.zoneMode === 'gacc' && STATE.activeOverlay === 'zones';
+  if (!show) { if (leg) leg.hidden = true; return; }
+  if (!leg) {
+    leg = document.createElement('div');
+    leg.id = 'imsr-pl-legend-box';
+    leg.className = 'imsr-pl-legend-box';
+    (el('.map-wrap') || document.body).appendChild(leg);
+  }
+  leg.innerHTML = ImsrLive.plLegendHtml();
+  leg.hidden = false;
 }
 
 // Apply a new Zones view mode and redraw live. No-op if unchanged.
@@ -1773,19 +1894,21 @@ function syncZoneModeControl() {
 
 function handleZoneClick(props, stats, layer, key) {
   MapView.setActiveZone(key);
-  const html = STATE.zoneMode === 'gacc'
-    ? gaccPopupHtml(key, stats)
-    : dispatchPopupHtml(props, stats);
-  MapView.bindZonePopup(layer, html);
-  if (stats) {
-    setTimeout(() => {
-      if (STATE.zoneMode === 'gacc') {
-        const btn = $(`zp-region-${cssId(key)}`);
-        if (btn) btn.addEventListener('click', () => filterToRegion(key));
-      } else {
-        const btn = $(`zp-filter-${props.DispUnitID}`);
-        if (btn) btn.addEventListener('click', () => filterToZone(props.DispUnitID, props.DispName));
-      }
+  if (STATE.zoneMode === 'gacc') {
+    // Clicking a GACC region auto-filters the crew list to that region; the popup's
+    // action now CLEARS the filter ("Show all crews") instead of applying it.
+    if (stats) filterToRegion(key);
+    MapView.bindZonePopup(layer, gaccPopupHtml(key, stats));
+    if (stats) setTimeout(() => {
+      const btn = $(`zp-region-${cssId(key)}`);
+      if (btn) btn.addEventListener('click', showAllCrews);
+    }, 0);
+  } else {
+    // Dispatch-center selection is unchanged: opt-in "Filter list to zone" button.
+    MapView.bindZonePopup(layer, dispatchPopupHtml(props, stats));
+    if (stats) setTimeout(() => {
+      const btn = $(`zp-filter-${props.DispUnitID}`);
+      if (btn) btn.addEventListener('click', () => filterToZone(props.DispUnitID, props.DispName));
     }, 0);
   }
 }
@@ -1816,22 +1939,28 @@ function dispatchPopupHtml(props, stats) {
 // dispatch-center wording.
 function gaccPopupHtml(gacc, stats) {
   const title = esc(gacc || 'GACC');
+  // IMSR-LIVE (removable): clearly-labeled review-only PL line; '' when no value.
+  const pl = ImsrLive.isReady() ? ImsrLive.gaccPL(gacc) : null;
+  const plLine = pl ? `<div class="zp-imsr">IMSR PL <b>${pl}</b> · ${ImsrLive.reportDate() || ''} <span class="zp-imsr-tag">review</span></div>` : '';
   return stats ? `
     <div class="zone-popup">
       <div class="zp-title">${title} region</div>
       <div class="zp-sub">Geographic Area Coordination Center</div>
+      ${plLine}
       <div class="zp-stats">
         <b>${stats.crew_count}</b> crews · <b>${stats.company_count}</b> companies<br>
         Avg rate: <b>${fmtRate(stats.avg_rate)}</b> · Range: ${fmtRate(stats.min_rate)}–${fmtRate(stats.max_rate)}<br>
         Cheapest: <b>${esc(stats.cheapest.id)}</b> · ${fmtRate(stats.cheapest.rate)} · ${esc(stats.cheapest.company)}
       </div>
+      <div class="zp-note">Crew list filtered to this region.</div>
       <div class="zp-actions">
-        <button class="btn btn-sm" id="zp-region-${cssId(gacc)}">Filter list to region</button>
+        <button class="btn btn-sm" id="zp-region-${cssId(gacc)}">Show all crews</button>
       </div>
     </div>` : `
     <div class="zone-popup">
       <div class="zp-title">${title} region</div>
       <div class="zp-sub">Geographic Area Coordination Center</div>
+      ${plLine}
       <div class="zp-stats">No T2C crews based in this region.</div>
     </div>`;
 }
@@ -1849,6 +1978,15 @@ function filterToZone(unitId, name) {
 function filterToRegion(gacc) {
   STATE.zoneFilter = null;
   STATE.gaccFilter = gacc;
+  renderActiveFilters();
+  applyFiltersAndRender();
+  if (!STATE.sidebarOpen) toggleSidebar();
+}
+// Clear any region/zone list filter and restore the full crew list. Wired to the
+// GACC popup's "Show all crews" action (clicking a region now auto-applies the filter).
+function showAllCrews() {
+  STATE.gaccFilter = null;
+  STATE.zoneFilter = null;
   renderActiveFilters();
   applyFiltersAndRender();
   if (!STATE.sidebarOpen) toggleSidebar();
@@ -1926,6 +2064,11 @@ function renderIncident() {
   MapView.applyFilter(incidentTopIds);
   const panel = $('incident-panel');
   const shown = STATE.showAllIncident ? rows : rows.slice(0, 50);
+  // IMSR-LIVE (removable): debug-only enrichment, ONLY for an EXACT-tier matched
+  // fire on the current day; '' (nothing shown) for manual pins, weak/ambiguous,
+  // or unmatched. Never alters the ranking above.
+  const imsrDebug = (STATE.incidentSource === 'fire' && incidentFireMeta && incidentFireMeta.props)
+    ? ImsrLive.incidentDebugHtml(incidentFireMeta.props) : '';
 
   panel.innerHTML = `
     <div class="panel-head">
@@ -1939,6 +2082,7 @@ function renderIncident() {
       </div>
     </div>
     <div class="panel-body" style="padding-top:8px">
+      ${imsrDebug}
       <div class="btn-row" style="justify-content:space-between;align-items:center">
         <span class="hint">${STATE.showAllIncident ? `All ${rows.length}` : `Top ${Math.min(50, rows.length)}`} by NICC cost${STATE.timeFilter ? ' · # = full-field rank (unreachable hidden)' : ''}</span>
         <button id="toggle-all-incident" class="btn btn-sm">${STATE.showAllIncident ? 'Show top 50' : 'Show all crews'}</button>
@@ -2010,7 +2154,9 @@ function handleFireClick(props, lat, lng) {
   const p = props || {};
   const name = p.IncidentName || p.FireName || null;
   const id = p.IrwinID || p.OBJECTID || null;
-  openIncidentFromFire(lat, lng, { name, id });
+  // IMSR-LIVE (removable): keep the raw feature so renderIncident can look up an
+  // EXACT IMSR match by UniqueFireIdentifier (debug-only enrichment).
+  openIncidentFromFire(lat, lng, { name, id, props: p });
 }
 
 function renderDdpPanel(group) {

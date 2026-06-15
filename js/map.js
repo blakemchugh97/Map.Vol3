@@ -13,7 +13,7 @@ import {
   moatLatticePoints, moatScoreCell, aggregateCoverageCells, coverageCellKey, classifyDuoCell,
 } from './dispatch.js';
 
-let map, tileLayer, handlers = {};
+let map, tileLayer, darkBasemapLayer = null, handlers = {};
 let clusterGroup;
 let markersByKey = {};      // ddpKey -> { marker, crews, key }
 let crewKeyById = {};       // crew.id -> ddpKey
@@ -21,6 +21,15 @@ let selectedMarkerKey = null;
 
 let incidentMarker, incidentCircle, hypoMarker, radiusCircle;
 let zoneLayer = null, zonesByKey = {}, activeZoneKey = null;
+// IMSR-LIVE (removable): optional per-key style override for zone fills (used to
+// tint GACC regions by IMSR PL). Null in normal use → behavior unchanged.
+let zoneStyleOf = null, zoneStatsOf = null;
+function baseStyleFor(key) {
+  const stats = zoneStatsOf ? zoneStatsOf(key) : null;
+  const base = stats ? { ...ZONE_STYLE.default } : { ...ZONE_STYLE.empty };
+  if (zoneStyleOf) { const o = zoneStyleOf(key, stats); if (o) return { ...base, ...o }; }
+  return base;
+}
 let overlayCells = null;     // L.layerGroup for moat/desert
 let sampleDots = null;       // L.layerGroup for zone-sim dots
 let overlayJob = null;       // active chunked job (cancel handle)
@@ -56,12 +65,18 @@ export function initMap(h) {
   L.control.zoom({ position: 'bottomright' }).addTo(map);
   map.attributionControl.setPosition('bottomright');
 
-  // Default basemap = Esri World Topo (MAP_CONFIG.tiles.light), loaded at full
-  // opacity as the actual background. setTheme() swaps this same layer's URL to the
-  // CARTO dark basemap for dark mode, so the existing theme logic is preserved.
+  // Dedicated low-z pane shared by BOTH basemaps (raster topo + dark vector), so a
+  // theme swap never lets a basemap sit above the transportation/analytic overlays
+  // or markers. zIndex 200 = Leaflet's tile level, below overlayPane (400)/markers (600).
+  const basePane = map.createPane('basemap');
+  basePane.style.zIndex = 200;
+  // Light/default basemap = Esri World Topo (MAP_CONFIG.tiles.light), a real
+  // full-opacity raster background. Created here but ADDED by setTheme() so the
+  // visible basemap always matches the current theme at boot (no toggle needed).
   tileLayer = L.tileLayer(MAP_CONFIG.tiles.light, {
-    attribution: MAP_CONFIG.tileAttribution, subdomains: 'abcd', maxZoom: 19,
-  }).addTo(map);
+    pane: 'basemap', attribution: MAP_CONFIG.tileAttribution, subdomains: 'abcd', maxZoom: 19,
+  });
+  setTheme(STATE.theme);   // sync basemap to theme immediately (light→topo, dark→vector)
 
   // Subtle, fixed-opacity ArcGIS transportation overlay (esri-leaflet), drawn just
   // above the basemap and beneath the analytic overlays/markers. Not toggleable.
@@ -85,9 +100,34 @@ export function initMap(h) {
 
 export function getMap() { return map; }
 
+// Dark basemap = ArcGIS "World Navigation Map (Dark)" item (MAP_CONFIG.tiles.dark, an
+// item id) — an Esri vector basemap STYLE loaded via esri-leaflet-vector (+ maplibre-gl).
+// vectorTileLayer() accepts the item id and resolves it to that dark style. Built lazily
+// on first dark switch and pinned to the low-z 'basemap' pane. Guarded: if the vector
+// plugin is missing/blocked, return null so setTheme() falls back to the topo raster
+// instead of crashing or blanking the map.
+function makeDarkBasemap() {
+  if (!(window.L && L.esri && L.esri.Vector && typeof L.esri.Vector.vectorTileLayer === 'function')) {
+    console.warn('[basemap] esri-leaflet-vector unavailable — dark theme falls back to World Topo');
+    return null;
+  }
+  return L.esri.Vector.vectorTileLayer(MAP_CONFIG.tiles.dark, { pane: 'basemap' });
+}
+
+// Swap the active basemap to match the theme: light/default → World Topo raster,
+// dark → World_Basemap_v2 vector. Idempotent (safe to call repeatedly / at boot):
+// it only adds the wanted layer and removes the other. The two basemaps are
+// different layer TYPES, so we add/remove whole layers rather than setUrl().
 export function setTheme(theme) {
-  if (!tileLayer) return;
-  tileLayer.setUrl(theme === 'light' ? MAP_CONFIG.tiles.light : MAP_CONFIG.tiles.dark);
+  if (!map) return;
+  let useDark = theme !== 'light';
+  if (useDark && !darkBasemapLayer) darkBasemapLayer = makeDarkBasemap();
+  if (useDark && !darkBasemapLayer) useDark = false;   // fail safe → topo
+  const add    = useDark ? darkBasemapLayer : tileLayer;
+  const remove = useDark ? tileLayer : darkBasemapLayer;
+  if (remove && map.hasLayer(remove)) map.removeLayer(remove);
+  if (add && !map.hasLayer(add)) add.addTo(map);
+  if (add && typeof add.bringToBack === 'function') add.bringToBack();
 }
 
 /* ---- ArcGIS transportation overlay (fixed transparency) ----
@@ -283,20 +323,25 @@ export function setCrosshair(on) {
 // mode, GACCAbbreviation in GACC mode) and `statsFor(key)` returns popup stats for
 // a key. Several features can share a key (a GACC dissolves many dispatch zones):
 // they share one style, hover/active highlight as a unit, and click reports the key.
-export function showZones(geojson, { keyOf, statsFor }) {
+// Render the zone overlay. `keyOf(props)` groups features (DispUnitID in dispatch
+// mode; GACCAbbreviation in GACC mode, where each feature is already one dissolved
+// region) and `statsFor(key)` returns popup stats. Features sharing a key highlight
+// as a unit and click reports the key.
+export function showZones(geojson, { keyOf, statsFor, styleOf = null }) {
   if (zoneLayer) return;
   zonesByKey = {};
   activeZoneKey = null;
+  zoneStyleOf = styleOf;            // IMSR-LIVE (removable): null in normal use
+  zoneStatsOf = statsFor;
   zoneLayer = L.geoJSON(geojson, {
     style(feature) {
-      const stats = statsFor(keyOf(feature.properties));
-      return stats ? { ...ZONE_STYLE.default } : { ...ZONE_STYLE.empty };
+      return baseStyleFor(keyOf(feature.properties));
     },
     onEachFeature(feature, layer) {
       const key = keyOf(feature.properties);
       (zonesByKey[key] ||= []).push(layer);
       const stats = statsFor(key);
-      const restStyle = () => (stats ? ZONE_STYLE.default : ZONE_STYLE.empty);
+      const restStyle = () => baseStyleFor(key);
       layer.on('mouseover', () => { if (key !== activeZoneKey) setKeyStyle(key, ZONE_STYLE.hover); });
       layer.on('mouseout',  () => { if (key !== activeZoneKey) setKeyStyle(key, restStyle()); });
       layer.on('click', (e) => {
@@ -312,9 +357,15 @@ function setKeyStyle(key, style) {
 }
 export function hideZones() {
   if (zoneLayer) { map.removeLayer(zoneLayer); zoneLayer = null; activeZoneKey = null; zonesByKey = {}; }
+  zoneStyleOf = null; zoneStatsOf = null;   // IMSR-LIVE (removable)
 }
 export function setActiveZone(key) {
-  if (activeZoneKey) setKeyStyle(activeZoneKey, ZONE_STYLE.default);
+  // Deselect to the zone's TRUE base style via baseStyleFor: ZONE_STYLE.empty for a
+  // no-crew zone, ZONE_STYLE.default for a populated one, plus any IMSR PL tint. The
+  // old hardcoded ZONE_STYLE.default repainted empty zones as populated (blue fill +
+  // a lingering dash) after a select→deselect. baseStyleFor with no styleOf returns
+  // exactly ZONE_STYLE.default for populated zones, so populated behavior is unchanged.
+  if (activeZoneKey) setKeyStyle(activeZoneKey, baseStyleFor(activeZoneKey));
   if (zonesByKey[key]) { setKeyStyle(key, ZONE_STYLE.active); activeZoneKey = key; }
 }
 export function bindZonePopup(layer, html) { layer.bindPopup(html, { className: 'zone-popup', maxWidth: 280 }).openPopup(); }
