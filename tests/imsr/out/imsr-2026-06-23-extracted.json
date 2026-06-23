@@ -1,0 +1,662 @@
+{
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2026-06-23",
+    "report_label": "IMSR \u2014 2026-06-23 (auto-extracted, UNVERIFIED)",
+    "parser_version": "imsr_extract.py 0.2.0",
+    "ingested_at": "2026-06-23T21:18:39.611362+00:00",
+    "is_fixture": false,
+    "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
+    "verification": {
+      "verified_by": null,
+      "verified_at": null,
+      "verification_method": null,
+      "verification_notes": null
+    }
+  },
+  "gac_pl_daily": [
+    {
+      "gacc": "GBCC",
+      "gacc_name": "Great Basin",
+      "preparedness_level": 3,
+      "date": "2026-06-23"
+    },
+    {
+      "gacc": "SWCC",
+      "gacc_name": "Southwest",
+      "preparedness_level": 3,
+      "date": "2026-06-23"
+    },
+    {
+      "gacc": "NWCC",
+      "gacc_name": "Northwest",
+      "preparedness_level": 2,
+      "date": "2026-06-23"
+    },
+    {
+      "gacc": "AICC",
+      "gacc_name": "Alaska",
+      "preparedness_level": 3,
+      "date": "2026-06-23"
+    },
+    {
+      "gacc": "NRCC",
+      "gacc_name": "Northern Rockies",
+      "preparedness_level": 1,
+      "date": "2026-06-23"
+    },
+    {
+      "gacc": "SACC",
+      "gacc_name": "Southern",
+      "preparedness_level": 1,
+      "date": "2026-06-23"
+    },
+    {
+      "gacc": "RMCC",
+      "gacc_name": "Rocky Mountain",
+      "preparedness_level": 2,
+      "date": "2026-06-23"
+    }
+  ],
+  "national_resource_totals_daily": {},
+  "incident_resources_daily": [
+    {
+      "incident_id": "UT-FIF/Cottonwood",
+      "incident_name": "Cottonwood",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-06-23",
+      "size_acres": 750,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 1,
+        "engines": 5,
+        "helicopters": 1,
+        "total_personnel": 44
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-SCS/Iron",
+      "incident_name": "Iron",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-06-23",
+      "size_acres": 24284,
+      "percent_contained": 3,
+      "resources": {
+        "crews": 17,
+        "engines": 10,
+        "helicopters": 2,
+        "total_personnel": 440
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-WDD/Hastings",
+      "incident_name": "Hastings",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-06-23",
+      "size_acres": 12850,
+      "percent_contained": 25,
+      "resources": {
+        "crews": 3,
+        "engines": 4,
+        "helicopters": 1,
+        "total_personnel": 140
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NV-ELD/Grapevine",
+      "incident_name": "Grapevine",
+      "gacc": "GBCC",
+      "state": "NV",
+      "date": "2026-06-23",
+      "size_acres": 14500,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 8,
+        "engines": 12,
+        "helicopters": 7,
+        "total_personnel": 381
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NV-ELD/Kane Springs",
+      "incident_name": "Kane Springs",
+      "gacc": "GBCC",
+      "state": "NV",
+      "date": "2026-06-23",
+      "size_acres": 14359,
+      "percent_contained": 25,
+      "resources": {
+        "crews": 9,
+        "engines": 3,
+        "helicopters": 3,
+        "total_personnel": 295
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-UWF/Bonneville",
+      "incident_name": "Bonneville",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-06-23",
+      "size_acres": 566,
+      "percent_contained": 43,
+      "resources": {
+        "crews": 5,
+        "engines": 10,
+        "helicopters": 4,
+        "total_personnel": 184
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-CPD/Sawmill",
+      "incident_name": "Sawmill",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-06-23",
+      "size_acres": 3790,
+      "percent_contained": 20,
+      "resources": {
+        "crews": 8,
+        "engines": 8,
+        "helicopters": 1,
+        "total_personnel": 239
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AZ-A1S/Rock Canyon",
+      "incident_name": "Rock Canyon",
+      "gacc": "GBCC",
+      "state": "AZ",
+      "date": "2026-06-23",
+      "size_acres": 4823,
+      "percent_contained": 75,
+      "resources": {
+        "crews": 4,
+        "engines": 14,
+        "helicopters": 0,
+        "total_personnel": 222
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NV-WID/Shyster",
+      "incident_name": "Shyster",
+      "gacc": "GBCC",
+      "state": "NV",
+      "date": "2026-06-23",
+      "size_acres": 2186,
+      "percent_contained": 100,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-BRS/Middlefork",
+      "incident_name": "Middlefork",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-06-23",
+      "size_acres": 334,
+      "percent_contained": 100,
+      "resources": {
+        "crews": 1,
+        "engines": 5,
+        "helicopters": 0,
+        "total_personnel": 54
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AZ-COF/Pocket",
+      "incident_name": "Pocket",
+      "gacc": "SWCC",
+      "state": "AZ",
+      "date": "2026-06-23",
+      "size_acres": 257,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 13,
+        "engines": 38,
+        "helicopters": 5,
+        "total_personnel": 625
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AZ-TNF/Sycamore",
+      "incident_name": "Sycamore",
+      "gacc": "SWCC",
+      "state": "AZ",
+      "date": "2026-06-23",
+      "size_acres": 9036,
+      "percent_contained": 8,
+      "resources": {
+        "crews": 8,
+        "engines": 19,
+        "helicopters": 4,
+        "total_personnel": 444
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AZ-FTA/Flat",
+      "incident_name": "Flat",
+      "gacc": "SWCC",
+      "state": "AZ",
+      "date": "2026-06-23",
+      "size_acres": 126,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 4,
+        "engines": 4,
+        "helicopters": 4,
+        "total_personnel": 174
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NM-SNF/Rio",
+      "incident_name": "Rio",
+      "gacc": "SWCC",
+      "state": "NM",
+      "date": "2026-06-23",
+      "size_acres": 147,
+      "percent_contained": 31,
+      "resources": {
+        "crews": 2,
+        "engines": 2,
+        "helicopters": 3,
+        "total_personnel": 124
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NM-GNF/Bear",
+      "incident_name": "Bear",
+      "gacc": "SWCC",
+      "state": "NM",
+      "date": "2026-06-23",
+      "size_acres": 7769,
+      "percent_contained": 100,
+      "resources": {
+        "crews": 0,
+        "engines": 8,
+        "helicopters": 1,
+        "total_personnel": 169
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-VAD/Lytle",
+      "incident_name": "Lytle",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-06-23",
+      "size_acres": 6500,
+      "percent_contained": 20,
+      "resources": {
+        "crews": 0,
+        "engines": 31,
+        "helicopters": 2,
+        "total_personnel": 139
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WA-WFS/Garred Road",
+      "incident_name": "Garred Road",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-06-23",
+      "size_acres": 3500,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 4,
+        "engines": 7,
+        "helicopters": 0,
+        "total_personnel": 153
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WA-COA/Kartar",
+      "incident_name": "Kartar",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-06-23",
+      "size_acres": 11746,
+      "percent_contained": 60,
+      "resources": {
+        "crews": 9,
+        "engines": 10,
+        "helicopters": 0,
+        "total_personnel": 276
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WA-NES/Upriver",
+      "incident_name": "Upriver",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-06-23",
+      "size_acres": 213,
+      "percent_contained": 85,
+      "resources": {
+        "crews": 0,
+        "engines": 5,
+        "helicopters": 0,
+        "total_personnel": 44
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-FAS/Starry",
+      "incident_name": "Starry",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-23",
+      "size_acres": 543,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 3,
+        "engines": 6,
+        "helicopters": 0,
+        "total_personnel": 95
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-TAD/Elliott Complex",
+      "incident_name": "Elliott Complex",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-23",
+      "size_acres": 184,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 1,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 61
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-TAD/Bear",
+      "incident_name": "Bear",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-23",
+      "size_acres": 3194,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-DAS/Pogo",
+      "incident_name": "Pogo",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-23",
+      "size_acres": 550,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-UYD/Kathul",
+      "incident_name": "Kathul",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-23",
+      "size_acres": 161,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-DAS/Shaw",
+      "incident_name": "Shaw",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-23",
+      "size_acres": 2483,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-SWS/Nowitna",
+      "incident_name": "Nowitna",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-23",
+      "size_acres": 300,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "AK-TAD/Kilolitna",
+      "incident_name": "Kilolitna",
+      "gacc": "AICC",
+      "state": "AK",
+      "date": "2026-06-23",
+      "size_acres": 3663,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-CMS/Shingle Creek",
+      "incident_name": "Shingle Creek",
+      "gacc": "NRCC",
+      "state": "ID",
+      "date": "2026-06-23",
+      "size_acres": 400,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 3,
+        "engines": 3,
+        "helicopters": 2,
+        "total_personnel": 85
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-CAS/Gold Run",
+      "incident_name": "Gold Run",
+      "gacc": "NRCC",
+      "state": "ID",
+      "date": "2026-06-23",
+      "size_acres": 217,
+      "percent_contained": 100,
+      "resources": {
+        "crews": 2,
+        "engines": 3,
+        "helicopters": 0,
+        "total_personnel": 89
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FLS/Well 13",
+      "incident_name": "Well 13",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-06-23",
+      "size_acres": 1605,
+      "percent_contained": 75,
+      "resources": {
+        "crews": 0,
+        "engines": 1,
+        "helicopters": 0,
+        "total_personnel": 3
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FLS/Corrections 13",
+      "incident_name": "Corrections 13",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-06-23",
+      "size_acres": 305,
+      "percent_contained": 15,
+      "resources": {
+        "crews": 0,
+        "engines": 5,
+        "helicopters": 0,
+        "total_personnel": 12
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NC-NCS/Rose Bay Canal",
+      "incident_name": "Rose Bay Canal",
+      "gacc": "SACC",
+      "state": "NC",
+      "date": "2026-06-23",
+      "size_acres": 662,
+      "percent_contained": 74,
+      "resources": {
+        "crews": 0,
+        "engines": 20,
+        "helicopters": 0,
+        "total_personnel": 79
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-LWR/Rookery",
+      "incident_name": "Rookery",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-06-23",
+      "size_acres": 4400,
+      "percent_contained": 50,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 7
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FNF/Shell",
+      "incident_name": "Shell",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-06-23",
+      "size_acres": 2822,
+      "percent_contained": 70,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 11
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NE-NBF/South Fork",
+      "incident_name": "South Fork",
+      "gacc": "RMCC",
+      "state": "NE",
+      "date": "2026-06-23",
+      "size_acres": 39696,
+      "percent_contained": 92,
+      "resources": {
+        "crews": 0,
+        "engines": 6,
+        "helicopters": 0,
+        "total_personnel": 72
+      },
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "_extractor_warnings": [
+    "national_totals: 'Total' summary row not found"
+  ]
+}
