@@ -1,13 +1,13 @@
 {
   "meta": {
-    "source_date": "2026-06-24",
-    "generated_at": "2026-06-24T21:11:15.536160+00:00",
+    "source_date": "2026-06-25",
+    "generated_at": "2026-06-25T21:16:24.335387+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
       "gac_pl": 7,
-      "exact_incidents": 27
+      "exact_incidents": 31
     }
   },
   "gac_pl": {
@@ -26,79 +26,79 @@
   "exact_incidents": {
     "2026-UTFIF-260198": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "UT-FIF/Cottonwood",
       "imsr_name": "Cottonwood",
       "layer_name": "Cottonwood",
       "state": "UT",
-      "crews": 12,
-      "engines": 28,
-      "helicopters": 4,
-      "total_personnel": 468
+      "crews": 5,
+      "engines": 9,
+      "helicopters": 1,
+      "total_personnel": 174
     },
     "2026-UTSCS-260194": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "UT-SCS/Iron",
       "imsr_name": "Iron",
       "layer_name": "Iron",
       "state": "UT",
-      "crews": 18,
-      "engines": 18,
-      "helicopters": 0,
-      "total_personnel": 519
-    },
-    "2026-UTUWF-200287": {
-      "tier": "EXACT",
-      "report_date": "2026-06-24",
-      "imsr_id": "UT-UWF/Bonneville",
-      "imsr_name": "Bonneville",
-      "layer_name": "Bonneville",
-      "state": "UT",
-      "crews": 2,
-      "engines": 5,
-      "helicopters": 1,
-      "total_personnel": 118
+      "crews": 20,
+      "engines": 27,
+      "helicopters": 5,
+      "total_personnel": 664
     },
     "2026-UTWDD-200282": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "UT-WDD/Hastings",
       "imsr_name": "Hastings",
       "layer_name": "Hastings",
       "state": "UT",
-      "crews": 3,
-      "engines": 2,
-      "helicopters": 1,
-      "total_personnel": 87
+      "crews": 1,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 20
     },
     "2026-NVELD-040106": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "NV-ELD/Grapevine",
       "imsr_name": "Grapevine",
       "layer_name": "Grapevine",
       "state": "NV",
-      "crews": 8,
-      "engines": 12,
+      "crews": 15,
+      "engines": 16,
       "helicopters": 9,
-      "total_personnel": 397
+      "total_personnel": 465
     },
     "2026-NVELD-040107": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "NV-ELD/Kane Springs",
       "imsr_name": "Kane Springs",
       "layer_name": "Kane Springs",
       "state": "NV",
-      "crews": 9,
+      "crews": 7,
       "engines": 3,
       "helicopters": 3,
-      "total_personnel": 295
+      "total_personnel": 250
+    },
+    "2026-WYBTF-002606": {
+      "tier": "EXACT",
+      "report_date": "2026-06-25",
+      "imsr_id": "WY-BTF/Kinky Creek",
+      "imsr_name": "Kinky Creek",
+      "layer_name": "Kinky Creek",
+      "state": "WY",
+      "crews": 2,
+      "engines": 1,
+      "helicopters": 4,
+      "total_personnel": 95
     },
     "2026-UTCPD-000225": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "UT-CPD/Sawmill",
       "imsr_name": "Sawmill",
       "layer_name": "Sawmill",
@@ -106,107 +106,143 @@
       "crews": 2,
       "engines": 5,
       "helicopters": 1,
-      "total_personnel": 81
+      "total_personnel": 72
     },
     "2026-AZA1S-000208": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AZ-A1S/Rock Canyon",
       "imsr_name": "Rock Canyon",
       "layer_name": "Rock Canyon",
       "state": "AZ",
-      "crews": 4,
-      "engines": 13,
+      "crews": 1,
+      "engines": 9,
       "helicopters": 0,
-      "total_personnel": 202
+      "total_personnel": 121
+    },
+    "2026-UTUWF-200287": {
+      "tier": "EXACT",
+      "report_date": "2026-06-25",
+      "imsr_id": "UT-UWF/Bonneville",
+      "imsr_name": "Bonneville",
+      "layer_name": "Bonneville",
+      "state": "UT",
+      "crews": 1,
+      "engines": 4,
+      "helicopters": 1,
+      "total_personnel": 93
     },
     "2026-AZCOF-000781": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AZ-COF/Pocket",
       "imsr_name": "Pocket",
       "layer_name": "Pocket",
       "state": "AZ",
-      "crews": 13,
-      "engines": 40,
+      "crews": 24,
+      "engines": 45,
       "helicopters": 5,
-      "total_personnel": 678
+      "total_personnel": 927
     },
     "2026-AZTNF-000839": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AZ-TNF/Sycamore",
       "imsr_name": "Sycamore",
       "layer_name": "Sycamore",
       "state": "AZ",
-      "crews": 12,
-      "engines": 23,
+      "crews": 13,
+      "engines": 27,
       "helicopters": 4,
-      "total_personnel": 556
+      "total_personnel": 596
+    },
+    "2026-NMN6S-000349": {
+      "tier": "EXACT",
+      "report_date": "2026-06-25",
+      "imsr_id": "NM-N6S/Canyon Venado",
+      "imsr_name": "Canyon Venado",
+      "layer_name": "CANYON VENADO",
+      "state": "NM",
+      "crews": 1,
+      "engines": 37,
+      "helicopters": 0,
+      "total_personnel": 102
+    },
+    "2026-AZSCA-000894": {
+      "tier": "EXACT",
+      "report_date": "2026-06-25",
+      "imsr_id": "AZ-SCA/White Tail",
+      "imsr_name": "White Tail",
+      "layer_name": "White Tail",
+      "state": "AZ",
+      "crews": 1,
+      "engines": 2,
+      "helicopters": 1,
+      "total_personnel": 38
     },
     "2026-AZFTA-000426": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AZ-FTA/Flat",
       "imsr_name": "Flat",
       "layer_name": "Flat",
       "state": "AZ",
       "crews": 7,
-      "engines": 6,
-      "helicopters": 5,
-      "total_personnel": 240
+      "engines": 7,
+      "helicopters": 4,
+      "total_personnel": 255
     },
     "2026-NMSNF-000285": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "NM-SNF/Rio",
       "imsr_name": "Rio",
       "layer_name": "Rio",
       "state": "NM",
-      "crews": 2,
+      "crews": 0,
       "engines": 2,
-      "helicopters": 3,
-      "total_personnel": 125
+      "helicopters": 1,
+      "total_personnel": 32
     },
     "2026-WAWFS-260260": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "WA-WFS/Garred Road",
       "imsr_name": "Garred Road",
       "layer_name": "GARRED ROAD",
       "state": "WA",
       "crews": 6,
-      "engines": 7,
+      "engines": 22,
       "helicopters": 0,
-      "total_personnel": 192
+      "total_personnel": 232
     },
     "2026-ORVAD-260105": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "OR-VAD/Lytle",
       "imsr_name": "Lytle",
       "layer_name": "LYTLE",
       "state": "OR",
       "crews": 0,
-      "engines": 25,
+      "engines": 24,
       "helicopters": 2,
-      "total_personnel": 123
+      "total_personnel": 125
     },
     "2026-WACOA-260106": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "WA-COA/Kartar",
       "imsr_name": "Kartar",
       "layer_name": "Kartar",
       "state": "WA",
       "crews": 6,
-      "engines": 10,
+      "engines": 9,
       "helicopters": 0,
-      "total_personnel": 210
+      "total_personnel": 194
     },
     "2026-WANES-001399": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "WA-NES/Upriver",
       "imsr_name": "Upriver",
       "layer_name": "UPRIVER",
@@ -218,19 +254,19 @@
     },
     "2026-AKFAS-611234": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AK-FAS/Starry",
       "imsr_name": "Starry",
       "layer_name": "Starry",
       "state": "AK",
-      "crews": 4,
-      "engines": 6,
-      "helicopters": 0,
-      "total_personnel": 123
+      "crews": 5,
+      "engines": 5,
+      "helicopters": 1,
+      "total_personnel": 153
     },
     "2026-AKDAS-612223": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AK-DAS/Pogo",
       "imsr_name": "Pogo",
       "layer_name": "Pogo",
@@ -240,21 +276,9 @@
       "helicopters": 0,
       "total_personnel": 0
     },
-    "2026-AKDAS-612226": {
-      "tier": "EXACT",
-      "report_date": "2026-06-24",
-      "imsr_id": "AK-DAS/Shaw",
-      "imsr_name": "Shaw",
-      "layer_name": "Shaw",
-      "state": "AK",
-      "crews": 0,
-      "engines": 0,
-      "helicopters": 0,
-      "total_personnel": 0
-    },
     "2026-AKSWS-604237": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AK-SWS/Nowitna",
       "imsr_name": "Nowitna",
       "layer_name": "Nowitna",
@@ -266,7 +290,7 @@
     },
     "2026-AKTAD-000212": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AK-TAD/Bear",
       "imsr_name": "Bear",
       "layer_name": "Bear",
@@ -278,7 +302,7 @@
     },
     "2026-AKUYD-000233": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AK-UYD/Kathul",
       "imsr_name": "Kathul",
       "layer_name": "Kathul",
@@ -290,7 +314,7 @@
     },
     "2026-AKTAD-000177": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "AK-TAD/Kilolitna",
       "imsr_name": "Kilolitna",
       "layer_name": "Kilolitna",
@@ -300,21 +324,45 @@
       "helicopters": 0,
       "total_personnel": 0
     },
+    "2026-COGFX-260177": {
+      "tier": "EXACT",
+      "report_date": "2026-06-25",
+      "imsr_id": "CO-GFX/Dry Creek",
+      "imsr_name": "Dry Creek",
+      "layer_name": "Dry Creek",
+      "state": "CO",
+      "crews": 2,
+      "engines": 9,
+      "helicopters": 3,
+      "total_personnel": 152
+    },
     "2026-IDCMS-000183": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "ID-CMS/Shingle Creek",
       "imsr_name": "Shingle Creek",
       "layer_name": "Shingle Creek",
       "state": "ID",
-      "crews": 3,
-      "engines": 3,
-      "helicopters": 2,
-      "total_personnel": 85
+      "crews": 8,
+      "engines": 5,
+      "helicopters": 5,
+      "total_personnel": 317
+    },
+    "2026-FLFLS-261800098": {
+      "tier": "EXACT",
+      "report_date": "2026-06-25",
+      "imsr_id": "FL-FLS/Area 2",
+      "imsr_name": "Area 2",
+      "layer_name": "AREA 2",
+      "state": "FL",
+      "crews": 0,
+      "engines": 2,
+      "helicopters": 0,
+      "total_personnel": 2
     },
     "2026-NCNCS-260058": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "NC-NCS/Rose Bay Canal",
       "imsr_name": "Rose Bay Canal",
       "layer_name": "ROSE BAY CANAL",
@@ -322,11 +370,11 @@
       "crews": 0,
       "engines": 8,
       "helicopters": 0,
-      "total_personnel": 53
+      "total_personnel": 55
     },
     "2026-FLLWR-001886": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "FL-LWR/Rookery",
       "imsr_name": "Rookery",
       "layer_name": "Rookery",
@@ -338,7 +386,7 @@
     },
     "2026-FLFNF-001638": {
       "tier": "EXACT",
-      "report_date": "2026-06-24",
+      "report_date": "2026-06-25",
       "imsr_id": "FL-FNF/Shell",
       "imsr_name": "Shell",
       "layer_name": "Shell",
