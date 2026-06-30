@@ -1,0 +1,538 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Tuesday June 30, 2026 – 0730 MDT 
+National Preparedness Level 4 
+ 
+ 
+National Fire Activity: 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (83 fires) 
+New large incidents: 8 
+Large fires contained: 3 
+Uncontained large fires:  54 
+CIMTs committed: 11 
+NIMOs committed: 0 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative 
+Acres Crews Engines Helicopters Total 
+Personnel 
+Change in 
+Personnel 
+AICC 3 9 3,668 17 8 4 524 -87 
+NWCC 2 4 21,629 12 62 0 543 203 
+ONCC 2 1 699 1 1 0 15 15 
+OSCC 2 1 635 0 2 0 6 -119 
+NRCC 1 1 635 4 1 1 205 -19 
+GBCC 4 18 336,508 86 146 40 3,638 230 
+SWCC 3 14 31,701 45 133 23 2,550 -66 
+RMCC 3 8 29,850 10 53 5 560 161 
+EACC 1 0 0 0 0 0 0 0 
+SACC 1 17 48,701 0 58 2 220 17 
+Total --- 73 474,026 175 464 75 8,261 335 
+ 
+  
+===== PAGE 2 =====
+Great Basin Area (PL 4)   
+Fire Activity and Teams Assigned Totals 
+New fires: 4 
+New large incidents: 0 
+Uncontained large fires: 13 
+CIMTs Committed: 5 
+ 
+Cottonwood, Fishlake NF, USFS. CIMT (GB Team 5). Five miles east of Beaver, UT. Timber, brush and light 
+slash. Active fire behavior with torching, short-range spotting and short crown runs. Numerous structures 
+threatened. Evacuations, area, road and trail closures in effect. 
+ 
+Wild Goose, Fishlake NF, USFS. CIMT (GB Team 7). Twelve miles northeast of Fillmore, UT. Timber, brush 
+and grass. Active fire behavior with group torching, flanking and short-range spotting. Numerous structures 
+threatened. Evacuations, area, road and trail closures in effect. 
+ 
+Iron, Central Area, Utah DOF. CIMT (GB Team 3). CIMT is also managing the Cherry incident. One mile 
+northwest of Eureka, UT. Timber. Minimal fire behavior with creeping and smoldering. Road closures in effect. 
+ 
+Cherry, West Desert District, BLM. Twenty-nine miles southwest of Santaquin, UT. Grass, brush and timber. 
+Moderate fire behavior with flanking, creeping and single tree torching. Residences threatened. Area and road 
+closures in effect. 
+ 
+Babylon, Manti-La Sal NF, USFS. CIMT (GB Team 2) mobilizing. Twenty-five miles southwest of Monticello, 
+UT. Timber. Active fire behavior with torching, spotting and creeping. Structures threatened. Evacuations, area, 
+road and trail closures in effect. 
+ 
+Grapevine, Ely District, BLM. Ten miles southeast of Caliente, NV. Timber, brush and grass. Active fire 
+behavior with flanking, backing and creeping. Structures threatened. Area closures in effect. 
+ 
+Parsnip Peak, Ely District, BLM. Eighteen miles northwest of Pioche, NV. Timber and brush. Active fire 
+behavior with single tree torching, creeping and smoldering. 
+ 
+Horse Head, Desert Rivers Fire and Aviation Management Unit, BLM. Seven miles southwest of Eastland, UT. 
+Dormant brush. Extreme fire behavior with crowning, running and wind-driven runs. Residences threatened. 
+Reduction in acreage due to more accurate mapping. 
+ 
+Dry Canyon, Ely District, BLM. Fourteen miles east of Pioche, NV. Timber and brush. Minimal fire behavior 
+with smoldering and creeping. 
+ 
+Kinky Creek, Bridger-Teton NF, USFS. Thirty-four miles northwest of Cora, WY. Timber. Minimal fire behavior 
+with smoldering. Residences threatened. Area closures in effect. Precipitation occurred over the fire area 
+yesterday. 
+ 
+Snyder, Desert Rivers Fire and Aviation Management Unit, BLM. CIMT (RM Team 1). Thirteen miles west of 
+Grand Junction, CO. Grass and brush. Active fire behavior with wind-driven runs, flanking and short-range 
+spotting. Numerous residences threatened. Area, road and trail closures in effect. 
+ 
+Kane Springs, Ely District, BLM. Seventeen miles southwest of Caliente, NV. Grass, brush and timber. 
+Minimal fire behavior with smoldering and creeping. 
+ 
+Sawmill, Color Country Paria Unit, BLM. Forty-four miles northwest of Cedar City, UT. Dormant brush and 
+grass. Minimal fire behavior with smoldering. Structures threatened. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Cottonwood UT-FIF 93,918 312 4 Ctn 7/24 1,121 31 28 40 9 0 21M FS 
+===== PAGE 3 =====
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Wild Goose UT-FIF 11,055 145 7 Ctn 7/10 433 185 11 22 3 0 1.3M FS 
+Iron UT-SCS 41,467 0 95 Ctn 7/6 116 -122 0 5 0 6 9.3M ST 
+Cherry UT-WDD 34,224 0 39 Ctn 7/2 496 84 19 18 5 1 2.8M BLM 
+Babylon UT-MLF 38,399 22,198 0 Ctn 8/1 74 6 1 4 2 4 435K FS 
+Grapevine NV-ELD 26,464 4 41 Ctn 7/30 574 -30 18 13 8 0 16M BLM 
+Parsnip Peak NV-ELD 2,500 0 0 Ctn 7/10 128 84 3 0 5 0 600K BLM 
+Horse Head UT-DRD 600 -150 30 Ctn 7/1 78 41 2 8 0 0 350K BLM 
+Dry Canyon NV-ELD 1,651 0 55 Ctn 7/10 118 -63 2 9 0 0 750K BLM 
+Kinky Creek WY-BTF 880 0 12 Ctn 7/11 134 14 3 1 4 0 1.9M FS 
+Snyder UT-DRD 30,163 1,899 0 Ctn 7/10 133 61 3 9 2 0 271K BLM 
+Kane Springs NV-ELD 17,042 0 85 Ctn 7/1 84 10 2 1 1 0 6M BLM 
+Sawmill UT-CPD 3,790 0 82 Ctn 6/30 3 -21 0 1 0 0 4.5M BLM 
+ 
+ 
+Rocky Mountain Area (PL 3)   
+Fire Activity and Teams Assigned Totals 
+New fires: 14 
+New large incidents: 2 
+Uncontained large fires: 7 
+CIMTs Committed: 3 
+ 
+Gold Mountain, Grand Mesa, Uncompahgre and Gunnison NF, USFS. CIMT (RM Team 3). Two miles north 
+of Ouray, CO. Timber, chaparral and medium slash. Extreme fire behavior with wind-driven runs, short-range 
+spotting and group torching. Numerous residences and energy infrastructure threatened. Evacuations, area 
+and road closures in effect. 
+ 
+* Aspen Acres, Custer County. CIMT (AK Team 1) mobilizing. Ten miles northwest of Rye, CO. Timber. 
+Extreme fire behavior with wind-driven runs, uphill runs and short-range spotting. Numerous residences 
+threatened. Evacuations, area and road closures in effect. 
+ 
+Willow, Pike and San Isabel NF, USFS. CIMT (SW Team 4). Ten miles west of Leadville, CO. Timber and 
+closed timber litter. Active fire behavior with short crown runs, spotting and smoldering. Numerous structures 
+threatened. Area, road and trail closures in effect. 
+ 
+Ferris, San Juan NF, USFS. Seven miles east of Cahone, CO. Timber, brush and grass. Active fire behavior 
+with wind-driven runs, flanking and short-range spotting. Numerous structures threatened. Evacuations, area, 
+road and trail closures in effect. 
+ 
+Red Rock, Grand Junction Field Office, BLM. Twelve miles west of De Beque, CO. Timber and hardwood 
+litter. Minimal fire behavior. Energy infrastructure threatened. Road closures in effect. 
+ 
+* Rocky Ridge, Goshen County. Sixteen miles south of Lusk, WY. Grass. Active fire behavior with running. 
+ 
+Doe Canyon, San Juan NF, USFS. Seven miles east of Cahone, CO. Grass, timber and brush. No new 
+information. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Gold Mountain CO-GMF 7,103 6,546 0 Ctn 7/30 123 0 2 9 0 0 650K FS 
+* Aspen Acres CO-CUX 2,476 --- 0 Ctn 7/29 6 --- 0 0 0 0 1M CNTY 
+Willow CO-PSF 1,261 195 0 Ctn 7/10 111 111 3 10 0 0 250K FS 
+Ferris CO-SJF 17,009 7,418 0 Ctn 8/1 169 75 2 12 4 0 991K FS 
+===== PAGE 4 =====
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Red Rock CO-GRD 341 41 80 Ctn 7/11 0 0 0 0 0 0 300K BLM 
+* Rocky Ridge WY-GOX 300 --- 0 Ctn 7/1 25 --- 0 12 0 0 NR CNTY 
+Doe Canyon CO-SJF 1,046 --- 0 Ctn 8/1 0 --- 0 0 0 0 25K FS 
+ 
+ 
+Southwest Area (PL 3)   
+Fire Activity and Teams Assigned Totals 
+New fires: 8 
+New large incidents: 1 
+Uncontained large fires: 10 
+CIMTs Committed: 2 
+ 
+Pocket, Coconino NF, USFS. CIMT (SW Team 2). Seven miles north of Sedona, AZ. Timber and chaparral. 
+Moderate fire behavior with flanking, torching and spotting. Numerous structures threatened. Area, road and 
+trail closures in effect. 
+ 
+McCauley Springs, Santa Fe NF, USFS. CIMT (SW Team 3). Four miles northeast of Jemez Springs, NM. 
+Timber and hardwood litter. Moderate fire behavior with flanking, creeping and smoldering. Numerous 
+residences threatened. Evacuations, area, road and trail closures in effect. Reduction in acreage due to more 
+accurate mapping. 
+ 
+Beehive, Carson NF, USFS. Fifteen miles northeast of Tres Piedras, NM. Timber. Active fire behavior with 
+short crown runs, short-range spotting and flanking. 
+ 
+* Sacaton, Gila NF, USFS. Fifteen miles east of Glenwood, NM. Timber and brush. Moderate fire behavior 
+with group torching, long-range spotting and flanking. Structures threatened. Area closures in effect. 
+ 
+Sycamore, Tonto NF, USFS. Fifteen miles north of Globe, AZ. Grass and brush. Moderate fire behavior with 
+flanking, backing and creeping. Energy infrastructure threatened. Area and road closures in effect. 
+ 
+Butte, Kaibab NF, USFS. Eleven miles south of Tusayan, AZ. Timber and brush. Moderate fire behavior with 
+flanking, backing and isolated torching. Structures threatened. 
+ 
+White Tail, San Carlos Agency, BIA. Twelve miles northeast of San Carlos, AZ. Grass, brush and timber. 
+Moderate fire behavior. 
+ 
+Canyon Venado, Bernalillo District, NM State Forestry. Five miles east of Clines Corner, NM. Timber and 
+grass. Minimal fire behavior with smoldering and creeping. Energy infrastructure threatened. 
+ 
+Steamboat, Gila District, BLM. One mile south of Dripping Springs, AZ. Grass and brush. Minimal fire behavior 
+with creeping and smoldering. 
+ 
+Flat, Fort Apache Agency, BIA. Nine miles southwest of Heber, AZ. Medium slash, brush and grass. No new 
+information. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Pocket AZ-COF 11,192 5,176 0 Ctn 7/31 961 45 18 62 7 0 16.2M FS 
+McCauley Springs NM-SNF 712 -4 43 Ctn 7/8 384 -14 7 18 4 0 4.3M FS 
+Beehive NM-CAF 3,121 885 0 Ctn 7/18 179 35 5 7 3 0 1M FS 
+* Sacaton NM-GNF 380 --- 0 Ctn UNK 4 --- 0 0 0 0 20K FS 
+Sycamore AZ-TNF 11,879 0 68 Ctn 7/17 385 -93 4 17 4 0 9.5M FS 
+Butte AZ-KNF 255 0 50 Ctn 7/7 80 0 2 5 0 0 100K FS 
+===== PAGE 5 =====
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+White Tail AZ-SCA 857 0 70 Ctn 6/30 12 -13 0 0 0 0 600K BIA 
+Canyon Venado NM-N6S 919 0 70 Ctn 7/11 38 -35 0 5 0 0 2M ST 
+Steamboat AZ-GID 1,683 0 48 Ctn 7/10 196 5 5 6 1 0 1.4M BLM 
+Flat AZ-FTA 134 --- 83 Ctn 7/20 192 --- 3 7 4 0 4.3M BIA 
+ 
+ 
+Alaska Area (PL 3)   
+Fire Activity and Teams Assigned Totals 
+New fires: 2 
+New large incidents: 1 
+Uncontained large fires: 16 
+ 
+Big, Tanana Zone, BLM. Ten miles east of Ruby, AK. Timber, hardwood litter and grass. Minimal fire behavior 
+with smoldering. 
+ 
+Cecil, Tanana Zone, BLM. Ten miles southeast of Ruby, AK. Timber, grass and hardwood litter. Minimal fire 
+behavior with smoldering. 
+ 
+* Hoholitna, Southwest Area, Alaska DOF. Thirty miles south of Lime Village, AK. Timber. Moderate fire 
+behavior. 
+ 
+Shaw, Delta Area, Alaska DOF. Twenty-three miles northeast of Delta Junction, AK. Timber and grass. 
+Moderate fire behavior. 
+ 
+Polly, Upper Yukon Zone, BLM. Twenty-one miles northeast of Chicken, AK. Timber and hardwood litter. 
+Minimal fire behavior with smoldering. 
+ 
+Pogo, Delta Area, Alaska DOF. Twenty-seven miles northeast of Delta Junction, AK. Timber. Minimal fire 
+behavior. 
+ 
+Starry, Fairbanks Area, Alaska DOF. One mile south of Anderson, AK. Timber. Minimal fire behavior with 
+smoldering. Structures threatened. Area closures in effect. 
+ 
+Elliott Complex, Tanana Zone, BLM. Eleven miles northwest of Minto, AK. Timber, brush and hardwood litter. 
+Minimal fire behavior with smoldering. Last report unless significant activity occurs. 
+ 
+Kathul, Upper Yukon Zone, BLM. Fifty-five miles northwest of Eagle, AK. Timber. No new information. 
+ 
+Allen, Tanana Zone, BLM. Forty-seven miles west of Wiseman, AK. Brush and timber. No new information. 
+ 
+Michigan, Tanana Zone, BLM. Twenty-eight miles west of Coldfoot, AK. Timber and brush. No new 
+information. 
+ 
+Kilusiktok, Galena Zone, BLM. Fifty-one miles northeast of Koyuk, AK. Brush and grass. No new information. 
+ 
+Doorstep, Upper Yukon Zone, BLM. Thirty-two miles southeast of Bettles, AK. Brush. No new information. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Big AK-TAD 260 0 0 Ctn 7/31 46 6 1 0 0 0 NR BLM 
+Cecil AK-TAD 1,000 0 0 Ctn 7/31 35 0 1 0 0 0 578K BLM 
+* Hoholitna AK-SWS 457 --- 0 Ctn UNK 0 --- 0 0 0 0 NR ST 
+Shaw AK-DAS 1,428 0 0 Ctn 9/30 0 0 0 0 0 0 12K ST 
+===== PAGE 6 =====
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Polly AK-UYD 120 0 0 Ctn 10/1 11 -7 0 0 0 0 185K BLM 
+Pogo AK-DAS 419 0 0 Ctn 9/30 0 0 0 0 0 0 5K ST 
+Starry AK-FAS 546 0 70 Ctn 7/1 164 -3 5 7 1 0 2.2M ST 
+Elliott Complex AK-TAD 195 0 90 Ctn 8/31 72 -11 3 0 1 0 1.1M BLM 
+Kathul AK-UYD 2,809 --- 0 Ctn 9/30 0 --- 0 0 0 0 NR BLM 
+Allen AK-TAD 1,539 --- 0 Ctn 10/1 0 --- 0 0 0 0 NR BLM 
+Michigan AK-TAD 693 --- 0 Ctn 10/1 0 --- 0 0 0 0 NR BLM 
+Kilusiktok AK-GAD 1,988 --- 0 Ctn 10/1 0 --- 0 0 0 0 NR BLM 
+Doorstep AK-UYD 1,174 --- 0 Ctn 10/1 0 --- 0 0 0 0 NR BLM 
+Mud AK-GAD 800 --- 0 Ctn 10/1 0 --- 0 0 0 0 NR BLM 
+Buffalo AK-MID 744 --- 0 Ctn 10/1 0 --- 0 0 0 0 NR BLM 
+Glacier AK-MID 191 --- 0 Ctn 10/1 0 --- 0 0 0 0 NR DOW 
+Mailbox AK-TAD 200 0 100 Ctn --- 62 0 2 0 2 0 34K BLM 
+MID – Alaska Fire Service - Military Zone, BLM 
+ 
+ 
+Northwest Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 1 
+New large incidents: 1 
+Uncontained large fires: 3 
+ 
+* Lambdin, Mid Columbia NWR, FWS. Five miles southeast of Wallula, WA. Grass and brush. Extreme fire 
+behavior with wind-driven runs, long-range spotting and running. Structures threatened. Evacuations, area, 
+road and trail closures in effect. 
+ 
+Lyle Hill, Southeast Region, Washington DNR. Ten miles northwest of The Dalles, WA. Grass, brush and 
+timber. Minimal fire behavior with creeping and smoldering. Numerous structures threatened. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+* Lambdin WA-MCR 1,800 --- 0 Ctn 7/3 0 --- 0 0 0 0 750K FWS 
+Lyle Hill WA-SES 450 0 60 Ctn 7/2 256 203 6 27 0 0 100K ST 
+Kartar WA-COA 11,746 --- 95 Ctn 7/1 194 --- 6 9 0 0 6.4M BIA 
+COA – Colville Agency, BIA 
+ 
+ 
+Northern Rockies Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 0 
+New large incidents: 0 
+Uncontained large fires: 1 
+CIMTs Committed: 1 
+ 
+Shingle Creek, Craig Mountain Supervisory Area Office, IDL. CIMT (NR Team 1). Six miles southwest of 
+Riggins, ID. Timber and grass. Minimal fire behavior with creeping and smoldering. Numerous structures 
+threatened. Area, road and trail closures in effect. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Shingle Creek ID-CMS 635 0 69 Ctn 8/1 205 -19 4 1 1 0 5.2M ST 
+ 
+===== PAGE 7 =====
+Southern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 21 
+New large incidents: 2 
+Uncontained large fires: 3 
+ 
+* Atlantic 06, Florida Forest Service. Eight miles west of Pompano Beach, FL. Grass. Minimal fire behavior 
+with backing and smoldering. 
+ 
+Rookery, Lake Woodruff NWR, FWS. Three miles northwest of Deland, FL. Grass. Minimal fire behavior with 
+creeping and smoldering. 
+ 
+Rose Bay Canal, North Carolina Forest Service. Ten miles southwest of Fairfield, NC. Timber. No new 
+information. Last narrative report unless new information is received. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+* Atlantic 06 FL-FLS 4,755 --- 0 Ctn 7/5 0 --- 0 0 0 0 NR ST 
+Rookery FL-LWR 4,700 0 70 Ctn 7/6 5 0 0 1 0 0 45K FWS 
+Rose Bay Canal NC-NCS 662 --- 83 Ctn 7/1 11 --- 0 4 0 0 2.2M ST 
+* Hells Bay 48 FL-FLS 540 --- 100 Ctn --- 18 --- 0 2 0 0 NR ST 
+ 
+ 
+Southern California Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 10 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Iron, Riverside Unit, Cal Fire. One mile east of Moreno Valley, CA. Grass. Minimal fire behavior. Last report 
+unless significant activity occurs. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Iron CA-RRU 635 0 95 Ctn 7/1 6 -119 0 2 0 0 500K ST 
+ 
+ 
+Northern California Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 22 
+New large incidents: 1 
+Uncontained large fires: 0 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+* Romero CA-NOD 699 --- 100 Ctn --- 15 --- 0 1 0 0 200K BLM 
+NOD – Northern California District, BLM 
+  
+===== PAGE 8 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ 
+Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 1 0 0 1 0 2 
+Alaska ACRES 0 1 0 0 0 0 1 
+Northwest FIRES 0 0 1 1 0 0 1 
+Northwest ACRES 0 0 1,500 1,500 0 0 1,500 
+Northern California FIRES 0 1 0 0 18 3 22 
+Northern California ACRES 0 699 0 0 9 0 708 
+Southern California FIRES 0 0 0 0 9 0 10 
+Southern California ACRES 0 0 0 0 656 0 657 
+Northern Rockies FIRES 0 0 0 0 0 0 0 
+Northern Rockies ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 1 0 0 3 0 4 
+Great Basin ACRES 0 22,426 0 0 2 25,163 47,591 
+Southwest FIRES 0 0 0 0 5 3 8 
+Southwest ACRES 0 0 0 0 4 379 383 
+Rocky Mountain FIRES 0 0 0 0 13 1 14 
+Rocky Mountain ACRES 0 0 0 0 23,650 1,261 24,911 
+Eastern Area FIRES 0 0 0 0 0 1 1 
+Eastern Area ACRES 0 0 0 0 0 1 1 
+Southern Area FIRES 0 0 0 0 19 1 21 
+Southern Area ACRES 0 0 0 0 133 0 134 
+TOTAL FIRES:  0 3 1 1 68 9 83 
+TOTAL ACRES:  0 23,126 1,500 1,500 24,454 26,804 75,884 
+  
+===== PAGE 9 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ 
+Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 98 0 0 173 11 282 
+Alaska ACRES 0 22,728 0 0 3,944 2 26,674 
+Northwest FIRES 86 76 14 6 452 180 814 
+Northwest ACRES 21,431 25,844 4,901 5 6,126 2,808 61,115 
+Northern California FIRES 2 8 0 2 1,021 160 1,193 
+Northern California ACRES 1 980 0 0 2,843 202 4,026 
+Southern California FIRES 6 35 3 10 1,706 150 1,910 
+Southern California ACRES 1 6,647 0 18,403 57,030 2,945 85,026 
+Northern Rockies FIRES 90 22 4 2 336 93 547 
+Northern Rockies ACRES 2,425 1,417 396 5 17,756 2,791 24,789 
+Great Basin FIRES 11 290 0 8 389 96 794 
+Great Basin ACRES 2,955 168,098 0 502 51,104 155,480 378,140 
+Southwest FIRES 347 98 3 10 521 387 1,366 
+Southwest ACRES 1,624 3,701 3,980 381 72,206 66,607 148,499 
+Rocky Mountain FIRES 87 90 11 14 1,090 145 1,437 
+Rocky Mountain ACRES 1,424 1,046 1,885 1,406 1,191,270 100,849 1,297,880 
+Eastern Area FIRES 156 0 18 6 6,398 266 6,844 
+Eastern Area ACRES 1,084 0 115 7 62,958 6,277 70,441 
+Southern Area FIRES 618 1 61 76 19,414 527 20,697 
+Southern Area ACRES 75,456 72 9,035 31,743 867,679 57,819 1,041,805 
+TOTAL FIRES:  1,403 718 114 134 31,500 2,015 35,884 
+TOTAL ACRES:  106,401 230,533 20,312 52,452 2,332,915 395,780 3,138,394 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 27,042 133% 
+Acres (2016 – 2025 as of today) 1,977,688 159% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+  
+===== PAGE 10 =====
+Predictive Services Discussion:  
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 
