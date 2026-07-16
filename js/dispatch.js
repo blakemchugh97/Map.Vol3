@@ -97,6 +97,28 @@ export function competitiveField(allCrews, lat, lng, keepFraction, selectedCrew 
   return [selectedCrew, ...survivors]; // subject first so cost-ties resolve in its favor
 }
 
+/* ---------- Coverage competitive field (multi-subject, SET exemption) ----------
+   The single-crew moat exempts ONE subject (competitiveField above). The company-
+   coverage union evaluates a WHOLE SET of selected crews at once, so the subject set
+   is the entire selection: every selected crew is always available (exempt from PL
+   thinning) and every NON-selected crew is an external competitor thinned normally by
+   base cost (thinFieldGlobal). This makes `selected set === exemption set`:
+
+     • Deselecting a crew moves it OUT of the exempt set and INTO the thinnable
+       external field — it stops protecting/anchoring the union immediately, with no
+       same-company protection and no dependence on the full company roster.
+     • Selected crews stay put as the external field thins (PL rises), which is the
+       whole point of the view: watch when YOUR crews become competitive.
+
+   The set is point-INDEPENDENT (global thinning), so callers build it ONCE and rank
+   each subject over it by cost-to-point. keepFraction is already applied here, so the
+   per-cell ranking runs with no further thinning (keep = 1). Pure. */
+export function coverageCompetitiveField(selectedCrews, allCrews, keepFraction) {
+  const selectedIds = new Set(selectedCrews.map(c => c.id));
+  const external = allCrews.filter(c => !selectedIds.has(c.id));
+  return [...selectedCrews, ...thinFieldGlobal(external, keepFraction)];
+}
+
 /* ---------- Incident ranking ----------
    Rank every available crew by cost to the incident point, over the SAME Model-D
    field the moat/zone sim use (so a selected crew's incident rank equals the rank

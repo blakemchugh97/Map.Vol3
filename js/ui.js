@@ -283,8 +283,9 @@ function toggleTierFilter(tier) {
     activeTier = null;
     STATE.rateFilter = { min: RATE_BOUNDS.min, max: RATE_BOUNDS.max };
   } else {
-    activeTier = tier;
     const inTier = DATA.crews.filter(c => c.color === tier);
+    if (!inTier.length) return; // empty tier: Math.min/max(...[]) would poison the rate filter with ±Infinity
+    activeTier = tier;
     STATE.rateFilter = {
       min: Math.min(...inTier.map(c => c.rate)),
       max: Math.max(...inTier.map(c => c.rate)),
@@ -1024,6 +1025,11 @@ function clearActiveOverlay() {
   STATE.activeOverlay = null;
   $('legend').hidden = true;
   updateOverlayButtons();
+  // IMSR-LIVE (removable): the PL legend is only valid while the GACC zones view is
+  // on. toggleZones hides it when zones are toggled OFF directly, but switching to
+  // another overlay (moat/desert/coverage) tears zones down HERE — refresh the
+  // legend too or it lingers over the new overlay. No-op when IMSR is inert.
+  updateImsrPlLegend();
   // Keep the detail panel's moat button in sync: switching AWAY from the moat to
   // another overlay (desert/zones/coverage) clears the moat here, so the button
   // must drop its "Hide moat map" active state — otherwise it lies about state and
@@ -1046,7 +1052,7 @@ function toggleMoat() {
 function startMoat() {
   showProgress('Computing moat…');
   MapView.showMoat(STATE.selectedCrew, DATA.crews, STATE.plKey, {
-    onProgress: (d, t) => setProgress(`Computing moat… ${Math.round(d / t * 100)}%`),
+    onProgress: (d, t) => setProgress(`Computing moat… ${t ? Math.round(d / t * 100) : 100}%`),
     onDone: () => { hideProgress(); showMoatLegend(); },
   });
 }
@@ -1072,7 +1078,7 @@ function startDesert() {
   }
   showProgress('Computing rate desert…');
   MapView.showDesert(DATA.crews, STATE.plKey, {
-    onProgress: (d, t) => setProgress(`Computing rate desert… ${Math.round(d / t * 100)}%`),
+    onProgress: (d, t) => setProgress(`Computing rate desert… ${t ? Math.round(d / t * 100) : 100}%`),
     onDone: () => { hideProgress(); showDesertLegend(); },
   });
 }
@@ -1333,7 +1339,9 @@ function syncCoverageSelectionDefault() {
 /* Recompute if anything is selected, otherwise tear the overlay down. */
 function startOrClearCoverage() {
   if (coverageCompanies().length || (coverageIncludeHypo && STATE.hypoCrew)) startCoverage();
-  else { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); $('legend').hidden = true; }
+  // A cancelled job's onDone never fires, so hide the progress chip here too —
+  // otherwise clearing the company mid-compute leaves "Computing coverage…" stuck.
+  else { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); hideProgress(); $('legend').hidden = true; }
 }
 
 /* Select-all / clear-all across BOTH selected companies. */
@@ -1402,14 +1410,18 @@ function scheduleCoverage() {
 function startCoverage() {
   const companies = coverageCompanies();
   const hypo = (coverageIncludeHypo && STATE.hypoCrew) ? STATE.hypoCrew : null;
-  if (STATE.activeOverlay !== 'coverage' || (!companies.length && !hypo)) return;
+  if (STATE.activeOverlay !== 'coverage') return;
+  // Nothing left to analyze (e.g. the hypo — the only analyzed crew — was just
+  // removed): clear any previously drawn footprint + legend instead of returning
+  // over them, mirroring the empty-selection branch below.
+  if (!companies.length && !hypo) { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); hideProgress(); $('legend').hidden = true; return; }
   const crews = coverageAllCompanyCrews().filter(c => coverageSelectedIds.has(c.id));
   if (hypo) crews.push(hypo); // one more analyzed crew in the moat union
   if (!crews.length) { MapView.clearOverlayCells(); MapView.cancelOverlayJob(); hideProgress(); $('legend').hidden = true; return; }
   const duo = coverageIsDuo();
   showProgress('Computing coverage…');
   MapView.showCoverage(crews, DATA.crews, STATE.plKey, {
-    onProgress: (d, t) => setProgress(`Computing coverage… ${Math.round(d / t * 100)}%`),
+    onProgress: (d, t) => setProgress(`Computing coverage… ${t ? Math.round(d / t * 100) : 100}%`),
     onDone: () => { hideProgress(); showCoverageLegend(crews.length, duo); },
     // Two-company coloring context — ignored by map.js when duo is false.
     groupOf: coverageGroupOf,
@@ -1804,6 +1816,10 @@ async function toggleZones() {
       return;
     }
     hideProgress();
+    // Another overlay (or zones itself, via a double-press) may have been
+    // activated while the geojson fetch was awaited. Respect the newer action:
+    // bail out and leave the fetched data cached for the next toggle.
+    if (STATE.activeOverlay) return;
   }
   buildCrewGacc();
   STATE.activeOverlay = 'zones';
@@ -2200,11 +2216,15 @@ function renderDdpPanel(group) {
 function wireMinimize(panel) {
   const btn = panel.querySelector('[data-min]');
   if (!btn) return;
-  btn.addEventListener('click', () => {
-    const min = panel.classList.toggle('minimized');
+  const sync = () => {
+    const min = panel.classList.contains('minimized');
     btn.textContent = min ? '▢' : '–';
     btn.title = min ? 'Expand' : 'Minimize';
-  });
+  };
+  // A re-rendered panel keeps its `minimized` class but gets a fresh button with
+  // the default "–" label; sync so the label always matches the actual state.
+  sync();
+  btn.addEventListener('click', () => { panel.classList.toggle('minimized'); sync(); });
 }
 
 function closePanel(id) { $(id).hidden = true; }
@@ -2254,26 +2274,81 @@ function openModal(id) { $(id).hidden = false; }
 function closeModal(id) { $(id).hidden = true; }
 
 function buildGlossary() {
-  const terms = [
-    ['NICC Dispatch Cost', 'The ranking metric. <code>base_cost + (rate × 20 ÷ 50) × distance × 2</code>. Base cost is the 14-day, 8-hr crew cost; the second term is round-trip travel at 50 mph straight-line.'],
-    ['Base cost', '<code>rate × 20 people × 14 days × 8 hrs</code> — the fixed labor cost of a dispatch, before travel.'],
-    ['Rate tiers', 'Crews ranked globally by rate (ascending). <b>Green</b> = cheapest 100, <b>Yellow</b> = 101–210, <b>Orange</b> = 211–388, <b>Red</b> = 389+. Color encodes competitive pricing, not quality.'],
-    ['Preparedness Level (PL)', 'Simulates competing fires drawing the cheapest crews away. Higher PL keeps a smaller fraction of the field available, opening the competitive field. PL2≈90%, PL3≈70%, PL4≈43%, PL5≈18%.'],
-    ['PL filter intensity', 'A slider beneath the PL presets. The preset sets the nominal field-kept fraction; the slider adds filtering intensity on top — the left edge is nominal (no change), and dragging right keeps less of the field (heavier). It feeds the same thinning used by every tool.'],
-    ['Incident mode', 'Drop a pin anywhere; every available crew is ranked by NICC cost to that point — the same rank the moat overlay shows. The time filter only hides crews whose mobilization (travel + 3h buffer) exceeds the limit; it does not change anyone\'s rank, so the surviving rows keep their true full-field cost rank (numbers may skip).'],
-    ['Competitive radius', 'Simulates ~100 incidents inside a radius around a crew\'s DDP. The main metrics are top-10 and top-20 rate, average rank, median rank, and a rank-band breakdown. Being #1 is shown as a diagnostic — the goal is to stay competitive in the top-10 to top-20 band, not to be the cheapest option everywhere.'],
-    ['Threats', 'Crews that out-rank the selected crew in ≥30% of sampled incidents — direct competitors in that radius.'],
-    ['Rate sensitivity', 'Substitutes a hypothetical rate, re-runs the simulation, and shows the change in win rate, rank, and base cost. Breakeven is the rate at which you tie your top threat.'],
-    ['Moat overlay', 'A grid (~350mi) around the selected crew. Each cell shows where the crew\'s rank falls in the competitive field at that location. Emerald = comfortably top-10; amber = near the top-20 boundary; red = outside the useful band. Hover any cell for the exact rank.'],
-    ['Company coverage', 'A company-wide moat: the single-crew moat run for each selected crew (ranked against the full field, exactly as normal) and then unioned. Pick a vendor company, then click a price-tier chip to isolate that band (click again for all crews), or check crews individually. Every cell uses the same red→emerald moat gradient, colored by the BEST-ranked selected crew there — so you get corridors of green wherever at least one crew is competitive (emerald = a crew is top-10, amber = top-20, red = a crew is near but uncompetitive, empty = no crew in range). Hover a crew row to light up its own moat, or a cell to see which crews are competitive there. Higher PL thins competitors and widens the green.'],
-    ['Rate desert', 'A CONUS grid showing the average rate of the cheapest available crews after PL thinning. Teal = cheap field; orange = "desert" where only expensive crews remain. Hover a cell for the average, lowest, and highest rate among the surviving top-15.'],
-    ['Hypothetical DDL', 'A standalone what-if crew. Open the ⚲ Hypo DDL tool, set a rate, and drop it anywhere. It becomes a normal crew object — exact NICC cost, a global rate rank, and full inclusion in incident, competitive-radius, moat, and rate-desert analysis. Select it to analyze it like any real crew; Remove to restore the real field.'],
-    ['Shared DDP', 'Multiple crews dispatched from one address. Click the shared map pin to open a list and pick a specific crew.'],
-    ['Wildfire layer', 'Live fire points loaded on demand via the 🔥 button, merging two ArcGIS feeds into one styled, filterable layer: NIFC <code>USA_Wildfires</code> current incidents (icon sized by acreage) plus WFIGS incidents reported in the last 24h (shown with the "new start" icon). The ⛯ Filters panel narrows both feeds at once (size, type, cause, containment, state, GACC, name). Click any point for incident name, size, and containment. Purely informational — it never affects crew ranking or any analysis.'],
+  // Small builders so the long content below stays readable. Descriptions are
+  // injected as HTML (the existing pattern), so inline <code>/<b> are intentional.
+  const term    = (t, d) => `<div class="gloss-term"><h3>${t}</h3><p>${d}</p></div>`;
+  const sub     = (s)    => `<div class="gloss-sub">${s}</div>`;
+  const section = (t, n) => `<div class="gloss-section"><h2>${t}</h2>${n ? `<p>${n}</p>` : ''}</div>`;
+
+  const html = [
+    `<p class="gloss-intro">This map ranks all <b>802</b> Type&nbsp;2 (T2C) hand crews on the 2025/26 IROC contract by their NICC dispatch cost, and lets you stress-test where each crew, company, or hypothetical placement is competitive. Everything keys off two facts per crew: its hourly <b>rate</b> and its home location (<b>DDP</b>). Colors and rankings describe <b>price competitiveness, not crew quality</b>. The <b>Glossary</b> defines every term and control; the <b>Methodology</b> explains how the numbers are produced and how to read them.</p>`,
+
+    /* ===================== GLOSSARY ===================== */
+    section('Glossary'),
+
+    sub('Crews, cost &amp; pricing'),
+    term('NICC dispatch cost', 'The ranking metric. <code>base_cost + (rate × 20 ÷ 50) × distance × 2</code>. <code>base_cost</code> is the fixed labor cost; the second term is round-trip travel for a 20-person crew at 50&nbsp;mph over the straight-line (great-circle) air-mile distance. Lower cost = more competitive at that point. A pricier-but-closer crew can beat a cheaper-but-distant one.'),
+    term('Base cost', '<code>rate × 20 people × 14 days × 8 hrs</code> — the fixed labor cost of a dispatch, before travel. Stored per crew; depends only on rate.'),
+    term('Rate &amp; rate tier', 'A crew’s hourly rate ($/hr) sets its color by <b>fixed dollar breakpoints</b> (not by rank, count, or quality): <b>green</b> under $59.50, <b>yellow</b> $59.50–$61, <b>orange</b> $61–$63, <b>red</b> $63+. The sidebar stat chips count crews per tier; clicking a chip filters the list to that tier’s rate window.'),
+    term('Global rank', 'Each crew’s fixed position <b>1–802</b> when the whole field is sorted by rate ascending (rank&nbsp;1 = cheapest). Shown as “Global rank” in the detail panel and as <code>#N</code> in the crew list. Distinct from a crew’s <i>situational</i> rank at a specific point (see Moat / Incident).'),
+    term('DDP / DDL', 'Designated Dispatch Point — the crew’s home lat/lng, the origin for every distance calculation. DDL is the human-readable dispatch location/address text shown in the detail panel.'),
+    term('Shared DDP', 'Multiple crews based at the same coordinates. The map shows one marker (colored by the cheapest crew there); click it to open a list and pick a specific crew.'),
+
+    sub('Availability model'),
+    term('Preparedness Level (PL)', 'A national readiness setting that simulates competing fires drawing the cheapest crews away. Higher PL keeps a smaller fraction of the field available: <b>None</b>&nbsp;=&nbsp;100%, <b>PL2</b>≈90%, <b>PL3</b>≈70%, <b>PL4</b>≈43%, <b>PL5</b>≈18%. Thinning removes the <b>lowest-rate</b> crews first (“the cheapest are already committed”), which opens the competitive field for higher-rate crews near a fire.'),
+    term('Filter intensity', 'A slider beneath the PL presets. The preset sets the nominal kept fraction; the slider only <b>adds</b> filtering on top — left edge is nominal (no change), and dragging right keeps less of the field (down to 40% of the preset’s fraction at the far right). It feeds the same thinning every analysis uses; the readout shows the effective “% kept · nominal/heavier.”'),
+    term('Competitive field (Model D)', 'The single shared answer to “who is available to fight a fire at this point,” used by the moat, the incident table, and the competitive-radius sim so they can never disagree. Competitors are thinned globally by rate; the <b>selected crew</b> (the hypothesis) is always kept available. With no crew selected, the whole field is thinned literally.'),
+
+    sub('Selected-crew analyses (detail panel)'),
+    term('Competitive radius', 'Simulates ~100 incidents on an even (sunflower) grid inside a radius (50–800&nbsp;mi, default 200) around the selected crew’s DDP. Reports <b>top-10%</b> and <b>top-20%</b> (share of points where the crew lands in that band), average and median rank, and an exclusive rank-band breakdown (1–5 / 6–10 / 11–20 / 21+). #1 win rate and top-5 are diagnostics — the goal is to hold the top-10/top-20 band, not to be cheapest everywhere.'),
+    term('Threats', 'Crews that out-rank the selected crew in ≥30% of the sampled points (up to 8 shown) — its real local competitors. Click one to analyze it.'),
+    term('Rate sensitivity', 'Substitutes a hypothetical rate for the selected crew, re-runs the radius sim, and shows the change in top-10%, average rank, new global rank, and Δ base cost.'),
+    term('Breakeven', 'The rate at which the selected crew ties its #1 threat at the radius center (solved exactly, since NICC cost is linear in rate). Charge at or below it to tie.'),
+
+    sub('Incident'),
+    term('Incident ranking', 'Drop a pin anywhere (or click a wildfire) and every available crew is ranked by NICC cost to that point — the <b>same</b> ranking the moat shows. The “Max mob time” filter (6/12/24h) only <b>hides</b> crews whose mobilization (travel + a flat 3h buffer) exceeds the limit; it never changes anyone’s rank, so visible rows keep their true full-field cost rank (numbers may skip). While active, the map narrows to the incident’s top 30 crews.'),
+
+    sub('Map overlays (one analytic overlay at a time)'),
+    term('Moat overlay', 'A land-masked grid (~27&nbsp;mi cells, 350&nbsp;mi reach) around the selected crew. Each cell is colored by the crew’s rank in the competitive field there on a five-stop fade: <b>emerald</b> = comfortably top-10, <b>lime</b> = top-10, <b>amber</b> = top-20 edge, <b>orange</b> = just outside, <b>red</b> = rank&nbsp;40+ (outside the useful band). Hover any cell for exact rank, band, and the cheapest competitor.'),
+    term('Company coverage', 'A company-wide moat: the single-crew moat is run for each selected crew (ranked against the full field, 700&nbsp;mi reach, clipped to US land) and unioned. Pick <b>Company&nbsp;A</b>; a price-tier chip isolates a band, or check crews individually. Each cell is colored by the <b>best-ranked</b> selected crew there using the same red→emerald gradient, so green corridors mark where at least one crew is competitive. Add a <b>Company&nbsp;B</b> for two-company mode: cells where only one company is competitive tint toward that company’s hue (A = sky blue, B = magenta), strongest where that company is top-10 and the other has no top-20 presence; cells where both or neither compete keep the plain gradient. Options: include the hypothetical DDL (assign it to A or B), and show all dots vs only analyzed crews. Hover a crew row to light up its own footprint.'),
+    term('Rate desert', 'A CONUS grid (~70&nbsp;mi cells) showing the average rate of the cheapest <b>15</b> crews still available after PL thinning at each location. <b>Teal</b> = cheap field; <b>orange</b> = “desert” where only expensive crews remain. Most meaningful at PL3+ (or a heavier filter); at PL&nbsp;None there is nothing to thin. Hover a cell for avg / lowest / highest surviving rate. (Uses point-local thinning — see Methodology.)'),
+    term('Zones', 'Outlines crew markets, with two views (segmented control, top-right). <b>GACC regions</b> (default) draws one clean outline per Geographic Area Coordination Center (10 regions); clicking a region <b>auto-filters</b> the crew list to it (popup “Show all crews” clears it). <b>Dispatch centers</b> draws all 133 NIFC dispatch boundaries; clicking one shows its stats with an opt-in “Filter list to zone.” Both popups show crew count, company count, avg/min/max rate, and the cheapest crew.'),
+
+    sub('Informational layers (independent toggles · never affect ranking)'),
+    term('Wildfires', 'Live fire points loaded on demand via 🔥, merging two ArcGIS feeds into one styled, filterable layer: NIFC <code>USA_Wildfires</code> current incidents (icon sized by acreage) plus WFIGS incidents reported in the last 24h (shown with the “new start” icon, deduped against the current feed by IrwinID). Click a point for name, size, containment, and cause; clicking a fire also opens an Incident ranking at that location.'),
+    term('Wildfire filters (⛯)', 'A drawer that narrows <b>both</b> fire feeds server-side at once: name, incident type (Wildfire / Prescribed / Complex), cause, containment, “new fires only,” minimum size (log slider), and state / GACC checklists. The footer shows the deduped “showing&nbsp;X of&nbsp;Y,” and it works even while the fire layer is hidden.'),
+    term('Alerts (⚠)', 'NWS active watches / warnings / advisories polygons, colored by CAP severity (Extreme→deep red, Severe→orange, Moderate→amber, Minor→sky, Unknown→slate). An alert-type filter (All / Red&nbsp;Flag / Wind) appears while it is on. Purely informational.'),
+    term('Transportation overlay', 'A fixed, subtle interstate-roads reference (Esri Transportation), always on, drawn above the basemap and beneath the analytics/markers. Not toggleable; opacity fixed at 0.25.'),
+    term('Basemap / theme', 'Light (default) uses an Esri World&nbsp;Topo raster basemap; dark uses an Esri “World Navigation (Dark)” vector basemap. Toggle with the ☀/☾ button or <code>T</code>.'),
+
+    sub('Hypothetical placement'),
+    term('Hypothetical DDL', 'A standalone what-if crew. Open ⚲&nbsp;Hypo&nbsp;DDL, set a rate (default $60 ≈ field median), and drop it anywhere. It becomes a real crew object — exact NICC cost, a global rate rank, its own tier color — and is fully included in incident, competitive-radius, moat, coverage, and rate-desert analysis. Select it to analyze it like any real crew; <b>Remove</b> restores the real field. Re-rating or re-placing recomputes everything instantly.'),
+
+    sub('Experimental / review-only (IMSR live data)'),
+    term('IMSR live data', 'An optional, clearly-labeled integration of the daily NIFC Incident Management Situation Report (IMSR), behind a master switch (currently <b>enabled for review</b>). It is <b>unverified review data</b> and <b>never</b> changes ranking, NICC math, or crew membership. It supplies three additive surfaces below, each of which fails safe to “nothing shown.”'),
+    term('IMSR PL tint', 'In the GACC-regions zone view, each region is shaded by its IMSR preparedness level (PL1 blue … PL5 red) with a small legend; a “Nd old” flag appears if the report is stale (older than 1 day). GACC popups add a review-tagged “IMSR PL” line.'),
+    term('Sit-rep thinning (experimental)', 'A “Thinning” toggle (<b>PL</b> | <b>Sit-rep</b>) on the PL bar. Sit-rep derives the keep-fraction from IMSR national crew totals instead of the PL preset. It is an <b>untuned heuristic</b>, review-only, and fails safe back to PL behavior if the value is missing or invalid.'),
+    term('IMSR incident debug', 'When you click a wildfire that <b>exactly</b> matches an IMSR incident for the current day, the incident panel shows a small review-only block (IMSR crews / engines / personnel), labeled “not app truth.” It never affects the ranking.'),
+
+    sub('Reference'),
+    term('Keyboard', '<code>I</code> incident · <code>H</code> hypo DDL · <code>/</code> search · <code>Z</code> zones · <code>M</code> moat · <code>C</code> coverage · <code>D</code> desert · <code>W</code> wildfires · <code>A</code> alerts · <code>F</code> fire filters · <code>T</code> theme · <code>Esc</code> cancel/close.'),
+
+    /* ===================== METHODOLOGY ===================== */
+    section('Methodology', 'How the numbers are produced, and how to read the map.'),
+
+    term('What the map answers', 'For a given fire location and national readiness level: which crews are the cheapest to dispatch there, and where does each crew or company hold a durable cost advantage. Two crew facts drive everything — the hourly <b>rate</b> (which fixes the labor cost and the rate ranking) and the home <b>DDP</b> (which fixes travel distance).'),
+    term('The cost model', 'A crew’s cost at a point is its fixed <code>base_cost</code> (rate × 20 × 14 × 8) plus round-trip travel <code>(rate × 20 ÷ 50) × distance × 2</code>, where distance is straight-line haversine air miles. So cost rises with both rate and distance: a crew’s standing is local. <b>Global rank</b> is the pure rate ordering (1–802); a crew’s <b>situational rank</b> at a point is the NICC-cost ordering of the available field there.'),
+    term('Availability — two thinning models', 'PL thinning has two forms. <b>Global</b> thinning (by each crew’s own rate) drops the cheapest (1−keep) of the field regardless of location and powers <b>every ranking view</b>; because the survivors are point-independent, ranking them by cost-to-point is not circular. <b>Point-local</b> thinning (by cost to the specific point) is used <b>only</b> by the rate desert, as a per-location market-structure lens. Point-local thinning is deliberately <b>not</b> used for ranking — it would delete exactly the crews that beat a subject there and false-rank an expensive crew #1. One function computes the effective keep-fraction (preset × intensity slider), so all views thin identically.'),
+    term('Model D — one shared field', 'The selected crew is treated as the hypothesis (“if I dispatch THIS crew here”) and is exempt from thinning; competitors are thinned around it. The moat, the dropped-incident table, and the competitive-radius sim all consume this one field, so a crew’s <b>moat rank at a point equals its incident rank there</b>. Without it, a locally-cheap crew would thin itself out of a table ranked around a different subject — the “moat says #1, incident says gone” contradiction this design avoids. With no crew selected, the whole field is thinned literally.'),
+    term('Reading the moat &amp; coverage', 'A rank→strength curve anchors rank&nbsp;1 = 1.0, rank&nbsp;10 = 0.70, rank&nbsp;20 = 0.35, fading to 0 by rank&nbsp;40; the five-stop color and the hover wording both track these cutoffs. “Competitive” means top-20 (the useful band); “strong” means top-10. The single-crew moat reaches 350&nbsp;mi and is land-masked. Coverage reuses the identical per-crew math, reaches 700&nbsp;mi, clips to US land, and unions by best (max) strength. Two-company coloring only re-tints one-sided cells; both/neither cells stay on the plain gradient, so coverage reads as the moat first.'),
+    term('Reading the rate desert', 'Per cell, ~6 sub-points are sampled, the field is thinned point-locally at each, the cheapest 15 survivors’ rates are averaged, and those are averaged across the sub-points. Color runs teal→orange across roughly $58–$64 (contrast around the ~$61 median). Higher PL removes more cheap crews, so deserts widen.'),
+    term('Scenario tools', 'Competitive radius samples ~100 points on a sunflower grid, buckets ranks into exclusive bands, flags threats (beat you ≥30% of points), and solves breakeven exactly. Rate sensitivity re-runs the radius sim at a test rate; its “new global rank” excludes the subject’s own current self so a raise isn’t counted against the new rate. The hypothetical DDL is injected as a real crew so it competes everywhere — its rank/color fields are display-only; all math keys off its rate and location.'),
+    term('Interpreting colors &amp; ranks', 'Colors and ranks are about price competitiveness, not quality, contract status, or guaranteed availability. Being #1 is a diagnostic; the operational goal is the top-10/top-20 band. Skipped numbers in the incident table are expected (unreachable crews are hidden, not renumbered). Sweep PL up and down to see how a more committed field reshapes each crew’s advantage.'),
+    term('Layers of logic — what’s trusted vs not', '<b>Production (drives ranking):</b> NICC cost, global/situational rank, PL thinning, the Model-D field, and the moat / coverage / desert / zones / incident / competitive-radius / rate-sensitivity / hypothetical-DDL tools. <b>Informational only (never affects ranking):</b> wildfires, weather alerts, the transportation overlay, and the basemap. <b>Review-only / experimental / additive (IMSR):</b> the PL tint, sit-rep thinning, and incident debug block — unverified, removable, and fail-safe; the master switch is currently on for review. <b>Debug-only:</b> the console helper <code>__moatAudit(lat,lng)</code> cross-checks moat vs incident rank, and on-map sample dots appear only with <code>?debugDots</code> in the URL.'),
+    term('Limitations &amp; caveats', 'Distances are straight-line air miles, not road miles or drive time; travel cost and mobilization time are a 50&nbsp;mph approximation plus a flat 3h buffer. PL keep-fractions are modeling assumptions, not live availability, and the intensity slider is a what-if (the only data-driven option, sit-rep, is unverified). The US land mask is a simplified outline (the Great Lakes count as land), so desert/coverage cells can clip slightly. Tier colors are fixed dollar bands and encode none of quality, contract status, or real availability. GACC membership is computed by point-in-polygon against the dispatch-zone geometry (more accurate than the raw <code>disp_unit_id</code>, which misfiled ~17% of edge crews). IMSR surfaces reflect the report’s source date; if older than a day they are flagged stale, and every IMSR accessor fails safe to “nothing shown.”'),
   ];
-  $('glossary-body').innerHTML = terms.map(([t, d]) =>
-    `<div class="gloss-term"><h3>${t}</h3><p>${d}</p></div>`).join('') +
-    `<div class="gloss-term"><h3>Keyboard</h3><p><code>I</code> incident · <code>H</code> hypo DDL · <code>/</code> search · <code>Z</code> zones · <code>M</code> moat · <code>C</code> coverage · <code>D</code> desert · <code>W</code> wildfires · <code>F</code> fire filters · <code>T</code> theme · <code>Esc</code> cancel</p></div>`;
+
+  $('glossary-body').innerHTML = html.join('');
 }
 
 function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }

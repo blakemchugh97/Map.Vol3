@@ -14,7 +14,7 @@ import {
   moatLatticePoints, coverageCellKey, moatScoreCell, isUSLand,
   isCoverageCompetitive, classifyDuoCell,
   computeRankAtPoint, rankIncident, bandScore, competitiveField,
-  thinField, thinFieldGlobal, costToPoint,
+  thinField, thinFieldGlobal, costToPoint, coverageCompetitiveField,
 } from '../js/dispatch.js';
 
 /* ---- tiny test harness ---- */
@@ -312,6 +312,51 @@ function consistencyTests(crews) {
   });
 }
 
+/* ---------- coverage set-exemption (the deselection bug) ----------
+   Regression for: when company crews are DESELECTED from the coverage analysis, the
+   union must stop behaving as if they are still present. The fix makes the selected
+   set the exemption set: every SELECTED crew is exempt from PL thinning, every
+   NON-selected crew is an external competitor thinned normally. The earlier code
+   ranked each crew against the full roster (DATA.crews) regardless of selection, so a
+   selected crew's footprint was identical whether or not its cheap teammates were
+   deselected — deselection did nothing. These pin the corrected behavior. */
+function coverageExemptionTests(crews) {
+  const co = crews.filter(c => c.company === COMPANY).sort((a, b) => a.rate - b.rate);
+  const keep = effectiveKeepFraction('PL5'); // heavy thinning, so the exemption is observable
+  const subject = co[co.length - 1];         // most expensive company crew
+
+  test('coverage field: selected set IS the exemption set (all selected survive at PL5)', () => {
+    const ids = new Set(coverageCompetitiveField(co, crews, keep).map(c => c.id));
+    assert(co.every(c => ids.has(c.id)), 'every selected company crew is exempt/present under heavy thinning');
+  });
+
+  test('coverage field: at PL none it equals the full roster (no default-PL behavior change)', () => {
+    const field = coverageCompetitiveField(co, crews, effectiveKeepFraction('none'));
+    eq(field.length, crews.length, 'no thinning at PL none → whole field present (same as the old path)');
+  });
+
+  test('coverage field: a DESELECTED cheap crew is thinned like any external crew (not protected)', () => {
+    const cheapest = co[0];
+    const selected = co.filter(c => c.id !== cheapest.id); // deselect the cheapest teammate
+    const field = coverageCompetitiveField(selected, crews, keep);
+    assert(!field.some(c => c.id === cheapest.id),
+      'once deselected, the cheap same-company crew is removed by global thinning (no roster protection)');
+    // Sanity: it is ONLY gone because it was deselected — re-selecting exempts it.
+    assert(coverageCompetitiveField(co, crews, keep).some(c => c.id === cheapest.id),
+      're-selecting the same crew makes it exempt/present again');
+  });
+
+  test('coverage rank RESPONDS to deselection (old bug: identical regardless of selection)', () => {
+    const cheaperIds = new Set(co.filter(c => c.rate < subject.rate).map(c => c.id));
+    const rankWith = (sel) => moatScoreCell(subject, subject.lat, subject.lng,
+      coverageCompetitiveField(sel, crews, keep), 1.0).rank;
+    const rankAll = rankWith(co);                                   // all teammates selected/exempt
+    const rankFew = rankWith(co.filter(c => !cheaperIds.has(c.id))); // cheaper teammates deselected
+    assert(rankFew < rankAll,
+      `deselecting cheaper teammates improves the subject's rank (${rankAll} → ${rankFew}); it must not be inert`);
+  });
+}
+
 /* ---- run ---- */
 export async function runCoverageTests() {
   const crews = await (await fetch('../crews.json')).json();
@@ -319,6 +364,7 @@ export async function runCoverageTests() {
   footprintTests(crews);
   duoTests();
   consistencyTests(crews);
+  coverageExemptionTests(crews);
 
   const results = [];
   for (const { name, fn } of cases) {

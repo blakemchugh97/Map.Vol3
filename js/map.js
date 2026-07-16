@@ -11,6 +11,7 @@ import {
 import {
   haversine, computeRankAtPoint, bandScore, computeRateDesertHoverStats, isUSLand, runChunked,
   moatLatticePoints, moatScoreCell, aggregateCoverageCells, coverageCellKey, classifyDuoCell,
+  coverageCompetitiveField,
 } from './dispatch.js';
 
 let map, tileLayer, darkBasemapLayer = null, handlers = {};
@@ -458,7 +459,13 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
    competitive. Per-crew moats are cached (keyed crew|pl|slider) so toggling crews
    re-unions instantly and only newly-needed crews compute.
    ============================================================ */
-const coverageKey = (crewId, plKey) => `${crewId}|${plKey}|${STATE.plSlider}`;
+// A coverage footprint depends on the WHOLE selected (exempt) set, not just its own
+// crew — deselecting any crew rebuilds the field for every other crew (see
+// coverageCompetitiveField). So the cache is keyed by a signature of the selection,
+// set by showCoverage before any key is built. Without this, a footprint computed for
+// one selection would be wrongly reused after the user toggles a crew.
+let coverageSelectionSig = '';
+const coverageKey = (crewId, plKey) => `${crewId}|${plKey}|${STATE.plSlider}|${coverageSelectionSig}`;
 // Coverage union uses a larger reach than the single-crew moat (so the map extends
 // until advantage fades) at the same cell size, with cells clipped to US land.
 const coverageCfg = { cellDegrees: MOAT_CONFIG.cellDegrees, maxRadius: MOAT_CONFIG.coverageRadius };
@@ -602,7 +609,22 @@ export function showCoverage(selectedCrews, allCrews, plKey, { onProgress, onDon
   const keepFraction = effectiveKeepFraction(plKey);
   const render = { groupOf, duo, labels }; // two-company coloring context (ignored when !duo)
 
-  // Only crews without a cached footprint (for this pl|slider) need computing.
+  // The ONE competitive field for the whole union: the SELECTED crews are the exempt
+  // subject set (always available) and every NON-selected crew is an external
+  // competitor thinned by PL. So `selected set === exemption set === coverage set` —
+  // deselecting a crew drops it out of the exempt set into the thinnable field with no
+  // same-company protection and no dependence on the full company roster. The field is
+  // point-independent (global thinning), so build it once; the per-cell rank then runs
+  // the shared moat math over it with no further thinning (keep = 1).
+  const field = coverageCompetitiveField(selectedCrews, allCrews, keepFraction);
+
+  // Footprints depend on the whole exempt set, so cache them per selection: re-key by a
+  // selection signature and drop stale footprints when the selection changes (toggling
+  // any crew rebuilds the field — and thus the rank — for every other crew).
+  const sig = selectedCrews.map((c) => c.id).sort().join(',');
+  if (sig !== coverageSelectionSig) { for (const k in coverageCache) delete coverageCache[k]; coverageSelectionSig = sig; }
+
+  // Only crews without a cached footprint (for this pl|slider|selection) need computing.
   const need = selectedCrews.filter((c) => !coverageCache[coverageKey(c.id, plKey)]);
   const acc = new Map();
   need.forEach((c) => acc.set(c.id, []));
@@ -622,7 +644,8 @@ export function showCoverage(selectedCrews, allCrews, plKey, { onProgress, onDon
 
   if (!work.length) { finish(); return; }
   overlayJob = runChunked(work, ({ crew, lat, lng }) => {
-    const { rank, score } = moatScoreCell(crew, lat, lng, allCrews, keepFraction);
+    // Rank over the prebuilt set-exempt field; it is already thinned, so keep = 1.
+    const { rank, score } = moatScoreCell(crew, lat, lng, field, 1.0);
     acc.get(crew.id).push({ key: coverageCellKey(lat, lng), lat, lng, rank, score });
   }, { chunk: 150, onProgress, onDone: finish });
 }

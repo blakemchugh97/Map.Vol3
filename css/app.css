@@ -590,6 +590,14 @@ input { font-family: inherit; }
 .gloss-term h3 { font-size: var(--text-md); font-weight: 600; color: var(--accent-hi); margin-bottom: 3px; }
 .gloss-term p { font-size: var(--text-base); color: var(--text-muted); line-height: 1.55; }
 .gloss-term code { background: var(--surface2); padding: 1px 5px; border-radius: var(--radius-sm); font-size: var(--text-sm); color: var(--text); }
+/* Glossary/Methodology structure: intro, section dividers, sub-group labels */
+.gloss-intro { font-size: var(--text-base); color: var(--text-muted); line-height: 1.55; margin-bottom: 6px; }
+.gloss-section { margin: 24px 0 12px; padding-top: 16px; border-top: 1px solid var(--border); }
+.gloss-section:first-of-type { margin-top: 6px; }
+.gloss-section h2 { font-size: var(--text-lg); font-weight: 700; color: var(--text); }
+.gloss-section p { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.5; margin-top: 4px; }
+.gloss-sub { font-size: var(--text-xs); font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--text-faint); margin: 16px 0 8px; }
 
 /* utility */
 [hidden] { display: none !important; }
