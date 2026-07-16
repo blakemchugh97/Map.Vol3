@@ -18,6 +18,7 @@ import {
   premiumViability, candidateSites, nearestSites, crewCompetitiveCells,
   redundancyFold,
 } from './planner.js';
+import { buildCompare } from './compare.js';
 import * as MapView from './map.js';
 import * as ImsrLive from './imsr_live.js';  // IMSR-LIVE (removable)
 
@@ -108,6 +109,16 @@ function showRadiusCircle() {
   MapView.setRadiusCircle(STATE.selectedCrew.lat, STATE.selectedCrew.lng, zoneRadius);
 }
 
+// Compare mode (Phase 4): read-only FY2025-vs-FY2026 diff, computed ONCE from the
+// two frozen canonicals and cached. Never feeds the engine or mutates active state.
+let compareData = null;
+let compareMode = false;
+let compareSort = 'rate_delta';    // crew diff table sort key
+let compareTab = 'crews';          // crews | flux | companies | zones
+function getCompare() {
+  return (compareData ||= buildCompare(DATA.crewsByYear[2025], DATA.crewsByYear[2026]));
+}
+
 /* ============================================================
    Bootstrap
    ============================================================ */
@@ -129,6 +140,7 @@ async function init() {
     return showError('Failed to load crew data', `Crew data could not be fetched (${err.message}). Serve over HTTP (e.g. python3 -m http.server) and retry.`);
   }
 
+  window.__compare = getCompare;   // debug hook: inspect the cross-year diff in console
   MapView.initMap({
     onMapClick: handleMapClick,
     onMarkerClick: handleMarkerClick,
@@ -272,6 +284,168 @@ function resetCoverageSelection() {
   coverageCompanyA = null; coverageCompanyB = null;
   coverageSelectedIds = new Set();
   coverageIncludeHypo = false; coverageHypoGroup = 'A'; coverageShowOnlyAnalyzed = false;
+}
+
+/* ============================================================
+   Compare mode (Phase 4) — READ-ONLY FY2025 vs FY2026.
+   Renders the cross-year diff (compare.js) into a tabbed panel. Never
+   mutates active-year state and never feeds the dispatch engine.
+   ============================================================ */
+let compareSortDir = 1;   // 1 asc / -1 desc, paired with compareSort
+
+function toggleCompare() { compareMode ? exitCompareMode() : enterCompareMode(); }
+
+function enterCompareMode() {
+  compareMode = true;
+  STATE.compareYear = 2025;            // record only — never drives the engine
+  $('btn-compare').classList.add('active');
+  renderComparePanel();
+  $('compare-panel').hidden = false;
+}
+function exitCompareMode() {
+  compareMode = false;
+  STATE.compareYear = null;
+  $('btn-compare').classList.remove('active');
+  closePanel('compare-panel');
+}
+function setCompareTab(t) { compareTab = t; renderComparePanel(); }
+function setCompareSort(k) {
+  if (compareSort === k) compareSortDir *= -1; else { compareSort = k; compareSortDir = 1; }
+  renderComparePanel();
+}
+
+// delta formatters: NEGATIVE = cheaper / better rank = "good" (green).
+const _dCls = (n) => (n < 0 ? 'cmp-good' : n > 0 ? 'cmp-bad' : 'cmp-flat');
+const dNum = (n, dp = 2, suf = '') => (n == null ? '—' : `<span class="${_dCls(n)}">${n > 0 ? '+' : ''}${Number(n).toFixed(dp)}${suf}</span>`);
+const dInt = (n) => (n == null ? '—' : `<span class="${_dCls(n)}">${n > 0 ? '+' : ''}${n}</span>`);
+const sInt = (n) => (n == null ? '—' : (n > 0 ? '+' : '') + n);
+const _tdot = (c) => `<span class="tdot" style="background:var(--${c})"></span>`;
+
+function renderComparePanel() {
+  const c = getCompare();
+  const body = compareTab === 'flux' ? cmpFluxHtml(c)
+    : compareTab === 'companies' ? cmpCompaniesHtml(c)
+    : compareTab === 'zones' ? cmpZonesHtml(c)
+    : cmpCrewsHtml(c);
+  const tab = (id, label) => `<button class="cmp-tab${compareTab === id ? ' active' : ''}" data-ctab="${id}">${label}</button>`;
+  const panel = $('compare-panel');
+  panel.innerHTML = `
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">⇄ FY2025 → FY2026 compare</div>
+        <div class="panel-sub">Read-only · joined by crew ID · field grew ${c.counts.from} → ${c.counts.to}</div>
+      </div>
+      <div class="panel-head-btns">
+        <button class="panel-min" data-min title="Minimize">–</button>
+        <button class="panel-close" data-pc="compare-panel" title="Close (Esc)">×</button>
+      </div>
+    </div>
+    <div class="cmp-tabs">
+      ${tab('crews', `Crews · ${c.counts.held}`)}
+      ${tab('flux', `Entered ${c.counts.entered} / Exited ${c.counts.exited}`)}
+      ${tab('companies', `Companies · ${c.companyRollup.length}`)}
+      ${tab('zones', `Zones · ${c.zoneRollup.length}`)}
+    </div>
+    <div class="panel-body cmp-body">${body}</div>`;
+  panel.querySelectorAll('.cmp-tab').forEach(b => b.addEventListener('click', () => setCompareTab(b.dataset.ctab)));
+  panel.querySelectorAll('[data-sort]').forEach(h => h.addEventListener('click', () => setCompareSort(h.dataset.sort)));
+  el('[data-pc]', panel).addEventListener('click', exitCompareMode);
+  wireMinimize(panel);
+}
+
+function cmpCrewsHtml(c) {
+  const rows = [...c.held].sort((a, b) => ((a[compareSort] ?? 0) - (b[compareSort] ?? 0)) * compareSortDir);
+  const sh = (key, label) => `<th class="num sortable${compareSort === key ? ' sorted' : ''}" data-sort="${key}">${label}${compareSort === key ? (compareSortDir > 0 ? ' ▲' : ' ▼') : ''}</th>`;
+  const body = rows.map(r => {
+    const coChanged = r.company_from !== r.company_to;
+    const company = coChanged
+      ? `<span title="'25: ${esc(r.company_from)}&#10;'26: ${esc(r.company_to)}">${esc(r.company_to)} <span class="cmp-alias" title="name changed since FY2025">✎</span></span>`
+      : `<span title="${esc(r.company_to)}">${esc(r.company_to)}</span>`;
+    const zone = r.zone_moved
+      ? `<span class="cmp-moved" title="${esc(r.zone_name_from)} → ${esc(r.zone_name_to)}">${r.zone_from}→${r.zone_to}</span>`
+      : `${r.zone_to} ${esc(r.zone_name_to)}`;
+    const ddp = r.ddp_moved ? `<span class="cmp-moved" title="${esc(r.ddp_from)}&#10;→ ${esc(r.ddp_to)}">${r.miles_moved} mi</span>` : '—';
+    return `<tr>
+      <td>${esc(r.id)}</td>
+      <td class="t-company">${company}</td>
+      <td class="num">${r.rate_from.toFixed(2)}→${r.rate_to.toFixed(2)}</td>
+      ${'<td class="num">' + dNum(r.rate_delta) + '</td>'}
+      <td class="num">${dNum(r.rate_pct_delta, 1, '%')}</td>
+      <td class="num">${r.rank_from}→${r.rank_to}</td>
+      <td class="num">${dInt(r.rank_delta)}</td>
+      <td class="nowrap">${_tdot(r.color_from)}→${_tdot(r.color_to)}</td>
+      <td>${zone}</td>
+      <td class="num">${ddp}</td>
+    </tr>`;
+  }).join('');
+  return `
+    <div class="cmp-note"><b>Rate Δ is the primary signal.</b> Rank Δ also reflects the field growing ${c.counts.from}→${c.counts.to}, not price alone. Green = cheaper / improved rank.</div>
+    <div class="cmp-table-wrap">
+      <table class="dtable cmp-table">
+        <thead><tr>
+          <th>ID</th><th>Company (FY2026)</th><th class="num">Rate '25→'26</th>
+          ${sh('rate_delta', 'Δ$')}${sh('rate_pct_delta', 'Δ%')}
+          <th class="num">Rank '25→'26</th>${sh('rank_delta', 'ΔRank')}
+          <th>Tier</th><th>Zone</th>${sh('miles_moved', 'DDP move')}
+        </tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>`;
+}
+
+function cmpFluxHtml(c) {
+  const list = (arr) => arr.slice().sort((a, b) => a.rate - b.rate).map(x =>
+    `<tr><td>${esc(x.id)}</td><td class="t-company" title="${esc(x.company)}">${esc(x.company)}</td><td class="num">$${x.rate.toFixed(2)}</td><td>${esc(x.hucc)}</td></tr>`).join('');
+  const tbl = (arr) => `<table class="dtable cmp-table"><thead><tr><th>ID</th><th>Company</th><th class="num">Rate</th><th>Zone</th></tr></thead><tbody>${list(arr)}</tbody></table>`;
+  return `
+    <div class="cmp-note">Crews present in only one year — joined by ID. These are disjoint sets.</div>
+    <div class="cmp-flux">
+      <div class="cmp-flux-col">
+        <div class="cmp-flux-head cmp-enter">▲ Entered — FY2026 only · ${c.entered.length}</div>
+        <div class="cmp-table-wrap short">${tbl(c.entered)}</div>
+      </div>
+      <div class="cmp-flux-col">
+        <div class="cmp-flux-head cmp-exit">▼ Exited — FY2025 only · ${c.exited.length}</div>
+        <div class="cmp-table-wrap short">${tbl(c.exited)}</div>
+      </div>
+    </div>`;
+}
+
+function cmpCompaniesHtml(c) {
+  const body = c.companyRollup.map(r => `<tr>
+    <td class="t-company" title="${esc(r.company)}">${esc(r.company)}</td>
+    <td class="num">${r.count_from} → ${r.count_to}</td>
+    <td class="num">${sInt(r.count_delta)}</td>
+    <td class="num">${r.held} / ${r.entered} / ${r.exited}</td>
+    <td class="num">${dNum(r.median_rate_delta)}</td>
+  </tr>`).join('');
+  return `
+    <div class="cmp-note">Companies unified across years by the <b>ID-derived alias</b> (majority FY2026 name for a company's FY2025 crews) — never fuzzy name matching.</div>
+    <div class="cmp-table-wrap">
+      <table class="dtable cmp-table">
+        <thead><tr><th>Company (FY2026 alias)</th><th class="num">Crews '25→'26</th><th class="num">Δ</th><th class="num">Held/Ent/Exit</th><th class="num">Median rate Δ</th></tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>`;
+}
+
+function cmpZonesHtml(c) {
+  const money = (n) => (n == null ? '—' : '$' + n.toFixed(2));
+  const body = c.zoneRollup.map(r => `<tr>
+    <td>${r.hucc_code} ${esc(r.hucc_name || '')}</td>
+    <td class="num">${r.count_from} → ${r.count_to}</td>
+    <td class="num">${sInt(r.count_delta)}</td>
+    <td class="num">${money(r.median_rate_from)} → ${money(r.median_rate_to)}</td>
+    <td class="num">${dNum(r.median_rate_delta)}</td>
+  </tr>`).join('');
+  return `
+    <div class="cmp-note">Aggregated by <b>hucc_code</b>. "Median rate Δ" is the change in each zone's median crew rate (FY2026 − FY2025).</div>
+    <div class="cmp-table-wrap">
+      <table class="dtable cmp-table">
+        <thead><tr><th>Zone (hucc_code)</th><th class="num">Crews '25→'26</th><th class="num">Δ</th><th class="num">Median rate '25→'26</th><th class="num">Δ median</th></tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>`;
 }
 
 /* ============================================================
@@ -469,6 +643,7 @@ function wireControls() {
   $('btn-moat').addEventListener('click', toggleMoat);
   $('btn-coverage').addEventListener('click', toggleCoverage);
   $('btn-desert').addEventListener('click', toggleDesert);
+  $('btn-compare').addEventListener('click', toggleCompare);
   $('btn-wildfire').addEventListener('click', toggleWildfire);
   $('btn-watches').addEventListener('click', toggleWatches);
   $('btn-theme').addEventListener('click', toggleTheme);
@@ -3037,6 +3212,7 @@ function wireKeyboard() {
       if (STATE.mode === 'hypo_placing') { STATE.mode = 'browse'; MapView.setCrosshair(false); renderHypotheticalDDLTool(); return; }
       if (STATE.incidentPin || STATE.mode === 'incident') return clearIncident();
       if (plannerOpen && !$('planner-panel').hidden) return closePlanner();
+      if (compareMode && !$('compare-panel').hidden) return exitCompareMode();
       if (!$('detail-panel').hidden) return closeDetail();
       if (!$('hypo-panel').hidden) return closeHypoTool();
       if (!$('ddp-panel').hidden) return closePanel('ddp-panel');
@@ -3057,6 +3233,7 @@ function wireKeyboard() {
       case 'c': toggleCoverage(); break;
       case 'd': toggleDesert(); break;
       case 'y': e.preventDefault(); toggleYear(); break;
+      case 'x': e.preventDefault(); toggleCompare(); break;
       case 'w': toggleWildfire(); break;
       case 'a': toggleWatches(); break;
       case 'f': toggleFireFilters(); break;

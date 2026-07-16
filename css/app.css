@@ -498,6 +498,47 @@ input { font-family: inherit; }
 .float-panel.minimized .panel-body { display: none; }
 .float-panel.minimized .panel-head { border-bottom: none; }
 
+/* ---------- Compare mode (Phase 4): read-only FY2025 vs FY2026 ---------- */
+.compare-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+/* Breaks out of the 380px dock — the diff tables need room. Bottom-docked and
+   full width (clears the 280px sidebar), leaving the map visible on top for the
+   delta layer. */
+.compare-panel {
+  position: fixed; z-index: 545;
+  left: calc(var(--sidebar-w) + 24px); right: 12px; bottom: 12px;
+  height: 60vh; max-height: calc(100vh - 24px);
+  border-color: var(--accent);
+}
+.app.sidebar-collapsed .compare-panel { left: 12px; }
+.compare-panel.minimized { height: auto; width: max-content; }
+.cmp-body { flex: 1; min-height: 0; overflow: hidden; padding: 0; display: flex; flex-direction: column; }
+.cmp-tabs { display: flex; gap: 4px; padding: 8px 12px 0; border-bottom: 1px solid var(--border); flex: none; }
+.cmp-tab { background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-muted); font-size: var(--text-sm); font-weight: 600; padding: 6px 10px; cursor: pointer; }
+.cmp-tab:hover { color: var(--text); }
+.cmp-tab.active { color: var(--accent-hi); border-bottom-color: var(--accent); }
+.cmp-note { padding: 8px 12px; font-size: var(--text-xs); color: var(--text-muted); flex: none; }
+.cmp-note b { color: var(--text); }
+.cmp-table-wrap { overflow: auto; flex: 1; min-height: 0; margin: 0 8px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.cmp-table-wrap.short { max-height: 46vh; }
+.cmp-table { width: 100%; font-size: var(--text-xs); border-collapse: collapse; }
+.cmp-table th { position: sticky; top: 0; background: var(--surface2); z-index: 1; text-align: left; padding: 6px 8px; white-space: nowrap; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+.cmp-table td { padding: 5px 8px; border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent); white-space: nowrap; }
+.cmp-table td.t-company { max-width: 240px; overflow: hidden; text-overflow: ellipsis; }
+.cmp-table th.num, .cmp-table td.num { text-align: right; }
+.cmp-table th.sortable { cursor: pointer; user-select: none; }
+.cmp-table th.sortable:hover { color: var(--text); }
+.cmp-table th.sorted { color: var(--accent-hi); }
+.cmp-good { color: var(--green); font-weight: 600; }
+.cmp-bad { color: var(--red); font-weight: 600; }
+.cmp-flat { color: var(--text-muted); }
+.cmp-moved { color: var(--gold); font-weight: 600; }
+.cmp-alias { color: var(--accent); cursor: help; }
+.cmp-flux { display: flex; gap: 10px; padding: 0 8px 8px; flex: 1; min-height: 0; }
+.cmp-flux-col { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.cmp-flux-head { padding: 7px 6px; font-size: var(--text-sm); font-weight: 700; flex: none; }
+.cmp-enter { color: var(--green); }
+.cmp-exit { color: var(--red); }
+
 .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 11px 12px 11px 14px; border-bottom: 1px solid var(--border); }
 .panel-title { font-size: var(--text-lg); font-weight: 700; line-height: 1.2; }
 .panel-sub { font-size: var(--text-xs); color: var(--text-muted); margin-top: 2px; }
