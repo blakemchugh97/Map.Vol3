@@ -11,8 +11,13 @@ import {
 import {
   rankIncident, runZoneSimulation, rateSensitivity, breakevenRate,
   makeRateVariant, baseCostFor, zoneStats, gaccStats, selectCoverageCrews,
-  auditMoatPoint, pointInGeometry,
+  auditMoatPoint, pointInGeometry, runChunked,
 } from './dispatch.js';
+import {
+  composeScenarioField, evalPlacement, rateGrid, headroomFromRows,
+  premiumViability, candidateSites, nearestSites, crewCompetitiveCells,
+  redundancyFold,
+} from './planner.js';
 import * as MapView from './map.js';
 import * as ImsrLive from './imsr_live.js';  // IMSR-LIVE (removable)
 
@@ -361,6 +366,7 @@ function wireControls() {
 
   // action buttons
   $('btn-incident').addEventListener('click', toggleIncidentMode);
+  $('btn-planner').addEventListener('click', togglePlanner);
   $('btn-hypo').addEventListener('click', toggleHypoTool);
   $('btn-zones').addEventListener('click', toggleZones);
   document.querySelectorAll('#zone-mode .seg-btn').forEach(b =>
@@ -541,6 +547,9 @@ function recomputeForFieldChange() {
   // while a hypo is placed; rebuild it so the row appears/updates/disappears in
   // step with the hypo. recomputeAnalyses() below handles the footprint recompute.
   if (STATE.activeOverlay === 'coverage') renderCoveragePanel();
+  // The Planning workspace reads STATE.hypoCrew as a subject; keep it in step when the
+  // hypo is placed / re-rated / removed (only re-renders if the workspace is open).
+  refreshPlannerIfOpen();
   recomputeAnalyses();
 }
 
@@ -593,6 +602,7 @@ function selectCrew(crew, { fly = false } = {}) {
   // refresh list selection state
   document.querySelectorAll('.crew-item').forEach(n =>
     n.classList.toggle('selected', n.dataset.id === crew.id));
+  refreshPlannerIfOpen(); // the newly-selected real crew is now an available subject
 }
 
 function renderDetail(crew) {
@@ -669,6 +679,13 @@ function renderDetail(crew) {
         <div class="section-title"><span><span class="accent">▦</span> Moat overlay</span></div>
         <button id="detail-moat" class="btn full ${STATE.activeOverlay === 'moat' ? 'active' : ''}">${STATE.activeOverlay === 'moat' ? 'Hide moat map' : 'Show competitive moat (350mi)'}</button>
       </div>
+
+      <!-- Planning workspace -->
+      <div class="section">
+        <div class="section-title"><span><span class="accent">⌘</span> Planning workspace</span></div>
+        <button id="detail-planner" class="btn full">Analyze this crew in Planner</button>
+        <div class="hint" style="margin-top:5px">Rate optimizer, candidate finder &amp; redundancy — for this real crew.</div>
+      </div>
     </div>`;
 
   panel.hidden = false;
@@ -688,6 +705,7 @@ function renderDetail(crew) {
   $('rate-reset').addEventListener('click', () => { testRate = null; $('rate-test').value = crew.rate.toFixed(2); $('rate-results').innerHTML = 'Reset to current rate.'; });
   $('rate-test').addEventListener('change', () => { testRate = parseFloat($('rate-test').value); runRateAnalysis(crew); });
   $('detail-moat').addEventListener('click', toggleMoat);
+  $('detail-planner').addEventListener('click', () => openPlanner('real'));
 
   // re-render persisted results if present
   if (lastZoneResult && lastZoneResult.crewId === crew.id) renderZoneResults(lastZoneResult);
@@ -704,6 +722,7 @@ function closeDetail() {
   document.querySelectorAll('.crew-item.selected').forEach(n => n.classList.remove('selected'));
   if (STATE.activeOverlay === 'moat') { STATE.activeOverlay = null; MapView.clearOverlayCells(); MapView.cancelOverlayJob(); updateOverlayButtons(); $('legend').hidden = true; }
   $('btn-moat').disabled = true;
+  refreshPlannerIfOpen(); // the real-crew subject is no longer selected
 }
 
 /* ============================================================
@@ -931,6 +950,11 @@ function renderHypotheticalDDLTool() {
           <button id="hypo-remove" class="btn full">Remove hypothetical DDL</button>
         </div>`
       : `<div class="hint">Set a rate, then place the pin. Default $${HYPO_CONFIG.defaultRate.toFixed(2)} ≈ field median.</div>`}
+      ${h ? `
+      <div class="section">
+        <button id="hypo-open-planner" class="btn full"><span class="accent">⌘</span>&nbsp; Open in Planning workspace</button>
+        <div class="hint" style="margin-top:5px">Rate optimizer, candidate finder &amp; redundancy now live in the Planner (press <b>P</b>).</div>
+      </div>` : ''}
     </div>`;
   panel.hidden = false;
   wireMinimize(panel);
@@ -942,6 +966,7 @@ function renderHypotheticalDDLTool() {
   panel.querySelectorAll('.nudge[data-hnudge]').forEach(b =>
     b.addEventListener('click', () => commitHypoRate((parseFloat(rateInput.value) || hypoDraftRate) + parseFloat(b.dataset.hnudge))));
   if ($('hypo-remove')) $('hypo-remove').addEventListener('click', removeHypoCrew);
+  if ($('hypo-open-planner')) $('hypo-open-planner').addEventListener('click', () => openPlanner('hypo'));
 }
 
 /* Arm placement mode — next map / marker click drops the hypo DDL. */
@@ -1004,6 +1029,676 @@ function handleHypoMarkerClick() {
   if (STATE.mode === 'hypo_placing') return placeHypoCrew(h.lat, h.lng);
   $('btn-hypo').classList.add('active');
   renderHypotheticalDDLTool();
+}
+
+/* ============================================================
+   Part 1 planning tools — shared scenario state + three output panels
+   (rate optimizer, candidate DDL finder, redundancy). All ranking flows
+   through the unmodified engine via planner.js composition helpers; this
+   block owns only UI state, panel rendering, and chunked run driving.
+   Nothing here executes unless its tool is opened and Run is clicked, so
+   existing outputs are untouched while these tools are inactive.
+   ============================================================ */
+
+/* -- Shared planning state (module lets, mirroring the coverage-state pattern) -- */
+let hypoScenario = 'probe';     // 'probe' | 'add' | 'replace' (approved scenario semantics)
+let hypoReplaceIds = new Set(); // explicit replacement scope for 'replace'
+let plannerBand = 'top10';      // competitiveness band: top5 | top10 | top20 (NO top-30)
+let plannerThreshold = 50;      // X% — share of sampled points that must sit in the band
+let plannerRateGrid = { min: 56, max: 66, step: 1 }; // user-visible, user-editable
+let plannerRadius = ZONE_SIM.defaultRadius;          // sample radius (same bounds as zone sim)
+let plannerMaxCandidates = 40;  // finder bound: nearest-K candidate sites
+let finderSort = 'headroom';    // 'headroom' | 'volume' | 'desert'
+let plannerJob = null;          // active chunked run (cancel handle)
+let optimizerRun = null;        // last optimizer result snapshot
+let finderRun = null;           // last finder result snapshot
+let redundRun = null;           // last redundancy result snapshot
+let auditRun = null;            // last company-audit result snapshot
+// Workspace UI state (the planner now lives in its own dedicated panel).
+let plannerOpen = false;        // Planning workspace panel open
+let plannerTool = 'optimizer';  // 'optimizer' | 'finder' | 'redund'
+let plannerSubjectKind = 'hypo';// preferred subject: 'real' | 'hypo' (resolver falls back)
+let redundMode = 'placement';   // 'placement' (subject vs company) | 'audit' (company internal)
+let finderSelectedKey = null;   // finder row/marker linkage
+
+const PLANNER_BANDS = [['top5', 'Top-5'], ['top10', 'Top-10'], ['top20', 'Top-20']];
+// Scenario metadata: label, full sentence, and a badge color (reused by the pill).
+const SCENARIO_META = {
+  probe:   { label: 'Probe',   color: '#38bdf8', full: 'New company (probe) — scored vs the unmodified market' },
+  add:     { label: 'Add',     color: '#10b981', full: 'Add to company (injection) — company field exempt from thinning' },
+  replace: { label: 'Replace', color: '#f59e0b', full: 'Replace crews (injection) — replaced crews removed from the field' },
+};
+// Tool applicability (deliverable C) — shown in the UI so routing is explicit.
+const TOOL_INFO = {
+  optimizer: { icon: '⚙', name: 'Rate optimizer', applies: 'Real crew or hypothetical (single subject)' },
+  finder:    { icon: '⌖', name: 'Candidate finder', applies: 'Real crew or hypothetical, as a rate template' },
+  redund:    { icon: '⧉', name: 'Redundancy', applies: 'Real crew or hypothetical vs a company — or a whole-company audit' },
+};
+// Candidate categories (deliverable D) — a categorical read from TWO already-shown
+// components (rate headroom position + low-rate band share). NOT a composite score.
+const CAT = {
+  premium:  { label: 'Premium',  color: '#a78bfa' },
+  balanced: { label: 'Balanced', color: '#14b8a6' },
+  volume:   { label: 'Volume',   color: '#f59e0b' },
+  none:     { label: '—',        color: '#94a3b8' },
+};
+const plannerNum = (id, val, step, min, max, w = 62) =>
+  `<input id="${id}" class="input" type="number" step="${step}" min="${min}" max="${max}" value="${val}" style="width:${w}px">`;
+
+function cancelPlannerJob() { if (plannerJob) { plannerJob.cancel(); plannerJob = null; hideProgress(); } }
+
+/* Real market = the live crew set minus any injected hypo (non-destructive). */
+function plannerRealCrews() { return DATA.crews.filter(c => !c.hypo); }
+
+/* Company scope (approved): the Coverage panel's selected-crew set. */
+function plannerScopeCrews() {
+  return [...coverageSelectedIds].map(id => DATA.byId[id]).filter(c => c && !c.hypo);
+}
+
+/* Compose the scenario field spec from current UI state (planner.js does the
+   composition; the engine does all ranking). */
+function buildPlannerSpec() {
+  return composeScenarioField({
+    scenario: hypoScenario,
+    realCrews: plannerRealCrews(),
+    scopeCrews: plannerScopeCrews(),
+    replaceIds: hypoReplaceIds,
+    plKey: STATE.plKey,
+  });
+}
+
+/* Human-readable context line for a run snapshot (inputs are always shown). */
+function plannerContextHtml(spec, extra = '') {
+  const removed = spec.removed && spec.removed.length
+    ? ` · replaced: ${spec.removed.map(c => esc(c.id)).join(', ')}` : '';
+  return `<div class="hint">${esc(SCENARIO_META[spec.scenario].full)} · PL ${esc(spec.plKey)} ·
+    field ${spec.field.length} crews${spec.mates.length ? ` (${spec.mates.length} company crews exempt)` : ''}${removed}
+    · ${ZONE_SIM.points} pts/site · radius ${plannerRadius} mi${extra}</div>`;
+}
+
+/* The reason a scenario can't run yet (scope problems are surfaced, never guessed). */
+function plannerBlockedHtml(spec) {
+  if (spec.reason === 'no-scope') return `
+    <div class="hint">This scenario needs a company scope — the crews selected in the
+    <b>Company coverage</b> panel. None are selected.</div>
+    <button id="planner-open-cov" class="btn full" style="margin-top:7px">Open Coverage panel</button>`;
+  if (spec.reason === 'no-replace') return `
+    <div class="hint">Replace scenario: mark at least one company crew as replaced
+    (checklist in the Hypo DDL panel), so old crews are not silently left active.</div>`;
+  return `<div class="hint">Scenario not ready.</div>`;
+}
+function wirePlannerBlocked(panel) {
+  const b = el('#planner-open-cov', panel);
+  if (b) b.addEventListener('click', () => { if (STATE.activeOverlay !== 'coverage') toggleCoverage(); });
+}
+
+/* ============================================================
+   Planning workspace — one dedicated panel (subject picker · scenario ·
+   tool switcher · inputs · results · map linkage). Everything below is UI +
+   run driving; every rank/cost/share comes from the unmodified engine via
+   planner.js. Nothing runs unless the workspace is open and a Run is clicked.
+   ============================================================ */
+
+/* ---- Subject model (deliverable B): a real selected crew and/or the hypo. */
+function plannerSubjectOptions() {
+  const opts = [];
+  if (STATE.selectedCrew && !STATE.selectedCrew.hypo) opts.push({ kind: 'real', crew: STATE.selectedCrew });
+  if (STATE.hypoCrew) opts.push({ kind: 'hypo', crew: STATE.hypoCrew });
+  return opts;
+}
+function plannerSubject() {
+  const opts = plannerSubjectOptions();
+  if (!opts.length) return null;
+  return opts.find(o => o.kind === plannerSubjectKind) || opts[0];
+}
+
+/* Colored scenario pill, reused wherever the mode must read at a glance. */
+function scenarioPill() {
+  const m = SCENARIO_META[hypoScenario];
+  return `<span style="display:inline-block;padding:2px 9px;border-radius:999px;font-size:10px;font-weight:700;color:#0b1120;background:${m.color}">${m.label}</span>`;
+}
+
+/* ---- Workspace open/close ---- */
+function openPlanner(preferKind) {
+  if (preferKind && plannerSubjectOptions().some(o => o.kind === preferKind)) plannerSubjectKind = preferKind;
+  plannerOpen = true;
+  $('btn-planner').classList.add('active');
+  renderPlannerPanel();
+}
+function togglePlanner() {
+  if (plannerOpen && !$('planner-panel').hidden) { closePlanner(); return; }
+  openPlanner();
+}
+function closePlanner() {
+  plannerOpen = false;
+  cancelPlannerJob();
+  MapView.clearPlannerSites();
+  $('btn-planner').classList.remove('active');
+  closePanel('planner-panel');
+}
+// Re-render if the workspace is open (called when the subject field changes:
+// hypo placed/removed, crew selected/deselected). Never touches other tools.
+function refreshPlannerIfOpen() { if (plannerOpen && !$('planner-panel').hidden) renderPlannerPanel(); }
+
+/* ---- Panel assembly ---- */
+function renderPlannerPanel() {
+  const panel = $('planner-panel');
+  const subj = plannerSubject();
+  const info = TOOL_INFO[plannerTool];
+  const subLabel = subj ? (subj.kind === 'hypo' ? 'hypothetical' : subj.crew.id) : 'no subject';
+  panel.innerHTML = `
+    <div class="panel-head">
+      <div>
+        <div class="panel-title"><span class="accent">⌘</span> Planning workspace</div>
+        <div class="panel-sub">${info.icon} ${info.name} · ${esc(subLabel)}</div>
+      </div>
+      <div class="panel-head-btns">
+        <button class="panel-min" data-min title="Minimize">–</button>
+        <button class="panel-close" data-pc="planner-panel" title="Close (P / Esc)">×</button>
+      </div>
+    </div>
+    <div class="panel-body">
+      ${subjectSectionHtml(subj)}
+      <div class="seg" id="pl-tools" style="margin-top:2px">
+        <button class="seg-btn${plannerTool === 'optimizer' ? ' active' : ''}" data-tool="optimizer">⚙ Optimizer</button>
+        <button class="seg-btn${plannerTool === 'finder' ? ' active' : ''}" data-tool="finder">⌖ Finder</button>
+        <button class="seg-btn${plannerTool === 'redund' ? ' active' : ''}" data-tool="redund">⧉ Redundancy</button>
+      </div>
+      <div class="hint" style="margin-top:5px">${info.icon} <b>${info.name}</b> · applies to: ${info.applies}.</div>
+      ${toolBodyHtml(subj)}
+    </div>`;
+  panel.hidden = false;
+  wireMinimize(panel);
+  wirePlannerWorkspace(panel);
+  drawFinderSites();
+}
+
+function subjectSectionHtml(subj) {
+  const opts = plannerSubjectOptions();
+  if (!opts.length) return `
+    <div class="section" style="border-top:none;padding-top:0">
+      <div class="section-title"><span><span class="accent">◎</span> Subject</span></div>
+      <div class="hint">Pick a starting subject: select a real crew on the map, or place a hypothetical DDL.</div>
+      <button id="pl-new-hypo" class="btn full" style="margin-top:7px"><span style="color:var(--violet)">⚲</span>&nbsp; Place a hypothetical DDL</button>
+    </div>`;
+  const seg = opts.map(o => `<button class="seg-btn${subj && subj.kind === o.kind ? ' active' : ''}" data-subj="${o.kind}">${o.kind === 'hypo' ? 'Hypothetical' : esc(o.crew.id)}</button>`).join('');
+  const c = subj.crew;
+  const where = subj.kind === 'hypo' ? (c.hucc_name || 'placement') : c.hucc;
+  return `
+    <div class="section" style="border-top:none;padding-top:0">
+      <div class="section-title"><span><span class="accent">◎</span> Subject</span>
+        <span class="filter-readout">${subj.kind === 'hypo' ? 'hypothetical' : 'real crew'}</span></div>
+      <div class="seg" id="pl-subject">${seg}</div>
+      <div class="hint" style="margin-top:6px"><b>${esc(c.id)}</b> · ${fmtRate(c.rate)}/hr · ${esc(where)}<br>${esc(c.ddl)}</div>
+    </div>`;
+}
+
+/* Scenario chooser + company scope + replacement checklist (shared by every tool
+   that composes a market field). */
+function scenarioSectionHtml() {
+  const scope = plannerScopeCrews();
+  const scopeBlock = hypoScenario === 'probe' ? '' : `
+    <div class="hint" style="margin-top:6px">Company scope: <b>${scope.length}</b> crew${scope.length === 1 ? '' : 's'}
+      from the Coverage selection${scope.length ? '' : ' — <b>none selected</b>'}. <a href="#" id="pl-open-cov">Open Coverage…</a></div>
+    ${hypoScenario === 'replace' && scope.length ? `
+    <div class="cov-crewlist" style="margin-top:6px;max-height:120px">
+      ${scope.map(c => `<label class="cov-crew"><input type="checkbox" data-replace="${esc(c.id)}"${hypoReplaceIds.has(c.id) ? ' checked' : ''}>
+        <span class="tdot" style="background:var(--${c.color})"></span><span class="cov-crew-id">${esc(c.id)}</span>
+        <span class="hint">replace</span><span class="rate-badge ${c.color}">${fmtRate(c.rate)}</span></label>`).join('')}
+    </div>
+    <div class="hint" style="margin-top:4px">${hypoReplaceIds.size} marked replaced — removed from the field, never silently active.</div>` : ''}`;
+  return `
+    <div class="section">
+      <div class="section-title"><span><span class="accent">⌘</span> Scenario</span>${scenarioPill()}</div>
+      <div class="seg" id="pl-scenario">
+        <button class="seg-btn${hypoScenario === 'probe' ? ' active' : ''}" data-scn="probe" title="New company entering — probe vs the unmodified market">New co.</button>
+        <button class="seg-btn${hypoScenario === 'add' ? ' active' : ''}" data-scn="add" title="Existing company adding crews">Add</button>
+        <button class="seg-btn${hypoScenario === 'replace' ? ' active' : ''}" data-scn="replace" title="Existing company replacing crews">Replace</button>
+      </div>
+      <div class="hint" style="margin-top:5px">${SCENARIO_META[hypoScenario].full}.</div>
+      ${scopeBlock}
+    </div>`;
+}
+
+/* Band + threshold + rate grid + radius (optimizer & finder). */
+function inputsSectionHtml() {
+  return `
+    <div class="section">
+      <div class="section-title"><span>Competitiveness target</span></div>
+      <div class="ic-row ic-filters">
+        <span class="ic-label">Band</span>
+        <div class="seg seg-sm" id="pl-band">${PLANNER_BANDS.map(([k, l]) => `<button class="seg-btn${plannerBand === k ? ' active' : ''}" data-band="${k}">${l}</button>`).join('')}</div>
+        <span class="ic-label" title="Share of sampled points that must land in the band">≥</span>${plannerNum('pl-threshold', plannerThreshold, 5, 0, 100, 52)}<span class="hint">%</span>
+      </div>
+      <div class="ic-row ic-filters"><span class="ic-label">Rate grid</span>${plannerNum('pl-gmin', plannerRateGrid.min, 0.25, 40, 90)} – ${plannerNum('pl-gmax', plannerRateGrid.max, 0.25, 40, 90)} step ${plannerNum('pl-gstep', plannerRateGrid.step, 0.05, 0.05, 10, 52)}</div>
+      <div class="ic-row ic-filters"><span class="ic-label">Radius</span>${plannerNum('pl-radius', plannerRadius, 25, ZONE_SIM.minRadius, ZONE_SIM.maxRadius)}<span class="hint">mi · ${ZONE_SIM.points} pts</span></div>
+    </div>`;
+}
+
+/* Dispatch to the active tool's body. */
+function toolBodyHtml(subj) {
+  if (plannerTool === 'optimizer') return optimizerBodyHtml(subj);
+  if (plannerTool === 'finder') return finderBodyHtml(subj);
+  return redundBodyHtml(subj);
+}
+
+/* ============ Rate optimizer — subject's rate swept at ITS location. ============ */
+function optimizerBodyHtml(subj) {
+  if (!subj) return '<div class="section"><div class="hint">Choose a subject above.</div></div>';
+  const spec = buildPlannerSpec();
+  const { rates, truncated } = rateGrid(plannerRateGrid);
+  let run;
+  if (!spec.ok) run = plannerBlockedHtml(spec);
+  else {
+    const evals = rates.length * ZONE_SIM.points * spec.field.length;
+    run = `${plannerContextHtml(spec)}
+      <div class="hint" style="margin-top:5px">Sweep <b>${esc(subj.crew.id)}</b>'s rate at its location · $${plannerRateGrid.min}–$${plannerRateGrid.max}/$${plannerRateGrid.step}
+        → ${rates.length} rates${truncated ? ' <b>(truncated)</b>' : ''} · ≈ ${evals.toLocaleString()} exact engine evaluations</div>
+      <button id="pl-run-opt" class="btn btn-primary full" style="margin-top:8px" ${rates.length ? '' : 'disabled'}>Run rate sweep</button>`;
+  }
+  const results = optimizerRun && optimizerRun.subjectId === subj.crew.id ? renderOptimizerResults(optimizerRun) : '';
+  return scenarioSectionHtml() + inputsSectionHtml() + `<div class="section">${run}<div id="pl-opt-results">${results}</div></div>`;
+}
+
+function runOptimizer() {
+  const subj = plannerSubject();
+  if (!subj) return;
+  const spec = buildPlannerSpec();
+  if (!spec.ok) { renderPlannerPanel(); return; }
+  const { rates, truncated } = rateGrid(plannerRateGrid);
+  if (!rates.length) return;
+  cancelPlannerJob();
+  const h = subj.crew;
+  const snapshot = {
+    subjectId: h.id, subjectLabel: h.id,
+    grid: { ...plannerRateGrid, rates: rates.slice(), truncated },
+    band: plannerBand, threshold: plannerThreshold, radius: plannerRadius,
+    spec, at: { lat: h.lat, lng: h.lng, ddl: h.ddl }, rows: [], t0: performance.now(),
+  };
+  showProgress('Rate sweep…');
+  plannerJob = runChunked(rates, (rate) => {
+    snapshot.rows.push(evalPlacement(h, h.lat, h.lng, rate, spec, plannerRadius));
+  }, {
+    chunk: 1,
+    onProgress: (d, t) => setProgress(`Rate sweep… ${d}/${t}`),
+    onDone: () => {
+      plannerJob = null; hideProgress();
+      snapshot.rows.sort((a, b) => a.rate - b.rate);
+      snapshot.head = headroomFromRows(snapshot.rows, snapshot.band, snapshot.threshold);
+      snapshot.elapsed = performance.now() - snapshot.t0;
+      optimizerRun = snapshot;
+      renderPlannerPanel();
+    },
+  });
+}
+
+function renderOptimizerResults(r) {
+  const bandLabel = PLANNER_BANDS.find(([k]) => k === r.band)[1];
+  const pct = (v) => v.toFixed(0) + '%';
+  const rows = r.rows.map(row => {
+    const ok = row.share[r.band] >= r.threshold;
+    const isHead = r.head.headroom != null && row.rate === r.head.headroom;
+    return `<tr${isHead ? ' style="font-weight:700;background:rgba(167,139,250,.12)"' : ''}>
+      <td>${fmtRate(row.rate)}${isHead ? ' ◂' : ''}</td>
+      <td class="num">${pct(row.share.top5)}</td><td class="num">${pct(row.share.top10)}</td>
+      <td class="num">${pct(row.share.top20)}</td><td class="num">${row.avg_rank.toFixed(1)}</td>
+      <td class="num">${ok ? '✓' : '—'}</td></tr>`;
+  }).join('');
+  return `
+    <div class="result-grid" style="margin-top:9px">
+      <div class="result-cell"><div class="rc-val">${r.head.headroom != null ? fmtRate(r.head.headroom) : '—'}</div><div class="rc-label">Rate headroom</div></div>
+      <div class="result-cell"><div class="rc-val">${r.head.headroomRow ? pct(r.head.headroomRow.share[r.band]) : '—'}</div><div class="rc-label">${bandLabel} @ headroom</div></div>
+      <div class="result-cell"><div class="rc-val">${(r.elapsed / 1000).toFixed(1)}s</div><div class="rc-label">Compute</div></div>
+    </div>
+    ${r.head.nonMonotonic ? `<div class="hint" style="margin-top:5px">⚠ Non-monotonic: qualification is not contiguous over the grid — qualifying rates: ${r.head.qualifyingRates.map(x => '$' + x).join(', ')}.</div>` : ''}
+    <div class="hint" style="margin-top:5px">Headroom = highest tested rate with ${bandLabel} share ≥ ${r.threshold}%.
+      Grid $${r.grid.min}–$${r.grid.max} step $${r.grid.step} (${r.grid.rates.length} rates${r.grid.truncated ? ', truncated' : ''}), ${ZONE_SIM.points} pts, ${r.radius} mi, PL ${esc(r.spec.plKey)}.</div>
+    <table class="dtable" style="margin-top:7px"><thead><tr>
+      <th>Rate</th><th class="num">Top-5</th><th class="num">Top-10</th><th class="num">Top-20</th><th class="num">Avg rk</th><th class="num">≥${r.threshold}%</th>
+    </tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+/* ============ Candidate finder — nearest-K real DDP sites × rate grid. ============ */
+function finderBodyHtml(subj) {
+  if (!subj) return '<div class="section"><div class="hint">Choose a subject above (its rate is the template carried to each candidate site).</div></div>';
+  const spec = buildPlannerSpec();
+  const { rates, truncated } = rateGrid(plannerRateGrid);
+  let run;
+  if (!spec.ok) run = plannerBlockedHtml(spec);
+  else {
+    const totalSites = candidateSites(plannerRealCrews()).length;
+    const k = Math.min(plannerMaxCandidates, totalSites);
+    const sims = k * rates.length;
+    const evals = sims * ZONE_SIM.points * spec.field.length;
+    run = `${plannerContextHtml(spec)}
+      <div class="ic-row ic-filters" style="margin-top:6px"><span class="ic-label">Candidates</span>
+        <input id="pl-finder-max" class="input" type="number" step="5" min="5" max="${totalSites}" value="${plannerMaxCandidates}" style="width:62px">
+        <span class="hint">nearest of ${totalSites} real DDP sites to ${esc(subj.crew.id)}</span></div>
+      <div class="hint" style="margin-top:5px">Cost: ${k} sites × ${rates.length} rates${truncated ? ' (grid truncated)' : ''}
+        = ${sims} sims × ${ZONE_SIM.points} pts × ${spec.field.length} crews ≈ ${evals.toLocaleString()} exact engine evaluations —
+        never approximated; shrink candidates/rates to go faster.</div>
+      <button id="pl-run-finder" class="btn btn-primary full" style="margin-top:8px" ${rates.length ? '' : 'disabled'}>Run candidate search</button>`;
+  }
+  const results = finderRun && finderRun.subjectId === subj.crew.id ? renderFinderResults(finderRun) : '';
+  return scenarioSectionHtml() + inputsSectionHtml() + `<div class="section">${run}<div id="pl-finder-results">${results}</div></div>`;
+}
+
+function runFinder() {
+  const subj = plannerSubject();
+  if (!subj) return;
+  const spec = buildPlannerSpec();
+  if (!spec.ok) { renderPlannerPanel(); return; }
+  const { rates, truncated } = rateGrid(plannerRateGrid);
+  if (!rates.length) return;
+  cancelPlannerJob();
+  const h = subj.crew;
+  const real = plannerRealCrews();
+  const sites = nearestSites(candidateSites(real), h.lat, h.lng, plannerMaxCandidates);
+  const items = [];
+  for (const site of sites) for (const rate of rates) items.push({ site, rate });
+  const bySite = new Map(sites.map(s => [s.key, []]));
+  const snapshot = {
+    subjectId: h.id, grid: { ...plannerRateGrid, rates: rates.slice(), truncated },
+    band: plannerBand, threshold: plannerThreshold, radius: plannerRadius,
+    spec, anchor: { lat: h.lat, lng: h.lng, ddl: h.ddl }, t0: performance.now(),
+  };
+  finderSelectedKey = null;
+  showProgress('Candidate search…');
+  plannerJob = runChunked(items, ({ site, rate }) => {
+    bySite.get(site.key).push(evalPlacement(h, site.lat, site.lng, rate, spec, plannerRadius));
+  }, {
+    chunk: 1,
+    onProgress: (d, t) => setProgress(`Candidate search… ${Math.round(d / t * 100)}%`),
+    onDone: () => {
+      plannerJob = null; hideProgress();
+      snapshot.results = sites.map(site => {
+        const rows = bySite.get(site.key).sort((a, b) => a.rate - b.rate);
+        return {
+          site, rows,
+          head: headroomFromRows(rows, snapshot.band, snapshot.threshold),
+          lowShare: rows[0].share[snapshot.band],
+          desert: premiumViability(site.lat, site.lng, real, snapshot.spec.plKey),
+        };
+      });
+      snapshot.elapsed = performance.now() - snapshot.t0;
+      finderRun = snapshot;
+      renderPlannerPanel();
+    },
+  });
+}
+
+/* Categorical read (deliverable D) from two ALREADY-DISPLAYED components — the
+   rate-headroom position on the grid and the low-rate band share. Transparent
+   cutoffs, not a blended score. */
+function candidateCategory(x, grid) {
+  if (x.head.headroom == null) return { key: 'none', ...CAT.none };
+  const span = Math.max(grid.step, grid.max - grid.min);
+  const h = (x.head.headroom - grid.min) / span; // 0..1 how far up the grid it still holds the band
+  const v = x.lowShare / 100;                     // band share at the cheapest grid rate
+  if (h >= 0.66) return { key: 'premium', ...CAT.premium };
+  if (h < 0.33 && v >= 0.66) return { key: 'volume', ...CAT.volume };
+  return { key: 'balanced', ...CAT.balanced };
+}
+
+function renderFinderResults(r) {
+  const bandLabel = PLANNER_BANDS.find(([k]) => k === r.band)[1];
+  const withCat = r.results.map(x => ({ x, cat: candidateCategory(x, r.grid) }));
+  const sorted = withCat.slice().sort((a, b) => {
+    if (finderSort === 'volume') return b.x.lowShare - a.x.lowShare;
+    if (finderSort === 'desert') return (b.x.desert ? b.x.desert.avg : -1) - (a.x.desert ? a.x.desert.avg : -1);
+    return (b.x.head.headroom ?? -1) - (a.x.head.headroom ?? -1);
+  });
+  const sortBtn = (key, label, title) =>
+    `<button class="btn btn-sm finder-sort${finderSort === key ? ' active' : ''}" data-fsort="${key}" title="${title}">${label}</button>`;
+  const rows = sorted.map(({ x, cat }) => {
+    const sel = finderSelectedKey === x.site.key;
+    return `<tr class="clickable${sel ? ' me' : ''}" data-fkey="${esc(x.site.key)}">
+      <td><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${cat.color};margin-right:5px" title="${cat.label}"></span>${esc(x.site.label)}<span class="hint"> ·${x.site.crews.length}⌂</span></td>
+      <td class="num">${Math.round(x.site.dist)}</td>
+      <td class="num">${x.head.headroom != null ? fmtRate(x.head.headroom) : '—'}</td>
+      <td class="num">${x.lowShare.toFixed(0)}%</td>
+      <td class="num">${x.desert ? fmtRate(x.desert.avg) : '—'}</td>
+      <td>${x.head.nonMonotonic ? '<span title="Non-monotonic; qualifying rates ' + x.head.qualifyingRates.map(q => '$' + q).join(', ') + '">⚠</span>' : ''}</td>
+    </tr>`;
+  }).join('');
+  const legend = ['premium', 'volume', 'balanced', 'none'].map(k =>
+    `<span style="margin-right:9px"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${CAT[k].color};margin-right:3px"></span>${CAT[k].label}</span>`).join('');
+  return `
+    <div class="hint" style="margin-top:9px">Dots ${legend}— <b>Premium</b>: still holds ${bandLabel} high up the grid (headroom in the top third).
+      <b>Volume</b>: only strong when cheap. <b>Balanced</b>: in between. Map dots share these colors; click a row or dot to link them.</div>
+    <div class="hint" style="margin-top:4px">Headroom = highest rate on grid $${r.grid.min}–$${r.grid.max}/$${r.grid.step} (${r.grid.rates.length} rates${r.grid.truncated ? ', truncated' : ''}) with ${bandLabel} share ≥ ${r.threshold}%.
+      Vol = ${bandLabel} share at $${r.grid.min}. Desert = existing Rate Desert avg here (read-only). ${(r.elapsed / 1000).toFixed(1)}s.</div>
+    <div class="btn-row" style="margin-top:6px">
+      ${sortBtn('headroom', 'Premium', 'Sort by rate headroom')}
+      ${sortBtn('volume', 'Volume', 'Sort by low-rate band share')}
+      ${sortBtn('desert', 'Desert', 'Sort by Rate Desert avg')}
+    </div>
+    <table class="dtable" style="margin-top:6px"><thead><tr>
+      <th>Site</th><th class="num">mi</th><th class="num">Headroom</th><th class="num">Vol</th><th class="num">Desert</th><th></th>
+    </tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+/* ---- Finder ↔ map linkage (deliverable D): candidate markers colored by
+   category; clicking a marker or a row selects the site in both places. ---- */
+function drawFinderSites() {
+  if (!plannerOpen || plannerTool !== 'finder' || !finderRun || !finderRun.results) { MapView.clearPlannerSites(); return; }
+  MapView.showPlannerSites(finderRun.results.map(x => {
+    const cat = candidateCategory(x, finderRun.grid);
+    return {
+      lat: x.site.lat, lng: x.site.lng, color: cat.color, selected: finderSelectedKey === x.site.key,
+      label: `${esc(x.site.label)} · ${cat.label}${x.head.headroom != null ? ` · ≤${fmtRate(x.head.headroom)}` : ' · not competitive'}`,
+      onClick: () => selectFinderSite(x.site.key),
+    };
+  }));
+}
+function selectFinderSite(key) {
+  finderSelectedKey = key;
+  const x = finderRun && finderRun.results.find(r => r.site.key === key);
+  if (x) MapView.panTo(x.site.lat, x.site.lng);
+  renderPlannerPanel();
+}
+
+/* ============ Redundancy — subject vs company, OR whole-company audit. ============ */
+function redundBodyHtml(subj) {
+  const scope = plannerScopeCrews();
+  const modeSeg = `
+    <div class="seg" id="pl-redund-mode" style="margin-top:2px">
+      <button class="seg-btn${redundMode === 'placement' ? ' active' : ''}" data-rmode="placement">Placement vs company</button>
+      <button class="seg-btn${redundMode === 'audit' ? ' active' : ''}" data-rmode="audit">Company audit</button>
+    </div>`;
+
+  if (redundMode === 'audit') {
+    let run;
+    if (scope.length < 2) run = `<div class="hint">Company audit needs a company scope of at least 2 crews.
+      <a href="#" id="pl-open-cov">Open Coverage…</a> to select some.</div>`;
+    else {
+      const evals = scope.length * '≈'.length;
+      run = `<div class="hint">Audit the ${scope.length} selected company crews: each crew's footprint vs the rest, so you can see
+        which existing crews overlap. Field = the company selection exempt (add-style) at PL ${esc(STATE.plKey)}.</div>
+        <button id="pl-run-audit" class="btn btn-primary full" style="margin-top:8px">Run company audit</button>`;
+    }
+    const results = auditRun ? renderAuditResults(auditRun) : '';
+    return `<div class="section">${modeSeg}</div><div class="section">${run}<div id="pl-audit-results">${results}</div></div>`;
+  }
+
+  // placement mode
+  if (!subj) return `<div class="section">${modeSeg}</div><div class="section"><div class="hint">Choose a subject above, or switch to Company audit.</div></div>`;
+  if (hypoScenario === 'probe') return `<div class="section">${modeSeg}</div>` + scenarioSectionHtml() + `<div class="section">
+    <div class="hint">Redundancy is a company-portfolio question — there is no existing company footprint in <b>probe</b> mode.
+    Switch the scenario to <b>Add</b> or <b>Replace</b> to compare against a company.</div></div>`;
+  const spec = buildPlannerSpec();
+  let run;
+  if (!spec.ok) run = plannerBlockedHtml(spec);
+  else {
+    const mates = spec.mates.filter(c => c.id !== subj.crew.id);
+    const nCells = Math.round(Math.PI * (MOAT_CONFIG.coverageRadius / 69 / MOAT_CONFIG.cellDegrees) ** 2);
+    run = `${plannerContextHtml(spec, ` · footprints at ${MOAT_CONFIG.coverageRadius} mi (coverage lattice)`)}
+      <div class="hint" style="margin-top:5px">Compare <b>${esc(subj.crew.id)}</b> against ${mates.length} company crew${mates.length === 1 ? '' : 's'}
+        (excluding the subject itself) · ${1 + mates.length} footprints × ~${nCells.toLocaleString()} land cells × ${spec.field.length} crews — exact engine, chunked.</div>
+      <button id="pl-run-redund" class="btn btn-primary full" style="margin-top:8px" ${mates.length ? '' : 'disabled'}>Run redundancy check</button>
+      ${mates.length ? '' : '<div class="hint" style="margin-top:5px">No company crews to compare against (scope has only the subject).</div>'}`;
+  }
+  const results = redundRun && redundRun.subjectId === subj.crew.id ? renderRedundResults(redundRun) : '';
+  return `<div class="section">${modeSeg}</div>` + scenarioSectionHtml() + `<div class="section">${run}<div id="pl-redund-results">${results}</div></div>`;
+}
+
+function runRedundancy() {
+  const subj = plannerSubject();
+  if (!subj || hypoScenario === 'probe') return;
+  const spec = buildPlannerSpec();
+  if (!spec.ok) { renderPlannerPanel(); return; }
+  const mates = spec.mates.filter(c => c.id !== subj.crew.id);
+  if (!mates.length) return;
+  cancelPlannerJob();
+  const h = subj.crew;
+  const work = [h, ...mates];
+  const cellsByCrew = new Map();
+  const snapshot = { subjectId: h.id, subjectLabel: h.id, spec, mates, at: { lat: h.lat, lng: h.lng, ddl: h.ddl }, t0: performance.now() };
+  showProgress('Redundancy…');
+  plannerJob = runChunked(work, (crew) => {
+    cellsByCrew.set(crew.id, crewCompetitiveCells(crew, spec.field));
+  }, {
+    chunk: 1,
+    onProgress: (d, t) => setProgress(`Redundancy… ${d}/${t} footprints`),
+    onDone: () => {
+      plannerJob = null; hideProgress();
+      snapshot.fold = redundancyFold(cellsByCrew.get(h.id), mates.map(c => cellsByCrew.get(c.id)));
+      snapshot.elapsed = performance.now() - snapshot.t0;
+      redundRun = snapshot;
+      renderPlannerPanel();
+    },
+  });
+}
+
+/* Company audit (deliverable B/3, company-as-subject): every selected company
+   crew's footprint vs the rest, reusing the exact same coverage cell math +
+   redundancyFold. Footprints computed once, then folded N ways. */
+function runCompanyAudit() {
+  const scope = plannerScopeCrews();
+  if (scope.length < 2) return;
+  cancelPlannerJob();
+  const spec = composeScenarioField({
+    scenario: 'add', realCrews: plannerRealCrews(), scopeCrews: scope, replaceIds: new Set(), plKey: STATE.plKey,
+  });
+  const cellsByCrew = new Map();
+  const snapshot = { spec, scope, plKey: STATE.plKey, t0: performance.now() };
+  showProgress('Company audit…');
+  plannerJob = runChunked(scope, (crew) => {
+    cellsByCrew.set(crew.id, crewCompetitiveCells(crew, spec.field));
+  }, {
+    chunk: 1,
+    onProgress: (d, t) => setProgress(`Company audit… ${d}/${t} footprints`),
+    onDone: () => {
+      plannerJob = null; hideProgress();
+      snapshot.rows = scope.map(crew => ({
+        crew,
+        fold: redundancyFold(cellsByCrew.get(crew.id), scope.filter(o => o.id !== crew.id).map(o => cellsByCrew.get(o.id))),
+      })).sort((a, b) => a.fold.pctNew - b.fold.pctNew); // most redundant (least unique) first
+      snapshot.elapsed = performance.now() - snapshot.t0;
+      auditRun = snapshot;
+      renderPlannerPanel();
+    },
+  });
+}
+
+/* Horizontal new-reach vs overlap bar — one strong visual encoding. */
+function reachBar(newReach, overlap) {
+  const tot = (newReach + overlap) || 1;
+  return `<div style="display:flex;height:12px;border-radius:6px;overflow:hidden;margin-top:7px;border:1px solid var(--border)">
+      <div style="width:${newReach / tot * 100}%;background:#10b981" title="New reach: ${newReach}"></div>
+      <div style="width:${overlap / tot * 100}%;background:#f59e0b" title="Overlap: ${overlap}"></div>
+    </div>`;
+}
+
+function renderRedundResults(r) {
+  const f = r.fold;
+  const label = f.pctNew >= 60 ? 'mostly new reach'
+    : f.pctNew >= 25 ? 'mixed — some reinforcement, some overlap'
+    : 'high overlap / cannibalization risk';
+  return `
+    ${reachBar(f.newReach, f.overlap)}
+    <div class="hint" style="margin-top:3px;display:flex;justify-content:space-between">
+      <span><span style="color:#10b981">■</span> New reach ${f.newReach}</span>
+      <span>Overlap ${f.overlap} <span style="color:#f59e0b">■</span></span></div>
+    <div class="result-grid" style="margin-top:9px">
+      <div class="result-cell"><div class="rc-val">${f.hypoCompetitiveCells}</div><div class="rc-label">${esc(r.subjectLabel)} top-${f.band} cells</div></div>
+      <div class="result-cell"><div class="rc-val">${f.pctNew.toFixed(0)}%</div><div class="rc-label">% new reach</div></div>
+      <div class="result-cell"><div class="rc-val">${f.improves}</div><div class="rc-label">Improves best rank</div></div>
+      <div class="result-cell"><div class="rc-val">${f.companyCompetitiveCells}</div><div class="rc-label">Company cells (rest)</div></div>
+    </div>
+    <div class="hint" style="margin-top:6px"><b>${label}</b> — cutoffs: ≥60% new = mostly new reach; 25–60% = mixed; &lt;25% = high overlap.
+      Cells are the coverage lattice (~${Math.round(MOAT_CONFIG.cellDegrees * 69)} mi), “competitive” = rank ≤ ${f.band}.
+      Compared against the ${r.spec.scenario === 'replace' ? 'replacement-aware' : 'existing'} company selection
+      (${r.mates.length} crew${r.mates.length === 1 ? '' : 's'}, excluding the subject${r.spec.removed.length ? `; replaced: ${r.spec.removed.map(c => esc(c.id)).join(', ')}` : ''}),
+      ranked over the same scenario field at PL ${esc(r.spec.plKey)}. ${(r.elapsed / 1000).toFixed(1)}s.</div>`;
+}
+
+function renderAuditResults(r) {
+  const rows = r.rows.map(({ crew, fold }) => `
+    <tr class="clickable" data-flat="${crew.lat}" data-flng="${crew.lng}">
+      <td><span class="tdot" style="background:var(--${crew.color})"></span>${esc(crew.id)}</td>
+      <td class="num">${fmtRate(crew.rate)}</td>
+      <td class="num">${fold.hypoCompetitiveCells}</td>
+      <td class="num">${fold.newReach}</td>
+      <td class="num">${fold.pctNew.toFixed(0)}%</td>
+      <td style="min-width:70px">${reachBar(fold.newReach, fold.overlap)}</td>
+    </tr>`).join('');
+  return `
+    <div class="hint" style="margin-top:9px">Each row = one company crew's footprint vs the other ${r.scope.length - 1}.
+      Lowest <b>% unique</b> first = the most redundant crews within this selection. “Competitive” = rank ≤ ${MOAT_CONFIG.bandOuter},
+      ranked over the company-exempt field at PL ${esc(r.plKey)}. ${(r.elapsed / 1000).toFixed(1)}s.</div>
+    <table class="dtable" style="margin-top:6px"><thead><tr>
+      <th>Crew</th><th class="num">Rate</th><th class="num">Cells</th><th class="num">Unique</th><th class="num">% uniq</th><th>reach</th>
+    </tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+/* ---- Central wiring for the whole workspace (re-run after each render). ---- */
+function wirePlannerWorkspace(panel) {
+  el('[data-pc]', panel).addEventListener('click', () => closePlanner());
+  const openCov = el('#pl-open-cov', panel);
+  if (openCov) openCov.addEventListener('click', (e) => { e.preventDefault(); if (STATE.activeOverlay !== 'coverage') toggleCoverage(); });
+  const newHypo = el('#pl-new-hypo', panel);
+  if (newHypo) newHypo.addEventListener('click', () => { $('btn-hypo').classList.add('active'); renderHypotheticalDDLTool(); enterHypoPlacement(); });
+  const blockedCov = el('#planner-open-cov', panel);
+  if (blockedCov) blockedCov.addEventListener('click', () => { if (STATE.activeOverlay !== 'coverage') toggleCoverage(); });
+
+  panel.querySelectorAll('#pl-subject .seg-btn').forEach(b =>
+    b.addEventListener('click', () => { plannerSubjectKind = b.dataset.subj; renderPlannerPanel(); }));
+  panel.querySelectorAll('#pl-tools .seg-btn').forEach(b =>
+    b.addEventListener('click', () => { plannerTool = b.dataset.tool; renderPlannerPanel(); }));
+  panel.querySelectorAll('#pl-scenario .seg-btn').forEach(b =>
+    b.addEventListener('click', () => { hypoScenario = b.dataset.scn; renderPlannerPanel(); }));
+  panel.querySelectorAll('#pl-band .seg-btn').forEach(b =>
+    b.addEventListener('click', () => { plannerBand = b.dataset.band; renderPlannerPanel(); }));
+  panel.querySelectorAll('#pl-redund-mode .seg-btn').forEach(b =>
+    b.addEventListener('click', () => { redundMode = b.dataset.rmode; renderPlannerPanel(); }));
+  panel.querySelectorAll('input[data-replace]').forEach(cb =>
+    cb.addEventListener('change', () => { if (cb.checked) hypoReplaceIds.add(cb.dataset.replace); else hypoReplaceIds.delete(cb.dataset.replace); renderPlannerPanel(); }));
+
+  const numCommit = (id, fn) => {
+    const inp = el('#' + id, panel);
+    if (inp) inp.addEventListener('change', () => { const v = parseFloat(inp.value); if (!isNaN(v)) fn(v); renderPlannerPanel(); });
+  };
+  numCommit('pl-threshold', v => { plannerThreshold = Math.max(0, Math.min(100, v)); });
+  numCommit('pl-gmin', v => { plannerRateGrid.min = v; });
+  numCommit('pl-gmax', v => { plannerRateGrid.max = v; });
+  numCommit('pl-gstep', v => { if (v > 0) plannerRateGrid.step = v; });
+  numCommit('pl-radius', v => { plannerRadius = Math.max(ZONE_SIM.minRadius, Math.min(ZONE_SIM.maxRadius, v)); });
+  const maxInp = el('#pl-finder-max', panel);
+  if (maxInp) maxInp.addEventListener('change', () => { const v = parseInt(maxInp.value, 10); if (!isNaN(v) && v > 0) plannerMaxCandidates = v; renderPlannerPanel(); });
+
+  const runBtn = (id, fn) => { const b = el('#' + id, panel); if (b) b.addEventListener('click', fn); };
+  runBtn('pl-run-opt', runOptimizer);
+  runBtn('pl-run-finder', runFinder);
+  runBtn('pl-run-redund', runRedundancy);
+  runBtn('pl-run-audit', runCompanyAudit);
+
+  panel.querySelectorAll('.finder-sort').forEach(b =>
+    b.addEventListener('click', () => { finderSort = b.dataset.fsort; renderPlannerPanel(); }));
+  panel.querySelectorAll('tr.clickable[data-fkey]').forEach(tr =>
+    tr.addEventListener('click', () => selectFinderSite(tr.dataset.fkey)));
+  panel.querySelectorAll('tr.clickable[data-flat]').forEach(tr =>
+    tr.addEventListener('click', () => MapView.panTo(parseFloat(tr.dataset.flat), parseFloat(tr.dataset.flng))));
 }
 
 /* ============================================================
@@ -1226,6 +1921,10 @@ function renderCoveragePanel() {
           <button class="btn btn-sm cov-vis${!coverageShowOnlyAnalyzed ? ' active' : ''}" data-vis="all">Show all crews</button>
           <button class="btn btn-sm cov-vis${coverageShowOnlyAnalyzed ? ' active' : ''}" data-vis="analyzed">Show only analyzed crews</button>
         </div>
+      </div>
+      <div class="section">
+        <button id="cov-open-planner" class="btn full"${selN >= 2 ? '' : ' disabled'}><span class="accent">⌘</span>&nbsp; Company overlap audit in Planner</button>
+        <div class="hint" style="margin-top:5px">${selN >= 2 ? 'Uses this selection as the company scope.' : 'Select at least 2 crews to run an overlap audit.'}</div>
       </div>` : '<div class="hint" style="margin-top:4px">Then include crews by price tier or individually. Add a Company B to color where only one company is competitive.</div>'}
     </div>`;
   panel.hidden = false;
@@ -1234,6 +1933,7 @@ function renderCoveragePanel() {
   el('[data-pc]', panel).addEventListener('click', () => clearActiveOverlay());
   $('cov-company-a').addEventListener('change', e => onCoverageCompany('A', e.target.value));
   $('cov-company-b').addEventListener('change', e => onCoverageCompany('B', e.target.value));
+  if ($('cov-open-planner')) $('cov-open-planner').addEventListener('click', () => { plannerTool = 'redund'; redundMode = 'audit'; openPlanner(); });
   if ($('cov-hypo')) $('cov-hypo').addEventListener('change', e => {
     coverageIncludeHypo = e.target.checked;
     renderCoveragePanel(); // show/hide the A/B group toggle
@@ -2241,6 +2941,7 @@ function wireKeyboard() {
       if (!$('fire-filters').hidden) return setFireFiltersOpen(false);
       if (STATE.mode === 'hypo_placing') { STATE.mode = 'browse'; MapView.setCrosshair(false); renderHypotheticalDDLTool(); return; }
       if (STATE.incidentPin || STATE.mode === 'incident') return clearIncident();
+      if (plannerOpen && !$('planner-panel').hidden) return closePlanner();
       if (!$('detail-panel').hidden) return closeDetail();
       if (!$('hypo-panel').hidden) return closeHypoTool();
       if (!$('ddp-panel').hidden) return closePanel('ddp-panel');
@@ -2254,6 +2955,7 @@ function wireKeyboard() {
     switch (e.key.toLowerCase()) {
       case 'i': e.preventDefault(); toggleIncidentMode(); break;
       case 'h': e.preventDefault(); toggleHypoTool(); break;
+      case 'p': e.preventDefault(); togglePlanner(); break;
       case '/': e.preventDefault(); $('search').focus(); break;
       case 'z': toggleZones(); break;
       case 'm': if (STATE.selectedCrew) toggleMoat(); break;

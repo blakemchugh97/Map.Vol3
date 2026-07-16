@@ -139,6 +139,7 @@
       <div class="action-stack">
         <button id="btn-incident" class="btn btn-gold action-btn" title="Drop incident pin (I)">⊕ Drop Incident</button>
         <div class="tool-group">
+          <button id="btn-planner" class="btn action-btn hypo-btn" title="Planning workspace (P)">⌘ Planner</button>
           <button id="btn-hypo" class="btn action-btn hypo-btn" title="Hypothetical DDL tool (H)">⚲ Hypo DDL</button>
           <button id="btn-wildfire" class="btn action-btn fire-btn" title="Toggle wildfire incidents — current + last 24h (W)">🔥 Wildfires</button>
           <button id="btn-watches" class="btn action-btn alert-btn" title="Toggle NWS weather watches &amp; warnings (A)">⚠ Alerts</button>
@@ -296,6 +297,9 @@
         <section id="hypo-panel" class="float-panel hypo-panel" hidden></section>
         <section id="coverage-panel" class="float-panel coverage-panel" hidden></section>
         <section id="ddp-panel" class="float-panel ddp-panel" hidden></section>
+        <!-- Planning workspace: one dedicated panel hosts the subject picker, scenario,
+             tool switcher, inputs, and results (replaces the 3 hypo-embedded panels). -->
+        <section id="planner-panel" class="float-panel planner-panel" hidden></section>
       </div>
     </main>
   </div>

@@ -33,6 +33,7 @@ function baseStyleFor(key) {
 }
 let overlayCells = null;     // L.layerGroup for moat/desert
 let sampleDots = null;       // L.layerGroup for zone-sim dots
+let plannerSites = null;     // L.layerGroup for Planning-workspace candidate markers
 let overlayJob = null;       // active chunked job (cancel handle)
 let coverageHighlight = null, coverageHighlightRenderer = null; // hovered-crew footprint outline
 
@@ -89,6 +90,7 @@ export function initMap(h) {
 
   overlayCells = L.layerGroup().addTo(map);
   sampleDots = L.layerGroup().addTo(map);
+  plannerSites = L.layerGroup().addTo(map);   // planner candidate-site markers (Planning workspace)
   // Dedicated pane above the overlay canvas for the coverage hover-highlight, so a
   // single crew's footprint draws cleanly on top of the blended cells.
   const hlPane = map.createPane('coverageHighlight');
@@ -751,6 +753,29 @@ export function showSampleDots(points) {
   }
 }
 export function clearSampleDots() { if (sampleDots) sampleDots.clearLayers(); }
+
+/* ============================================================
+   Planning-workspace candidate markers
+   Additive layer for the finder's candidate DDL sites: a clickable colored
+   dot per site (color decided by the caller from existing components — no math
+   here). Mirrors showSampleDots but interactive, so a row and its map location
+   stay linked. Never drawn unless the planner draws it; cleared on close.
+   ============================================================ */
+export function showPlannerSites(sites) {
+  clearPlannerSites();
+  for (const s of sites) {
+    const m = L.circleMarker([s.lat, s.lng], {
+      radius: s.selected ? 8 : 5,
+      color: s.selected ? '#ffffff' : 'rgba(255,255,255,.7)',
+      weight: s.selected ? 2 : 1,
+      fillColor: s.color, fillOpacity: 0.92,
+    });
+    if (s.label) m.bindTooltip(s.label, { direction: 'top', className: 'cell-tip' });
+    if (typeof s.onClick === 'function') m.on('click', (e) => { L.DomEvent.stopPropagation(e); s.onClick(); });
+    m.addTo(plannerSites);
+  }
+}
+export function clearPlannerSites() { if (plannerSites) plannerSites.clearLayers(); }
 
 /* ============================================================
    Wildfire layer (live ArcGIS incidents via esri-leaflet)
