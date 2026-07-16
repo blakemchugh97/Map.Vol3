@@ -37,9 +37,12 @@ let plannerSites = null;     // L.layerGroup for Planning-workspace candidate ma
 let overlayJob = null;       // active chunked job (cancel handle)
 let coverageHighlight = null, coverageHighlightRenderer = null; // hovered-crew footprint outline
 
-const moatCache = {};        // `${crewId}|${plKey}` -> cells
-const desertCache = {};      // plKey -> cells
-const coverageCache = {};    // `${crewId}|${plKey}|${plSlider}` -> footprint cells (company coverage)
+// All overlay caches are keyed by STATE.year FIRST so FY2025 and FY2026 cells can
+// never collide (cross-year bleed). Both years' cells coexist, so flipping years
+// stays fast.
+const moatCache = {};        // `${year}|${crewId}|${plKey}|${plSlider}` -> cells
+const desertCache = {};      // `${year}|${plKey}|${plSlider}` -> cells
+const coverageCache = {};    // `${year}|${crewId}|${plKey}|${plSlider}|${sig}` -> footprint cells
 
 /* ---------- helpers ---------- */
 const ddpKey = (c) => `${c.lat.toFixed(4)},${c.lng.toFixed(4)}`;
@@ -165,6 +168,7 @@ function makeIcon(group, selected) {
 }
 
 export function buildMarkers(crews, ddpGroups, clusterRadius) {
+  if (clusterGroup) map.removeLayer(clusterGroup);   // idempotent: drop the prior group (year switch / cluster rebuild)
   markersByKey = {};
   crewKeyById = {};
 
@@ -422,7 +426,7 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
   clearOverlayCells();
   focusMoat(selectedCrew);
   // Cache key includes the fine-tune slider so changing it never serves stale cells.
-  const cacheKey = `${selectedCrew.id}|${plKey}|${STATE.plSlider}`;
+  const cacheKey = `${STATE.year}|${selectedCrew.id}|${plKey}|${STATE.plSlider}`;
   if (moatCache[cacheKey]) { drawCells(moatCache[cacheKey]); onDone && onDone(); return; }
 
   const keepFraction = effectiveKeepFraction(plKey);
@@ -467,7 +471,7 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
 // set by showCoverage before any key is built. Without this, a footprint computed for
 // one selection would be wrongly reused after the user toggles a crew.
 let coverageSelectionSig = '';
-const coverageKey = (crewId, plKey) => `${crewId}|${plKey}|${STATE.plSlider}|${coverageSelectionSig}`;
+const coverageKey = (crewId, plKey) => `${STATE.year}|${crewId}|${plKey}|${STATE.plSlider}|${coverageSelectionSig}`;
 // Coverage union uses a larger reach than the single-crew moat (so the map extends
 // until advantage fades) at the same cell size, with cells clipped to US land.
 const coverageCfg = { cellDegrees: MOAT_CONFIG.cellDegrees, maxRadius: MOAT_CONFIG.coverageRadius };
@@ -676,7 +680,7 @@ function sampleCellPoints(latS, lngW, d, n) {
 export function showDesert(allCrews, plKey, { onProgress, onDone } = {}) {
   cancelOverlayJob();
   clearOverlayCells();
-  const cacheKey = `${plKey}|${STATE.plSlider}`;
+  const cacheKey = `${STATE.year}|${plKey}|${STATE.plSlider}`;
   if (desertCache[cacheKey]) { drawCells(desertCache[cacheKey]); onDone && onDone(); return; }
 
   const keepFraction = effectiveKeepFraction(plKey);

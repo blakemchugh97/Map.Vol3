@@ -4,7 +4,7 @@
    ============================================================ */
 
 import {
-  STATE, DATA, PL_CONFIG, PL_SLIDER, HYPO_CONFIG, RATE_BOUNDS, ZONE_SIM,
+  STATE, DATA, YEARS, PL_CONFIG, PL_SLIDER, HYPO_CONFIG, RATE_BOUNDS, ZONE_SIM,
   MOAT_CONFIG, DESERT_CONFIG, TIERS, WATCHES_CONFIG, effectiveKeepFraction, tierForRank,
   setKeepFractionOverride,
 } from './config.js';
@@ -116,12 +116,17 @@ init();
 async function init() {
   $('error-retry').addEventListener('click', () => location.reload());
   try {
-    const res = await fetch('crews.json');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const crews = await res.json();
-    loadData(crews);
+    // Load BOTH contract years up front into SEPARATE frozen canonicals; they are
+    // never merged into one competitive field. FY2026 is the default active year.
+    const loaded = await Promise.all(Object.entries(YEARS).map(async ([y, cfg]) => {
+      const res = await fetch(cfg.file);
+      if (!res.ok) throw new Error(`${cfg.file}: HTTP ${res.status}`);
+      return [Number(y), await res.json()];
+    }));
+    for (const [y, crews] of loaded) loadYear(y, crews);
+    selectYear(STATE.year, { resetFilter: true });   // activate FY2026 (default)
   } catch (err) {
-    return showError('Failed to load crew data', `crews.json could not be fetched (${err.message}). Serve over HTTP (e.g. python3 -m http.server) and retry.`);
+    return showError('Failed to load crew data', `Crew data could not be fetched (${err.message}). Serve over HTTP (e.g. python3 -m http.server) and retry.`);
   }
 
   MapView.initMap({
@@ -163,25 +168,110 @@ function showError(title, msg) {
   $('error-screen').hidden = false;
 }
 
-function loadData(crews) {
-  DATA.crews = crews.slice().sort((a, b) => a.rank - b.rank);
-  DATA.byId = {};
-  DATA.ddpGroups = {};
-  for (const c of DATA.crews) {
+/* Build ONE year's FROZEN canonical dataset (+ frozen derived lookups + rate
+   bounds). Called once per year at startup. The frozen crews/objects turn any
+   accidental cross-year mutation into a throw rather than silently wrong numbers. */
+function loadYear(year, rawCrews) {
+  const crews = rawCrews.slice().sort((a, b) => a.rank - b.rank);
+  const byId = {};
+  const ddpGroups = {};
+  for (const c of crews) {
+    // Marker/tier color is the ABSOLUTE-$ tier (tierForRank), the same scale for
+    // both years — NOT the JSON's intra-year rank color. Set before freezing.
     c.color = tierForRank(c.rate);
-    DATA.byId[c.id] = c;
+    byId[c.id] = c;
     const key = `${c.lat.toFixed(4)},${c.lng.toFixed(4)}`;
-    (DATA.ddpGroups[key] ||= []).push(c);
+    (ddpGroups[key] ||= []).push(c);
+    Object.freeze(c);
   }
-  // keep each ddp group sorted by rank so cheapest drives the marker color
-  for (const k in DATA.ddpGroups) DATA.ddpGroups[k].sort((a, b) => a.rank - b.rank);
+  // keep each ddp group sorted by rank so the cheapest drives the marker color
+  for (const k in ddpGroups) { ddpGroups[k].sort((a, b) => a.rank - b.rank); Object.freeze(ddpGroups[k]); }
+  const rates = crews.map(c => c.rate);
+  DATA.crewsByYear[year]      = Object.freeze(crews);
+  DATA.byIdByYear[year]       = Object.freeze(byId);
+  DATA.ddpGroupsByYear[year]  = Object.freeze(ddpGroups);
+  DATA.rateBoundsByYear[year] = { min: Math.floor(Math.min(...rates)), max: Math.ceil(Math.max(...rates)) };
+}
 
-  // Debug hook for the moat/incident consistency audit: select a crew, then in the
-  // console run __moatAudit(lat, lng) to compare the moat rank/band, the legacy
-  // dollar margin, and the incident-table rank at one point (consistent:true means
-  // moatRank === incidentRank). e.g. __moatAudit(41.2, -114.0)
+/* Make `year` the ACTIVE field. Swaps the working views (mutable copies of the
+   frozen canonicals so the hypo tool can inject), repoints RATE_BOUNDS, resets the
+   year-specific GACC lookup, and syncs the slider + toggle chrome. Does NOT rebuild
+   markers / re-render — init() and switchYear() own that. */
+function selectYear(year, { resetFilter = false } = {}) {
+  const oldBounds = { min: RATE_BOUNDS.min, max: RATE_BOUNDS.max };
+  STATE.year = year;
+  // fresh mutable working copies (frozen crew objects are shared; arrays/maps new)
+  DATA.crews = DATA.crewsByYear[year].slice();
+  DATA.byId = { ...DATA.byIdByYear[year] };
+  DATA.ddpGroups = {};
+  const src = DATA.ddpGroupsByYear[year];
+  for (const k in src) DATA.ddpGroups[k] = src[k].slice();
+  crewGacc = null;   // year-specific GACC membership rebuilds lazily on next Zones use
+
+  // rate slider follows the active year; unfiltered stays unfiltered, otherwise the
+  // current selection is clamped into the new range (never let the map go empty).
+  const b = DATA.rateBoundsByYear[year];
+  RATE_BOUNDS.min = b.min; RATE_BOUNDS.max = b.max;
+  const rf = STATE.rateFilter;
+  const wasFull = resetFilter || (rf.min <= oldBounds.min && rf.max >= oldBounds.max);
+  STATE.rateFilter = wasFull
+    ? { min: b.min, max: b.max }
+    : { min: Math.min(Math.max(rf.min, b.min), b.max), max: Math.max(Math.min(rf.max, b.max), b.min) };
+  applyYearBoundsToSlider();
+
+  document.querySelectorAll('#year-bar .yr-btn').forEach(btn =>
+    btn.classList.toggle('active', Number(btn.dataset.year) === year));
+  const sub = $('brand-sub');
+  if (sub) sub.textContent = `${YEARS[year].label} · ${DATA.crewsByYear[year].length} crews`;
+
+  // Debug hook for the moat/incident consistency audit (rebound to the active field):
+  // select a crew, then run __moatAudit(lat, lng) in the console. e.g. __moatAudit(41.2, -114.0)
   window.__moatAudit = (lat, lng) =>
     auditMoatPoint(STATE.selectedCrew, lat, lng, DATA.crews, STATE.plKey, STATE.timeFilter);
+}
+
+/* Push the active year's rate bounds + current selection into the slider DOM. */
+function applyYearBoundsToSlider() {
+  const rmin = $('rate-min'), rmax = $('rate-max');
+  if (rmin && rmax) {
+    rmin.min = rmax.min = RATE_BOUNDS.min;
+    rmin.max = rmax.max = RATE_BOUNDS.max;
+    rmin.value = STATE.rateFilter.min;
+    rmax.value = STATE.rateFilter.max;
+  }
+  if ($('rate-lo')) $('rate-lo').textContent = `$${STATE.rateFilter.min.toFixed(0)}`;
+  if ($('rate-hi')) $('rate-hi').textContent = `$${STATE.rateFilter.max.toFixed(0)}`;
+  updateRateFill();
+}
+
+/* Year toggle. Preserve incident context (pin, PL, time, radius, theme, search) so
+   the user can flip years on the SAME incident; drop year-specific selection/analysis
+   (selected crew, zone/gacc filter, overlays, coverage, hypo, tier chip). */
+function switchYear(year) {
+  if (year === STATE.year || !DATA.crewsByYear[year]) return;
+  removeHypotheticalCrewFromAnalysis();
+  if (STATE.activeOverlay) clearActiveOverlay();
+  resetCoverageSelection();
+  if (STATE.selectedCrew || !$('detail-panel').hidden) closeDetail();
+  STATE.zoneFilter = null;
+  STATE.gaccFilter = null;
+  activeTier = null;
+  document.querySelectorAll('.stat-chips .chip').forEach(ch => ch.classList.remove('muted'));
+
+  selectYear(year);
+
+  MapView.buildMarkers(DATA.crews, DATA.ddpGroups, STATE.clusterRadius);
+  if (STATE.incidentPin) renderIncident();   // re-rank the SAME incident on the new year's field
+  applyFiltersAndRender();
+}
+
+function toggleYear() { switchYear(STATE.year === 2026 ? 2025 : 2026); }
+
+/* Clear the company-coverage selection (crew ids reference the old year's field). */
+function resetCoverageSelection() {
+  coverageCompanyA = null; coverageCompanyB = null;
+  coverageSelectedIds = new Set();
+  coverageIncludeHypo = false; coverageHypoGroup = 'A'; coverageShowOnlyAnalyzed = false;
 }
 
 /* ============================================================
@@ -350,9 +440,14 @@ function wireControls() {
   document.querySelectorAll('.stat-chips .chip').forEach(c =>
     c.addEventListener('click', () => toggleTierFilter(c.dataset.tier)));
 
-  // PL bar
-  document.querySelectorAll('.pl-btn').forEach(btn => {
+  // PL bar (scoped to #pl-bar so the year toggle's segmented buttons aren't caught)
+  document.querySelectorAll('#pl-bar .pl-btn').forEach(btn => {
     btn.addEventListener('click', () => setPL(btn.dataset.pl));
+  });
+
+  // Year toggle (FY2025 / FY2026) — segmented control under the PL bar
+  document.querySelectorAll('#year-bar .yr-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchYear(Number(btn.dataset.year)));
   });
 
   // PL fine-tune slider: live readout on drag (cheap), recompute on release
@@ -434,7 +529,7 @@ function updateClusterFill() {
    ============================================================ */
 function setPL(plKey) {
   STATE.plKey = plKey;
-  document.querySelectorAll('.pl-btn').forEach(b => b.classList.toggle('active', b.dataset.pl === plKey));
+  document.querySelectorAll('#pl-bar .pl-btn').forEach(b => b.classList.toggle('active', b.dataset.pl === plKey));
   $('pl-desc').textContent = PL_CONFIG[plKey].label;
   updatePlSliderReadout();
   recomputeAnalyses();
@@ -629,7 +724,7 @@ function renderDetail(crew) {
   panel.innerHTML = `
     <div class="panel-head">
       <div>
-        <div class="panel-title">${esc(crew.id)} · ${fmtRate(crew.rate)}/hr</div>
+        <div class="panel-title">${esc(crew.id)} · ${fmtRate(crew.rate)}/hr <span class="yr-tag">${YEARS[STATE.year].label}</span></div>
         <div class="panel-sub">${esc(crew.company)}</div>
       </div>
       <div class="panel-head-btns">
@@ -641,7 +736,7 @@ function renderDetail(crew) {
       ${incidentBadge}
       ${noteFlag}
       <div class="kv-grid">
-        <div class="kv"><span class="kv-label">Global rank</span><span class="kv-val big">#${crew.rank}</span></div>
+        <div class="kv"><span class="kv-label">Global rank · ${YEARS[STATE.year].label}</span><span class="kv-val big">#${crew.rank}</span></div>
         <div class="kv"><span class="kv-label">Rate tier</span><span class="kv-val"><span class="tdot" style="background:var(--${crew.color})"></span>${capitalize(crew.color)}</span></div>
         <div class="kv"><span class="kv-label">Base cost</span><span class="kv-val">${fmtMoney(crew.base_cost)}</span></div>
         <div class="kv"><span class="kv-label">Dispatch zone</span><span class="kv-val" style="font-size:var(--text-base)">${esc(crew.hucc)}</span></div>
@@ -2961,6 +3056,7 @@ function wireKeyboard() {
       case 'm': if (STATE.selectedCrew) toggleMoat(); break;
       case 'c': toggleCoverage(); break;
       case 'd': toggleDesert(); break;
+      case 'y': e.preventDefault(); toggleYear(); break;
       case 'w': toggleWildfire(); break;
       case 'a': toggleWatches(); break;
       case 'f': toggleFireFilters(); break;

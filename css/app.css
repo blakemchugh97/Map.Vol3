@@ -284,6 +284,15 @@ input { font-family: inherit; }
 .pl-btn { flex: 1; background: none; border: none; color: var(--text-muted); font-size: var(--text-sm); font-weight: 600; padding: 5px 4px; border-radius: var(--radius-sm); transition: background .12s, color .12s; }
 .pl-btn:hover { color: var(--text); }
 .pl-btn.active { background: var(--accent); color: #fff; }
+/* Year toggle (FY2025 / FY2026): a labeled section under the PL controls, reusing
+   the segmented .pl-seg container. Buttons mirror .pl-btn. */
+.year-bar { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--border); }
+.yr-btn { flex: 1; background: none; border: none; color: var(--text-muted); font-size: var(--text-sm); font-weight: 600; padding: 5px 4px; border-radius: var(--radius-sm); transition: background .12s, color .12s; }
+.yr-btn:hover { color: var(--text); }
+.yr-btn.active { background: var(--accent); color: #fff; }
+/* Small active-year badge shown in the crew detail-panel header (rank/color/cost
+   are year-relative, so the year must be visible there). */
+.yr-tag { display: inline-block; font-size: var(--text-xs); font-weight: 700; color: var(--accent); border: 1px solid var(--accent); border-radius: var(--radius-sm); padding: 0 5px; margin-left: 4px; vertical-align: middle; letter-spacing: .02em; }
 .pl-desc { font-size: var(--text-xs); color: var(--text-faint); margin-top: 7px; }
 
 /* PL fine-tune slider (violet, to distinguish from the blue rate sliders) */

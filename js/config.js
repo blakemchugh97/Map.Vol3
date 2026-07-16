@@ -52,8 +52,22 @@ export const TIERS = {
 };
 export const TIER_COLORS = { green: '#2dd47f', yellow: '#eab308', orange: '#f97316', red: '#f05252' };
 
-/* ---------- Rate range (filter bounds) ---------- */
-export const RATE_BOUNDS = { min: 51, max: 68 };
+/* ---------- Contract years ----------
+   FY2025 and FY2026 are kept as SEPARATE, frozen datasets (never merged into one
+   competitive field). FY2026 is the default. See DATA (below) and ui.js loadYear/
+   selectYear for how each year's frozen canonical is loaded and swapped in. */
+export const YEARS = {
+  2025: { file: 'crews.json',      label: 'FY2025' },
+  2026: { file: 'crews_2026.json', label: 'FY2026' },
+};
+export const DEFAULT_YEAR = 2026;
+
+/* ---------- Rate range (filter bounds) ----------
+   Derived from the ACTIVE year's data at load and on every year switch (see
+   selectYear in ui.js), so the rate slider always spans the active field. The
+   object identity is stable (importers hold this reference); only .min/.max are
+   reassigned. Initialized to the FY2026 span; overwritten on load regardless. */
+export const RATE_BOUNDS = { min: 47, max: 89 };
 
 /* ---------- Zone simulation ---------- */
 export const ZONE_SIM = {
@@ -241,6 +255,8 @@ export const ZONE_STYLE = {
 
 /* ---------- Global application state ---------- */
 export const STATE = {
+  year:         DEFAULT_YEAR, // active contract year (2025 | 2026). FY2026 default.
+  compareYear:  null,         // compare-mode ONLY (Phase 4); never drives the engine.
   mode:         'browse',     // 'browse' | 'incident' | 'hypo_placing'
   selectedCrew: null,
   incidentPin:  null,         // { lat, lng }
@@ -265,11 +281,23 @@ export const STATE = {
   watchesCategory: 'redflag', // active alert-type filter key (see WATCHES_CONFIG.categories)
 };
 
-/* Loaded data (populated at startup by ui.js) */
+/* Loaded data (populated at startup by ui.js).
+   YEAR ISOLATION: each contract year is loaded once into a FROZEN canonical
+   (crewsByYear[y] — Object.frozen array of Object.frozen crews) plus frozen
+   derived lookups (byIdByYear/ddpGroupsByYear). `crews`/`byId`/`ddpGroups` are
+   the ACTIVE-year working views, swapped by selectYear() in ui.js: they are
+   mutable COPIES of the frozen canonicals (the hypothetical-DDL tool pushes into
+   them), so the frozen source data can never bleed across years. Nothing should
+   read crewsByYear directly for analysis — always go through the active `crews`
+   (i.e. the active year's field). */
 export const DATA = {
-  crews: [],
-  byId: {},          // id -> crew
-  ddpGroups: {},     // "lat,lng" -> [crews]
+  crews: [],         // ACTIVE year working field (mutable copy; may hold the hypo)
+  byId: {},          // id -> crew   (active year working copy)
+  ddpGroups: {},     // "lat,lng" -> [crews]  (active year working copy)
+  crewsByYear: {},      // year -> frozen crews[]  (canonical, never mutated)
+  byIdByYear: {},       // year -> frozen {id: crew}
+  ddpGroupsByYear: {},  // year -> frozen {"lat,lng": frozen crew[]}
+  rateBoundsByYear: {}, // year -> { min, max }  (slider span per year)
   zones: null,       // dispatch-zone geojson, lazy-loaded (Dispatch centers view)
   gaccZones: null,   // dissolved GACC-region geojson, lazy-loaded (GACC regions view)
 };

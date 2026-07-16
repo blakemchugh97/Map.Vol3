@@ -47,7 +47,7 @@
           <div class="brand-mark">T2C</div>
           <div class="brand-text">
             <div class="brand-title">Dispatch Intelligence</div>
-            <div class="brand-sub">2025/26 IROC · 802 crews</div>
+            <div id="brand-sub" class="brand-sub">FY2026 · 880 crews</div>
           </div>
         </div>
       </header>
@@ -132,6 +132,15 @@
           </div>
           <input id="pl-slider" class="range pl-slider" type="range" min="0" max="100" step="1" value="0" />
           <div class="pl-slider-ends"><span>nominal</span><span>heavier</span></div>
+        </div>
+
+        <!-- Year toggle: FY2025 / FY2026 (FY2026 default), under the PL controls. -->
+        <div id="year-bar" class="year-bar" aria-label="Contract year">
+          <div class="pl-title">Contract Year</div>
+          <div class="pl-seg" role="tablist">
+            <button class="yr-btn" data-year="2025" title="Show FY2025 field (Y)">FY2025</button>
+            <button class="yr-btn active" data-year="2026" title="Show FY2026 field (Y)">FY2026</button>
+          </div>
         </div>
       </div>
 
