@@ -47,7 +47,7 @@
           <div class="brand-mark">T2C</div>
           <div class="brand-text">
             <div class="brand-title">Dispatch Intelligence</div>
-            <div class="brand-sub">2025/26 IROC · 802 crews</div>
+            <div id="brand-sub" class="brand-sub">FY2026 · 880 crews</div>
           </div>
         </div>
       </header>
@@ -133,12 +133,22 @@
           <input id="pl-slider" class="range pl-slider" type="range" min="0" max="100" step="1" value="0" />
           <div class="pl-slider-ends"><span>nominal</span><span>heavier</span></div>
         </div>
+
+        <!-- Year toggle: FY2025 / FY2026 (FY2026 default), under the PL controls. -->
+        <div id="year-bar" class="year-bar" aria-label="Contract year">
+          <div class="pl-title">Contract Year</div>
+          <div class="pl-seg" role="tablist">
+            <button class="yr-btn" data-year="2025" title="Show FY2025 field (Y)">FY2025</button>
+            <button class="yr-btn active" data-year="2026" title="Show FY2026 field (Y)">FY2026</button>
+          </div>
+        </div>
       </div>
 
       <!-- Top-right action stack -->
       <div class="action-stack">
         <button id="btn-incident" class="btn btn-gold action-btn" title="Drop incident pin (I)">⊕ Drop Incident</button>
         <div class="tool-group">
+          <button id="btn-planner" class="btn action-btn hypo-btn" title="Planning workspace (P)">⌘ Planner</button>
           <button id="btn-hypo" class="btn action-btn hypo-btn" title="Hypothetical DDL tool (H)">⚲ Hypo DDL</button>
           <button id="btn-wildfire" class="btn action-btn fire-btn" title="Toggle wildfire incidents — current + last 24h (W)">🔥 Wildfires</button>
           <button id="btn-watches" class="btn action-btn alert-btn" title="Toggle NWS weather watches &amp; warnings (A)">⚠ Alerts</button>
@@ -148,6 +158,7 @@
           <button id="btn-moat"     class="btn action-btn overlay-btn" title="Moat overlay (M)" disabled>◈ Moat</button>
           <button id="btn-coverage" class="btn action-btn overlay-btn" title="Company coverage (C)">⧉ Coverage</button>
           <button id="btn-desert"   class="btn action-btn overlay-btn" title="Rate desert (D)">≋ Desert</button>
+          <button id="btn-compare"  class="btn action-btn overlay-btn compare-btn" title="Compare FY2025 vs FY2026 — read-only (X)">⇄ Compare</button>
         </div>
         <!-- Zone view mode — shown while the Zones overlay is on. Defaults to GACC. -->
         <div id="zone-mode" class="zone-mode" hidden aria-label="Zone view mode">
@@ -296,6 +307,12 @@
         <section id="hypo-panel" class="float-panel hypo-panel" hidden></section>
         <section id="coverage-panel" class="float-panel coverage-panel" hidden></section>
         <section id="ddp-panel" class="float-panel ddp-panel" hidden></section>
+        <!-- Planning workspace: one dedicated panel hosts the subject picker, scenario,
+             tool switcher, inputs, and results (replaces the 3 hypo-embedded panels). -->
+        <section id="planner-panel" class="float-panel planner-panel" hidden></section>
+
+        <!-- Cross-year compare mode (read-only diff; never feeds the dispatch engine) -->
+        <section id="compare-panel" class="float-panel compare-panel" hidden></section>
       </div>
     </main>
   </div>

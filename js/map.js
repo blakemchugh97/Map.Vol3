@@ -11,6 +11,7 @@ import {
 import {
   haversine, computeRankAtPoint, bandScore, computeRateDesertHoverStats, isUSLand, runChunked,
   moatLatticePoints, moatScoreCell, aggregateCoverageCells, coverageCellKey, classifyDuoCell,
+  coverageCompetitiveField,
 } from './dispatch.js';
 
 let map, tileLayer, darkBasemapLayer = null, handlers = {};
@@ -32,12 +33,16 @@ function baseStyleFor(key) {
 }
 let overlayCells = null;     // L.layerGroup for moat/desert
 let sampleDots = null;       // L.layerGroup for zone-sim dots
+let plannerSites = null;     // L.layerGroup for Planning-workspace candidate markers
 let overlayJob = null;       // active chunked job (cancel handle)
 let coverageHighlight = null, coverageHighlightRenderer = null; // hovered-crew footprint outline
 
-const moatCache = {};        // `${crewId}|${plKey}` -> cells
-const desertCache = {};      // plKey -> cells
-const coverageCache = {};    // `${crewId}|${plKey}|${plSlider}` -> footprint cells (company coverage)
+// All overlay caches are keyed by STATE.year FIRST so FY2025 and FY2026 cells can
+// never collide (cross-year bleed). Both years' cells coexist, so flipping years
+// stays fast.
+const moatCache = {};        // `${year}|${crewId}|${plKey}|${plSlider}` -> cells
+const desertCache = {};      // `${year}|${plKey}|${plSlider}` -> cells
+const coverageCache = {};    // `${year}|${crewId}|${plKey}|${plSlider}|${sig}` -> footprint cells
 
 /* ---------- helpers ---------- */
 const ddpKey = (c) => `${c.lat.toFixed(4)},${c.lng.toFixed(4)}`;
@@ -88,6 +93,7 @@ export function initMap(h) {
 
   overlayCells = L.layerGroup().addTo(map);
   sampleDots = L.layerGroup().addTo(map);
+  plannerSites = L.layerGroup().addTo(map);   // planner candidate-site markers (Planning workspace)
   // Dedicated pane above the overlay canvas for the coverage hover-highlight, so a
   // single crew's footprint draws cleanly on top of the blended cells.
   const hlPane = map.createPane('coverageHighlight');
@@ -162,6 +168,7 @@ function makeIcon(group, selected) {
 }
 
 export function buildMarkers(crews, ddpGroups, clusterRadius) {
+  if (clusterGroup) map.removeLayer(clusterGroup);   // idempotent: drop the prior group (year switch / cluster rebuild)
   markersByKey = {};
   crewKeyById = {};
 
@@ -419,7 +426,7 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
   clearOverlayCells();
   focusMoat(selectedCrew);
   // Cache key includes the fine-tune slider so changing it never serves stale cells.
-  const cacheKey = `${selectedCrew.id}|${plKey}|${STATE.plSlider}`;
+  const cacheKey = `${STATE.year}|${selectedCrew.id}|${plKey}|${STATE.plSlider}`;
   if (moatCache[cacheKey]) { drawCells(moatCache[cacheKey]); onDone && onDone(); return; }
 
   const keepFraction = effectiveKeepFraction(plKey);
@@ -458,7 +465,13 @@ export function showMoat(selectedCrew, allCrews, plKey, { onProgress, onDone } =
    competitive. Per-crew moats are cached (keyed crew|pl|slider) so toggling crews
    re-unions instantly and only newly-needed crews compute.
    ============================================================ */
-const coverageKey = (crewId, plKey) => `${crewId}|${plKey}|${STATE.plSlider}`;
+// A coverage footprint depends on the WHOLE selected (exempt) set, not just its own
+// crew — deselecting any crew rebuilds the field for every other crew (see
+// coverageCompetitiveField). So the cache is keyed by a signature of the selection,
+// set by showCoverage before any key is built. Without this, a footprint computed for
+// one selection would be wrongly reused after the user toggles a crew.
+let coverageSelectionSig = '';
+const coverageKey = (crewId, plKey) => `${STATE.year}|${crewId}|${plKey}|${STATE.plSlider}|${coverageSelectionSig}`;
 // Coverage union uses a larger reach than the single-crew moat (so the map extends
 // until advantage fades) at the same cell size, with cells clipped to US land.
 const coverageCfg = { cellDegrees: MOAT_CONFIG.cellDegrees, maxRadius: MOAT_CONFIG.coverageRadius };
@@ -602,7 +615,22 @@ export function showCoverage(selectedCrews, allCrews, plKey, { onProgress, onDon
   const keepFraction = effectiveKeepFraction(plKey);
   const render = { groupOf, duo, labels }; // two-company coloring context (ignored when !duo)
 
-  // Only crews without a cached footprint (for this pl|slider) need computing.
+  // The ONE competitive field for the whole union: the SELECTED crews are the exempt
+  // subject set (always available) and every NON-selected crew is an external
+  // competitor thinned by PL. So `selected set === exemption set === coverage set` —
+  // deselecting a crew drops it out of the exempt set into the thinnable field with no
+  // same-company protection and no dependence on the full company roster. The field is
+  // point-independent (global thinning), so build it once; the per-cell rank then runs
+  // the shared moat math over it with no further thinning (keep = 1).
+  const field = coverageCompetitiveField(selectedCrews, allCrews, keepFraction);
+
+  // Footprints depend on the whole exempt set, so cache them per selection: re-key by a
+  // selection signature and drop stale footprints when the selection changes (toggling
+  // any crew rebuilds the field — and thus the rank — for every other crew).
+  const sig = selectedCrews.map((c) => c.id).sort().join(',');
+  if (sig !== coverageSelectionSig) { for (const k in coverageCache) delete coverageCache[k]; coverageSelectionSig = sig; }
+
+  // Only crews without a cached footprint (for this pl|slider|selection) need computing.
   const need = selectedCrews.filter((c) => !coverageCache[coverageKey(c.id, plKey)]);
   const acc = new Map();
   need.forEach((c) => acc.set(c.id, []));
@@ -622,7 +650,8 @@ export function showCoverage(selectedCrews, allCrews, plKey, { onProgress, onDon
 
   if (!work.length) { finish(); return; }
   overlayJob = runChunked(work, ({ crew, lat, lng }) => {
-    const { rank, score } = moatScoreCell(crew, lat, lng, allCrews, keepFraction);
+    // Rank over the prebuilt set-exempt field; it is already thinned, so keep = 1.
+    const { rank, score } = moatScoreCell(crew, lat, lng, field, 1.0);
     acc.get(crew.id).push({ key: coverageCellKey(lat, lng), lat, lng, rank, score });
   }, { chunk: 150, onProgress, onDone: finish });
 }
@@ -651,7 +680,7 @@ function sampleCellPoints(latS, lngW, d, n) {
 export function showDesert(allCrews, plKey, { onProgress, onDone } = {}) {
   cancelOverlayJob();
   clearOverlayCells();
-  const cacheKey = `${plKey}|${STATE.plSlider}`;
+  const cacheKey = `${STATE.year}|${plKey}|${STATE.plSlider}`;
   if (desertCache[cacheKey]) { drawCells(desertCache[cacheKey]); onDone && onDone(); return; }
 
   const keepFraction = effectiveKeepFraction(plKey);
@@ -728,6 +757,60 @@ export function showSampleDots(points) {
   }
 }
 export function clearSampleDots() { if (sampleDots) sampleDots.clearLayers(); }
+
+/* ---------- Compare delta layer (Phase 4) ----------
+   READ-ONLY, informational. Held crews are recolored by rate_delta on a diverging
+   green(cheaper)↔red(pricier) scale at their FY2026 DDP; entered crews are hollow
+   sky rings (FY2026 DDP); exited crews are gray ghosts at their FY2025 DDP. This
+   layer replaces the marker VIEW while active but never touches the engine's
+   ranking / thinning / caches. */
+let compareLayer = null;
+function divergingRate(d) {
+  const neutral = [148, 163, 184], green = [45, 212, 127], red = [240, 82, 82];
+  const t = Math.max(-1, Math.min(1, (d || 0) / 12));   // clamp to ±$12
+  const to = t < 0 ? green : red, k = Math.abs(t);
+  return `rgb(${Math.round(neutral[0] + (to[0] - neutral[0]) * k)},${Math.round(neutral[1] + (to[1] - neutral[1]) * k)},${Math.round(neutral[2] + (to[2] - neutral[2]) * k)})`;
+}
+export function showCompareLayer(data) {
+  hideCompareLayer();
+  if (clusterGroup) map.removeLayer(clusterGroup);   // hide the engine dots underneath
+  const rend = L.canvas({ padding: 0.5 });
+  compareLayer = L.layerGroup();
+  for (const x of data.exited)   // gray ghosts at FY2025 DDP (underneath)
+    L.circleMarker([x.lat, x.lng], { renderer: rend, radius: 4, color: '#9aa4b2', weight: 1, fillColor: '#9aa4b2', fillOpacity: 0.28 }).addTo(compareLayer);
+  for (const h of data.held)     // diverging by rate_delta at FY2026 DDP
+    L.circleMarker([h.lat, h.lng], { renderer: rend, radius: 5, color: 'rgba(0,0,0,.45)', weight: 0.6, fillColor: divergingRate(h.rate_delta), fillOpacity: 0.92 }).addTo(compareLayer);
+  for (const e of data.entered)  // hollow sky rings at FY2026 DDP
+    L.circleMarker([e.lat, e.lng], { renderer: rend, radius: 5, color: '#38bdf8', weight: 2, fill: false }).addTo(compareLayer);
+  compareLayer.addTo(map);
+}
+export function hideCompareLayer() {
+  if (compareLayer) { map.removeLayer(compareLayer); compareLayer = null; }
+  if (clusterGroup && !map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
+}
+
+/* ============================================================
+   Planning-workspace candidate markers
+   Additive layer for the finder's candidate DDL sites: a clickable colored
+   dot per site (color decided by the caller from existing components — no math
+   here). Mirrors showSampleDots but interactive, so a row and its map location
+   stay linked. Never drawn unless the planner draws it; cleared on close.
+   ============================================================ */
+export function showPlannerSites(sites) {
+  clearPlannerSites();
+  for (const s of sites) {
+    const m = L.circleMarker([s.lat, s.lng], {
+      radius: s.selected ? 8 : 5,
+      color: s.selected ? '#ffffff' : 'rgba(255,255,255,.7)',
+      weight: s.selected ? 2 : 1,
+      fillColor: s.color, fillOpacity: 0.92,
+    });
+    if (s.label) m.bindTooltip(s.label, { direction: 'top', className: 'cell-tip' });
+    if (typeof s.onClick === 'function') m.on('click', (e) => { L.DomEvent.stopPropagation(e); s.onClick(); });
+    m.addTo(plannerSites);
+  }
+}
+export function clearPlannerSites() { if (plannerSites) plannerSites.clearLayers(); }
 
 /* ============================================================
    Wildfire layer (live ArcGIS incidents via esri-leaflet)

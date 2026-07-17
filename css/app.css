@@ -284,6 +284,15 @@ input { font-family: inherit; }
 .pl-btn { flex: 1; background: none; border: none; color: var(--text-muted); font-size: var(--text-sm); font-weight: 600; padding: 5px 4px; border-radius: var(--radius-sm); transition: background .12s, color .12s; }
 .pl-btn:hover { color: var(--text); }
 .pl-btn.active { background: var(--accent); color: #fff; }
+/* Year toggle (FY2025 / FY2026): a labeled section under the PL controls, reusing
+   the segmented .pl-seg container. Buttons mirror .pl-btn. */
+.year-bar { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--border); }
+.yr-btn { flex: 1; background: none; border: none; color: var(--text-muted); font-size: var(--text-sm); font-weight: 600; padding: 5px 4px; border-radius: var(--radius-sm); transition: background .12s, color .12s; }
+.yr-btn:hover { color: var(--text); }
+.yr-btn.active { background: var(--accent); color: #fff; }
+/* Small active-year badge shown in the crew detail-panel header (rank/color/cost
+   are year-relative, so the year must be visible there). */
+.yr-tag { display: inline-block; font-size: var(--text-xs); font-weight: 700; color: var(--accent); border: 1px solid var(--accent); border-radius: var(--radius-sm); padding: 0 5px; margin-left: 4px; vertical-align: middle; letter-spacing: .02em; }
 .pl-desc { font-size: var(--text-xs); color: var(--text-faint); margin-top: 7px; }
 
 /* PL fine-tune slider (violet, to distinguish from the blue rate sliders) */
@@ -489,6 +498,53 @@ input { font-family: inherit; }
 .float-panel.minimized .panel-body { display: none; }
 .float-panel.minimized .panel-head { border-bottom: none; }
 
+/* ---------- Compare mode (Phase 4): read-only FY2025 vs FY2026 ---------- */
+.compare-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+/* Breaks out of the 380px dock — the diff tables need room. Bottom-docked and
+   full width (clears the 280px sidebar), leaving the map visible on top for the
+   delta layer. */
+.compare-panel {
+  position: fixed; z-index: 545;
+  left: calc(var(--sidebar-w) + 24px); right: 12px; bottom: 12px;
+  height: 60vh; max-height: calc(100vh - 24px);
+  border-color: var(--accent);
+}
+.app.sidebar-collapsed .compare-panel { left: 12px; }
+.compare-panel.minimized { height: auto; width: max-content; }
+.cmp-body { flex: 1; min-height: 0; overflow: hidden; padding: 0; display: flex; flex-direction: column; }
+.cmp-tabs { display: flex; gap: 4px; padding: 8px 12px 0; border-bottom: 1px solid var(--border); flex: none; }
+.cmp-tab { background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-muted); font-size: var(--text-sm); font-weight: 600; padding: 6px 10px; cursor: pointer; }
+.cmp-tab:hover { color: var(--text); }
+.cmp-tab.active { color: var(--accent-hi); border-bottom-color: var(--accent); }
+.cmp-note { padding: 8px 12px; font-size: var(--text-xs); color: var(--text-muted); flex: none; }
+.cmp-note b { color: var(--text); }
+.cmp-table-wrap { overflow: auto; flex: 1; min-height: 0; margin: 0 8px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.cmp-table-wrap.short { max-height: 46vh; }
+.cmp-table { width: 100%; font-size: var(--text-xs); border-collapse: collapse; }
+.cmp-table th { position: sticky; top: 0; background: var(--surface2); z-index: 1; text-align: left; padding: 6px 8px; white-space: nowrap; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+.cmp-table td { padding: 5px 8px; border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent); white-space: nowrap; }
+.cmp-table td.t-company { max-width: 240px; overflow: hidden; text-overflow: ellipsis; }
+.cmp-table th.num, .cmp-table td.num { text-align: right; }
+.cmp-table th.sortable { cursor: pointer; user-select: none; }
+.cmp-table th.sortable:hover { color: var(--text); }
+.cmp-table th.sorted { color: var(--accent-hi); }
+.cmp-good { color: var(--green); font-weight: 600; }
+.cmp-bad { color: var(--red); font-weight: 600; }
+.cmp-flat { color: var(--text-muted); }
+.cmp-moved { color: var(--gold); font-weight: 600; }
+.cmp-alias { color: var(--accent); cursor: help; }
+.cmp-flux { display: flex; gap: 10px; padding: 0 8px 8px; flex: 1; min-height: 0; }
+.cmp-flux-col { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.cmp-flux-head { padding: 7px 6px; font-size: var(--text-sm); font-weight: 700; flex: none; }
+.cmp-enter { color: var(--green); }
+.cmp-exit { color: var(--red); }
+.cmp-legend { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; padding: 6px 12px; font-size: var(--text-xs); color: var(--text-muted); border-bottom: 1px solid var(--border); flex: none; }
+.cmp-sw { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: middle; margin-left: 8px; box-sizing: border-box; }
+.sw-green { background: #2dd47f; }
+.sw-red { background: #f05252; }
+.sw-ring { background: transparent; border: 2px solid #38bdf8; }
+.sw-ghost { background: #9aa4b2; opacity: .55; }
+
 .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 11px 12px 11px 14px; border-bottom: 1px solid var(--border); }
 .panel-title { font-size: var(--text-lg); font-weight: 700; line-height: 1.2; }
 .panel-sub { font-size: var(--text-xs); color: var(--text-muted); margin-top: 2px; }
@@ -590,6 +646,14 @@ input { font-family: inherit; }
 .gloss-term h3 { font-size: var(--text-md); font-weight: 600; color: var(--accent-hi); margin-bottom: 3px; }
 .gloss-term p { font-size: var(--text-base); color: var(--text-muted); line-height: 1.55; }
 .gloss-term code { background: var(--surface2); padding: 1px 5px; border-radius: var(--radius-sm); font-size: var(--text-sm); color: var(--text); }
+/* Glossary/Methodology structure: intro, section dividers, sub-group labels */
+.gloss-intro { font-size: var(--text-base); color: var(--text-muted); line-height: 1.55; margin-bottom: 6px; }
+.gloss-section { margin: 24px 0 12px; padding-top: 16px; border-top: 1px solid var(--border); }
+.gloss-section:first-of-type { margin-top: 6px; }
+.gloss-section h2 { font-size: var(--text-lg); font-weight: 700; color: var(--text); }
+.gloss-section p { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.5; margin-top: 4px; }
+.gloss-sub { font-size: var(--text-xs); font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--text-faint); margin: 16px 0 8px; }
 
 /* utility */
 [hidden] { display: none !important; }
