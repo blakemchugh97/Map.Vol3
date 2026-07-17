@@ -758,6 +758,37 @@ export function showSampleDots(points) {
 }
 export function clearSampleDots() { if (sampleDots) sampleDots.clearLayers(); }
 
+/* ---------- Compare delta layer (Phase 4) ----------
+   READ-ONLY, informational. Held crews are recolored by rate_delta on a diverging
+   green(cheaper)↔red(pricier) scale at their FY2026 DDP; entered crews are hollow
+   sky rings (FY2026 DDP); exited crews are gray ghosts at their FY2025 DDP. This
+   layer replaces the marker VIEW while active but never touches the engine's
+   ranking / thinning / caches. */
+let compareLayer = null;
+function divergingRate(d) {
+  const neutral = [148, 163, 184], green = [45, 212, 127], red = [240, 82, 82];
+  const t = Math.max(-1, Math.min(1, (d || 0) / 12));   // clamp to ±$12
+  const to = t < 0 ? green : red, k = Math.abs(t);
+  return `rgb(${Math.round(neutral[0] + (to[0] - neutral[0]) * k)},${Math.round(neutral[1] + (to[1] - neutral[1]) * k)},${Math.round(neutral[2] + (to[2] - neutral[2]) * k)})`;
+}
+export function showCompareLayer(data) {
+  hideCompareLayer();
+  if (clusterGroup) map.removeLayer(clusterGroup);   // hide the engine dots underneath
+  const rend = L.canvas({ padding: 0.5 });
+  compareLayer = L.layerGroup();
+  for (const x of data.exited)   // gray ghosts at FY2025 DDP (underneath)
+    L.circleMarker([x.lat, x.lng], { renderer: rend, radius: 4, color: '#9aa4b2', weight: 1, fillColor: '#9aa4b2', fillOpacity: 0.28 }).addTo(compareLayer);
+  for (const h of data.held)     // diverging by rate_delta at FY2026 DDP
+    L.circleMarker([h.lat, h.lng], { renderer: rend, radius: 5, color: 'rgba(0,0,0,.45)', weight: 0.6, fillColor: divergingRate(h.rate_delta), fillOpacity: 0.92 }).addTo(compareLayer);
+  for (const e of data.entered)  // hollow sky rings at FY2026 DDP
+    L.circleMarker([e.lat, e.lng], { renderer: rend, radius: 5, color: '#38bdf8', weight: 2, fill: false }).addTo(compareLayer);
+  compareLayer.addTo(map);
+}
+export function hideCompareLayer() {
+  if (compareLayer) { map.removeLayer(compareLayer); compareLayer = null; }
+  if (clusterGroup && !map.hasLayer(clusterGroup)) map.addLayer(clusterGroup);
+}
+
 /* ============================================================
    Planning-workspace candidate markers
    Additive layer for the finder's candidate DDL sites: a clickable colored

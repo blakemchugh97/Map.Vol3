@@ -118,6 +118,26 @@ let compareTab = 'crews';          // crews | flux | companies | zones
 function getCompare() {
   return (compareData ||= buildCompare(DATA.crewsByYear[2025], DATA.crewsByYear[2026]));
 }
+// DispUnitID -> hucc_code (stable 1:1) + zone median-rate deltas, for the compare
+// zone choropleth (colors the dispatch-zone overlay by FY25→FY26 median-rate shift).
+let _unitToHucc = null, _zoneDeltaByCode = null;
+function unitToHucc() {
+  if (_unitToHucc) return _unitToHucc;
+  _unitToHucc = new Map();
+  for (const y of [2026, 2025]) for (const c of DATA.crewsByYear[y]) if (!_unitToHucc.has(c.disp_unit_id)) _unitToHucc.set(c.disp_unit_id, c.hucc_code);
+  return _unitToHucc;
+}
+function compareZoneFill(unitId) {
+  if (!_zoneDeltaByCode) _zoneDeltaByCode = new Map(getCompare().zoneRollup.map(z => [z.hucc_code, z.median_rate_delta]));
+  const code = unitToHucc().get(unitId);
+  const d = code != null ? _zoneDeltaByCode.get(code) : null;
+  if (d == null) return { fillColor: '#64748b', fillOpacity: 0.10, color: '#64748b', weight: 1 };
+  const neutral = [148, 163, 184], green = [45, 212, 127], red = [240, 82, 82];
+  const t = Math.max(-1, Math.min(1, d / 3));   // zone medians move less than single crews; clamp ±$3
+  const to = t < 0 ? green : red, k = Math.abs(t);
+  const rgb = neutral.map((n, i) => Math.round(n + (to[i] - n) * k));
+  return { fillColor: `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, fillOpacity: 0.55, color: '#fff', weight: 1 };
+}
 
 /* ============================================================
    Bootstrap
@@ -301,12 +321,22 @@ function enterCompareMode() {
   $('btn-compare').classList.add('active');
   renderComparePanel();
   $('compare-panel').hidden = false;
+  MapView.showCompareLayer(getCompare());   // read-only delta layer (held/entered/exited)
+  refreshZonesForCompare();
 }
 function exitCompareMode() {
   compareMode = false;
   STATE.compareYear = null;
   $('btn-compare').classList.remove('active');
   closePanel('compare-panel');
+  MapView.hideCompareLayer();
+  refreshZonesForCompare();
+  applyFiltersAndRender();             // restore the normal active-year dots + filter state
+}
+// Re-tint an already-open dispatch-zone overlay when compare mode flips (the zone
+// choropleth colors by FY25→FY26 median-rate delta only while compare mode is on).
+function refreshZonesForCompare() {
+  if (STATE.activeOverlay === 'zones' && STATE.zoneMode === 'dispatch') { MapView.hideZones(); renderZones(); }
 }
 function setCompareTab(t) { compareTab = t; renderComparePanel(); }
 function setCompareSort(k) {
@@ -346,6 +376,11 @@ function renderComparePanel() {
       ${tab('companies', `Companies · ${c.companyRollup.length}`)}
       ${tab('zones', `Zones · ${c.zoneRollup.length}`)}
     </div>
+    <div class="cmp-legend">Map delta layer:
+      <span class="cmp-sw sw-green"></span> cheaper
+      <span class="cmp-sw sw-red"></span> pricier
+      <span class="cmp-sw sw-ring"></span> entered
+      <span class="cmp-sw sw-ghost"></span> exited</div>
     <div class="panel-body cmp-body">${body}</div>`;
   panel.querySelectorAll('.cmp-tab').forEach(b => b.addEventListener('click', () => setCompareTab(b.dataset.ctab)));
   panel.querySelectorAll('[data-sort]').forEach(h => h.addEventListener('click', () => setCompareSort(h.dataset.sort)));
@@ -2844,6 +2879,8 @@ function renderZones() {
     MapView.showZones(DATA.zones, {
       keyOf: (p) => p.DispUnitID,
       statsFor: (unitId) => zoneStats(unitId, DATA.crews),
+      // Compare mode: tint each dispatch zone by its FY25→FY26 median-rate delta.
+      styleOf: compareMode ? (unitId) => compareZoneFill(unitId) : null,
     });
   }
   updateImsrPlLegend();   // IMSR-LIVE (removable)

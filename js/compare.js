@@ -86,6 +86,8 @@ export function buildCompare(from, to) {
       zone_name_from: a.hucc_name, zone_name_to: b.hucc_name,
       ddp_from: a.ddl, ddp_to: b.ddl, ddp_moved: a.ddl !== b.ddl,
       miles_moved: round(haversine(a.lat, a.lng, b.lat, b.lng), 1),
+      // FY2026 (current) position — where the delta map layer plots this crew.
+      lat: b.lat, lng: b.lng, lat_from: a.lat, lng_from: a.lng,
     });
   }
 
