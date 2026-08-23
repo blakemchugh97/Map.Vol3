@@ -1,10 +1,10 @@
 {
   "meta": {
     "source_type": "IMSR_PDF",
-    "source_date": "2026-08-21",
-    "report_label": "IMSR \u2014 2026-08-21 (auto-extracted, UNVERIFIED)",
+    "source_date": "2026-08-23",
+    "report_label": "IMSR \u2014 2026-08-23 (auto-extracted, UNVERIFIED)",
     "parser_version": "imsr_extract.py 0.2.0",
-    "ingested_at": "2026-08-21T15:40:08.593614+00:00",
+    "ingested_at": "2026-08-23T15:28:35.856986+00:00",
     "is_fixture": false,
     "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
     "verification": {
@@ -19,61 +19,61 @@
       "gacc": "NWCC",
       "gacc_name": "Northwest",
       "preparedness_level": 5,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "NRCC",
       "gacc_name": "Northern Rockies",
       "preparedness_level": 3,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "GBCC",
       "gacc_name": "Great Basin",
       "preparedness_level": 3,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "RMCC",
       "gacc_name": "Rocky Mountain",
       "preparedness_level": 2,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "ONCC",
       "gacc_name": "Northern California",
       "preparedness_level": 3,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "SACC",
       "gacc_name": "Southern",
       "preparedness_level": 2,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "SWCC",
       "gacc_name": "Southwest",
       "preparedness_level": 2,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "OSCC",
       "gacc_name": "Southern California",
       "preparedness_level": 3,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "AICC",
       "gacc_name": "Alaska",
       "preparedness_level": 2,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     },
     {
       "gacc": "EACC",
       "gacc_name": "Eastern",
       "preparedness_level": 2,
-      "date": "2026-08-21"
+      "date": "2026-08-23"
     }
   ],
   "national_resource_totals_daily": {},
@@ -83,14 +83,14 @@
       "incident_name": "Little Giant",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 138475,
-      "percent_contained": 12,
+      "date": "2026-08-23",
+      "size_acres": 142218,
+      "percent_contained": 15,
       "resources": {
-        "crews": 37,
-        "engines": 78,
-        "helicopters": 5,
-        "total_personnel": 1818
+        "crews": 44,
+        "engines": 79,
+        "helicopters": 6,
+        "total_personnel": 2338
       },
       "lat": null,
       "lng": null
@@ -100,8 +100,8 @@
       "incident_name": "Sisi",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 126,
+      "date": "2026-08-23",
+      "size_acres": 734,
       "percent_contained": 0,
       "resources": {
         "crews": 0,
@@ -117,14 +117,14 @@
       "incident_name": "Paradise",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 6745,
+      "date": "2026-08-23",
+      "size_acres": 7700,
       "percent_contained": 0,
       "resources": {
-        "crews": 12,
+        "crews": 11,
         "engines": 16,
         "helicopters": 3,
-        "total_personnel": 349
+        "total_personnel": 321
       },
       "lat": null,
       "lng": null
@@ -134,14 +134,14 @@
       "incident_name": "Hagen",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 58646,
+      "date": "2026-08-23",
+      "size_acres": 59559,
       "percent_contained": 19,
       "resources": {
-        "crews": 21,
-        "engines": 61,
+        "crews": 16,
+        "engines": 59,
         "helicopters": 9,
-        "total_personnel": 887
+        "total_personnel": 963
       },
       "lat": null,
       "lng": null
@@ -151,14 +151,14 @@
       "incident_name": "Three Queens",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 3849,
+      "date": "2026-08-23",
+      "size_acres": 6379,
       "percent_contained": 2,
       "resources": {
-        "crews": 16,
-        "engines": 33,
-        "helicopters": 6,
-        "total_personnel": 835
+        "crews": 18,
+        "engines": 36,
+        "helicopters": 7,
+        "total_personnel": 902
       },
       "lat": null,
       "lng": null
@@ -168,247 +168,26 @@
       "incident_name": "Grand Park 2",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 167,
+      "date": "2026-08-23",
+      "size_acres": 168,
       "percent_contained": 67,
       "resources": {
-        "crews": 4,
-        "engines": 3,
+        "crews": 3,
+        "engines": 2,
         "helicopters": 0,
-        "total_personnel": 173
+        "total_personnel": 120
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "OR-MHF/Grasshopper",
-      "incident_name": "Grasshopper",
+      "incident_id": "WA-OWF/King",
+      "incident_name": "King",
       "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 92456,
-      "percent_contained": 71,
-      "resources": {
-        "crews": 42,
-        "engines": 107,
-        "helicopters": 13,
-        "total_personnel": 1832
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-MHF/Austin",
-      "incident_name": "Austin",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 3766,
+      "state": "WA",
+      "date": "2026-08-23",
+      "size_acres": 459,
       "percent_contained": 0,
-      "resources": {
-        "crews": 14,
-        "engines": 10,
-        "helicopters": 2,
-        "total_personnel": 426
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-MHF/The Narrows",
-      "incident_name": "The Narrows",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 174,
-      "percent_contained": 0,
-      "resources": {
-        "crews": 0,
-        "engines": 0,
-        "helicopters": 1,
-        "total_personnel": 17
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "WA-NES/Sinlahekin",
-      "incident_name": "Sinlahekin",
-      "gacc": "NWCC",
-      "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 154298,
-      "percent_contained": 47,
-      "resources": {
-        "crews": 48,
-        "engines": 56,
-        "helicopters": 4,
-        "total_personnel": 1706
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-FWF/Wrights Spring",
-      "incident_name": "Wrights Spring",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 54131,
-      "percent_contained": 55,
-      "resources": {
-        "crews": 16,
-        "engines": 43,
-        "helicopters": 6,
-        "total_personnel": 809
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-PRD/Rowe Creek Complex",
-      "incident_name": "Rowe Creek Complex",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 373981,
-      "percent_contained": 89,
-      "resources": {
-        "crews": 27,
-        "engines": 55,
-        "helicopters": 7,
-        "total_personnel": 1209
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-VAD/Big Grass",
-      "incident_name": "Big Grass",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 578639,
-      "percent_contained": 85,
-      "resources": {
-        "crews": 9,
-        "engines": 40,
-        "helicopters": 4,
-        "total_personnel": 687
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "WA-COA/Kaiser Canyon",
-      "incident_name": "Kaiser Canyon",
-      "gacc": "NWCC",
-      "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 138284,
-      "percent_contained": 90,
-      "resources": {
-        "crews": 2,
-        "engines": 12,
-        "helicopters": 1,
-        "total_personnel": 326
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "WA-NES/Modrite",
-      "incident_name": "Modrite",
-      "gacc": "NWCC",
-      "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 57594,
-      "percent_contained": 97,
-      "resources": {
-        "crews": 6,
-        "engines": 20,
-        "helicopters": 3,
-        "total_personnel": 374
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-712S/Fielder Mtn",
-      "incident_name": "Fielder Mtn",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 573,
-      "percent_contained": 81,
-      "resources": {
-        "crews": 12,
-        "engines": 13,
-        "helicopters": 3,
-        "total_personnel": 435
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-UMF/Bologna",
-      "incident_name": "Bologna",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 4509,
-      "percent_contained": 95,
-      "resources": {
-        "crews": 1,
-        "engines": 3,
-        "helicopters": 9,
-        "total_personnel": 179
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-952S/Little Bear",
-      "incident_name": "Little Bear",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 67,
-      "percent_contained": 95,
-      "resources": {
-        "crews": 1,
-        "engines": 0,
-        "helicopters": 0,
-        "total_personnel": 22
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-953S/Rosenbaum",
-      "incident_name": "Rosenbaum",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 483,
-      "percent_contained": 89,
-      "resources": {
-        "crews": 5,
-        "engines": 5,
-        "helicopters": 0,
-        "total_personnel": 121
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "OR-952S/Cottonwood",
-      "incident_name": "Cottonwood",
-      "gacc": "NWCC",
-      "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 722,
-      "percent_contained": 95,
       "resources": {
         "crews": 0,
         "engines": 0,
@@ -419,18 +198,171 @@
       "lng": null
     },
     {
+      "incident_id": "OR-MHF/Grasshopper",
+      "incident_name": "Grasshopper",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-08-23",
+      "size_acres": 93562,
+      "percent_contained": 76,
+      "resources": {
+        "crews": 29,
+        "engines": 68,
+        "helicopters": 12,
+        "total_personnel": 1303
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-MHF/Austin",
+      "incident_name": "Austin",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-08-23",
+      "size_acres": 4808,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 13,
+        "engines": 16,
+        "helicopters": 4,
+        "total_personnel": 509
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-MHF/The Narrows",
+      "incident_name": "The Narrows",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-08-23",
+      "size_acres": 212,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 1,
+        "engines": 0,
+        "helicopters": 2,
+        "total_personnel": 29
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WA-NES/Sinlahekin",
+      "incident_name": "Sinlahekin",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-08-23",
+      "size_acres": 154480,
+      "percent_contained": 47,
+      "resources": {
+        "crews": 42,
+        "engines": 57,
+        "helicopters": 4,
+        "total_personnel": 1571
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-FWF/Wrights Spring",
+      "incident_name": "Wrights Spring",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-08-23",
+      "size_acres": 54325,
+      "percent_contained": 55,
+      "resources": {
+        "crews": 16,
+        "engines": 42,
+        "helicopters": 7,
+        "total_personnel": 775
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-VAD/Big Grass",
+      "incident_name": "Big Grass",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-08-23",
+      "size_acres": 578637,
+      "percent_contained": 93,
+      "resources": {
+        "crews": 6,
+        "engines": 22,
+        "helicopters": 1,
+        "total_personnel": 478
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-PRD/Rowe Creek Complex",
+      "incident_name": "Rowe Creek Complex",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-08-23",
+      "size_acres": 373981,
+      "percent_contained": 91,
+      "resources": {
+        "crews": 29,
+        "engines": 61,
+        "helicopters": 8,
+        "total_personnel": 1247
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WA-COA/Kaiser Canyon",
+      "incident_name": "Kaiser Canyon",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-08-23",
+      "size_acres": 138284,
+      "percent_contained": 98,
+      "resources": {
+        "crews": 2,
+        "engines": 8,
+        "helicopters": 0,
+        "total_personnel": 313
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WA-NES/Modrite",
+      "incident_name": "Modrite",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-08-23",
+      "size_acres": 57594,
+      "percent_contained": 98,
+      "resources": {
+        "crews": 2,
+        "engines": 11,
+        "helicopters": 2,
+        "total_personnel": 216
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
       "incident_id": "WA-GPF/High Lava",
       "incident_name": "High Lava",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 1717,
       "percent_contained": 19,
       "resources": {
-        "crews": 9,
-        "engines": 13,
+        "crews": 6,
+        "engines": 14,
         "helicopters": 0,
-        "total_personnel": 328
+        "total_personnel": 295
       },
       "lat": null,
       "lng": null
@@ -440,14 +372,14 @@
       "incident_name": "Luna",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 4624,
+      "date": "2026-08-23",
+      "size_acres": 4670,
       "percent_contained": 0,
       "resources": {
         "crews": 0,
-        "engines": 6,
+        "engines": 0,
         "helicopters": 1,
-        "total_personnel": 72
+        "total_personnel": 16
       },
       "lat": null,
       "lng": null
@@ -457,9 +389,9 @@
       "incident_name": "Border 2",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 7296,
-      "percent_contained": 42,
+      "date": "2026-08-23",
+      "size_acres": 7401,
+      "percent_contained": 40,
       "resources": {
         "crews": 0,
         "engines": 2,
@@ -470,35 +402,18 @@
       "lng": null
     },
     {
-      "incident_id": "WA-NES/Balky Hill",
-      "incident_name": "Balky Hill",
-      "gacc": "NWCC",
-      "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 365,
-      "percent_contained": 25,
-      "resources": {
-        "crews": 5,
-        "engines": 15,
-        "helicopters": 6,
-        "total_personnel": 185
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
       "incident_id": "WA-OWF/Ptarmigan",
       "incident_name": "Ptarmigan",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 24720,
+      "date": "2026-08-23",
+      "size_acres": 24770,
       "percent_contained": 55,
       "resources": {
-        "crews": 0,
+        "crews": 1,
         "engines": 1,
         "helicopters": 0,
-        "total_personnel": 23
+        "total_personnel": 42
       },
       "lat": null,
       "lng": null
@@ -508,14 +423,14 @@
       "incident_name": "Picture Rock",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 1228,
-      "percent_contained": 65,
+      "percent_contained": 70,
       "resources": {
         "crews": 2,
-        "engines": 20,
+        "engines": 6,
         "helicopters": 0,
-        "total_personnel": 120
+        "total_personnel": 65
       },
       "lat": null,
       "lng": null
@@ -525,14 +440,14 @@
       "incident_name": "0587 Shingle",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 73183,
       "percent_contained": 93,
       "resources": {
         "crews": 3,
         "engines": 11,
         "helicopters": 0,
-        "total_personnel": 219
+        "total_personnel": 213
       },
       "lat": null,
       "lng": null
@@ -542,31 +457,82 @@
       "incident_name": "Second Flat",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 105854,
-      "percent_contained": 95,
+      "percent_contained": 96,
       "resources": {
         "crews": 1,
-        "engines": 10,
+        "engines": 2,
         "helicopters": 0,
-        "total_personnel": 140
+        "total_personnel": 100
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "OR-711S/E Evans Creek Rd",
-      "incident_name": "E Evans Creek Rd",
+      "incident_id": "WA-YAA/Colwash",
+      "incident_name": "Colwash",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-08-23",
+      "size_acres": 4000,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 9,
+        "helicopters": 2,
+        "total_personnel": 59
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-WWF/North Pole",
+      "incident_name": "North Pole",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-08-21",
-      "size_acres": 15580,
-      "percent_contained": 98,
+      "date": "2026-08-23",
+      "size_acres": 100,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 1,
+        "engines": 12,
+        "helicopters": 0,
+        "total_personnel": 79
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-712S/Fielder Mtn",
+      "incident_name": "Fielder Mtn",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-08-23",
+      "size_acres": 573,
+      "percent_contained": 93,
       "resources": {
         "crews": 4,
         "engines": 6,
+        "helicopters": 3,
+        "total_personnel": 253
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-953S/Rosenbaum",
+      "incident_name": "Rosenbaum",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-08-23",
+      "size_acres": 483,
+      "percent_contained": 89,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
         "helicopters": 0,
-        "total_personnel": 101
+        "total_personnel": 5
       },
       "lat": null,
       "lng": null
@@ -576,7 +542,7 @@
       "incident_name": "Egypt",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 4553,
       "percent_contained": 82,
       "resources": {
@@ -589,69 +555,18 @@
       "lng": null
     },
     {
-      "incident_id": "WA-NWS/Prairie Mountain",
-      "incident_name": "Prairie Mountain",
-      "gacc": "NWCC",
-      "state": "WA",
-      "date": "2026-08-21",
-      "size_acres": 142,
-      "percent_contained": 90,
-      "resources": {
-        "crews": 3,
-        "engines": 8,
-        "helicopters": 0,
-        "total_personnel": 118
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "MT-NWS/Deer Creek",
-      "incident_name": "Deer Creek",
-      "gacc": "NRCC",
-      "state": "MT",
-      "date": "2026-08-21",
-      "size_acres": 345,
-      "percent_contained": 0,
-      "resources": {
-        "crews": 0,
-        "engines": 6,
-        "helicopters": 3,
-        "total_personnel": 25
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "MT-LG32/Windmill",
-      "incident_name": "Windmill",
-      "gacc": "NRCC",
-      "state": "MT",
-      "date": "2026-08-21",
-      "size_acres": 3000,
-      "percent_contained": 1,
-      "resources": {
-        "crews": 0,
-        "engines": 15,
-        "helicopters": 4,
-        "total_personnel": 64
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
       "incident_id": "MT-BDF/Sand Creek",
       "incident_name": "Sand Creek",
       "gacc": "NRCC",
       "state": "MT",
-      "date": "2026-08-21",
-      "size_acres": 31757,
-      "percent_contained": 7,
+      "date": "2026-08-23",
+      "size_acres": 32306,
+      "percent_contained": 10,
       "resources": {
-        "crews": 13,
-        "engines": 23,
-        "helicopters": 5,
-        "total_personnel": 534
+        "crews": 10,
+        "engines": 24,
+        "helicopters": 3,
+        "total_personnel": 457
       },
       "lat": null,
       "lng": null
@@ -661,31 +576,48 @@
       "incident_name": "Bobcat Lakes",
       "gacc": "NRCC",
       "state": "MT",
-      "date": "2026-08-21",
-      "size_acres": 9910,
+      "date": "2026-08-23",
+      "size_acres": 10005,
       "percent_contained": 40,
       "resources": {
         "crews": 0,
-        "engines": 11,
+        "engines": 10,
         "helicopters": 0,
-        "total_personnel": 232
+        "total_personnel": 207
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "MT-FNF/Skillet",
-      "incident_name": "Skillet",
+      "incident_id": "MT-LG32/Windmill",
+      "incident_name": "Windmill",
       "gacc": "NRCC",
       "state": "MT",
-      "date": "2026-08-21",
-      "size_acres": 3369,
-      "percent_contained": 82,
+      "date": "2026-08-23",
+      "size_acres": 4253,
+      "percent_contained": 57,
       "resources": {
-        "crews": 4,
-        "engines": 10,
-        "helicopters": 1,
-        "total_personnel": 199
+        "crews": 3,
+        "engines": 16,
+        "helicopters": 0,
+        "total_personnel": 159
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MT-NWS/Deer Creek",
+      "incident_name": "Deer Creek",
+      "gacc": "NRCC",
+      "state": "MT",
+      "date": "2026-08-23",
+      "size_acres": 724,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 3,
+        "engines": 5,
+        "helicopters": 3,
+        "total_personnel": 140
       },
       "lat": null,
       "lng": null
@@ -695,31 +627,14 @@
       "incident_name": "Moose",
       "gacc": "NRCC",
       "state": "MT",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 5965,
       "percent_contained": 6,
       "resources": {
-        "crews": 1,
-        "engines": 8,
+        "crews": 2,
+        "engines": 6,
         "helicopters": 10,
-        "total_personnel": 118
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "MT-LNF/Cherry Peak",
-      "incident_name": "Cherry Peak",
-      "gacc": "NRCC",
-      "state": "MT",
-      "date": "2026-08-21",
-      "size_acres": 140,
-      "percent_contained": 0,
-      "resources": {
-        "crews": 3,
-        "engines": 2,
-        "helicopters": 0,
-        "total_personnel": 115
+        "total_personnel": 174
       },
       "lat": null,
       "lng": null
@@ -729,14 +644,14 @@
       "incident_name": "Upper Smith",
       "gacc": "NRCC",
       "state": "ID",
-      "date": "2026-08-21",
-      "size_acres": 3894,
+      "date": "2026-08-23",
+      "size_acres": 4221,
       "percent_contained": 38,
       "resources": {
-        "crews": 3,
+        "crews": 2,
         "engines": 6,
         "helicopters": 3,
-        "total_personnel": 141
+        "total_personnel": 123
       },
       "lat": null,
       "lng": null
@@ -746,14 +661,31 @@
       "incident_name": "Moose Mountain",
       "gacc": "NRCC",
       "state": "ID",
-      "date": "2026-08-21",
-      "size_acres": 3249,
-      "percent_contained": 7,
+      "date": "2026-08-23",
+      "size_acres": 3841,
+      "percent_contained": 8,
       "resources": {
         "crews": 1,
         "engines": 5,
-        "helicopters": 3,
-        "total_personnel": 117
+        "helicopters": 5,
+        "total_personnel": 120
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MT-LNF/Cherry Peak",
+      "incident_name": "Cherry Peak",
+      "gacc": "NRCC",
+      "state": "MT",
+      "date": "2026-08-23",
+      "size_acres": 204,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 4,
+        "engines": 1,
+        "helicopters": 0,
+        "total_personnel": 132
       },
       "lat": null,
       "lng": null
@@ -763,14 +695,133 @@
       "incident_name": "Ant Park",
       "gacc": "NRCC",
       "state": "MT",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 400,
       "percent_contained": 88,
       "resources": {
         "crews": 1,
         "engines": 0,
         "helicopters": 0,
-        "total_personnel": 43
+        "total_personnel": 31
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-IPF/Porcupine",
+      "incident_name": "Porcupine",
+      "gacc": "NRCC",
+      "state": "ID",
+      "date": "2026-08-23",
+      "size_acres": 130,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 2
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MT-FNF/Silvertip",
+      "incident_name": "Silvertip",
+      "gacc": "NRCC",
+      "state": "MT",
+      "date": "2026-08-23",
+      "size_acres": 6737,
+      "percent_contained": 15,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 1,
+        "total_personnel": 14
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MT-FNF/Skillet",
+      "incident_name": "Skillet",
+      "gacc": "NRCC",
+      "state": "MT",
+      "date": "2026-08-23",
+      "size_acres": 3369,
+      "percent_contained": 82,
+      "resources": {
+        "crews": 4,
+        "engines": 10,
+        "helicopters": 1,
+        "total_personnel": 192
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-NCF/Cascade",
+      "incident_name": "Cascade",
+      "gacc": "NRCC",
+      "state": "ID",
+      "date": "2026-08-23",
+      "size_acres": 4100,
+      "percent_contained": 50,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 4
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-NCF/Grotto",
+      "incident_name": "Grotto",
+      "gacc": "NRCC",
+      "state": "ID",
+      "date": "2026-08-23",
+      "size_acres": 1000,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 1
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-NCF/Three Links",
+      "incident_name": "Three Links",
+      "gacc": "NRCC",
+      "state": "ID",
+      "date": "2026-08-23",
+      "size_acres": 510,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 1
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MT-CRA/Sarpy",
+      "incident_name": "Sarpy",
+      "gacc": "NRCC",
+      "state": "MT",
+      "date": "2026-08-23",
+      "size_acres": 897,
+      "percent_contained": 80,
+      "resources": {
+        "crews": 0,
+        "engines": 1,
+        "helicopters": 0,
+        "total_personnel": 9
       },
       "lat": null,
       "lng": null
@@ -780,7 +831,7 @@
       "incident_name": "Black Bear",
       "gacc": "NRCC",
       "state": "MT",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 2126,
       "percent_contained": 22,
       "resources": {
@@ -793,28 +844,11 @@
       "lng": null
     },
     {
-      "incident_id": "ID-IPF/Porcupine",
-      "incident_name": "Porcupine",
-      "gacc": "NRCC",
-      "state": "ID",
-      "date": "2026-08-21",
-      "size_acres": 127,
-      "percent_contained": 0,
-      "resources": {
-        "crews": 0,
-        "engines": 0,
-        "helicopters": 0,
-        "total_personnel": 2
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
       "incident_id": "MT-BRF/North Fork Lost Horse",
       "incident_name": "North Fork Lost Horse",
       "gacc": "NRCC",
       "state": "MT",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 118,
       "percent_contained": 70,
       "resources": {
@@ -827,154 +861,18 @@
       "lng": null
     },
     {
-      "incident_id": "MT-FNF/Silvertip",
-      "incident_name": "Silvertip",
-      "gacc": "NRCC",
-      "state": "MT",
-      "date": "2026-08-21",
-      "size_acres": 6681,
-      "percent_contained": 15,
-      "resources": {
-        "crews": 0,
-        "engines": 0,
-        "helicopters": 1,
-        "total_personnel": 10
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "MT-CRA/Sarpy",
-      "incident_name": "Sarpy",
-      "gacc": "NRCC",
-      "state": "MT",
-      "date": "2026-08-21",
-      "size_acres": 897,
-      "percent_contained": 80,
-      "resources": {
-        "crews": 0,
-        "engines": 2,
-        "helicopters": 0,
-        "total_personnel": 16
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "ID-NCF/Little Weitas",
-      "incident_name": "Little Weitas",
-      "gacc": "NRCC",
-      "state": "ID",
-      "date": "2026-08-21",
-      "size_acres": 400,
-      "percent_contained": 0,
-      "resources": {
-        "crews": 0,
-        "engines": 0,
-        "helicopters": 0,
-        "total_personnel": 0
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "NV-CCD/Shoshone",
-      "incident_name": "Shoshone",
-      "gacc": "GBCC",
-      "state": "NV",
-      "date": "2026-08-21",
-      "size_acres": 17226,
-      "percent_contained": 36,
-      "resources": {
-        "crews": 7,
-        "engines": 14,
-        "helicopters": 5,
-        "total_personnel": 253
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
       "incident_id": "ID-BOF/Crooked",
       "incident_name": "Crooked",
       "gacc": "GBCC",
       "state": "ID",
-      "date": "2026-08-21",
-      "size_acres": 250,
+      "date": "2026-08-23",
+      "size_acres": 1038,
       "percent_contained": 0,
       "resources": {
         "crews": 7,
-        "engines": 2,
-        "helicopters": 5,
-        "total_personnel": 220
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "ID-CAX/North Heglar",
-      "incident_name": "North Heglar",
-      "gacc": "GBCC",
-      "state": "ID",
-      "date": "2026-08-21",
-      "size_acres": 1844,
-      "percent_contained": 0,
-      "resources": {
-        "crews": 2,
-        "engines": 7,
-        "helicopters": 1,
-        "total_personnel": 98
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "UT-MLF/Black Canyon",
-      "incident_name": "Black Canyon",
-      "gacc": "GBCC",
-      "state": "UT",
-      "date": "2026-08-21",
-      "size_acres": 3264,
-      "percent_contained": 61,
-      "resources": {
-        "crews": 13,
-        "engines": 10,
-        "helicopters": 4,
-        "total_personnel": 533
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "UT-NWS/Rocky Canyon",
-      "incident_name": "Rocky Canyon",
-      "gacc": "GBCC",
-      "state": "UT",
-      "date": "2026-08-21",
-      "size_acres": 16464,
-      "percent_contained": 96,
-      "resources": {
-        "crews": 5,
-        "engines": 3,
-        "helicopters": 0,
-        "total_personnel": 176
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "UT-BRS/Little Mountain",
-      "incident_name": "Little Mountain",
-      "gacc": "GBCC",
-      "state": "UT",
-      "date": "2026-08-21",
-      "size_acres": 506,
-      "percent_contained": 45,
-      "resources": {
-        "crews": 0,
-        "engines": 9,
-        "helicopters": 0,
-        "total_personnel": 23
+        "engines": 8,
+        "helicopters": 7,
+        "total_personnel": 262
       },
       "lat": null,
       "lng": null
@@ -984,14 +882,99 @@
       "incident_name": "Slough Canyon",
       "gacc": "GBCC",
       "state": "UT",
-      "date": "2026-08-21",
-      "size_acres": 350,
+      "date": "2026-08-23",
+      "size_acres": 3000,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 1,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 42
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-MLF/Black Canyon",
+      "incident_name": "Black Canyon",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-08-23",
+      "size_acres": 3264,
+      "percent_contained": 78,
+      "resources": {
+        "crews": 7,
+        "engines": 7,
+        "helicopters": 4,
+        "total_personnel": 388
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-CAX/North Heglar",
+      "incident_name": "North Heglar",
+      "gacc": "GBCC",
+      "state": "ID",
+      "date": "2026-08-23",
+      "size_acres": 1844,
+      "percent_contained": 45,
+      "resources": {
+        "crews": 3,
+        "engines": 7,
+        "helicopters": 1,
+        "total_personnel": 116
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-TFD/Shale Butte",
+      "incident_name": "Shale Butte",
+      "gacc": "GBCC",
+      "state": "ID",
+      "date": "2026-08-23",
+      "size_acres": 1000,
       "percent_contained": 0,
       "resources": {
         "crews": 0,
-        "engines": 0,
+        "engines": 6,
+        "helicopters": 0,
+        "total_personnel": 28
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "ID-BOD/Fraser",
+      "incident_name": "Fraser",
+      "gacc": "GBCC",
+      "state": "ID",
+      "date": "2026-08-23",
+      "size_acres": 300,
+      "percent_contained": 25,
+      "resources": {
+        "crews": 0,
+        "engines": 5,
+        "helicopters": 0,
+        "total_personnel": 24
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NV-CCD/Shoshone",
+      "incident_name": "Shoshone",
+      "gacc": "GBCC",
+      "state": "NV",
+      "date": "2026-08-23",
+      "size_acres": 24513,
+      "percent_contained": 82,
+      "resources": {
+        "crews": 2,
+        "engines": 10,
         "helicopters": 1,
-        "total_personnel": 15
+        "total_personnel": 103
       },
       "lat": null,
       "lng": null
@@ -1001,14 +984,14 @@
       "incident_name": "Bug",
       "gacc": "GBCC",
       "state": "NV",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 93733,
       "percent_contained": 94,
       "resources": {
         "crews": 2,
-        "engines": 7,
+        "engines": 5,
         "helicopters": 3,
-        "total_personnel": 244
+        "total_personnel": 201
       },
       "lat": null,
       "lng": null
@@ -1018,31 +1001,48 @@
       "incident_name": "Doublesprings",
       "gacc": "GBCC",
       "state": "ID",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 1779,
       "percent_contained": 18,
       "resources": {
         "crews": 0,
         "engines": 0,
         "helicopters": 1,
-        "total_personnel": 17
+        "total_personnel": 16
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "UT-FIF/Widemouth 2",
-      "incident_name": "Widemouth 2",
+      "incident_id": "UT-BRS/Salt Wells",
+      "incident_name": "Salt Wells",
       "gacc": "GBCC",
       "state": "UT",
-      "date": "2026-08-21",
-      "size_acres": 129741,
-      "percent_contained": 93,
+      "date": "2026-08-23",
+      "size_acres": 585,
+      "percent_contained": 90,
       "resources": {
-        "crews": 1,
-        "engines": 7,
-        "helicopters": 4,
-        "total_personnel": 90
+        "crews": 0,
+        "engines": 3,
+        "helicopters": 0,
+        "total_personnel": 6
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "UT-NWS/Rocky Canyon",
+      "incident_name": "Rocky Canyon",
+      "gacc": "GBCC",
+      "state": "UT",
+      "date": "2026-08-23",
+      "size_acres": 16464,
+      "percent_contained": 96,
+      "resources": {
+        "crews": 2,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 73
       },
       "lat": null,
       "lng": null
@@ -1052,14 +1052,14 @@
       "incident_name": "Elk",
       "gacc": "RMCC",
       "state": "CO",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 7257,
       "percent_contained": 33,
       "resources": {
         "crews": 1,
-        "engines": 11,
+        "engines": 12,
         "helicopters": 2,
-        "total_personnel": 257
+        "total_personnel": 243
       },
       "lat": null,
       "lng": null
@@ -1069,14 +1069,65 @@
       "incident_name": "Gold Mountain",
       "gacc": "RMCC",
       "state": "CO",
-      "date": "2026-08-21",
-      "size_acres": 39710,
+      "date": "2026-08-23",
+      "size_acres": 39718,
       "percent_contained": 87,
       "resources": {
         "crews": 1,
-        "engines": 4,
+        "engines": 6,
         "helicopters": 1,
-        "total_personnel": 97
+        "total_personnel": 95
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "CO-CUX/Aspen Acres",
+      "incident_name": "Aspen Acres",
+      "gacc": "RMCC",
+      "state": "CO",
+      "date": "2026-08-23",
+      "size_acres": 102004,
+      "percent_contained": 77,
+      "resources": {
+        "crews": 1,
+        "engines": 0,
+        "helicopters": 1,
+        "total_personnel": 152
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "CO-PSF/Willow",
+      "incident_name": "Willow",
+      "gacc": "RMCC",
+      "state": "CO",
+      "date": "2026-08-23",
+      "size_acres": 7534,
+      "percent_contained": 80,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 10
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "SD-PRA/Rancher",
+      "incident_name": "Rancher",
+      "gacc": "RMCC",
+      "state": "SD",
+      "date": "2026-08-23",
+      "size_acres": 503,
+      "percent_contained": 85,
+      "resources": {
+        "crews": 0,
+        "engines": 6,
+        "helicopters": 0,
+        "total_personnel": 21
       },
       "lat": null,
       "lng": null
@@ -1086,9 +1137,9 @@
       "incident_name": "West Coal Creek",
       "gacc": "RMCC",
       "state": "WY",
-      "date": "2026-08-21",
-      "size_acres": 350,
-      "percent_contained": 30,
+      "date": "2026-08-23",
+      "size_acres": 896,
+      "percent_contained": 90,
       "resources": {
         "crews": 0,
         "engines": 6,
@@ -1099,86 +1150,69 @@
       "lng": null
     },
     {
-      "incident_id": "CO-CUX/Aspen Acres",
-      "incident_name": "Aspen Acres",
-      "gacc": "RMCC",
-      "state": "CO",
-      "date": "2026-08-21",
-      "size_acres": 102004,
-      "percent_contained": 77,
+      "incident_id": "CA-HVT/MP18",
+      "incident_name": "MP18",
+      "gacc": "ONCC",
+      "state": "CA",
+      "date": "2026-08-23",
+      "size_acres": 7610,
+      "percent_contained": 74,
       "resources": {
-        "crews": 1,
-        "engines": 0,
-        "helicopters": 1,
-        "total_personnel": 135
+        "crews": 23,
+        "engines": 45,
+        "helicopters": 3,
+        "total_personnel": 1172
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "CO-PSF/Willow",
-      "incident_name": "Willow",
-      "gacc": "RMCC",
-      "state": "CO",
-      "date": "2026-08-21",
-      "size_acres": 7534,
-      "percent_contained": 80,
+      "incident_id": "OK-ANA/Sugar Creek",
+      "incident_name": "Sugar Creek",
+      "gacc": "SACC",
+      "state": "OK",
+      "date": "2026-08-23",
+      "size_acres": 370,
+      "percent_contained": 10,
       "resources": {
         "crews": 0,
-        "engines": 2,
+        "engines": 36,
         "helicopters": 0,
+        "total_personnel": 100
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-EVP/Chipmunk",
+      "incident_name": "Chipmunk",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-08-23",
+      "size_acres": 9232,
+      "percent_contained": 30,
+      "resources": {
+        "crews": 0,
+        "engines": 3,
+        "helicopters": 1,
         "total_personnel": 11
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "SD-PRA/Rancher",
-      "incident_name": "Rancher",
-      "gacc": "RMCC",
-      "state": "SD",
-      "date": "2026-08-21",
-      "size_acres": 698,
-      "percent_contained": 85,
-      "resources": {
-        "crews": 0,
-        "engines": 7,
-        "helicopters": 0,
-        "total_personnel": 24
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "CO-LSX/Post",
-      "incident_name": "Post",
-      "gacc": "RMCC",
-      "state": "CO",
-      "date": "2026-08-21",
-      "size_acres": 4343,
-      "percent_contained": 90,
+      "incident_id": "AR-ARS/Pine Tree Rd",
+      "incident_name": "Pine Tree Rd",
+      "gacc": "SACC",
+      "state": "AR",
+      "date": "2026-08-23",
+      "size_acres": 2328,
+      "percent_contained": 80,
       "resources": {
         "crews": 0,
         "engines": 0,
         "helicopters": 0,
-        "total_personnel": 23
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "CA-HVT/MP18",
-      "incident_name": "MP18",
-      "gacc": "ONCC",
-      "state": "CA",
-      "date": "2026-08-21",
-      "size_acres": 7582,
-      "percent_contained": 71,
-      "resources": {
-        "crews": 36,
-        "engines": 86,
-        "helicopters": 6,
-        "total_personnel": 1644
+        "total_personnel": 0
       },
       "lat": null,
       "lng": null
@@ -1188,14 +1222,31 @@
       "incident_name": "Movie Dome",
       "gacc": "SACC",
       "state": "FL",
-      "date": "2026-08-21",
-      "size_acres": 987,
-      "percent_contained": 30,
+      "date": "2026-08-23",
+      "size_acres": 6222,
+      "percent_contained": 60,
       "resources": {
         "crews": 0,
         "engines": 3,
-        "helicopters": 0,
-        "total_personnel": 11
+        "helicopters": 1,
+        "total_personnel": 14
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OK-ANA/2690",
+      "incident_name": "2690",
+      "gacc": "SACC",
+      "state": "OK",
+      "date": "2026-08-23",
+      "size_acres": 900,
+      "percent_contained": 15,
+      "resources": {
+        "crews": 0,
+        "engines": 31,
+        "helicopters": 2,
+        "total_personnel": 79
       },
       "lat": null,
       "lng": null
@@ -1205,9 +1256,9 @@
       "incident_name": "Main Trail",
       "gacc": "SACC",
       "state": "GA",
-      "date": "2026-08-21",
-      "size_acres": 475,
-      "percent_contained": 30,
+      "date": "2026-08-23",
+      "size_acres": 741,
+      "percent_contained": 35,
       "resources": {
         "crews": 0,
         "engines": 0,
@@ -1222,31 +1273,14 @@
       "incident_name": "Jackson HWY 90",
       "gacc": "SACC",
       "state": "MS",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 1428,
-      "percent_contained": 70,
+      "percent_contained": 75,
       "resources": {
         "crews": 0,
         "engines": 0,
         "helicopters": 0,
-        "total_personnel": 5
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "TX-TXS/Casey Lake",
-      "incident_name": "Casey Lake",
-      "gacc": "SACC",
-      "state": "TX",
-      "date": "2026-08-21",
-      "size_acres": 443,
-      "percent_contained": 100,
-      "resources": {
-        "crews": 0,
-        "engines": 5,
-        "helicopters": 0,
-        "total_personnel": 44
+        "total_personnel": 2
       },
       "lat": null,
       "lng": null
@@ -1256,14 +1290,31 @@
       "incident_name": "Frijoles",
       "gacc": "SWCC",
       "state": "NM",
-      "date": "2026-08-21",
-      "size_acres": 15186,
-      "percent_contained": 38,
+      "date": "2026-08-23",
+      "size_acres": 15220,
+      "percent_contained": 42,
       "resources": {
-        "crews": 23,
-        "engines": 40,
+        "crews": 24,
+        "engines": 39,
         "helicopters": 5,
-        "total_personnel": 973
+        "total_personnel": 981
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "NM-N5S/Cooper",
+      "incident_name": "Cooper",
+      "gacc": "SWCC",
+      "state": "NM",
+      "date": "2026-08-23",
+      "size_acres": 575,
+      "percent_contained": 100,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
       },
       "lat": null,
       "lng": null
@@ -1273,14 +1324,14 @@
       "incident_name": "Timber",
       "gacc": "OSCC",
       "state": "CA",
-      "date": "2026-08-21",
-      "size_acres": 6055,
-      "percent_contained": 29,
+      "date": "2026-08-23",
+      "size_acres": 8665,
+      "percent_contained": 25,
       "resources": {
-        "crews": 21,
-        "engines": 102,
-        "helicopters": 12,
-        "total_personnel": 1472
+        "crews": 20,
+        "engines": 80,
+        "helicopters": 14,
+        "total_personnel": 1250
       },
       "lat": null,
       "lng": null
@@ -1290,14 +1341,14 @@
       "incident_name": "Mukluk",
       "gacc": "AICC",
       "state": "AK",
-      "date": "2026-08-21",
-      "size_acres": 6844,
-      "percent_contained": 12,
+      "date": "2026-08-23",
+      "size_acres": 7260,
+      "percent_contained": 20,
       "resources": {
-        "crews": 3,
-        "engines": 23,
-        "helicopters": 1,
-        "total_personnel": 219
+        "crews": 6,
+        "engines": 15,
+        "helicopters": 5,
+        "total_personnel": 264
       },
       "lat": null,
       "lng": null
@@ -1307,14 +1358,14 @@
       "incident_name": "Thumb",
       "gacc": "EACC",
       "state": "MN",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 25015,
-      "percent_contained": 51,
+      "percent_contained": 55,
       "resources": {
-        "crews": 2,
+        "crews": 0,
         "engines": 0,
         "helicopters": 0,
-        "total_personnel": 103
+        "total_personnel": 55
       },
       "lat": null,
       "lng": null
@@ -1324,7 +1375,7 @@
       "incident_name": "Sioux",
       "gacc": "EACC",
       "state": "MN",
-      "date": "2026-08-21",
+      "date": "2026-08-23",
       "size_acres": 6833,
       "percent_contained": 76,
       "resources": {
@@ -1341,14 +1392,14 @@
       "incident_name": "Bear Trap",
       "gacc": "EACC",
       "state": "MN",
-      "date": "2026-08-21",
-      "size_acres": 30810,
-      "percent_contained": 53,
+      "date": "2026-08-23",
+      "size_acres": 30806,
+      "percent_contained": 55,
       "resources": {
-        "crews": 0,
-        "engines": 12,
-        "helicopters": 6,
-        "total_personnel": 478
+        "crews": 2,
+        "engines": 14,
+        "helicopters": 7,
+        "total_personnel": 565
       },
       "lat": null,
       "lng": null
