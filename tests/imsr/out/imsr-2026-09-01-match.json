@@ -1,23 +1,23 @@
 {
-  "matched_at": "2026-08-30T18:32:13.937746+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-08-30-extracted.json",
-  "imsr_date": "2026-08-30",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-08-30.json",
-  "layer_records": 581,
+  "matched_at": "2026-09-01T18:19:13.894927+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-09-01-extracted.json",
+  "imsr_date": "2026-09-01",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-09-01.json",
+  "layer_records": 618,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 98,
-    "match_rate_pct": 93.9,
-    "exact": 92,
-    "strong": 0,
+    "imsr_incidents": 93,
+    "match_rate_pct": 91.4,
+    "exact": 84,
+    "strong": 1,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 6,
-    "layer_only_count": 489
+    "no_match": 8,
+    "layer_only_count": 533
   },
   "failure_reasons": {
-    "no name/unit signal in layer": 3,
-    "state_conflict (name matched but states differ)": 3
+    "no name/unit signal in layer": 4,
+    "state_conflict (name matched but states differ)": 4
   },
   "results": [
     {
@@ -42,7 +42,7 @@
         "ufi": "2026-NVWID-020620",
         "name": "McConnell",
         "state": "NV",
-        "acres": 32169,
+        "acres": 32648,
         "lat": 41.51756700000004,
         "lng": -117.74214999999998
       },
@@ -70,37 +70,9 @@
         "ufi": "2026-IDBOF-000958",
         "name": "CROOKED",
         "state": "ID",
-        "acres": 7430,
+        "acres": 8604,
         "lat": 43.84716700000007,
         "lng": -115.53961699999996
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NV-HTF/Calico",
-      "imsr_name": "Calico",
-      "imsr_unit": "NVHTF",
-      "imsr_state": "NV",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NVHTF-020624",
-        "name": "Calico",
-        "state": "NV",
-        "acres": 18319,
-        "lat": 41.86665000000005,
-        "lng": -117.35629999999998
       },
       "other_candidates": []
     },
@@ -133,10 +105,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "ID-TFD/Wildhorse",
-      "imsr_name": "Wildhorse",
-      "imsr_unit": "IDTFD",
-      "imsr_state": "ID",
+      "imsr_id": "NV-HTF/Calico",
+      "imsr_name": "Calico",
+      "imsr_unit": "NVHTF",
+      "imsr_state": "NV",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -151,12 +123,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-IDTFD-000216",
-        "name": "Wildhorse",
-        "state": "ID",
-        "acres": 107562,
-        "lat": 43.00130000000007,
-        "lng": -113.88464999999997
+        "ufi": "2026-NVHTF-020624",
+        "name": "Calico",
+        "state": "NV",
+        "acres": 18319,
+        "lat": 41.86665000000005,
+        "lng": -117.35629999999998
       },
       "other_candidates": []
     },
@@ -189,34 +161,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "UT-MLF/Black Canyon",
-      "imsr_name": "Black Canyon",
-      "imsr_unit": "UTMLF",
-      "imsr_state": "UT",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-UTMLF-005244",
-        "name": "Black Canyon",
-        "state": "UT",
-        "acres": 3264,
-        "lat": 39.38300000000004,
-        "lng": -111.30796699999996
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "UT-UOA/Slough Canyon",
       "imsr_name": "Slough Canyon",
       "imsr_unit": "UTUOA",
@@ -238,177 +182,9 @@
         "ufi": "2026-UTUOA-100254",
         "name": "Slough Canyon",
         "state": "UT",
-        "acres": 4698,
+        "acres": 4774,
         "lat": 39.36970000000008,
         "lng": -109.92319999999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "ID-CAX/Coldwater",
-      "imsr_name": "Coldwater",
-      "imsr_unit": "IDCAX",
-      "imsr_state": "ID",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-IDCAX-000227",
-        "name": "Coldwater",
-        "state": "ID",
-        "acres": 1900,
-        "lat": 42.57546700000006,
-        "lng": -113.06764999999996
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "UT-BRS/Brushy Canyon",
-      "imsr_name": "Brushy Canyon",
-      "imsr_unit": "UTBRS",
-      "imsr_state": "UT",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-UTBRS-200695",
-        "name": "Brushy Canyon",
-        "state": "UT",
-        "acres": 10002,
-        "lat": 41.28866700000003,
-        "lng": -112.47949999999997
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NV-EKD/Forleen",
-      "imsr_name": "Forleen",
-      "imsr_unit": "NVEKD",
-      "imsr_state": "NV",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NVEKD-010519",
-        "name": "Forleen",
-        "state": "NV",
-        "acres": 667,
-        "lat": 41.44541700000008,
-        "lng": -115.03646699999996
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NV-WHIX/Kearny",
-      "imsr_name": "Kearny",
-      "imsr_unit": "NVWHIX",
-      "imsr_state": "NV",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NVWHIX-040406",
-        "name": "Kearny",
-        "state": "NV",
-        "acres": 300,
-        "lat": 39.91375000000005,
-        "lng": -114.91841699999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "UT-SWS/Teddy Valley",
-      "imsr_name": "Teddy Valley",
-      "imsr_unit": "UTSWS",
-      "imsr_state": "UT",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-UTSWS-000581",
-        "name": "Teddy Valley",
-        "state": "UT",
-        "acres": 361.3,
-        "lat": 38.144074000000046,
-        "lng": -112.73413199999999
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "UT-WDD/Tom Creek",
-      "imsr_name": "Tom Creek",
-      "imsr_unit": "UTWDD",
-      "imsr_state": "UT",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-UTWDD-200672",
-        "name": "Tom Creek",
-        "state": "UT",
-        "acres": 4991.3,
-        "lat": 40.00455000000005,
-        "lng": -112.70586699999996
       },
       "other_candidates": []
     },
@@ -441,9 +217,37 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "NV-EKD/Oxley",
-      "imsr_name": "Oxley",
-      "imsr_unit": "NVEKD",
+      "imsr_id": "UT-WDD/Tom Creek",
+      "imsr_name": "Tom Creek",
+      "imsr_unit": "UTWDD",
+      "imsr_state": "UT",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-UTWDD-200672",
+        "name": "Tom Creek",
+        "state": "UT",
+        "acres": 4991.3,
+        "lat": 40.00455000000005,
+        "lng": -112.70586699999996
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NV-TMFX/Hawk",
+      "imsr_name": "Hawk",
+      "imsr_unit": "NVTMFX",
       "imsr_state": "NV",
       "imsr_year": "2026",
       "final": "EXACT",
@@ -459,12 +263,124 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-NVEKD-010515",
-        "name": "Oxley",
+        "ufi": "2026-NVTMFX-030739",
+        "name": "Hawk",
         "state": "NV",
-        "acres": 11384,
-        "lat": 41.18450000000007,
-        "lng": -114.93083299999995
+        "acres": 15085,
+        "lat": 39.542500000000075,
+        "lng": -119.95233299999995
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "UT-BRS/Brushy Canyon",
+      "imsr_name": "Brushy Canyon",
+      "imsr_unit": "UTBRS",
+      "imsr_state": "UT",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-UTBRS-200695",
+        "name": "Brushy Canyon",
+        "state": "UT",
+        "acres": 10002,
+        "lat": 41.28866700000003,
+        "lng": -112.47949999999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "ID-TFD/Wildhorse",
+      "imsr_name": "Wildhorse",
+      "imsr_unit": "IDTFD",
+      "imsr_state": "ID",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-IDTFD-000216",
+        "name": "Wildhorse",
+        "state": "ID",
+        "acres": 107562,
+        "lat": 43.00130000000007,
+        "lng": -113.88464999999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NV-WHIX/Kearny",
+      "imsr_name": "Kearny",
+      "imsr_unit": "NVWHIX",
+      "imsr_state": "NV",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NVWHIX-040406",
+        "name": "Kearny",
+        "state": "NV",
+        "acres": 300,
+        "lat": 39.91375000000005,
+        "lng": -114.91841699999998
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OR-WWF/McCully",
+      "imsr_name": "McCully",
+      "imsr_unit": "ORWWF",
+      "imsr_state": "OR",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-ORWWF-000531",
+        "name": "McCully",
+        "state": "OR",
+        "acres": 11231,
+        "lat": 44.82790200000005,
+        "lng": -118.28077599999995
       },
       "other_candidates": []
     },
@@ -490,7 +406,7 @@
         "ufi": "2026-WAOWF-260406",
         "name": "LITTLE GIANT",
         "state": "WA",
-        "acres": 162961,
+        "acres": 170784,
         "lat": 48.01621700000004,
         "lng": -120.84661699999998
       },
@@ -518,65 +434,9 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 1794,
+        "acres": 2104,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-NES/Sinlahekin",
-      "imsr_name": "Sinlahekin",
-      "imsr_unit": "WANES",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WANES-001791",
-        "name": "SINLAHEKIN",
-        "state": "WA",
-        "acres": 166868,
-        "lat": 48.70461700000004,
-        "lng": -119.69311699999997
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OR-WWF/McCully",
-      "imsr_name": "McCully",
-      "imsr_unit": "ORWWF",
-      "imsr_state": "OR",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-ORWWF-000531",
-        "name": "McCully",
-        "state": "OR",
-        "acres": 9484,
-        "lat": 44.82790200000005,
-        "lng": -118.28077599999995
       },
       "other_candidates": []
     },
@@ -602,7 +462,7 @@
         "ufi": "2026-ORUMF-000302",
         "name": "Paradise",
         "state": "OR",
-        "acres": 9324,
+        "acres": 9466,
         "lat": 45.99813900000004,
         "lng": -117.97428199999996
       },
@@ -630,135 +490,10 @@
         "ufi": "2026-ORUMF-000324",
         "name": "Hagen",
         "state": "OR",
-        "acres": 60861,
+        "acres": 61125,
         "lat": 45.70700000000005,
         "lng": -118.26899999999995
       },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Three Queens",
-      "imsr_name": "Three Queens",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260420",
-        "name": "THREE QUEENS",
-        "state": "WA",
-        "acres": 8596,
-        "lat": 47.414000000000044,
-        "lng": -121.26133299999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/King",
-      "imsr_name": "King",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260699",
-        "name": "KING",
-        "state": "WA",
-        "acres": 2326,
-        "lat": 47.470800000000054,
-        "lng": -121.25586699999997
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Goat",
-      "imsr_name": "Goat",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260711",
-        "name": "GOAT",
-        "state": "WA",
-        "acres": 687,
-        "lat": 47.45891700000004,
-        "lng": -121.05278299999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-MRP/Grand Park 2",
-      "imsr_name": "Grand Park 2",
-      "imsr_unit": "WAMRP",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAMRP-000847",
-        "name": "GRAND PARK 2",
-        "state": "WA",
-        "acres": 168,
-        "lat": 46.97631700000005,
-        "lng": -121.67508299999997
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-MRP/Wonderland Complex",
-      "imsr_name": "Wonderland Complex",
-      "imsr_unit": "WAMRP",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
       "other_candidates": []
     },
     {
@@ -783,7 +518,7 @@
         "ufi": "2026-ORMHF-000863",
         "name": "AUSTIN",
         "state": "OR",
-        "acres": 10261,
+        "acres": 11682,
         "lat": 45.02521600000006,
         "lng": -121.94487199999998
       },
@@ -818,7 +553,7 @@
         "ufi": "2026-ORMHF-000688",
         "name": "GRASSHOPPER",
         "state": "OR",
-        "acres": 93924,
+        "acres": 93961,
         "lat": 45.25296700000007,
         "lng": -121.51013299999994
       },
@@ -846,10 +581,135 @@
         "ufi": "2026-ORMHF-000855",
         "name": "THE NARROWS",
         "state": "OR",
-        "acres": 292,
+        "acres": 301,
         "lat": 45.14690100000007,
         "lng": -122.09361099999995
       },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-NES/Sinlahekin",
+      "imsr_name": "Sinlahekin",
+      "imsr_unit": "WANES",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WANES-001791",
+        "name": "SINLAHEKIN",
+        "state": "WA",
+        "acres": 166373,
+        "lat": 48.70461700000004,
+        "lng": -119.69311699999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-OWF/Three Queens",
+      "imsr_name": "Three Queens",
+      "imsr_unit": "WAOWF",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAOWF-260420",
+        "name": "THREE QUEENS",
+        "state": "WA",
+        "acres": 8993,
+        "lat": 47.414000000000044,
+        "lng": -121.26133299999998
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-OWF/King",
+      "imsr_name": "King",
+      "imsr_unit": "WAOWF",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAOWF-260699",
+        "name": "KING",
+        "state": "WA",
+        "acres": 2508,
+        "lat": 47.470800000000054,
+        "lng": -121.25586699999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-OWF/Goat",
+      "imsr_name": "Goat",
+      "imsr_unit": "WAOWF",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAOWF-260711",
+        "name": "GOAT",
+        "state": "WA",
+        "acres": 736,
+        "lat": 47.45891700000004,
+        "lng": -121.05278299999998
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-MRP/Wonderland Complex",
+      "imsr_name": "Wonderland Complex",
+      "imsr_unit": "WAMRP",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
       "other_candidates": []
     },
     {
@@ -894,6 +754,34 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "WA-NCP/Luna",
+      "imsr_name": "Luna",
+      "imsr_unit": "WANCP",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WANCP-000179",
+        "name": "Luna",
+        "state": "WA",
+        "acres": 5470,
+        "lat": 48.82113700000008,
+        "lng": -121.20969299999996
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "WA-GPF/High Lava",
       "imsr_name": "High Lava",
       "imsr_unit": "WAGPF",
@@ -918,34 +806,6 @@
         "acres": 2894,
         "lat": 45.88050000000004,
         "lng": -122.11616699999996
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-NCP/Luna",
-      "imsr_name": "Luna",
-      "imsr_unit": "WANCP",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WANCP-000179",
-        "name": "Luna",
-        "state": "WA",
-        "acres": 5740,
-        "lat": 48.82113700000008,
-        "lng": -121.20969299999996
       },
       "other_candidates": []
     },
@@ -1083,23 +943,10 @@
         "ufi": "2026-WAOWF-260448",
         "name": "PTARMIGAN",
         "state": "WA",
-        "acres": 25104,
+        "acres": 25166,
         "lat": 48.942000000000064,
         "lng": -120.60949999999997
       },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OR-953S/Rosenbaum",
-      "imsr_name": "Rosenbaum",
-      "imsr_unit": "OR953S",
-      "imsr_state": "OR",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
       "other_candidates": []
     },
     {
@@ -1131,10 +978,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "OR-VAD/Mitchell Springs",
-      "imsr_name": "Mitchell Springs",
-      "imsr_unit": "ORVAD",
-      "imsr_state": "OR",
+      "imsr_id": "WA-MRP/Grand Park 2",
+      "imsr_name": "Grand Park 2",
+      "imsr_unit": "WAMRP",
+      "imsr_state": "WA",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -1149,40 +996,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-ORVAD-260264",
-        "name": "MITCHELL SPRINGS",
-        "state": "OR",
-        "acres": 5444,
-        "lat": 42.09153300000003,
-        "lng": -117.89062799999999
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OR-WWF/North Pole",
-      "imsr_name": "North Pole",
-      "imsr_unit": "ORWWF",
-      "imsr_state": "OR",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-ORWWF-000535",
-        "name": "North Pole",
-        "state": "OR",
-        "acres": 310,
-        "lat": 44.84408300000007,
-        "lng": -118.19438299999996
+        "ufi": "2026-WAMRP-000847",
+        "name": "GRAND PARK 2",
+        "state": "WA",
+        "acres": 168,
+        "lat": 46.97631700000005,
+        "lng": -121.67508299999997
       },
       "other_candidates": []
     },
@@ -1208,7 +1027,7 @@
         "ufi": "2026-IDIPF-000730",
         "name": "Dudley",
         "state": "ID",
-        "acres": 557,
+        "acres": 672,
         "lat": 47.53941700000007,
         "lng": -115.92076699999996
       },
@@ -1264,7 +1083,7 @@
         "ufi": "2026-MTBDF-266313",
         "name": "Bobcat Lakes",
         "state": "MT",
-        "acres": 10784,
+        "acres": 10802,
         "lat": 45.636817000000065,
         "lng": -113.20388299999996
       },
@@ -1292,7 +1111,7 @@
         "ufi": "2026-MTBDF-266293",
         "name": "Moose",
         "state": "MT",
-        "acres": 5970,
+        "acres": 5983,
         "lat": 46.072200000000066,
         "lng": -113.69074999999998
       },
@@ -1320,7 +1139,7 @@
         "ufi": "2026-MTBDF-266401",
         "name": "Skull",
         "state": "MT",
-        "acres": 51,
+        "acres": 61,
         "lat": 45.57816100000008,
         "lng": -113.21810499999998
       },
@@ -1348,7 +1167,7 @@
         "ufi": "2026-MTBRF-000340",
         "name": "Nature Grove",
         "state": "MT",
-        "acres": 991,
+        "acres": 1141,
         "lat": 46.153500000000065,
         "lng": -113.92433299999999
       },
@@ -1432,7 +1251,7 @@
         "ufi": "2026-IDIPF-000347",
         "name": "Upper Smith",
         "state": "ID",
-        "acres": 4701,
+        "acres": 4788,
         "lat": 48.927500000000066,
         "lng": -116.60778299999998
       },
@@ -1460,7 +1279,7 @@
         "ufi": "2026-IDNCF-000349",
         "name": "Moose Mountain",
         "state": "ID",
-        "acres": 5486,
+        "acres": 5487,
         "lat": 46.77493300000003,
         "lng": -115.21669999999995
       },
@@ -1495,34 +1314,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MT-CES/Roe 2",
-      "imsr_name": "Roe 2",
-      "imsr_unit": "MTCES",
-      "imsr_state": "MT",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MTCES-266405",
-        "name": "Roe 2",
-        "state": "MT",
-        "acres": 978,
-        "lat": 44.92186700000008,
-        "lng": -112.77824999999996
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "ID-IPF/Parker Lake",
       "imsr_name": "Parker Lake",
       "imsr_unit": "IDIPF",
@@ -1544,7 +1335,7 @@
         "ufi": "2026-IDIPF-000702",
         "name": "Parker Lake",
         "state": "ID",
-        "acres": 1309,
+        "acres": 1403,
         "lat": 48.87013300000007,
         "lng": -116.62469999999996
       },
@@ -1572,44 +1363,9 @@
         "ufi": "2026-IDIPF-000495",
         "name": "Porcupine",
         "state": "ID",
-        "acres": 175,
+        "acres": 180,
         "lat": 48.25100000000003,
         "lng": -116.14899999999994
-      },
-      "other_candidates": [
-        {
-          "ufi": "2026-MTHLF-000669",
-          "name": "Porcupine",
-          "tier": "STATE_CONFLICT",
-          "score": 0.55
-        }
-      ]
-    },
-    {
-      "imsr_id": "MT-FNF/Silvertip",
-      "imsr_name": "Silvertip",
-      "imsr_unit": "MTFNF",
-      "imsr_state": "MT",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MTFNF-000280",
-        "name": "Silvertip",
-        "state": "MT",
-        "acres": 7144,
-        "lat": 47.83550000000008,
-        "lng": -113.27349999999996
       },
       "other_candidates": []
     },
@@ -1635,7 +1391,7 @@
         "ufi": "2026-MTFNF-000393",
         "name": "Camp Creek",
         "state": "MT",
-        "acres": 9500,
+        "acres": 9612,
         "lat": 47.42766700000004,
         "lng": -113.09933299999994
       },
@@ -1658,6 +1414,12 @@
           "name": "Cooper",
           "tier": "STATE_CONFLICT",
           "score": 0.8
+        },
+        {
+          "ufi": "2026-OR731S-000488",
+          "name": "Cooper",
+          "tier": "STATE_CONFLICT",
+          "score": 0.55
         },
         {
           "ufi": "2026-NMN5S-000659",
@@ -1696,6 +1458,26 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "MT-BRF/Scimitar",
+      "imsr_name": "Scimitar",
+      "imsr_unit": "MTBRF",
+      "imsr_state": "MT",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "state_conflict (name matched but states differ)",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": [
+        {
+          "ufi": "2026-MTBRF-000333",
+          "name": "Scimitar",
+          "tier": "STATE_CONFLICT",
+          "score": 0.8
+        }
+      ]
+    },
+    {
       "imsr_id": "ID-NCF/Grotto",
       "imsr_name": "Grotto",
       "imsr_unit": "IDNCF",
@@ -1717,7 +1499,7 @@
         "ufi": "2026-IDNCF-000348",
         "name": "Grotto",
         "state": "ID",
-        "acres": 3171,
+        "acres": 3849,
         "lat": 46.255900000000054,
         "lng": -115.09366699999998
       },
@@ -1745,7 +1527,7 @@
         "ufi": "2026-IDNCF-000330",
         "name": "Three Links",
         "state": "ID",
-        "acres": 760,
+        "acres": 790,
         "lat": 46.14983300000006,
         "lng": -115.11766699999998
       },
@@ -1780,6 +1562,75 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "MT-FNF/Silvertip",
+      "imsr_name": "Silvertip",
+      "imsr_unit": "MTFNF",
+      "imsr_state": "MT",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MTFNF-000280",
+        "name": "Silvertip",
+        "state": "MT",
+        "acres": 7246,
+        "lat": 47.83550000000008,
+        "lng": -113.27349999999996
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MT-LG33/Horse Camp",
+      "imsr_name": "Horse Camp",
+      "imsr_unit": "MTLG33",
+      "imsr_state": "MT",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MT-CES/Roe 2",
+      "imsr_name": "Roe 2",
+      "imsr_unit": "MTCES",
+      "imsr_state": "MT",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MTCES-266405",
+        "name": "Roe 2",
+        "state": "MT",
+        "acres": 978,
+        "lat": 44.92186700000008,
+        "lng": -112.77824999999996
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "TX-TXS/Ross",
       "imsr_name": "Ross",
       "imsr_unit": "TXTXS",
@@ -1801,9 +1652,205 @@
         "ufi": "2026-TXTXS-267549",
         "name": "Ross",
         "state": "TX",
-        "acres": 85303,
+        "acres": 90048,
         "lat": 32.759818550000034,
         "lng": -98.34256985999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-ANA/Railroad South",
+      "imsr_name": "Railroad South",
+      "imsr_unit": "OKANA",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKANA-002686",
+        "name": "RAILROAD SOUTH",
+        "state": "OK",
+        "acres": 515,
+        "lat": 34.608400000000074,
+        "lng": -98.72049999999996
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-OKS/Alexander Trail",
+      "imsr_name": "Alexander Trail",
+      "imsr_unit": "OKOKS",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOKS-260966",
+        "name": "Alexander Trail Fire",
+        "state": "OK",
+        "acres": 1600,
+        "lat": 34.47777780000007,
+        "lng": -95.29666669999995
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "TX-TXS/Harris",
+      "imsr_name": "Harris",
+      "imsr_unit": "TXTXS",
+      "imsr_state": "TX",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-TXTXS-267913",
+        "name": "Harris",
+        "state": "TX",
+        "acres": 826,
+        "lat": 33.05632251000003,
+        "lng": -99.07646448999998
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "TX-TXS/Crow",
+      "imsr_name": "Crow",
+      "imsr_unit": "TXTXS",
+      "imsr_state": "TX",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-TXTXS-267921",
+        "name": "Crow",
+        "state": "TX",
+        "acres": 132,
+        "lat": 32.62255000000005,
+        "lng": -95.31444999999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-OKS/Wildhorse Creek",
+      "imsr_name": "Wildhorse Creek",
+      "imsr_unit": "OKOKS",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "STRONG",
+      "reason": "best single candidate",
+      "score": 0.75,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": false,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOKSC-260957",
+        "name": "Wildhorse Creek",
+        "state": "OK",
+        "acres": 111,
+        "lat": 34.21500000000003,
+        "lng": -95.38861109999999
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-OKS/Black Fox",
+      "imsr_name": "Black Fox",
+      "imsr_unit": "OKOKS",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOKS-260983",
+        "name": "Black Fox",
+        "state": "OK",
+        "acres": 165,
+        "lat": 36.12361110000006,
+        "lng": -94.81999999999994
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-OMA/Wright",
+      "imsr_name": "Wright",
+      "imsr_unit": "OKOMA",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOMA-002688",
+        "name": "WRIGHT",
+        "state": "OK",
+        "acres": 608,
+        "lat": 35.22466700000007,
+        "lng": -96.11489999999998
       },
       "other_candidates": []
     },
@@ -1829,72 +1876,9 @@
         "ufi": "2026-TXTXS-267837",
         "name": "Sandy",
         "state": "TX",
-        "acres": 1000,
+        "acres": 2003,
         "lat": 26.615000000000066,
         "lng": -97.92166666999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "TX-TXS/West Fork",
-      "imsr_name": "West Fork",
-      "imsr_unit": "TXTXS",
-      "imsr_state": "TX",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-TXTXS-267801",
-        "name": "West Fork",
-        "state": "TX",
-        "acres": 775,
-        "lat": 30.368726240000058,
-        "lng": -100.15165742999994
-      },
-      "other_candidates": [
-        {
-          "ufi": "2026-WAMRP-000952",
-          "name": "WEST FORK",
-          "tier": "STATE_CONFLICT",
-          "score": 0.55
-        }
-      ]
-    },
-    {
-      "imsr_id": "OK-OKS/Wildhorse Creek",
-      "imsr_name": "Wildhorse Creek",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-260957",
-        "name": "Wildhorse Creek",
-        "state": "OK",
-        "acres": 106,
-        "lat": 34.21500000000003,
-        "lng": -95.38861109999999
       },
       "other_candidates": []
     },
@@ -1920,121 +1904,9 @@
         "ufi": "2026-TXTXS-267823",
         "name": "McKee Draw",
         "state": "TX",
-        "acres": 3444,
+        "acres": 4416,
         "lat": 30.184166670000025,
         "lng": -100.31489999999997
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OKS/High Fence",
-      "imsr_name": "High Fence",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-260964",
-        "name": "High Fence",
-        "state": "OK",
-        "acres": 250,
-        "lat": 34.97083330000004,
-        "lng": -96.13888889999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OKS/South Beaver Mt",
-      "imsr_name": "South Beaver Mt",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-260955",
-        "name": "South Beaver Mt",
-        "state": "OK",
-        "acres": 108,
-        "lat": 34.143611100000044,
-        "lng": -95.35527779999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OKS/Brushy Creek",
-      "imsr_name": "Brushy Creek",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-260952",
-        "name": "Brushy Creek",
-        "state": "OK",
-        "acres": 238,
-        "lat": 34.78638890000008,
-        "lng": -95.66805559999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "TX-TXS/Whitetail",
-      "imsr_name": "Whitetail",
-      "imsr_unit": "TXTXS",
-      "imsr_state": "TX",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-TXTXS-267811",
-        "name": "Whitetail",
-        "state": "TX",
-        "acres": 494,
-        "lat": 30.05469850000003,
-        "lng": -100.42860851999995
       },
       "other_candidates": []
     },
@@ -2065,6 +1937,69 @@
         "lng": -80.98825799999997
       },
       "other_candidates": []
+    },
+    {
+      "imsr_id": "TX-TXS/Shotgun",
+      "imsr_name": "Shotgun",
+      "imsr_unit": "TXTXS",
+      "imsr_state": "TX",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-TXTXS-267889",
+        "name": "Shotgun",
+        "state": "TX",
+        "acres": 365,
+        "lat": 32.11241000000007,
+        "lng": -99.37200999999999
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "TX-TXS/West Fork",
+      "imsr_name": "West Fork",
+      "imsr_unit": "TXTXS",
+      "imsr_state": "TX",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-TXTXS-267801",
+        "name": "West Fork",
+        "state": "TX",
+        "acres": 961,
+        "lat": 30.368726240000058,
+        "lng": -100.15165742999994
+      },
+      "other_candidates": [
+        {
+          "ufi": "2026-WAMRP-000952",
+          "name": "WEST FORK",
+          "tier": "STATE_CONFLICT",
+          "score": 0.55
+        }
+      ]
     },
     {
       "imsr_id": "AR-OUF/West Glover",
@@ -2115,38 +2050,23 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "OK-ANA/2690",
-      "imsr_name": "2690",
-      "imsr_unit": "OKANA",
-      "imsr_state": "OK",
+      "imsr_id": "MS-MSS/Church Rd",
+      "imsr_name": "Church Rd",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
       "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKANA-002546",
-        "name": "2690",
-        "state": "OK",
-        "acres": 900,
-        "lat": 35.16463500000003,
-        "lng": -98.18505199999998
-      },
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
       "other_candidates": []
     },
     {
-      "imsr_id": "OK-ANA/Sugar Creek",
-      "imsr_name": "Sugar Creek",
-      "imsr_unit": "OKANA",
-      "imsr_state": "OK",
+      "imsr_id": "CA-LPF/Plaskett",
+      "imsr_name": "Plaskett",
+      "imsr_unit": "CALPF",
+      "imsr_state": "CA",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -2161,68 +2081,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-OKANA-002553",
-        "name": "SUGAR CREEK",
-        "state": "OK",
-        "acres": 370,
-        "lat": 35.305300000000045,
-        "lng": -98.35879999999997
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "TX-TXS/Rio Escondido",
-      "imsr_name": "Rio Escondido",
-      "imsr_unit": "TXTXS",
-      "imsr_state": "TX",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-TXTXS-267552",
-        "name": "Rio Escondido",
-        "state": "TX",
-        "acres": 2713,
-        "lat": 31.494444970000075,
-        "lng": -98.12036999999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OKS/Buck Creek",
-      "imsr_name": "Buck Creek",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-260920",
-        "name": "Buck Creek",
-        "state": "OK",
-        "acres": 597,
-        "lat": 34.49805560000004,
-        "lng": -95.69388889999999
+        "ufi": "2026-CALPF-002475",
+        "name": "Plaskett",
+        "state": "CA",
+        "acres": 26734,
+        "lat": 35.90566700000005,
+        "lng": -121.41249999999997
       },
       "other_candidates": []
     },
@@ -2248,37 +2112,9 @@
         "ufi": "2026-CALPF-002271",
         "name": "Timber",
         "state": "CA",
-        "acres": 24839,
+        "acres": 25190,
         "lat": 36.21589400000005,
         "lng": -121.71750799999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-LPF/Plaskett",
-      "imsr_name": "Plaskett",
-      "imsr_unit": "CALPF",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CALPF-002475",
-        "name": "Plaskett",
-        "state": "CA",
-        "acres": 8241,
-        "lat": 35.90566700000005,
-        "lng": -121.41249999999997
       },
       "other_candidates": []
     },
@@ -2331,6 +2167,62 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "NM-SNF/Frijoles",
+      "imsr_name": "Frijoles",
+      "imsr_unit": "NMSNF",
+      "imsr_state": "NM",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NMSNF-000444",
+        "name": "Frijoles",
+        "state": "NM",
+        "acres": 15451,
+        "lat": 35.90866700000004,
+        "lng": -105.84816699999999
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NM-CIF/Whiskey",
+      "imsr_name": "Whiskey",
+      "imsr_unit": "NMCIF",
+      "imsr_state": "NM",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NMCIF-000540",
+        "name": "WHISKEY",
+        "state": "NM",
+        "acres": 351,
+        "lat": 34.67874900000004,
+        "lng": -106.43188499999997
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "NM-CAF/Mogote Ridge",
       "imsr_name": "Mogote Ridge",
       "imsr_unit": "NMCAF",
@@ -2355,34 +2247,6 @@
         "acres": 112,
         "lat": 36.49168300000008,
         "lng": -106.30546699999996
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NM-SNF/Frijoles",
-      "imsr_name": "Frijoles",
-      "imsr_unit": "NMSNF",
-      "imsr_state": "NM",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NMSNF-000444",
-        "name": "Frijoles",
-        "state": "NM",
-        "acres": 15367,
-        "lat": 35.90866700000004,
-        "lng": -105.84816699999999
       },
       "other_candidates": []
     },
@@ -2415,6 +2279,34 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "NM-N4S/4V",
+      "imsr_name": "4V",
+      "imsr_unit": "NMN4S",
+      "imsr_state": "NM",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NMN4S-000549",
+        "name": "4V",
+        "state": "NM",
+        "acres": 1000,
+        "lat": 35.535000000000025,
+        "lng": -104.29499999999996
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "NM-LNF/Sunset",
       "imsr_name": "Sunset",
       "imsr_unit": "NMLNF",
@@ -2439,34 +2331,6 @@
         "acres": 145,
         "lat": 33.56833300000005,
         "lng": -105.23219999999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NM-CIF/Whiskey",
-      "imsr_name": "Whiskey",
-      "imsr_unit": "NMCIF",
-      "imsr_state": "NM",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NMCIF-000540",
-        "name": "WHISKEY",
-        "state": "NM",
-        "acres": 250,
-        "lat": 34.67874900000004,
-        "lng": -106.43188499999997
       },
       "other_candidates": []
     },
@@ -2523,34 +2387,6 @@
         "acres": 7257,
         "lat": 38.12418800000006,
         "lng": -107.35482299999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CO-GMF/Gold Mountain",
-      "imsr_name": "Gold Mountain",
-      "imsr_unit": "COGMF",
-      "imsr_state": "CO",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-COGMF-000099",
-        "name": "Gold Mountain",
-        "state": "CO",
-        "acres": 39744,
-        "lat": 38.051567000000034,
-        "lng": -107.68212399999999
       },
       "other_candidates": []
     },
@@ -2646,34 +2482,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MN-SUF/Sioux",
-      "imsr_name": "Sioux",
-      "imsr_unit": "MNSUF",
-      "imsr_state": "MN",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MNSUF-002411",
-        "name": "Sioux",
-        "state": "MN",
-        "acres": 6833,
-        "lat": 48.15311900000006,
-        "lng": -92.22392599999995
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "MN-SUF/Thumb",
       "imsr_name": "Thumb",
       "imsr_unit": "MNSUF",
@@ -2698,6 +2506,34 @@
         "acres": 25015,
         "lat": 48.287667000000056,
         "lng": -92.19216699999998
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MN-SUF/Sioux",
+      "imsr_name": "Sioux",
+      "imsr_unit": "MNSUF",
+      "imsr_state": "MN",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MNSUF-002411",
+        "name": "Sioux",
+        "state": "MN",
+        "acres": 6833,
+        "lat": 48.15311900000006,
+        "lng": -92.22392599999995
       },
       "other_candidates": []
     },
@@ -2756,12 +2592,6 @@
       "acres": 129741
     },
     {
-      "ufi": "2026-UTMLF-005112",
-      "name": "Babylon",
-      "state": "UT",
-      "acres": 107189
-    },
-    {
       "ufi": "2026-ORBUD-002693",
       "name": "Second Flat",
       "state": "OR",
@@ -2790,6 +2620,12 @@
       "name": "FOX",
       "state": "OR",
       "acres": 78903
+    },
+    {
+      "ufi": "2026-ORBUD-002687",
+      "name": "Bald Mountain",
+      "state": "OR",
+      "acres": 76443
     }
   ]
 }
