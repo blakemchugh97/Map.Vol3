@@ -1,60 +1,68 @@
-# IMSR ↔ incident-layer match — 2026-09-15
+# IMSR ↔ incident-layer match — 2026-09-17
 
-- IMSR source: `tests/imsr/out/imsr-2026-09-15-extracted.json`
-- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-09-15.json` (510 records)
+- IMSR source: `tests/imsr/out/imsr-2026-09-17-extracted.json`
+- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-09-17.json` (521 records)
 - **Extracted IMSR rows are UNVERIFIED; this measures record MATCHING, not parser or value correctness.**
 
 ## Match summary
-- IMSR incidents compared: **60**
-- Match rate (exact+strong+weak): **90.0%**
-- EXACT **54** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **6**
-- Layer records with no IMSR match: **456** (expected — IMSR lists only large incidents)
+- IMSR incidents compared: **62**
+- Match rate (exact+strong+weak): **90.3%**
+- EXACT **56** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **6**
+- Layer records with no IMSR match: **465** (expected — IMSR lists only large incidents)
 
 ## Top failure / ambiguity reasons
-- 3× — state_conflict (name matched but states differ)
-- 3× — no name/unit signal in layer
+- 4× — no name/unit signal in layer
+- 2× — state_conflict (name matched but states differ)
 
 ## Per-incident result
 
 | IMSR incident | tier | matched layer (UFI) | score | signals |
 |---|---|---|---|---|
-| TX-TXS/Arrowhead | **EXACT** | 2026-TXTXS-268547 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| OK-OKS/Tram Trail | **EXACT** | 2026-OKOKS-261089 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| OK-OKS/Black Kettle | **EXACT** | 2026-OKOKS-261103 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| TX-TXS/Ross | **EXACT** | 2026-TXTXS-267549 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| TX-TXS/Clark | **EXACT** | 2026-TXTXS-268613 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| TX-TXS/Dry River | **EXACT** | 2026-TXTXS-268594 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| TX-TXS/Hydra | **EXACT** | 2026-TXTXS-268545 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| AR-ARS/Bunker | **EXACT** | 2026-ARARS-100236 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| TX-TXS/Lobo | **EXACT** | 2026-TXTXS-268583 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| OK-OKS/Calvary Creek | **EXACT** | 2026-OKOKS-261109 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| TX-TXS/Bundy | **EXACT** | 2026-TXTXS-268544 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OK-ANA/Gracemont | **EXACT** | 2026-OKANA-002871 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| OK-ANA/Meers | **EXACT** | 2026-OKANA-002798 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| OK-OKS/Black Kettle | **EXACT** | 2026-OKOKS-261103 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | TX-MCR/Star Lake | **EXACT** | 2026-TXMCR-000378 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| AR-OUF/West Glover | **NO_MATCH** | — | 0.0 | — |
-| AL-ALS/Ray Coaker | **EXACT** | 2026-ALALS-260909-4 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| TX-TXS/Benson | **EXACT** | 2026-TXTXS-268422 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| OK-OKS/Atoka Lake | **EXACT** | 2026-OKOKS-261105 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| OK-OKS/Tram Trail | **EXACT** | 2026-OKOKS-261089 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| TX-TXS/Arrowhead | **EXACT** | 2026-TXTXS-268547 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| LA-SBR/Gray | **NO_MATCH** | — | 0.0 | — |
+| LA-SBR/Stark | **NO_MATCH** | — | 0.0 | — |
+| TX-TXS/Ross | **EXACT** | 2026-TXTXS-267549 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| TX-TXS/Door Key | **EXACT** | 2026-TXTXS-268591 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WY-HDD/Moonshine | **EXACT** | 2026-WYHDD-000478 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | CO-SJF/Swiss Roll | **EXACT** | 2026-COSJF-000985 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| CO-PSF/Willow | **EXACT** | 2026-COPSF-001153 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| CO-CUX/Aspen Acres | **EXACT** | 2026-COCUX-001160 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | CO-GMF/Elk | **EXACT** | 2026-COGMF-000114 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| CO-CUX/Aspen Acres | **EXACT** | 2026-COCUX-001160 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| CO-PSF/Willow | **EXACT** | 2026-COPSF-001153 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| CA-NEU/Floriston | **EXACT** | 2026-CANEU-029037 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | CA-LNU/Lucas | **EXACT** | 2026-CALNU-016127 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | CA-HVT/MP18 | **EXACT** | 2026-CAHVT-000753 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| CA-YNP/Dome | **EXACT** | 2026-CAYNP-000100 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| CA-LPF/Timber | **EXACT** | 2026-CALPF-002271 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| CA-LPF/Plaskett | **EXACT** | 2026-CALPF-002475 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| ID-BOD/Cole | **NO_MATCH** | — | 0.0 | — |
 | ID-BOF/Crooked | **EXACT** | 2026-IDBOF-000958 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | ID-SCF/Doublesprings | **EXACT** | 2026-IDSCF-260103 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | UT-UOA/Slough Canyon | **EXACT** | 2026-UTUOA-100254 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| CA-LPF/Timber | **EXACT** | 2026-CALPF-002271 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| CA-LPF/Plaskett | **EXACT** | 2026-CALPF-002475 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MT-CRA/Davis Coulee | **EXACT** | 2026-MTCRA-261393 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MT-BDF/Sand Creek | **EXACT** | 2026-MTBDF-266319 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| ID-NCF/Moose Mountain | **EXACT** | 2026-IDNCF-000349 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| MT-BDF/Bobcat Lakes | **EXACT** | 2026-MTBDF-266313 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | ID-IPF/Upper Smith | **EXACT** | 2026-IDIPF-000347 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | ID-NCF/Cascade | **EXACT** | 2026-IDNCF-000283 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| MT-FNF/Silvertip | **EXACT** | 2026-MTFNF-000280 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| MT-FNF/Camp Creek | **EXACT** | 2026-MTFNF-000393 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| MT-BDF/Bobcat Lakes | **EXACT** | 2026-MTBDF-266313 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | ID-IPF/Parker Lake | **EXACT** | 2026-IDIPF-000702 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MT-BRF/Cooper | **NO_MATCH** | — | 0.0 | — |
 | MT-BRF/Scimitar | **NO_MATCH** | — | 0.0 | — |
 | ID-IPF/Silver | **EXACT** | 2026-IDIPF-000697 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MT-BRF/Nature Grove | **EXACT** | 2026-MTBRF-000340 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| MT-FNF/Silvertip | **EXACT** | 2026-MTFNF-000280 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| MT-FNF/Camp Creek | **EXACT** | 2026-MTFNF-000393 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MT-BDF/Moose | **EXACT** | 2026-MTBDF-266293 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| MT-LG09/Beaver Creek | **NO_MATCH** | — | 0.0 | — |
 | WA-OWF/Little Giant | **EXACT** | 2026-WAOWF-260406 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-OWF/Sisi | **EXACT** | 2026-WAOWF-260664 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OR-MHF/Austin | **EXACT** | 2026-ORMHF-000863 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
@@ -63,21 +71,15 @@
 | WA-OWF/Three Queens | **EXACT** | 2026-WAOWF-260420 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-OWF/King | **EXACT** | 2026-WAOWF-260699 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-OWF/Goat | **EXACT** | 2026-WAOWF-260711 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| OR-UMF/Paradise | **EXACT** | 2026-ORUMF-000302 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OR-UMF/Hagen | **EXACT** | 2026-ORUMF-000324 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| OR-WWF/McCully | **EXACT** | 2026-ORWWF-000531 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OR-PRD/Rowe Creek Complex | **NO_MATCH** | — | 0.0 | — |
-| WA-MSF/Electric | **EXACT** | 2026-WAMSF-000494 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-NES/Sinlahekin | **EXACT** | 2026-WANES-001791 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-NCP/Luna | **EXACT** | 2026-WANCP-000179 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-NCP/Border 2 | **EXACT** | 2026-WANCP-000266 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| OR-UMF/Paradise | **EXACT** | 2026-ORUMF-000302 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-OWF/Ptarmigan | **EXACT** | 2026-WAOWF-260448 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| OR-982S/Sycan | **EXACT** | 2026-OR982S-260350 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| WA-MRP/Wonderland Complex | **NO_MATCH** | — | 0.0 | — |
-| WA-GPF/High Lava | **EXACT** | 2026-WAGPF-000684 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | NM-CIF/Whiskey | **EXACT** | 2026-NMCIF-000540 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | NM-SNF/Frijoles | **EXACT** | 2026-NMSNF-000444 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| NM-N5S/Monument | **EXACT** | 2026-NMN5S-000732 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 
 ## Largest layer incidents with NO IMSR match (sample)
 - 2026-ORVAD-260201 — BIG GRASS (OR, 578637 ac)
