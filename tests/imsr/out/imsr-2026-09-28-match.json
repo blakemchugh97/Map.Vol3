@@ -1,9 +1,9 @@
 {
-  "matched_at": "2026-09-26T18:28:34.973572+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-09-26-extracted.json",
-  "imsr_date": "2026-09-26",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-09-26.json",
-  "layer_records": 457,
+  "matched_at": "2026-09-28T21:10:20.270898+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-09-28-extracted.json",
+  "imsr_date": "2026-09-28",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-09-28.json",
+  "layer_records": 420,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 17,
@@ -13,7 +13,7 @@
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 440
+    "layer_only_count": 403
   },
   "failure_reasons": {},
   "results": [
@@ -39,7 +39,7 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 4361,
+        "acres": 5081,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
       },
@@ -95,15 +95,71 @@
         "ufi": "2026-CALPF-002271",
         "name": "Timber",
         "state": "CA",
-        "acres": 25341,
+        "acres": 25349,
         "lat": 36.21589400000005,
         "lng": -121.71750799999995
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "OK-OKS/Lake Ranch",
-      "imsr_name": "Lake Ranch",
+      "imsr_id": "TX-TXS/Rafter 4B",
+      "imsr_name": "Rafter 4B",
+      "imsr_unit": "TXTXS",
+      "imsr_state": "TX",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-TXTXS-268989",
+        "name": "Rafter 4B",
+        "state": "TX",
+        "acres": 2125,
+        "lat": 30.76633000000004,
+        "lng": -100.49805999999995
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "TX-TXS/Grover Bend",
+      "imsr_name": "Grover Bend",
+      "imsr_unit": "TXTXS",
+      "imsr_state": "TX",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-TXTXS-269009",
+        "name": "Grover Bend",
+        "state": "TX",
+        "acres": 321,
+        "lat": 33.63280000000003,
+        "lng": -99.84569999999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-OKS/Stone Bridge",
+      "imsr_name": "Stone Bridge",
       "imsr_unit": "OKOKS",
       "imsr_state": "OK",
       "imsr_year": "2026",
@@ -120,68 +176,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-OKOKS-261177",
-        "name": "Lake Ranch Fire",
+        "ufi": "2026-OKOKS-261182",
+        "name": "Stone Bridge",
         "state": "OK",
-        "acres": 390,
-        "lat": 35.08250000000004,
-        "lng": -95.84833329999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MSS/Carroll CR 62",
-      "imsr_name": "Carroll CR 62",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMSS-018661",
-        "name": "Carroll- CR 62",
-        "state": "MS",
-        "acres": 143,
-        "lat": 33.42277780000006,
-        "lng": -89.80638889999994
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OKS/Cedar Hollow",
-      "imsr_name": "Cedar Hollow",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-261164",
-        "name": "Cedar Hollow",
-        "state": "OK",
-        "acres": 130,
-        "lat": 36.02305560000008,
-        "lng": -94.87083329999996
+        "acres": 174.8,
+        "lat": 34.95777780000003,
+        "lng": -95.25222219999995
       },
       "other_candidates": []
     },
@@ -235,7 +235,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4305,
+        "acres": 4325,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -375,7 +375,7 @@
         "ufi": "2026-WAOWF-260420",
         "name": "THREE QUEENS",
         "state": "WA",
-        "acres": 9551,
+        "acres": 9575,
         "lat": 47.414000000000044,
         "lng": -121.26133299999998
       },
@@ -406,6 +406,34 @@
         "acres": 166007,
         "lat": 48.70461700000004,
         "lng": -119.69311699999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-WFS/Second Street",
+      "imsr_name": "Second Street",
+      "imsr_unit": "WAWFS",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAWFS-260847",
+        "name": "SECOND STREET",
+        "state": "WA",
+        "acres": 1149,
+        "lat": 46.253671000000054,
+        "lng": -119.47013899999996
       },
       "other_candidates": []
     },
@@ -464,43 +492,9 @@
         "lng": -113.32566699999995
       },
       "other_candidates": []
-    },
-    {
-      "imsr_id": "MT-CRA/Davis Coulee",
-      "imsr_name": "Davis Coulee",
-      "imsr_unit": "MTCRA",
-      "imsr_state": "MT",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MTCRA-261393",
-        "name": "Davis Coulee",
-        "state": "MT",
-        "acres": 15470,
-        "lat": 45.53980000000007,
-        "lng": -107.62749999999994
-      },
-      "other_candidates": []
     }
   ],
   "layer_only_sample": [
-    {
-      "ufi": "2026-ORVAD-260201",
-      "name": "BIG GRASS",
-      "state": "OR",
-      "acres": 578637
-    },
     {
       "ufi": "2026-ORPRD-000445",
       "name": "0445 CROSSWHITE",
@@ -532,12 +526,6 @@
       "acres": 102004
     },
     {
-      "ufi": "2026-ORPRD-000449",
-      "name": "0449 PORCUPINE RIDGE",
-      "state": "OR",
-      "acres": 79200
-    },
-    {
       "ufi": "2026-OR953S-000587",
       "name": "0587 SHINGLE",
       "state": "OR",
@@ -554,6 +542,18 @@
       "name": "Bench",
       "state": "OR",
       "acres": 67071
+    },
+    {
+      "ufi": "2026-WANES-260149",
+      "name": "Modrite",
+      "state": "WA",
+      "acres": 57594
+    },
+    {
+      "ufi": "2026-ORFWF-260286",
+      "name": "Wrights Spring",
+      "state": "OR",
+      "acres": 55134
     }
   ]
 }
