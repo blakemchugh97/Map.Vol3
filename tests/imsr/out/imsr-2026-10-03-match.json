@@ -1,19 +1,19 @@
 {
-  "matched_at": "2026-10-01T20:16:39.204639+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-01-extracted.json",
-  "imsr_date": "2026-10-01",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-01.json",
-  "layer_records": 453,
+  "matched_at": "2026-10-03T18:37:34.504604+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-03-extracted.json",
+  "imsr_date": "2026-10-03",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-03.json",
+  "layer_records": 451,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 14,
+    "imsr_incidents": 11,
     "match_rate_pct": 100.0,
-    "exact": 14,
+    "exact": 11,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 439
+    "layer_only_count": 440
   },
   "failure_reasons": {},
   "results": [
@@ -39,7 +39,7 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 5667,
+        "acres": 6285,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
       },
@@ -67,17 +67,17 @@
         "ufi": "2026-CALPF-002271",
         "name": "Timber",
         "state": "CA",
-        "acres": 25349,
+        "acres": 25350,
         "lat": 36.21589400000005,
         "lng": -121.71750799999995
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "TX-RGR/San Francisco 2",
-      "imsr_name": "San Francisco 2",
-      "imsr_unit": "TXRGR",
-      "imsr_state": "TX",
+      "imsr_id": "NV-TMFX/Bull",
+      "imsr_name": "Bull",
+      "imsr_unit": "NVTMFX",
+      "imsr_state": "NV",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -92,96 +92,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-TXRGR-000402",
-        "name": "SAN FRANCISCO 2",
-        "state": "TX",
-        "acres": 510,
-        "lat": 26.286667000000023,
-        "lng": -98.69222199999996
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "AL-ALS/Bradley Road",
-      "imsr_name": "Bradley Road",
-      "imsr_unit": "ALALS",
-      "imsr_state": "AL",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-ALALS-260930-33",
-        "name": "Bradley Road",
-        "state": "AL",
-        "acres": 350,
-        "lat": 31.085000000000036,
-        "lng": -86.83694439999994
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OMA/Honey",
-      "imsr_name": "Honey",
-      "imsr_unit": "OKOMA",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOMA-003040",
-        "name": "HONEY",
-        "state": "OK",
-        "acres": 333,
-        "lat": 35.55027800000005,
-        "lng": -96.08972199999994
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OKS/Stone Bridge",
-      "imsr_name": "Stone Bridge",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-261182",
-        "name": "Stone Bridge",
-        "state": "OK",
-        "acres": 174.8,
-        "lat": 34.95777780000003,
-        "lng": -95.25222219999995
+        "ufi": "2026-NVTMFX-030869",
+        "name": "Bull",
+        "state": "NV",
+        "acres": 1273.8,
+        "lat": 39.539067000000045,
+        "lng": -119.98768299999995
       },
       "other_candidates": []
     },
@@ -207,7 +123,7 @@
         "ufi": "2026-WAOWF-260406",
         "name": "LITTLE GIANT",
         "state": "WA",
-        "acres": 172896,
+        "acres": 172899,
         "lat": 48.01621700000004,
         "lng": -120.84661699999998
       },
@@ -235,7 +151,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4330,
+        "acres": 4343,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -298,34 +214,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "OR-MHF/The Narrows",
-      "imsr_name": "The Narrows",
-      "imsr_unit": "ORMHF",
-      "imsr_state": "OR",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-ORMHF-000855",
-        "name": "THE NARROWS",
-        "state": "OR",
-        "acres": 305,
-        "lat": 45.14690100000007,
-        "lng": -122.09361099999995
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "WA-NES/Sinlahekin",
       "imsr_name": "Sinlahekin",
       "imsr_unit": "WANES",
@@ -350,34 +238,6 @@
         "acres": 166007,
         "lat": 48.70461700000004,
         "lng": -119.69311699999997
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OR-UMF/Hagen",
-      "imsr_name": "Hagen",
-      "imsr_unit": "ORUMF",
-      "imsr_state": "OR",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-ORUMF-000324",
-        "name": "Hagen",
-        "state": "OR",
-        "acres": 61380,
-        "lat": 45.70700000000005,
-        "lng": -118.26899999999995
       },
       "other_candidates": []
     },
@@ -408,6 +268,62 @@
         "lng": -121.26133299999998
       },
       "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-WFS/Hatch Grade",
+      "imsr_name": "Hatch Grade",
+      "imsr_unit": "WAWFS",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAWFS-000664",
+        "name": "Hatch Grade",
+        "state": "WA",
+        "acres": 9023,
+        "lat": 46.032200000000046,
+        "lng": -118.85879999999997
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "TX-RGR/San Francisco 2",
+      "imsr_name": "San Francisco 2",
+      "imsr_unit": "TXRGR",
+      "imsr_state": "TX",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-TXRGR-000402",
+        "name": "SAN FRANCISCO 2",
+        "state": "TX",
+        "acres": 524,
+        "lat": 26.286667000000023,
+        "lng": -98.69222199999996
+      },
+      "other_candidates": []
     }
   ],
   "layer_only_sample": [
@@ -416,12 +332,6 @@
       "name": "0445 CROSSWHITE",
       "state": "OR",
       "acres": 342923
-    },
-    {
-      "ufi": "2026-IDBOD-265460",
-      "name": "Tartar",
-      "state": "ID",
-      "acres": 158027
     },
     {
       "ufi": "2026-WACOA-260140",
@@ -458,6 +368,12 @@
       "name": "Bench",
       "state": "OR",
       "acres": 67071
+    },
+    {
+      "ufi": "2026-ORUMF-000324",
+      "name": "Hagen",
+      "state": "OR",
+      "acres": 61380
     },
     {
       "ufi": "2026-WANES-260149",
