@@ -1,22 +1,57 @@
 {
-  "matched_at": "2026-10-03T18:37:34.504604+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-03-extracted.json",
-  "imsr_date": "2026-10-03",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-03.json",
-  "layer_records": 451,
+  "matched_at": "2026-10-05T21:56:05.778720+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-05-extracted.json",
+  "imsr_date": "2026-10-05",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-05.json",
+  "layer_records": 406,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 11,
+    "imsr_incidents": 8,
     "match_rate_pct": 100.0,
-    "exact": 11,
+    "exact": 8,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 440
+    "layer_only_count": 398
   },
   "failure_reasons": {},
   "results": [
+    {
+      "imsr_id": "CA-ANF/Bouquet",
+      "imsr_name": "Bouquet",
+      "imsr_unit": "CAANF",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CAANF-264196",
+        "name": "BOUQUET",
+        "state": "CA",
+        "acres": 0.1,
+        "lat": 34.56183500000003,
+        "lng": -118.40182999999996
+      },
+      "other_candidates": [
+        {
+          "ufi": "2026-CALAC-356517",
+          "name": "BOUQUET",
+          "tier": "STRONG",
+          "score": 0.75
+        }
+      ]
+    },
     {
       "imsr_id": "CA-YNP/Dome",
       "imsr_name": "Dome",
@@ -39,7 +74,7 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 6285,
+        "acres": 6736,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
       },
@@ -74,34 +109,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "NV-TMFX/Bull",
-      "imsr_name": "Bull",
-      "imsr_unit": "NVTMFX",
-      "imsr_state": "NV",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NVTMFX-030869",
-        "name": "Bull",
-        "state": "NV",
-        "acres": 1273.8,
-        "lat": 39.539067000000045,
-        "lng": -119.98768299999995
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "WA-OWF/Little Giant",
       "imsr_name": "Little Giant",
       "imsr_unit": "WAOWF",
@@ -123,7 +130,7 @@
         "ufi": "2026-WAOWF-260406",
         "name": "LITTLE GIANT",
         "state": "WA",
-        "acres": 172899,
+        "acres": 172902,
         "lat": 48.01621700000004,
         "lng": -120.84661699999998
       },
@@ -151,7 +158,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4343,
+        "acres": 4352,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -240,90 +247,6 @@
         "lng": -119.69311699999997
       },
       "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Three Queens",
-      "imsr_name": "Three Queens",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260420",
-        "name": "THREE QUEENS",
-        "state": "WA",
-        "acres": 9575,
-        "lat": 47.414000000000044,
-        "lng": -121.26133299999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-WFS/Hatch Grade",
-      "imsr_name": "Hatch Grade",
-      "imsr_unit": "WAWFS",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAWFS-000664",
-        "name": "Hatch Grade",
-        "state": "WA",
-        "acres": 9023,
-        "lat": 46.032200000000046,
-        "lng": -118.85879999999997
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "TX-RGR/San Francisco 2",
-      "imsr_name": "San Francisco 2",
-      "imsr_unit": "TXRGR",
-      "imsr_state": "TX",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-TXRGR-000402",
-        "name": "SAN FRANCISCO 2",
-        "state": "TX",
-        "acres": 524,
-        "lat": 26.286667000000023,
-        "lng": -98.69222199999996
-      },
-      "other_candidates": []
     }
   ],
   "layer_only_sample": [
@@ -364,12 +287,6 @@
       "acres": 70821
     },
     {
-      "ufi": "2026-ORWSA-000100",
-      "name": "Bench",
-      "state": "OR",
-      "acres": 67071
-    },
-    {
       "ufi": "2026-ORUMF-000324",
       "name": "Hagen",
       "state": "OR",
@@ -386,6 +303,12 @@
       "name": "Wrights Spring",
       "state": "OR",
       "acres": 55134
+    },
+    {
+      "ufi": "2026-NVNAFQ-500729",
+      "name": "MOUSE MEADOW",
+      "state": "NV",
+      "acres": 52000
     }
   ]
 }
