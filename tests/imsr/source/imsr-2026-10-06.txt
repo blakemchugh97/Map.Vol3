@@ -1,0 +1,242 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Tuesday October 6, 2026 – 0730 MDT 
+National Preparedness Level 2 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative 
+Acres Crews Engines Helicopters Total 
+Personnel 
+Change in 
+Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 2 18 1,129,474 14 47 5 1,558 -108 
+ONCC 2 0 0 0 0 0 0 0 
+OSCC 3 4 63,151 36 43 21 2,066 -215 
+NRCC 1 3 42,961 0 3 0 66 -4 
+GBCC 1 4 41,898 7 9 1 240 -163 
+SWCC 1 0 0 0 0 0 0 -6 
+RMCC 2 3 116,688 0 1 0 10 -12 
+EACC 1 0 0 0 0 0 0 0 
+SACC 2 9 5,422 0 14 0 54 -26 
+Total --- 41 1,399,594 57 117 27 3,994 -534 
+  
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (32 fires) 
+New large incidents: 1 
+Large fires contained: 1 
+Uncontained large fires:  9 
+CIMTs committed: 2 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern California Area (PL 3)   
+Fire Activity and Teams Assigned Totals 
+New fires: 1 
+New large incidents: 0 
+Uncontained large fires: 3 
+CIMTs Committed: 1 
+ 
+Bouquet, Angeles NF, USFS. Eight miles northeast of Saugus, CA. Chaparral, grass and brush. Minimal fire 
+behavior with creeping, smoldering and isolated torching. Numerous structures and energy infrastructure 
+threatened. Evacuations, area, road and trail closures in effect. 
+ 
+Dome, Yosemite National Park, NPS. CIMT (CA Team 4). One mile north of Wawona, CA. Timber, brush and 
+medium slash. Moderate fire behavior with spotting, creeping and single tree torching. Area, road and trail 
+closures in effect. 
+ 
+Timber, Los Padres NF, USFS. Four miles southeast of Big Sur, CA. Grass, timber and chaparral. Minimal fire 
+behavior with creeping and smoldering. Area, road and trail closures in effect. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Bouquet CA-ANF 1,048 48 63 Ctn 10/6 215 -73 7 8 0 0 800K FS 
+Dome CA-YNP 6,760 90 40 Ctn 10/17 915 -148 17 15 14 0 39M NPS 
+Timber CA-LPF 25,350 0 90 Ctn 11/1 592 -99 10 15 7 1 180.4M FS 
+ 
+ 
+Great Basin Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 4 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Bull, Truckee Meadows Fire Protection District. Fifteen miles west of Reno, NV. Timber, grass and brush. 
+Minimal fire behavior with backing, creeping and smoldering. Residences threatened. Area, road and trail 
+closures in effect. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Bull NV-TMFX 1,529 0 44 Ctn 10/15 225 -155 7 9 0 0 3.9M CNTY 
+ 
+ 
+Northwest Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 0 
+New large incidents: 0 
+Uncontained large fires: 5 
+CIMTs Committed: 1 
+ 
+Little Giant, Okanogan-Wenatchee NF, USFS. CIMT (NW Team 12). CIMT is also managing the Sisi incident. 
+Thirty miles northwest of Leavenworth, WA. Timber and dormant brush. Minimal fire behavior with smoldering, 
+creeping and backing. Structures threatened. Area, road and trail closures in effect. 
+ 
+Sisi, Okanogan-Wenatchee NF, USFS. Ten miles northwest of Stehekin, WA. Timber and closed timber litter. 
+Moderate fire behavior with smoldering, backing and flanking. Residences threatened. Area, road and trail 
+closures in effect. 
+ 
+===== PAGE 3 =====
+Austin, Mt. Hood NF, USFS. Twenty-five miles southeast of Estacada, OR. Brush, timber and closed timber 
+litter. Minimal fire behavior with smoldering and creeping. Area, road and trail closures in effect. 
+ 
+Grasshopper, Mt. Hood NF, USFS. Fourteen miles southwest of Dufur, OR. Brush, hardwood litter and closed 
+timber litter. Minimal fire behavior with creeping and smoldering. Area, road and trail closures in effect. 
+ 
+Sinlahekin, Northeast Region, Washington DNR. One mile west of Tonasket, WA. Timber, brush and grass. 
+Minimal fire behavior with creeping and smoldering. Area, road and trail closures in effect. 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+Little Giant WA-OWF 172,904 2 93 Ctn 11/1 368 1 1 4 3 40 191.4M FS 
+Sisi WA-OWF 4,368 5 29 Ctn 10/31 34 0 1 2 0 0 9.4M FS 
+Austin OR-MHF 12,888 0 98 Ctn 10/31 455 60 5 8 0 0 70.2M FS 
+Grasshopper OR-MHF 93,972 0 98 Ctn 10/31 198 -20 1 4 0 33 121.6M FS 
+Sinlahekin WA-NES 166,007 0 99 Ctn 10/7 183 -64 2 1 0 33 151.3M ST 
+ 
+ 
+Southern Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 16 
+New large incidents: 1 
+Uncontained large fires: 0 
+ 
+Incident Name  Unit  Total 
+Acres  
+Chge in 
+Acres  %  Ctn  Est  Total 
+PPL  
+Chge in 
+PPL  Crw  Eng  Heli  Strc 
+Lost  $$ CTD  Origin 
+Own  
+* CR 299 MS-MSS 230 --- 100 Ctn --- 3 --- 0 0 0 0 46K ST 
+MSS – Mississippi Forestry Commission 
+  
+===== PAGE 4 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ 
+Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 1 1 
+Alaska ACRES 0 0 0 0 0 1 1 
+Northwest FIRES 0 0 0 0 0 0 0 
+Northwest ACRES 0 0 0 0 0 0 0 
+Northern California FIRES 0 0 0 0 0 6 6 
+Northern California ACRES 0 0 0 0 0 3 3 
+Southern California FIRES 0 0 0 0 0 1 1 
+Southern California ACRES 0 0 0 0 0 0 0 
+Northern Rockies FIRES 0 0 0 0 1 1 2 
+Northern Rockies ACRES 0 0 0 0 6 0 6 
+Great Basin FIRES 0 2 0 0 1 1 4 
+Great Basin ACRES 0 0 0 0 0 0 0 
+Southwest FIRES 0 0 0 0 0 0 0 
+Southwest ACRES 0 0 0 0 0 0 0 
+Rocky Mountain FIRES 0 0 0 0 1 1 2 
+Rocky Mountain ACRES 0 0 0 0 0 2 2 
+Eastern Area FIRES 0 0 0 0 0 0 0 
+Eastern Area ACRES 0 0 0 0 0 0 0 
+Southern Area FIRES 0 0 0 0 16 0 16 
+Southern Area ACRES 0 0 0 0 397 0 397 
+TOTAL FIRES:  0 2 0 0 19 11 32 
+TOTAL ACRES:  0 0 0 0 403 5 409 
+  
+===== PAGE 5 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ 
+Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 227 39 415 
+Alaska ACRES 0 36,761 0 0 52,183 12 88,956 
+Northwest FIRES 241 309 27 52 1,631 781 3,041 
+Northwest ACRES 115,918 1,977,855 34,145 19,038 415,381 463,852 3,026,189 
+Northern California FIRES 62 18 2 32 2,113 375 2,602 
+Northern California ACRES 7,736 70,418 5 53 18,293 8,352 104,856 
+Southern California FIRES 10 72 5 44 3,329 357 3,817 
+Southern California ACRES 2 9,205 4 25,535 139,328 53,325 227,399 
+Northern Rockies FIRES 272 111 7 4 1,460 576 2,430 
+Northern Rockies ACRES 18,604 9,462 520 6 65,601 115,310 209,502 
+Great Basin FIRES 46 1,144 3 42 1,028 503 2,766 
+Great Basin ACRES 3,172 1,259,134 2 802 261,902 392,984 1,917,996 
+Southwest FIRES 681 204 5 29 810 1,027 2,756 
+Southwest ACRES 3,634 6,400 7,131 806 80,913 113,626 212,511 
+Rocky Mountain FIRES 192 459 16 34 1,593 436 2,730 
+Rocky Mountain ACRES 1,682 23,132 3,954 1,412 1,328,113 210,771 1,569,064 
+Eastern Area FIRES 220 0 23 12 8,139 371 8,765 
+Eastern Area ACRES 1,060 0 190 15 81,685 86,192 169,142 
+Southern Area FIRES 1,098 1 108 120 31,690 751 33,768 
+Southern Area ACRES 87,468 72 52,757 44,890 1,240,353 60,488 1,486,029 
+TOTAL FIRES:  2,822 2,467 196 369 52,020 5,216 63,090 
+TOTAL ACRES:  239,277 3,392,438 98,709 92,555 3,683,752 1,504,912 9,011,643 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 47,125 134% 
+Acres (2016 – 2025 as of today) 6,137,551 147% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+  
+===== PAGE 6 =====
+Predictive Services Discussion:  
+ 
+Very hot temperatures reaching into the low 100s will continue across the California Central Valley and portions 
+of southern California this afternoon with very low relative humidity of 10-20%. Winds will be light across most of 
+California however. Afternoon highs 5 -15°F above normal continue across the Great Basin and into Montana 
+and Wyoming. Winds in Montana and Wyoming will be locally breezy, but generally not as windy as Monday. 
+Near normal temperatures are expected across the Southwes t and through the lower Mississippi Valley, while 
+below normal temperatures are expected across the east coast. Moderate to heavy rain will continue across 
+Florida and southern Georgia. Scattered showers and isolated thunderstorms are expected across the Wasatch 
+and the Colorado Rockies. Mainly dry conditions will prevail elsewhere. 
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 

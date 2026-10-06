@@ -1,19 +1,19 @@
 {
-  "matched_at": "2026-10-04T18:35:13.186467+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-04-extracted.json",
-  "imsr_date": "2026-10-04",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-04.json",
-  "layer_records": 425,
+  "matched_at": "2026-10-06T20:08:10.823996+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-06-extracted.json",
+  "imsr_date": "2026-10-06",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-06.json",
+  "layer_records": 412,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 8,
+    "imsr_incidents": 10,
     "match_rate_pct": 100.0,
-    "exact": 8,
+    "exact": 10,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 417
+    "layer_only_count": 402
   },
   "failure_reasons": {},
   "results": [
@@ -39,7 +39,7 @@
         "ufi": "2026-CAANF-264196",
         "name": "BOUQUET",
         "state": "CA",
-        "acres": 0.1,
+        "acres": 1048,
         "lat": 34.56183500000003,
         "lng": -118.40182999999996
       },
@@ -74,7 +74,7 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 6670,
+        "acres": 6760,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
       },
@@ -109,6 +109,34 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "NV-TMFX/Bull",
+      "imsr_name": "Bull",
+      "imsr_unit": "NVTMFX",
+      "imsr_state": "NV",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NVTMFX-030869",
+        "name": "Bull",
+        "state": "NV",
+        "acres": 1529,
+        "lat": 39.539067000000045,
+        "lng": -119.98768299999995
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "WA-OWF/Little Giant",
       "imsr_name": "Little Giant",
       "imsr_unit": "WAOWF",
@@ -130,7 +158,7 @@
         "ufi": "2026-WAOWF-260406",
         "name": "LITTLE GIANT",
         "state": "WA",
-        "acres": 172902,
+        "acres": 172904,
         "lat": 48.01621700000004,
         "lng": -120.84661699999998
       },
@@ -158,7 +186,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4352,
+        "acres": 4368,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -247,6 +275,34 @@
         "lng": -119.69311699999997
       },
       "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MSS/CR 299",
+      "imsr_name": "CR 299",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMSS-018894",
+        "name": "CR 299",
+        "state": "MS",
+        "acres": 230,
+        "lat": 33.66472220000003,
+        "lng": -90.40083329999999
+      },
+      "other_candidates": []
     }
   ],
   "layer_only_sample": [
@@ -278,19 +334,13 @@
       "ufi": "2026-COCUX-001160",
       "name": "Aspen Acres",
       "state": "CO",
-      "acres": 102004
+      "acres": 102007
     },
     {
       "ufi": "2026-OR951S-000433",
       "name": "0433 BREWER",
       "state": "OR",
       "acres": 70821
-    },
-    {
-      "ufi": "2026-ORWSA-000100",
-      "name": "Bench",
-      "state": "OR",
-      "acres": 67071
     },
     {
       "ufi": "2026-ORUMF-000324",
@@ -309,6 +359,12 @@
       "name": "Wrights Spring",
       "state": "OR",
       "acres": 55134
+    },
+    {
+      "ufi": "2026-NVNAFQ-500729",
+      "name": "MOUSE MEADOW",
+      "state": "NV",
+      "acres": 52000
     }
   ]
 }
