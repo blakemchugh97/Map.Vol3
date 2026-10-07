@@ -1,19 +1,19 @@
 {
-  "matched_at": "2026-10-05T21:56:05.778720+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-05-extracted.json",
-  "imsr_date": "2026-10-05",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-05.json",
-  "layer_records": 406,
+  "matched_at": "2026-10-07T20:31:28.532315+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-07-extracted.json",
+  "imsr_date": "2026-10-07",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-07.json",
+  "layer_records": 443,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 8,
+    "imsr_incidents": 10,
     "match_rate_pct": 100.0,
-    "exact": 8,
+    "exact": 10,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 398
+    "layer_only_count": 433
   },
   "failure_reasons": {},
   "results": [
@@ -39,18 +39,11 @@
         "ufi": "2026-CAANF-264196",
         "name": "BOUQUET",
         "state": "CA",
-        "acres": 0.1,
+        "acres": 1048,
         "lat": 34.56183500000003,
         "lng": -118.40182999999996
       },
-      "other_candidates": [
-        {
-          "ufi": "2026-CALAC-356517",
-          "name": "BOUQUET",
-          "tier": "STRONG",
-          "score": 0.75
-        }
-      ]
+      "other_candidates": []
     },
     {
       "imsr_id": "CA-YNP/Dome",
@@ -74,7 +67,7 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 6736,
+        "acres": 6803,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
       },
@@ -109,6 +102,62 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "NV-ECFX/Jones",
+      "imsr_name": "Jones",
+      "imsr_unit": "NVECFX",
+      "imsr_state": "NV",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NVECFX-010656",
+        "name": "Jones",
+        "state": "NV",
+        "acres": 1657,
+        "lat": 41.02195000000006,
+        "lng": -115.20764999999994
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NV-TMFX/Bull",
+      "imsr_name": "Bull",
+      "imsr_unit": "NVTMFX",
+      "imsr_state": "NV",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NVTMFX-030869",
+        "name": "Bull",
+        "state": "NV",
+        "acres": 1529,
+        "lat": 39.539067000000045,
+        "lng": -119.98768299999995
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "WA-OWF/Little Giant",
       "imsr_name": "Little Giant",
       "imsr_unit": "WAOWF",
@@ -130,7 +179,7 @@
         "ufi": "2026-WAOWF-260406",
         "name": "LITTLE GIANT",
         "state": "WA",
-        "acres": 172902,
+        "acres": 172904,
         "lat": 48.01621700000004,
         "lng": -120.84661699999998
       },
@@ -158,7 +207,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4352,
+        "acres": 4385,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -278,7 +327,7 @@
       "ufi": "2026-COCUX-001160",
       "name": "Aspen Acres",
       "state": "CO",
-      "acres": 102004
+      "acres": 102007
     },
     {
       "ufi": "2026-OR951S-000433",
