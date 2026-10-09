@@ -1,13 +1,13 @@
 {
   "meta": {
-    "source_date": "2026-10-08",
-    "generated_at": "2026-10-08T20:37:34.418906+00:00",
+    "source_date": "2026-10-09",
+    "generated_at": "2026-10-09T20:03:16.308759+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
       "gac_pl": 4,
-      "exact_incidents": 9
+      "exact_incidents": 10
     }
   },
   "gac_pl": {
@@ -23,67 +23,67 @@
   "exact_incidents": {
     "2026-CAYNP-000100": {
       "tier": "EXACT",
-      "report_date": "2026-10-08",
+      "report_date": "2026-10-09",
       "imsr_id": "CA-YNP/Dome",
       "imsr_name": "Dome",
       "layer_name": "DOME",
       "state": "CA",
-      "crews": 17,
+      "crews": 19,
       "engines": 15,
       "helicopters": 14,
-      "total_personnel": 916
+      "total_personnel": 968
     },
     "2026-CAANF-264196": {
       "tier": "EXACT",
-      "report_date": "2026-10-08",
+      "report_date": "2026-10-09",
       "imsr_id": "CA-ANF/Bouquet",
       "imsr_name": "Bouquet",
       "layer_name": "BOUQUET",
       "state": "CA",
-      "crews": 3,
-      "engines": 8,
+      "crews": 1,
+      "engines": 4,
       "helicopters": 0,
-      "total_personnel": 131
+      "total_personnel": 75
     },
     "2026-CALPF-002271": {
       "tier": "EXACT",
-      "report_date": "2026-10-08",
+      "report_date": "2026-10-09",
       "imsr_id": "CA-LPF/Timber",
       "imsr_name": "Timber",
       "layer_name": "Timber",
       "state": "CA",
-      "crews": 2,
-      "engines": 12,
+      "crews": 1,
+      "engines": 5,
       "helicopters": 5,
-      "total_personnel": 426
-    },
-    "2026-NVECFX-010656": {
-      "tier": "EXACT",
-      "report_date": "2026-10-08",
-      "imsr_id": "NV-ECFX/Jones",
-      "imsr_name": "Jones",
-      "layer_name": "Jones",
-      "state": "NV",
-      "crews": 4,
-      "engines": 7,
-      "helicopters": 0,
-      "total_personnel": 111
+      "total_personnel": 306
     },
     "2026-NVTMFX-030869": {
       "tier": "EXACT",
-      "report_date": "2026-10-08",
+      "report_date": "2026-10-09",
       "imsr_id": "NV-TMFX/Bull",
       "imsr_name": "Bull",
       "layer_name": "Bull",
       "state": "NV",
-      "crews": 6,
-      "engines": 5,
+      "crews": 5,
+      "engines": 4,
       "helicopters": 1,
-      "total_personnel": 226
+      "total_personnel": 212
+    },
+    "2026-NVECFX-010656": {
+      "tier": "EXACT",
+      "report_date": "2026-10-09",
+      "imsr_id": "NV-ECFX/Jones",
+      "imsr_name": "Jones",
+      "layer_name": "Jones",
+      "state": "NV",
+      "crews": 1,
+      "engines": 5,
+      "helicopters": 0,
+      "total_personnel": 42
     },
     "2026-WAOWF-260406": {
       "tier": "EXACT",
-      "report_date": "2026-10-08",
+      "report_date": "2026-10-09",
       "imsr_id": "WA-OWF/Little Giant",
       "imsr_name": "Little Giant",
       "layer_name": "LITTLE GIANT",
@@ -91,11 +91,11 @@
       "crews": 0,
       "engines": 2,
       "helicopters": 2,
-      "total_personnel": 292
+      "total_personnel": 243
     },
     "2026-WAOWF-260664": {
       "tier": "EXACT",
-      "report_date": "2026-10-08",
+      "report_date": "2026-10-09",
       "imsr_id": "WA-OWF/Sisi",
       "imsr_name": "Sisi",
       "layer_name": "SISI",
@@ -103,23 +103,23 @@
       "crews": 1,
       "engines": 2,
       "helicopters": 0,
-      "total_personnel": 33
+      "total_personnel": 32
     },
     "2026-ORMHF-000863": {
       "tier": "EXACT",
-      "report_date": "2026-10-08",
+      "report_date": "2026-10-09",
       "imsr_id": "OR-MHF/Austin",
       "imsr_name": "Austin",
       "layer_name": "AUSTIN",
       "state": "OR",
-      "crews": 5,
+      "crews": 4,
       "engines": 7,
       "helicopters": 0,
-      "total_personnel": 428
+      "total_personnel": 431
     },
     "2026-ORMHF-000688": {
       "tier": "EXACT",
-      "report_date": "2026-10-08",
+      "report_date": "2026-10-09",
       "imsr_id": "OR-MHF/Grasshopper",
       "imsr_name": "Grasshopper",
       "layer_name": "GRASSHOPPER",
@@ -127,7 +127,19 @@
       "crews": 0,
       "engines": 4,
       "helicopters": 0,
-      "total_personnel": 225
+      "total_personnel": 242
+    },
+    "2026-MSMSS-018942": {
+      "tier": "EXACT",
+      "report_date": "2026-10-09",
+      "imsr_id": "MS-MSS/Amite Kahnville Rd",
+      "imsr_name": "Amite Kahnville Rd",
+      "layer_name": "Amite Kahnville Rd",
+      "state": "MS",
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 2
     }
   }
 }

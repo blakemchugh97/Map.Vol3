@@ -1,9 +1,9 @@
 {
-  "matched_at": "2026-10-07T20:31:28.532315+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-07-extracted.json",
-  "imsr_date": "2026-10-07",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-07.json",
-  "layer_records": 443,
+  "matched_at": "2026-10-09T20:03:16.282811+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-09-extracted.json",
+  "imsr_date": "2026-10-09",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-09.json",
+  "layer_records": 462,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 10,
@@ -13,10 +13,38 @@
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 433
+    "layer_only_count": 452
   },
   "failure_reasons": {},
   "results": [
+    {
+      "imsr_id": "CA-YNP/Dome",
+      "imsr_name": "Dome",
+      "imsr_unit": "CAYNP",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CAYNP-000100",
+        "name": "DOME",
+        "state": "CA",
+        "acres": 6829,
+        "lat": 37.56620000000004,
+        "lng": -119.61616699999996
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "CA-ANF/Bouquet",
       "imsr_name": "Bouquet",
@@ -42,34 +70,6 @@
         "acres": 1048,
         "lat": 34.56183500000003,
         "lng": -118.40182999999996
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-YNP/Dome",
-      "imsr_name": "Dome",
-      "imsr_unit": "CAYNP",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAYNP-000100",
-        "name": "DOME",
-        "state": "CA",
-        "acres": 6803,
-        "lat": 37.56620000000004,
-        "lng": -119.61616699999996
       },
       "other_candidates": []
     },
@@ -102,34 +102,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "NV-ECFX/Jones",
-      "imsr_name": "Jones",
-      "imsr_unit": "NVECFX",
-      "imsr_state": "NV",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NVECFX-010656",
-        "name": "Jones",
-        "state": "NV",
-        "acres": 1657,
-        "lat": 41.02195000000006,
-        "lng": -115.20764999999994
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "NV-TMFX/Bull",
       "imsr_name": "Bull",
       "imsr_unit": "NVTMFX",
@@ -158,6 +130,34 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "NV-ECFX/Jones",
+      "imsr_name": "Jones",
+      "imsr_unit": "NVECFX",
+      "imsr_state": "NV",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NVECFX-010656",
+        "name": "Jones",
+        "state": "NV",
+        "acres": 1657,
+        "lat": 41.02195000000006,
+        "lng": -115.20764999999994
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "WA-OWF/Little Giant",
       "imsr_name": "Little Giant",
       "imsr_unit": "WAOWF",
@@ -179,7 +179,7 @@
         "ufi": "2026-WAOWF-260406",
         "name": "LITTLE GIANT",
         "state": "WA",
-        "acres": 172904,
+        "acres": 172906,
         "lat": 48.01621700000004,
         "lng": -120.84661699999998
       },
@@ -207,7 +207,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4385,
+        "acres": 4420,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -270,10 +270,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "WA-NES/Sinlahekin",
-      "imsr_name": "Sinlahekin",
-      "imsr_unit": "WANES",
-      "imsr_state": "WA",
+      "imsr_id": "MS-MSS/Amite Kahnville Rd",
+      "imsr_name": "Amite Kahnville Rd",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -288,12 +288,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-WANES-001791",
-        "name": "SINLAHEKIN",
-        "state": "WA",
-        "acres": 166007,
-        "lat": 48.70461700000004,
-        "lng": -119.69311699999997
+        "ufi": "2026-MSMSS-018942",
+        "name": "Amite Kahnville Rd",
+        "state": "MS",
+        "acres": 190,
+        "lat": 31.177222200000074,
+        "lng": -91.00861109999994
       },
       "other_candidates": []
     }
@@ -306,10 +306,10 @@
       "acres": 342923
     },
     {
-      "ufi": "2026-WACOA-260140",
-      "name": "Kaiser Canyon",
+      "ufi": "2026-WANES-001791",
+      "name": "SINLAHEKIN",
       "state": "WA",
-      "acres": 138293
+      "acres": 166007
     },
     {
       "ufi": "2026-UTFIF-260341",
@@ -342,12 +342,6 @@
       "acres": 61380
     },
     {
-      "ufi": "2026-WANES-260149",
-      "name": "Modrite",
-      "state": "WA",
-      "acres": 57594
-    },
-    {
       "ufi": "2026-ORFWF-260286",
       "name": "Wrights Spring",
       "state": "OR",
@@ -358,6 +352,12 @@
       "name": "MOUSE MEADOW",
       "state": "NV",
       "acres": 52000
+    },
+    {
+      "ufi": "2026-MTBDF-266319",
+      "name": "Sand Creek",
+      "state": "MT",
+      "acres": 35520
     }
   ]
 }
