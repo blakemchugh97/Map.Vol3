@@ -1,22 +1,50 @@
 {
-  "matched_at": "2026-10-08T20:37:34.393579+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-08-extracted.json",
-  "imsr_date": "2026-10-08",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-08.json",
-  "layer_records": 471,
+  "matched_at": "2026-10-10T19:12:20.041493+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-10-extracted.json",
+  "imsr_date": "2026-10-10",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-10.json",
+  "layer_records": 421,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 10,
+    "imsr_incidents": 11,
     "match_rate_pct": 100.0,
-    "exact": 9,
-    "strong": 1,
+    "exact": 11,
+    "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 461
+    "layer_only_count": 410
   },
   "failure_reasons": {},
   "results": [
+    {
+      "imsr_id": "CA-SQF/Cyrus",
+      "imsr_name": "Cyrus",
+      "imsr_unit": "CASQF",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CASQF-001695",
+        "name": "CYRUS",
+        "state": "CA",
+        "acres": 2,
+        "lat": 35.698750000000075,
+        "lng": -118.41799999999995
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "CA-YNP/Dome",
       "imsr_name": "Dome",
@@ -39,7 +67,7 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 6815,
+        "acres": 6829,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
       },
@@ -98,34 +126,6 @@
         "acres": 25350,
         "lat": 36.21589400000005,
         "lng": -121.71750799999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NV-ECFX/Jones",
-      "imsr_name": "Jones",
-      "imsr_unit": "NVECFX",
-      "imsr_state": "NV",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NVECFX-010656",
-        "name": "Jones",
-        "state": "NV",
-        "acres": 1657,
-        "lat": 41.02195000000006,
-        "lng": -115.20764999999994
       },
       "other_candidates": []
     },
@@ -207,7 +207,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4401,
+        "acres": 4439,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -270,17 +270,17 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MSS/Hillsboro Ludlow Road",
-      "imsr_name": "Hillsboro Ludlow Road",
+      "imsr_id": "MS-MSS/Webster Bailey Road",
+      "imsr_name": "Webster Bailey Road",
       "imsr_unit": "MSMSS",
       "imsr_state": "MS",
       "imsr_year": "2026",
-      "final": "STRONG",
+      "final": "EXACT",
       "reason": "best single candidate",
-      "score": 0.888,
+      "score": 1.0,
       "signals": {
-        "name_exact": false,
-        "name_jaccard": 0.75,
+        "name_exact": true,
+        "name_jaccard": 1.0,
         "name_fuzzy": true,
         "unit_match": true,
         "state_match": true,
@@ -288,12 +288,40 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMSS-018915",
-        "name": "Scott - Hillsboro Ludlow Road",
+        "ufi": "2026-MSMSS-018957",
+        "name": "Webster - Bailey Road",
         "state": "MS",
-        "acres": 351,
-        "lat": 32.53750000000008,
-        "lng": -89.62527779999994
+        "acres": 147,
+        "lat": 33.52833330000004,
+        "lng": -89.38111109999994
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MSS/Scott Pine Bluff Rd",
+      "imsr_name": "Scott Pine Bluff Rd",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMSS-018972",
+        "name": "Scott-Pine Bluff Rd/",
+        "state": "MS",
+        "acres": 109,
+        "lat": 32.50388890000005,
+        "lng": -89.38416669999998
       },
       "other_candidates": []
     }
@@ -310,12 +338,6 @@
       "name": "SINLAHEKIN",
       "state": "WA",
       "acres": 166007
-    },
-    {
-      "ufi": "2026-WACOA-260140",
-      "name": "Kaiser Canyon",
-      "state": "WA",
-      "acres": 138293
     },
     {
       "ufi": "2026-UTFIF-260341",
@@ -348,16 +370,22 @@
       "acres": 61380
     },
     {
-      "ufi": "2026-WANES-260149",
-      "name": "Modrite",
-      "state": "WA",
-      "acres": 57594
-    },
-    {
       "ufi": "2026-ORFWF-260286",
       "name": "Wrights Spring",
       "state": "OR",
       "acres": 55134
+    },
+    {
+      "ufi": "2026-NVNAFQ-500729",
+      "name": "MOUSE MEADOW",
+      "state": "NV",
+      "acres": 52000
+    },
+    {
+      "ufi": "2026-MTBDF-266319",
+      "name": "Sand Creek",
+      "state": "MT",
+      "acres": 35520
     }
   ]
 }
