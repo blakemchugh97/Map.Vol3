@@ -1,22 +1,50 @@
 {
-  "matched_at": "2026-10-09T20:03:16.282811+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-09-extracted.json",
-  "imsr_date": "2026-10-09",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-09.json",
-  "layer_records": 462,
+  "matched_at": "2026-10-11T19:26:38.317968+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-11-extracted.json",
+  "imsr_date": "2026-10-11",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-11.json",
+  "layer_records": 407,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 10,
+    "imsr_incidents": 11,
     "match_rate_pct": 100.0,
-    "exact": 10,
+    "exact": 11,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 452
+    "layer_only_count": 396
   },
   "failure_reasons": {},
   "results": [
+    {
+      "imsr_id": "CA-SQF/Cyrus",
+      "imsr_name": "Cyrus",
+      "imsr_unit": "CASQF",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CASQF-001695",
+        "name": "CYRUS",
+        "state": "CA",
+        "acres": 2,
+        "lat": 35.698750000000075,
+        "lng": -118.41799999999995
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "CA-YNP/Dome",
       "imsr_name": "Dome",
@@ -39,7 +67,7 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 6829,
+        "acres": 6805,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
       },
@@ -130,34 +158,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "NV-ECFX/Jones",
-      "imsr_name": "Jones",
-      "imsr_unit": "NVECFX",
-      "imsr_state": "NV",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NVECFX-010656",
-        "name": "Jones",
-        "state": "NV",
-        "acres": 1657,
-        "lat": 41.02195000000006,
-        "lng": -115.20764999999994
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "WA-OWF/Little Giant",
       "imsr_name": "Little Giant",
       "imsr_unit": "WAOWF",
@@ -207,7 +207,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4420,
+        "acres": 4439,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -270,8 +270,36 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MSS/Amite Kahnville Rd",
-      "imsr_name": "Amite Kahnville Rd",
+      "imsr_id": "WY-SHX/Pk",
+      "imsr_name": "Pk",
+      "imsr_unit": "WYSHX",
+      "imsr_state": "WY",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WYSHX-000391",
+        "name": "PK",
+        "state": "WY",
+        "acres": 1645,
+        "lat": 44.75160000000005,
+        "lng": -107.21989999999994
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MSS/CR 605",
+      "imsr_name": "CR 605",
       "imsr_unit": "MSMSS",
       "imsr_state": "MS",
       "imsr_year": "2026",
@@ -288,12 +316,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMSS-018942",
-        "name": "Amite Kahnville Rd",
+        "ufi": "2026-MSMSS-018987",
+        "name": "CR 605",
         "state": "MS",
-        "acres": 190,
-        "lat": 31.177222200000074,
-        "lng": -91.00861109999994
+        "acres": 100,
+        "lat": 34.706388900000036,
+        "lng": -88.84944439999998
       },
       "other_candidates": []
     }
