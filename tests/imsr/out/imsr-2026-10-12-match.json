@@ -1,19 +1,19 @@
 {
-  "matched_at": "2026-10-10T19:12:20.041493+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-10-extracted.json",
-  "imsr_date": "2026-10-10",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-10.json",
-  "layer_records": 421,
+  "matched_at": "2026-10-12T22:27:16.893685+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-12-extracted.json",
+  "imsr_date": "2026-10-12",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-12.json",
+  "layer_records": 384,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 11,
+    "imsr_incidents": 12,
     "match_rate_pct": 100.0,
-    "exact": 11,
+    "exact": 12,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 410
+    "layer_only_count": 372
   },
   "failure_reasons": {},
   "results": [
@@ -39,7 +39,7 @@
         "ufi": "2026-CASQF-001695",
         "name": "CYRUS",
         "state": "CA",
-        "acres": 2,
+        "acres": 543,
         "lat": 35.698750000000075,
         "lng": -118.41799999999995
       },
@@ -67,9 +67,37 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 6829,
+        "acres": 6788,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CA-LPF/Timber",
+      "imsr_name": "Timber",
+      "imsr_unit": "CALPF",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CALPF-002271",
+        "name": "Timber",
+        "state": "CA",
+        "acres": 25350,
+        "lat": 36.21589400000005,
+        "lng": -121.71750799999995
       },
       "other_candidates": []
     },
@@ -102,10 +130,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "CA-LPF/Timber",
-      "imsr_name": "Timber",
-      "imsr_unit": "CALPF",
-      "imsr_state": "CA",
+      "imsr_id": "ID-TFD/Buckhorn 2",
+      "imsr_name": "Buckhorn 2",
+      "imsr_unit": "IDTFD",
+      "imsr_state": "ID",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -120,12 +148,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-CALPF-002271",
-        "name": "Timber",
-        "state": "CA",
-        "acres": 25350,
-        "lat": 36.21589400000005,
-        "lng": -121.71750799999995
+        "ufi": "2026-IDTFD-000268",
+        "name": "Buckhorn 2",
+        "state": "ID",
+        "acres": 2000,
+        "lat": 42.33721700000007,
+        "lng": -114.10296699999998
       },
       "other_candidates": []
     },
@@ -270,10 +298,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MSS/Webster Bailey Road",
-      "imsr_name": "Webster Bailey Road",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
+      "imsr_id": "MI-MIS/Craig Lake 1",
+      "imsr_name": "Craig Lake 1",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -288,20 +316,20 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMSS-018957",
-        "name": "Webster - Bailey Road",
-        "state": "MS",
-        "acres": 147,
-        "lat": 33.52833330000004,
-        "lng": -89.38111109999994
+        "ufi": "2026-MIMIS-070006",
+        "name": "Craig Lake 1",
+        "state": "MI",
+        "acres": 400,
+        "lat": 46.633313420000036,
+        "lng": -88.16960352999996
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MSS/Scott Pine Bluff Rd",
-      "imsr_name": "Scott Pine Bluff Rd",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
+      "imsr_id": "WY-SHX/Pk",
+      "imsr_name": "Pk",
+      "imsr_unit": "WYSHX",
+      "imsr_state": "WY",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -316,12 +344,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMSS-018972",
-        "name": "Scott-Pine Bluff Rd/",
-        "state": "MS",
-        "acres": 109,
-        "lat": 32.50388890000005,
-        "lng": -89.38416669999998
+        "ufi": "2026-WYSHX-000391",
+        "name": "PK",
+        "state": "WY",
+        "acres": 1645,
+        "lat": 44.75160000000005,
+        "lng": -107.21989999999994
       },
       "other_candidates": []
     }
@@ -338,12 +366,6 @@
       "name": "SINLAHEKIN",
       "state": "WA",
       "acres": 166007
-    },
-    {
-      "ufi": "2026-UTFIF-260341",
-      "name": "Widemouth 2",
-      "state": "UT",
-      "acres": 129742
     },
     {
       "ufi": "2026-ORBUD-002693",
@@ -386,6 +408,12 @@
       "name": "Sand Creek",
       "state": "MT",
       "acres": 35520
+    },
+    {
+      "ufi": "2026-NVWID-020620",
+      "name": "McConnell",
+      "state": "NV",
+      "acres": 33816
     }
   ]
 }
