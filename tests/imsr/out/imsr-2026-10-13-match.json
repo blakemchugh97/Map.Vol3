@@ -1,50 +1,22 @@
 {
-  "matched_at": "2026-10-11T19:26:38.317968+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-11-extracted.json",
-  "imsr_date": "2026-10-11",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-11.json",
-  "layer_records": 407,
+  "matched_at": "2026-10-13T20:34:51.085561+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-13-extracted.json",
+  "imsr_date": "2026-10-13",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-13.json",
+  "layer_records": 393,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 11,
+    "imsr_incidents": 12,
     "match_rate_pct": 100.0,
-    "exact": 11,
+    "exact": 12,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 396
+    "layer_only_count": 381
   },
   "failure_reasons": {},
   "results": [
-    {
-      "imsr_id": "CA-SQF/Cyrus",
-      "imsr_name": "Cyrus",
-      "imsr_unit": "CASQF",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CASQF-001695",
-        "name": "CYRUS",
-        "state": "CA",
-        "acres": 2,
-        "lat": 35.698750000000075,
-        "lng": -118.41799999999995
-      },
-      "other_candidates": []
-    },
     {
       "imsr_id": "CA-YNP/Dome",
       "imsr_name": "Dome",
@@ -67,16 +39,16 @@
         "ufi": "2026-CAYNP-000100",
         "name": "DOME",
         "state": "CA",
-        "acres": 6805,
+        "acres": 6788,
         "lat": 37.56620000000004,
         "lng": -119.61616699999996
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "CA-ANF/Bouquet",
-      "imsr_name": "Bouquet",
-      "imsr_unit": "CAANF",
+      "imsr_id": "CA-SQF/Cyrus",
+      "imsr_name": "Cyrus",
+      "imsr_unit": "CASQF",
       "imsr_state": "CA",
       "imsr_year": "2026",
       "final": "EXACT",
@@ -92,12 +64,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-CAANF-264196",
-        "name": "BOUQUET",
+        "ufi": "2026-CASQF-001695",
+        "name": "CYRUS",
         "state": "CA",
-        "acres": 1048,
-        "lat": 34.56183500000003,
-        "lng": -118.40182999999996
+        "acres": 543,
+        "lat": 35.698750000000075,
+        "lng": -118.41799999999995
       },
       "other_candidates": []
     },
@@ -158,6 +130,34 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "ID-TFD/Buckhorn 2",
+      "imsr_name": "Buckhorn 2",
+      "imsr_unit": "IDTFD",
+      "imsr_state": "ID",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-IDTFD-000268",
+        "name": "Buckhorn 2",
+        "state": "ID",
+        "acres": 2000,
+        "lat": 42.33721700000007,
+        "lng": -114.10296699999998
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "WA-OWF/Little Giant",
       "imsr_name": "Little Giant",
       "imsr_unit": "WAOWF",
@@ -207,7 +207,7 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4439,
+        "acres": 4594,
         "lat": 48.34666700000008,
         "lng": -120.83066699999995
       },
@@ -270,6 +270,62 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "MI-MIS/Ridge",
+      "imsr_name": "Ridge",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MIMIS-520021",
+        "name": "Ridge",
+        "state": "MI",
+        "acres": 450,
+        "lat": 46.59361110000003,
+        "lng": -87.61861109999995
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MI-MIS/Craig Lake 1",
+      "imsr_name": "Craig Lake 1",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MIMIS-070006",
+        "name": "Craig Lake 1",
+        "state": "MI",
+        "acres": 400,
+        "lat": 46.633313420000036,
+        "lng": -88.16960352999996
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "WY-SHX/Pk",
       "imsr_name": "Pk",
       "imsr_unit": "WYSHX",
@@ -296,34 +352,6 @@
         "lng": -107.21989999999994
       },
       "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MSS/CR 605",
-      "imsr_name": "CR 605",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMSS-018987",
-        "name": "CR 605",
-        "state": "MS",
-        "acres": 100,
-        "lat": 34.706388900000036,
-        "lng": -88.84944439999998
-      },
-      "other_candidates": []
     }
   ],
   "layer_only_sample": [
@@ -340,10 +368,10 @@
       "acres": 166007
     },
     {
-      "ufi": "2026-UTFIF-260341",
-      "name": "Widemouth 2",
-      "state": "UT",
-      "acres": 129742
+      "ufi": "2026-WACOA-260140",
+      "name": "Kaiser Canyon",
+      "state": "WA",
+      "acres": 138293
     },
     {
       "ufi": "2026-ORBUD-002693",
@@ -364,28 +392,28 @@
       "acres": 70821
     },
     {
+      "ufi": "2026-ORWSA-000100",
+      "name": "Bench",
+      "state": "OR",
+      "acres": 67071
+    },
+    {
       "ufi": "2026-ORUMF-000324",
       "name": "Hagen",
       "state": "OR",
       "acres": 61380
     },
     {
+      "ufi": "2026-WANES-260149",
+      "name": "Modrite",
+      "state": "WA",
+      "acres": 57594
+    },
+    {
       "ufi": "2026-ORFWF-260286",
       "name": "Wrights Spring",
       "state": "OR",
       "acres": 55134
-    },
-    {
-      "ufi": "2026-NVNAFQ-500729",
-      "name": "MOUSE MEADOW",
-      "state": "NV",
-      "acres": 52000
-    },
-    {
-      "ufi": "2026-MTBDF-266319",
-      "name": "Sand Creek",
-      "state": "MT",
-      "acres": 35520
     }
   ]
 }
