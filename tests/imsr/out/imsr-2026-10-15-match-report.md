@@ -1,30 +1,33 @@
-# IMSR ↔ incident-layer match — 2026-10-13
+# IMSR ↔ incident-layer match — 2026-10-15
 
-- IMSR source: `tests/imsr/out/imsr-2026-10-13-extracted.json`
-- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-13.json` (393 records)
+- IMSR source: `tests/imsr/out/imsr-2026-10-15-extracted.json`
+- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-15.json` (386 records)
 - **Extracted IMSR rows are UNVERIFIED; this measures record MATCHING, not parser or value correctness.**
 
 ## Match summary
 - IMSR incidents compared: **12**
-- Match rate (exact+strong+weak): **100.0%**
-- EXACT **12** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **0**
-- Layer records with no IMSR match: **381** (expected — IMSR lists only large incidents)
+- Match rate (exact+strong+weak): **91.7%**
+- EXACT **11** · STRONG **0** · WEAK **0** · AMBIGUOUS **1** · NO_MATCH **0**
+- Layer records with no IMSR match: **375** (expected — IMSR lists only large incidents)
+
+## Top failure / ambiguity reasons
+- 1× — >=2 competing EXACT candidates
 
 ## Per-incident result
 
 | IMSR incident | tier | matched layer (UFI) | score | signals |
 |---|---|---|---|---|
 | CA-YNP/Dome | **EXACT** | 2026-CAYNP-000100 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| CA-SQF/Cyrus | **EXACT** | 2026-CASQF-001695 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | CA-LPF/Timber | **EXACT** | 2026-CALPF-002271 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| NV-TMFX/Bull | **EXACT** | 2026-NVTMFX-030869 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| ID-TFD/Buckhorn 2 | **EXACT** | 2026-IDTFD-000268 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| WA-OWF/Little Giant | **EXACT** | 2026-WAOWF-260406 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-OWF/Sisi | **EXACT** | 2026-WAOWF-260664 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OR-MHF/Austin | **EXACT** | 2026-ORMHF-000863 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OR-MHF/Grasshopper | **EXACT** | 2026-ORMHF-000688 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| WA-OWF/Little Giant | **EXACT** | 2026-WAOWF-260406 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MI-MIS/Ridge | **EXACT** | 2026-MIMIS-520021 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| MI-MIS/Black River | **AMBIGUOUS** | 2026-MIMIS-260420 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MI-MIS/Craig Lake 1 | **EXACT** | 2026-MIMIS-070006 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| OK-OKS/South White Wolf | **EXACT** | 2026-OKOKS-261126 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| MS-MNF/Dowling | **EXACT** | 2026-MSMNF-000631 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WY-SHX/Pk | **EXACT** | 2026-WYSHX-000391 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 
 ## Largest layer incidents with NO IMSR match (sample)

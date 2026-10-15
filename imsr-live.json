@@ -1,22 +1,21 @@
 {
   "meta": {
-    "source_date": "2026-10-14",
-    "generated_at": "2026-10-14T19:15:21.873777+00:00",
+    "source_date": "2026-10-15",
+    "generated_at": "2026-10-15T18:59:20.319357+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
-      "gac_pl": 6,
-      "exact_incidents": 13
+      "gac_pl": 5,
+      "exact_incidents": 11
     }
   },
   "gac_pl": {
     "OSCC": 3,
-    "GBCC": 2,
     "NWCC": 1,
     "EACC": 1,
-    "RMCC": 2,
-    "SACC": 2
+    "SACC": 2,
+    "RMCC": 2
   },
   "national_totals": {
     "date": null,
@@ -25,19 +24,19 @@
   "exact_incidents": {
     "2026-CAYNP-000100": {
       "tier": "EXACT",
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "imsr_id": "CA-YNP/Dome",
       "imsr_name": "Dome",
       "layer_name": "DOME",
       "state": "CA",
-      "crews": 10,
-      "engines": 10,
-      "helicopters": 9,
-      "total_personnel": 596
+      "crews": 8,
+      "engines": 9,
+      "helicopters": 6,
+      "total_personnel": 524
     },
     "2026-CALPF-002271": {
       "tier": "EXACT",
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "imsr_id": "CA-LPF/Timber",
       "imsr_name": "Timber",
       "layer_name": "Timber",
@@ -45,59 +44,23 @@
       "crews": 1,
       "engines": 3,
       "helicopters": 2,
-      "total_personnel": 207
-    },
-    "2026-CASQF-001695": {
-      "tier": "EXACT",
-      "report_date": "2026-10-14",
-      "imsr_id": "CA-SQF/Cyrus",
-      "imsr_name": "Cyrus",
-      "layer_name": "CYRUS",
-      "state": "CA",
-      "crews": 0,
-      "engines": 8,
-      "helicopters": 0,
-      "total_personnel": 43
-    },
-    "2026-IDTFD-000268": {
-      "tier": "EXACT",
-      "report_date": "2026-10-14",
-      "imsr_id": "ID-TFD/Buckhorn 2",
-      "imsr_name": "Buckhorn 2",
-      "layer_name": "Buckhorn 2",
-      "state": "ID",
-      "crews": 0,
-      "engines": 0,
-      "helicopters": 0,
-      "total_personnel": 0
-    },
-    "2026-WAOWF-260406": {
-      "tier": "EXACT",
-      "report_date": "2026-10-14",
-      "imsr_id": "WA-OWF/Little Giant",
-      "imsr_name": "Little Giant",
-      "layer_name": "LITTLE GIANT",
-      "state": "WA",
-      "crews": 0,
-      "engines": 1,
-      "helicopters": 2,
-      "total_personnel": 209
+      "total_personnel": 196
     },
     "2026-WAOWF-260664": {
       "tier": "EXACT",
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "imsr_id": "WA-OWF/Sisi",
       "imsr_name": "Sisi",
       "layer_name": "SISI",
       "state": "WA",
-      "crews": 1,
+      "crews": 0,
       "engines": 0,
       "helicopters": 0,
-      "total_personnel": 32
+      "total_personnel": 28
     },
     "2026-ORMHF-000863": {
       "tier": "EXACT",
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "imsr_id": "OR-MHF/Austin",
       "imsr_name": "Austin",
       "layer_name": "AUSTIN",
@@ -105,11 +68,11 @@
       "crews": 0,
       "engines": 3,
       "helicopters": 0,
-      "total_personnel": 298
+      "total_personnel": 283
     },
     "2026-ORMHF-000688": {
       "tier": "EXACT",
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "imsr_id": "OR-MHF/Grasshopper",
       "imsr_name": "Grasshopper",
       "layer_name": "GRASSHOPPER",
@@ -117,11 +80,23 @@
       "crews": 0,
       "engines": 4,
       "helicopters": 0,
-      "total_personnel": 237
+      "total_personnel": 205
+    },
+    "2026-WAOWF-260406": {
+      "tier": "EXACT",
+      "report_date": "2026-10-15",
+      "imsr_id": "WA-OWF/Little Giant",
+      "imsr_name": "Little Giant",
+      "layer_name": "LITTLE GIANT",
+      "state": "WA",
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 83
     },
     "2026-MIMIS-520021": {
       "tier": "EXACT",
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "imsr_id": "MI-MIS/Ridge",
       "imsr_name": "Ridge",
       "layer_name": "Ridge",
@@ -129,11 +104,11 @@
       "crews": 0,
       "engines": 9,
       "helicopters": 0,
-      "total_personnel": 71
+      "total_personnel": 65
     },
     "2026-MIMIS-070006": {
       "tier": "EXACT",
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "imsr_id": "MI-MIS/Craig Lake 1",
       "imsr_name": "Craig Lake 1",
       "layer_name": "Craig Lake 1",
@@ -141,11 +116,35 @@
       "crews": 0,
       "engines": 3,
       "helicopters": 0,
-      "total_personnel": 25
+      "total_personnel": 26
+    },
+    "2026-OKOKS-261126": {
+      "tier": "EXACT",
+      "report_date": "2026-10-15",
+      "imsr_id": "OK-OKS/South White Wolf",
+      "imsr_name": "South White Wolf",
+      "layer_name": "South White Wolf",
+      "state": "OK",
+      "crews": 0,
+      "engines": 1,
+      "helicopters": 0,
+      "total_personnel": 4
+    },
+    "2026-MSMNF-000631": {
+      "tier": "EXACT",
+      "report_date": "2026-10-15",
+      "imsr_id": "MS-MNF/Dowling",
+      "imsr_name": "Dowling",
+      "layer_name": "Dowling",
+      "state": "MS",
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 6
     },
     "2026-WYSHX-000391": {
       "tier": "EXACT",
-      "report_date": "2026-10-14",
+      "report_date": "2026-10-15",
       "imsr_id": "WY-SHX/Pk",
       "imsr_name": "Pk",
       "layer_name": "PK",
@@ -154,30 +153,6 @@
       "engines": 2,
       "helicopters": 0,
       "total_personnel": 6
-    },
-    "2026-MSMNF-000631": {
-      "tier": "EXACT",
-      "report_date": "2026-10-14",
-      "imsr_id": "MS-MNF/Dowling",
-      "imsr_name": "Dowling",
-      "layer_name": "Dowling",
-      "state": "MS",
-      "crews": 0,
-      "engines": 0,
-      "helicopters": 0,
-      "total_personnel": 5
-    },
-    "2026-MSMSS-019068": {
-      "tier": "EXACT",
-      "report_date": "2026-10-14",
-      "imsr_id": "MS-MSS/Carroll Co Rd 128",
-      "imsr_name": "Carroll Co Rd 128",
-      "layer_name": "Carroll - Co Rd 128",
-      "state": "MS",
-      "crews": 0,
-      "engines": 0,
-      "helicopters": 0,
-      "total_personnel": 2
     }
   }
 }
