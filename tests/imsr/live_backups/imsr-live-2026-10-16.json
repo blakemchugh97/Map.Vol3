@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "source_date": "2026-10-16",
+    "generated_at": "2026-10-16T18:43:24.696833+00:00",
+    "generator": "tools/imsr_build_live.py",
+    "review_only": true,
+    "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
+    "counts": {
+      "gac_pl": 5,
+      "exact_incidents": 10
+    }
+  },
+  "gac_pl": {
+    "OSCC": 3,
+    "NWCC": 1,
+    "EACC": 1,
+    "SACC": 2,
+    "RMCC": 2
+  },
+  "national_totals": {
+    "date": null,
+    "national_preparedness_level": null
+  },
+  "exact_incidents": {
+    "2026-CAYNP-000100": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "CA-YNP/Dome",
+      "imsr_name": "Dome",
+      "layer_name": "DOME",
+      "state": "CA",
+      "crews": 5,
+      "engines": 2,
+      "helicopters": 4,
+      "total_personnel": 278
+    },
+    "2026-CALPF-002271": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "CA-LPF/Timber",
+      "imsr_name": "Timber",
+      "layer_name": "Timber",
+      "state": "CA",
+      "crews": 1,
+      "engines": 3,
+      "helicopters": 2,
+      "total_personnel": 177
+    },
+    "2026-WAOWF-260664": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "WA-OWF/Sisi",
+      "imsr_name": "Sisi",
+      "layer_name": "SISI",
+      "state": "WA",
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 28
+    },
+    "2026-ORMHF-000863": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "OR-MHF/Austin",
+      "imsr_name": "Austin",
+      "layer_name": "AUSTIN",
+      "state": "OR",
+      "crews": 0,
+      "engines": 2,
+      "helicopters": 0,
+      "total_personnel": 279
+    },
+    "2026-ORMHF-000688": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "OR-MHF/Grasshopper",
+      "imsr_name": "Grasshopper",
+      "layer_name": "GRASSHOPPER",
+      "state": "OR",
+      "crews": 0,
+      "engines": 2,
+      "helicopters": 0,
+      "total_personnel": 196
+    },
+    "2026-MIMIS-520021": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "MI-MIS/Ridge",
+      "imsr_name": "Ridge",
+      "layer_name": "Ridge",
+      "state": "MI",
+      "crews": 0,
+      "engines": 9,
+      "helicopters": 0,
+      "total_personnel": 63
+    },
+    "2026-MIMIS-070006": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "MI-MIS/Craig Lake 1",
+      "imsr_name": "Craig Lake 1",
+      "layer_name": "Craig Lake 1",
+      "state": "MI",
+      "crews": 0,
+      "engines": 3,
+      "helicopters": 0,
+      "total_personnel": 25
+    },
+    "2026-MSMSS-019162": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "MS-MSS/Mount Pilgrim Road",
+      "imsr_name": "Mount Pilgrim Road",
+      "layer_name": "Mount Pilgrim Road",
+      "state": "MS",
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 0
+    },
+    "2026-OKOKS-261126": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "OK-OKS/South White Wolf",
+      "imsr_name": "South White Wolf",
+      "layer_name": "South White Wolf",
+      "state": "OK",
+      "crews": 0,
+      "engines": 1,
+      "helicopters": 0,
+      "total_personnel": 4
+    },
+    "2026-WYSHX-000391": {
+      "tier": "EXACT",
+      "report_date": "2026-10-16",
+      "imsr_id": "WY-SHX/Pk",
+      "imsr_name": "Pk",
+      "layer_name": "PK",
+      "state": "WY",
+      "crews": 0,
+      "engines": 2,
+      "helicopters": 0,
+      "total_personnel": 6
+    }
+  }
+}

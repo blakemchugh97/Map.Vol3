@@ -1,19 +1,19 @@
 {
-  "matched_at": "2026-10-14T19:15:21.847721+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-14-extracted.json",
-  "imsr_date": "2026-10-14",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-14.json",
-  "layer_records": 391,
+  "matched_at": "2026-10-16T18:43:24.672028+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-16-extracted.json",
+  "imsr_date": "2026-10-16",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-16.json",
+  "layer_records": 406,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 14,
-    "match_rate_pct": 92.9,
-    "exact": 13,
+    "imsr_incidents": 11,
+    "match_rate_pct": 90.9,
+    "exact": 10,
     "strong": 0,
     "weak": 0,
     "ambiguous": 1,
     "no_match": 0,
-    "layer_only_count": 378
+    "layer_only_count": 396
   },
   "failure_reasons": {
     ">=2 competing EXACT candidates": 1
@@ -42,8 +42,8 @@
         "name": "DOME",
         "state": "CA",
         "acres": 6788,
-        "lat": 37.56620000000004,
-        "lng": -119.61616699999996
+        "lat": 37.56620512778421,
+        "lng": -119.61617975318514
       },
       "other_candidates": []
     },
@@ -70,92 +70,8 @@
         "name": "Timber",
         "state": "CA",
         "acres": 25350,
-        "lat": 36.21589400000005,
-        "lng": -121.71750799999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-SQF/Cyrus",
-      "imsr_name": "Cyrus",
-      "imsr_unit": "CASQF",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CASQF-001695",
-        "name": "CYRUS",
-        "state": "CA",
-        "acres": 2,
-        "lat": 35.698750000000075,
-        "lng": -118.41799999999995
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "ID-TFD/Buckhorn 2",
-      "imsr_name": "Buckhorn 2",
-      "imsr_unit": "IDTFD",
-      "imsr_state": "ID",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-IDTFD-000268",
-        "name": "Buckhorn 2",
-        "state": "ID",
-        "acres": 2000,
-        "lat": 42.33721700000007,
-        "lng": -114.10296699999998
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Little Giant",
-      "imsr_name": "Little Giant",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260406",
-        "name": "LITTLE GIANT",
-        "state": "WA",
-        "acres": 172912,
-        "lat": 48.01621700000004,
-        "lng": -120.84661699999998
+        "lat": 36.21589885898784,
+        "lng": -121.71752094030687
       },
       "other_candidates": []
     },
@@ -182,8 +98,8 @@
         "name": "SISI",
         "state": "WA",
         "acres": 4615,
-        "lat": 48.34666700000008,
-        "lng": -120.83066699999995
+        "lat": 48.346672822151575,
+        "lng": -120.83068182684767
       },
       "other_candidates": []
     },
@@ -210,8 +126,8 @@
         "name": "AUSTIN",
         "state": "OR",
         "acres": 12888,
-        "lat": 45.02521600000006,
-        "lng": -121.94487199999998
+        "lat": 45.025221509522204,
+        "lng": -121.94488626629744
       },
       "other_candidates": []
     },
@@ -238,10 +154,45 @@
         "name": "GRASSHOPPER",
         "state": "OR",
         "acres": 93972,
-        "lat": 45.25296700000007,
-        "lng": -121.51013299999994
+        "lat": 45.252972567480924,
+        "lng": -121.51014724249825
       },
       "other_candidates": []
+    },
+    {
+      "imsr_id": "MI-MIS/Ridge",
+      "imsr_name": "Ridge",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MIMIS-520021",
+        "name": "Ridge",
+        "state": "MI",
+        "acres": 466,
+        "lat": 46.593619709809566,
+        "lng": -87.61861739490656
+      },
+      "other_candidates": [
+        {
+          "ufi": "2026-CAKNF-008016",
+          "name": "RIDGE",
+          "tier": "STATE_CONFLICT",
+          "score": 0.55
+        }
+      ]
     },
     {
       "imsr_id": "MI-MIS/Black River",
@@ -266,8 +217,8 @@
         "name": "Black River",
         "state": "MI",
         "acres": 300,
-        "lat": 46.42540000000008,
-        "lng": -89.93311699999998
+        "lat": 46.42540843284826,
+        "lng": -89.93312397656655
       },
       "other_candidates": [
         {
@@ -277,34 +228,6 @@
           "score": 1.0
         }
       ]
-    },
-    {
-      "imsr_id": "MI-MIS/Ridge",
-      "imsr_name": "Ridge",
-      "imsr_unit": "MIMIS",
-      "imsr_state": "MI",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MIMIS-520021",
-        "name": "Ridge",
-        "state": "MI",
-        "acres": 450,
-        "lat": 46.59361110000003,
-        "lng": -87.61861109999995
-      },
-      "other_candidates": []
     },
     {
       "imsr_id": "MI-MIS/Craig Lake 1",
@@ -328,9 +251,65 @@
         "ufi": "2026-MIMIS-070006",
         "name": "Craig Lake 1",
         "state": "MI",
-        "acres": 600,
-        "lat": 46.633313420000036,
-        "lng": -88.16960352999996
+        "acres": 606,
+        "lat": 46.633322000148944,
+        "lng": -88.16960999974658
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MSS/Mount Pilgrim Road",
+      "imsr_name": "Mount Pilgrim Road",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMSS-019162",
+        "name": "Mount Pilgrim Road",
+        "state": "MS",
+        "acres": 150,
+        "lat": 32.71917270774127,
+        "lng": -89.89500569832141
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-OKS/South White Wolf",
+      "imsr_name": "South White Wolf",
+      "imsr_unit": "OKOKS",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOKS-261126",
+        "name": "South White Wolf",
+        "state": "OK",
+        "acres": 128,
+        "lat": 33.9755616580528,
+        "lng": -94.66250704986128
       },
       "other_candidates": []
     },
@@ -357,64 +336,8 @@
         "name": "PK",
         "state": "WY",
         "acres": 1645,
-        "lat": 44.75160000000005,
-        "lng": -107.21989999999994
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MNF/Dowling",
-      "imsr_name": "Dowling",
-      "imsr_unit": "MSMNF",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMNF-000631",
-        "name": "Dowling",
-        "state": "MS",
-        "acres": 106,
-        "lat": 32.94158300000004,
-        "lng": -90.74191699999994
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MSS/Carroll Co Rd 128",
-      "imsr_name": "Carroll Co Rd 128",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMSS-019068",
-        "name": "Carroll - Co Rd 128",
-        "state": "MS",
-        "acres": 125,
-        "lat": 33.56611110000006,
-        "lng": -89.99527779999994
+        "lat": 44.75160686893464,
+        "lng": -107.21991133399659
       },
       "other_candidates": []
     }
@@ -425,6 +348,12 @@
       "name": "0445 CROSSWHITE",
       "state": "OR",
       "acres": 342923
+    },
+    {
+      "ufi": "2026-WAOWF-260406",
+      "name": "LITTLE GIANT",
+      "state": "WA",
+      "acres": 172912
     },
     {
       "ufi": "2026-WANES-001791",
@@ -473,12 +402,6 @@
       "name": "Modrite",
       "state": "WA",
       "acres": 57594
-    },
-    {
-      "ufi": "2026-ORFWF-260286",
-      "name": "Wrights Spring",
-      "state": "OR",
-      "acres": 55134
     }
   ]
 }
