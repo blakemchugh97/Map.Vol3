@@ -1,28 +1,28 @@
 {
-  "matched_at": "2026-10-16T18:43:24.672028+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-16-extracted.json",
-  "imsr_date": "2026-10-16",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-16.json",
-  "layer_records": 406,
+  "matched_at": "2026-10-18T17:57:37.754904+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-18-extracted.json",
+  "imsr_date": "2026-10-18",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-18.json",
+  "layer_records": 340,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 11,
-    "match_rate_pct": 90.9,
-    "exact": 10,
+    "imsr_incidents": 16,
+    "match_rate_pct": 87.5,
+    "exact": 14,
     "strong": 0,
     "weak": 0,
-    "ambiguous": 1,
+    "ambiguous": 2,
     "no_match": 0,
-    "layer_only_count": 396
+    "layer_only_count": 326
   },
   "failure_reasons": {
-    ">=2 competing EXACT candidates": 1
+    ">=2 competing EXACT candidates": 2
   },
   "results": [
     {
-      "imsr_id": "CA-YNP/Dome",
-      "imsr_name": "Dome",
-      "imsr_unit": "CAYNP",
+      "imsr_id": "CA-PMQ/Henderson",
+      "imsr_name": "Henderson",
+      "imsr_unit": "CAPMQ",
       "imsr_state": "CA",
       "imsr_year": "2026",
       "final": "EXACT",
@@ -38,12 +38,40 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-CAYNP-000100",
-        "name": "DOME",
+        "ufi": "2026-CAPMQ-003992",
+        "name": "HENDERSON",
         "state": "CA",
-        "acres": 6788,
-        "lat": 37.56620512778421,
-        "lng": -119.61617975318514
+        "acres": 3160,
+        "lat": 33.34329482163308,
+        "lng": -117.40939198987081
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CA-ORC/Norte",
+      "imsr_name": "Norte",
+      "imsr_unit": "CAORC",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CAORC-149182",
+        "name": "NORTE",
+        "state": "CA",
+        "acres": 570,
+        "lat": 33.479656005235746,
+        "lng": -117.6348419988251
       },
       "other_candidates": []
     },
@@ -72,6 +100,34 @@
         "acres": 25350,
         "lat": 36.21589885898784,
         "lng": -121.71752094030687
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CA-YNP/Dome",
+      "imsr_name": "Dome",
+      "imsr_unit": "CAYNP",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CAYNP-000100",
+        "name": "DOME",
+        "state": "CA",
+        "acres": 6788,
+        "lat": 37.56620512778421,
+        "lng": -119.61617975318514
       },
       "other_candidates": []
     },
@@ -185,14 +241,7 @@
         "lat": 46.593619709809566,
         "lng": -87.61861739490656
       },
-      "other_candidates": [
-        {
-          "ufi": "2026-CAKNF-008016",
-          "name": "RIDGE",
-          "tier": "STATE_CONFLICT",
-          "score": 0.55
-        }
-      ]
+      "other_candidates": []
     },
     {
       "imsr_id": "MI-MIS/Black River",
@@ -286,6 +335,41 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "MS-MSS/Jasper CR 25",
+      "imsr_name": "Jasper CR 25",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "AMBIGUOUS",
+      "reason": ">=2 competing EXACT candidates",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMSS-000643",
+        "name": "Jasper Cr 25",
+        "state": "MS",
+        "acres": 50,
+        "lat": 32.1543399145444,
+        "lng": -89.241106488871
+      },
+      "other_candidates": [
+        {
+          "ufi": "2026-MSMSS-019221",
+          "name": "Jasper CR 25",
+          "tier": "EXACT",
+          "score": 1.0
+        }
+      ]
+    },
+    {
       "imsr_id": "OK-OKS/South White Wolf",
       "imsr_name": "South White Wolf",
       "imsr_unit": "OKOKS",
@@ -310,6 +394,34 @@
         "acres": 128,
         "lat": 33.9755616580528,
         "lng": -94.66250704986128
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CA-MEU/Cooley",
+      "imsr_name": "Cooley",
+      "imsr_unit": "CAMEU",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CAMEU-012265",
+        "name": "COOLEY",
+        "state": "CA",
+        "acres": 731,
+        "lat": 38.81972696913502,
+        "lng": -123.18806945548245
       },
       "other_candidates": []
     },
@@ -340,15 +452,37 @@
         "lng": -107.21991133399659
       },
       "other_candidates": []
+    },
+    {
+      "imsr_id": "ID-BOD/Smore",
+      "imsr_name": "Smore",
+      "imsr_unit": "IDBOD",
+      "imsr_state": "ID",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-IDBOD-001264",
+        "name": "SMORE",
+        "state": "ID",
+        "acres": 2115,
+        "lat": 43.305404915245944,
+        "lng": -116.34344498571879
+      },
+      "other_candidates": []
     }
   ],
   "layer_only_sample": [
-    {
-      "ufi": "2026-ORPRD-000445",
-      "name": "0445 CROSSWHITE",
-      "state": "OR",
-      "acres": 342923
-    },
     {
       "ufi": "2026-WAOWF-260406",
       "name": "LITTLE GIANT",
@@ -380,12 +514,6 @@
       "acres": 102007
     },
     {
-      "ufi": "2026-OR951S-000433",
-      "name": "0433 BREWER",
-      "state": "OR",
-      "acres": 70821
-    },
-    {
       "ufi": "2026-ORWSA-000100",
       "name": "Bench",
       "state": "OR",
@@ -402,6 +530,18 @@
       "name": "Modrite",
       "state": "WA",
       "acres": 57594
+    },
+    {
+      "ufi": "2026-ORFWF-260286",
+      "name": "Wrights Spring",
+      "state": "OR",
+      "acres": 55134
+    },
+    {
+      "ufi": "2026-COGMF-000099",
+      "name": "Gold Mountain",
+      "state": "CO",
+      "acres": 39747
     }
   ]
 }
