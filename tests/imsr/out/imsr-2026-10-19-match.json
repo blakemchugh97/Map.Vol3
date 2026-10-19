@@ -1,19 +1,19 @@
 {
-  "matched_at": "2026-10-17T17:49:13.576133+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-17-extracted.json",
-  "imsr_date": "2026-10-17",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-17.json",
-  "layer_records": 364,
+  "matched_at": "2026-10-19T20:29:57.413628+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-19-extracted.json",
+  "imsr_date": "2026-10-19",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-19.json",
+  "layer_records": 363,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 13,
-    "match_rate_pct": 92.3,
-    "exact": 12,
+    "imsr_incidents": 10,
+    "match_rate_pct": 90.0,
+    "exact": 9,
     "strong": 0,
     "weak": 0,
     "ambiguous": 1,
     "no_match": 0,
-    "layer_only_count": 352
+    "layer_only_count": 354
   },
   "failure_reasons": {
     ">=2 competing EXACT candidates": 1
@@ -41,7 +41,7 @@
         "ufi": "2026-CAPMQ-003992",
         "name": "HENDERSON",
         "state": "CA",
-        "acres": 3132,
+        "acres": 3226,
         "lat": 33.34329482163308,
         "lng": -117.40939198987081
       },
@@ -69,37 +69,9 @@
         "ufi": "2026-CAORC-149182",
         "name": "NORTE",
         "state": "CA",
-        "acres": 465,
+        "acres": 570,
         "lat": 33.479656005235746,
         "lng": -117.6348419988251
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-YNP/Dome",
-      "imsr_name": "Dome",
-      "imsr_unit": "CAYNP",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAYNP-000100",
-        "name": "DOME",
-        "state": "CA",
-        "acres": 6788,
-        "lat": 37.56620512778421,
-        "lng": -119.61617975318514
       },
       "other_candidates": []
     },
@@ -128,34 +100,6 @@
         "acres": 25350,
         "lat": 36.21589885898784,
         "lng": -121.71752094030687
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Sisi",
-      "imsr_name": "Sisi",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260664",
-        "name": "SISI",
-        "state": "WA",
-        "acres": 4615,
-        "lat": 48.346672822151575,
-        "lng": -120.83068182684767
       },
       "other_candidates": []
     },
@@ -212,6 +156,34 @@
         "acres": 93972,
         "lat": 45.252972567480924,
         "lng": -121.51014724249825
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-OWF/Sisi",
+      "imsr_name": "Sisi",
+      "imsr_unit": "WAOWF",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAOWF-260664",
+        "name": "SISI",
+        "state": "WA",
+        "acres": 4743,
+        "lat": 48.346672822151575,
+        "lng": -120.83068182684767
       },
       "other_candidates": []
     },
@@ -279,10 +251,10 @@
       ]
     },
     {
-      "imsr_id": "MI-MIS/Craig Lake 1",
-      "imsr_name": "Craig Lake 1",
-      "imsr_unit": "MIMIS",
-      "imsr_state": "MI",
+      "imsr_id": "CA-MEU/Cooley",
+      "imsr_name": "Cooley",
+      "imsr_unit": "CAMEU",
+      "imsr_state": "CA",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -297,40 +269,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MIMIS-070006",
-        "name": "Craig Lake 1",
-        "state": "MI",
-        "acres": 606,
-        "lat": 46.633322000148944,
-        "lng": -88.16960999974658
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WY-SHX/Pk",
-      "imsr_name": "Pk",
-      "imsr_unit": "WYSHX",
-      "imsr_state": "WY",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WYSHX-000391",
-        "name": "PK",
-        "state": "WY",
-        "acres": 1645,
-        "lat": 44.75160686893464,
-        "lng": -107.21991133399659
+        "ufi": "2026-CAMEU-012265",
+        "name": "COOLEY",
+        "state": "CA",
+        "acres": 1156,
+        "lat": 38.81972696913502,
+        "lng": -123.18806945548245
       },
       "other_candidates": []
     },
@@ -359,34 +303,6 @@
         "acres": 150,
         "lat": 32.71917270774127,
         "lng": -89.89500569832141
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OKS/South White Wolf",
-      "imsr_name": "South White Wolf",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-261126",
-        "name": "South White Wolf",
-        "state": "OK",
-        "acres": 128,
-        "lat": 33.9755616580528,
-        "lng": -94.66250704986128
       },
       "other_candidates": []
     }
