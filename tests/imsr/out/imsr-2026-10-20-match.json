@@ -1,52 +1,24 @@
 {
-  "matched_at": "2026-10-18T17:57:37.754904+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-18-extracted.json",
-  "imsr_date": "2026-10-18",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-18.json",
-  "layer_records": 340,
+  "matched_at": "2026-10-20T19:06:26.642192+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-20-extracted.json",
+  "imsr_date": "2026-10-20",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-20.json",
+  "layer_records": 394,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 16,
-    "match_rate_pct": 87.5,
-    "exact": 14,
+    "imsr_incidents": 10,
+    "match_rate_pct": 90.0,
+    "exact": 9,
     "strong": 0,
     "weak": 0,
-    "ambiguous": 2,
+    "ambiguous": 1,
     "no_match": 0,
-    "layer_only_count": 326
+    "layer_only_count": 385
   },
   "failure_reasons": {
-    ">=2 competing EXACT candidates": 2
+    ">=2 competing EXACT candidates": 1
   },
   "results": [
-    {
-      "imsr_id": "CA-PMQ/Henderson",
-      "imsr_name": "Henderson",
-      "imsr_unit": "CAPMQ",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAPMQ-003992",
-        "name": "HENDERSON",
-        "state": "CA",
-        "acres": 3160,
-        "lat": 33.34329482163308,
-        "lng": -117.40939198987081
-      },
-      "other_candidates": []
-    },
     {
       "imsr_id": "CA-ORC/Norte",
       "imsr_name": "Norte",
@@ -104,9 +76,9 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "CA-YNP/Dome",
-      "imsr_name": "Dome",
-      "imsr_unit": "CAYNP",
+      "imsr_id": "CA-PMQ/Henderson",
+      "imsr_name": "Henderson",
+      "imsr_unit": "CAPMQ",
       "imsr_state": "CA",
       "imsr_year": "2026",
       "final": "EXACT",
@@ -122,40 +94,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-CAYNP-000100",
-        "name": "DOME",
+        "ufi": "2026-CAPMQ-003992",
+        "name": "HENDERSON",
         "state": "CA",
-        "acres": 6788,
-        "lat": 37.56620512778421,
-        "lng": -119.61617975318514
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Sisi",
-      "imsr_name": "Sisi",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260664",
-        "name": "SISI",
-        "state": "WA",
-        "acres": 4615,
-        "lat": 48.346672822151575,
-        "lng": -120.83068182684767
+        "acres": 3260,
+        "lat": 33.34329482163308,
+        "lng": -117.40939198987081
       },
       "other_candidates": []
     },
@@ -212,6 +156,62 @@
         "acres": 93972,
         "lat": 45.252972567480924,
         "lng": -121.51014724249825
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-OWF/Sisi",
+      "imsr_name": "Sisi",
+      "imsr_unit": "WAOWF",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAOWF-260664",
+        "name": "SISI",
+        "state": "WA",
+        "acres": 4743,
+        "lat": 48.346672822151575,
+        "lng": -120.83068182684767
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CA-MEU/Cooley",
+      "imsr_name": "Cooley",
+      "imsr_unit": "CAMEU",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CAMEU-012265",
+        "name": "COOLEY",
+        "state": "CA",
+        "acres": 1365,
+        "lat": 38.81972696913502,
+        "lng": -123.18806945548245
       },
       "other_candidates": []
     },
@@ -279,34 +279,6 @@
       ]
     },
     {
-      "imsr_id": "MI-MIS/Craig Lake 1",
-      "imsr_name": "Craig Lake 1",
-      "imsr_unit": "MIMIS",
-      "imsr_state": "MI",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MIMIS-070006",
-        "name": "Craig Lake 1",
-        "state": "MI",
-        "acres": 606,
-        "lat": 46.633322000148944,
-        "lng": -88.16960999974658
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "MS-MSS/Mount Pilgrim Road",
       "imsr_name": "Mount Pilgrim Road",
       "imsr_unit": "MSMSS",
@@ -331,153 +303,6 @@
         "acres": 150,
         "lat": 32.71917270774127,
         "lng": -89.89500569832141
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MSS/Jasper CR 25",
-      "imsr_name": "Jasper CR 25",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "AMBIGUOUS",
-      "reason": ">=2 competing EXACT candidates",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMSS-000643",
-        "name": "Jasper Cr 25",
-        "state": "MS",
-        "acres": 50,
-        "lat": 32.1543399145444,
-        "lng": -89.241106488871
-      },
-      "other_candidates": [
-        {
-          "ufi": "2026-MSMSS-019221",
-          "name": "Jasper CR 25",
-          "tier": "EXACT",
-          "score": 1.0
-        }
-      ]
-    },
-    {
-      "imsr_id": "OK-OKS/South White Wolf",
-      "imsr_name": "South White Wolf",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-261126",
-        "name": "South White Wolf",
-        "state": "OK",
-        "acres": 128,
-        "lat": 33.9755616580528,
-        "lng": -94.66250704986128
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-MEU/Cooley",
-      "imsr_name": "Cooley",
-      "imsr_unit": "CAMEU",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAMEU-012265",
-        "name": "COOLEY",
-        "state": "CA",
-        "acres": 731,
-        "lat": 38.81972696913502,
-        "lng": -123.18806945548245
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WY-SHX/Pk",
-      "imsr_name": "Pk",
-      "imsr_unit": "WYSHX",
-      "imsr_state": "WY",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WYSHX-000391",
-        "name": "PK",
-        "state": "WY",
-        "acres": 1645,
-        "lat": 44.75160686893464,
-        "lng": -107.21991133399659
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "ID-BOD/Smore",
-      "imsr_name": "Smore",
-      "imsr_unit": "IDBOD",
-      "imsr_state": "ID",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-IDBOD-001264",
-        "name": "SMORE",
-        "state": "ID",
-        "acres": 2115,
-        "lat": 43.305404915245944,
-        "lng": -116.34344498571879
       },
       "other_candidates": []
     }
