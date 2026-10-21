@@ -1,10 +1,10 @@
 {
   "meta": {
     "source_type": "IMSR_PDF",
-    "source_date": "2026-10-19",
-    "report_label": "IMSR \u2014 2026-10-19 (auto-extracted, UNVERIFIED)",
+    "source_date": "2026-10-21",
+    "report_label": "IMSR \u2014 2026-10-21 (auto-extracted, UNVERIFIED)",
     "parser_version": "imsr_extract.py 0.2.0",
-    "ingested_at": "2026-10-19T20:29:56.999503+00:00",
+    "ingested_at": "2026-10-21T19:11:37.827551+00:00",
     "is_fixture": false,
     "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
     "verification": {
@@ -19,65 +19,48 @@
       "gacc": "OSCC",
       "gacc_name": "Southern California",
       "preparedness_level": 3,
-      "date": "2026-10-19"
+      "date": "2026-10-21"
     },
     {
       "gacc": "NWCC",
       "gacc_name": "Northwest",
       "preparedness_level": 1,
-      "date": "2026-10-19"
-    },
-    {
-      "gacc": "EACC",
-      "gacc_name": "Eastern",
-      "preparedness_level": 1,
-      "date": "2026-10-19"
+      "date": "2026-10-21"
     },
     {
       "gacc": "ONCC",
       "gacc_name": "Northern California",
       "preparedness_level": 2,
-      "date": "2026-10-19"
+      "date": "2026-10-21"
     },
     {
-      "gacc": "SACC",
-      "gacc_name": "Southern",
-      "preparedness_level": 2,
-      "date": "2026-10-19"
+      "gacc": "EACC",
+      "gacc_name": "Eastern",
+      "preparedness_level": 1,
+      "date": "2026-10-21"
+    },
+    {
+      "gacc": "NRCC",
+      "gacc_name": "Northern Rockies",
+      "preparedness_level": 1,
+      "date": "2026-10-21"
     }
   ],
   "national_resource_totals_daily": {},
   "incident_resources_daily": [
     {
-      "incident_id": "CA-PMQ/Henderson",
-      "incident_name": "Henderson",
-      "gacc": "OSCC",
-      "state": "CA",
-      "date": "2026-10-19",
-      "size_acres": 3226,
-      "percent_contained": 85,
-      "resources": {
-        "crews": 8,
-        "engines": 24,
-        "helicopters": 0,
-        "total_personnel": 332
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
       "incident_id": "CA-ORC/Norte",
       "incident_name": "Norte",
       "gacc": "OSCC",
       "state": "CA",
-      "date": "2026-10-19",
+      "date": "2026-10-21",
       "size_acres": 570,
-      "percent_contained": 60,
+      "percent_contained": 92,
       "resources": {
-        "crews": 10,
-        "engines": 60,
-        "helicopters": 2,
-        "total_personnel": 498
+        "crews": 6,
+        "engines": 15,
+        "helicopters": 0,
+        "total_personnel": 239
       },
       "lat": null,
       "lng": null
@@ -87,14 +70,14 @@
       "incident_name": "Timber",
       "gacc": "OSCC",
       "state": "CA",
-      "date": "2026-10-19",
+      "date": "2026-10-21",
       "size_acres": 25350,
       "percent_contained": 97,
       "resources": {
         "crews": 2,
         "engines": 6,
-        "helicopters": 2,
-        "total_personnel": 153
+        "helicopters": 1,
+        "total_personnel": 141
       },
       "lat": null,
       "lng": null
@@ -104,14 +87,14 @@
       "incident_name": "Austin",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-10-19",
+      "date": "2026-10-21",
       "size_acres": 12888,
       "percent_contained": 98,
       "resources": {
         "crews": 0,
         "engines": 2,
         "helicopters": 0,
-        "total_personnel": 271
+        "total_personnel": 245
       },
       "lat": null,
       "lng": null
@@ -121,14 +104,14 @@
       "incident_name": "Grasshopper",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-10-19",
+      "date": "2026-10-21",
       "size_acres": 93972,
       "percent_contained": 98,
       "resources": {
         "crews": 0,
         "engines": 0,
         "helicopters": 0,
-        "total_personnel": 167
+        "total_personnel": 134
       },
       "lat": null,
       "lng": null
@@ -138,8 +121,8 @@
       "incident_name": "Sisi",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-10-19",
-      "size_acres": 4615,
+      "date": "2026-10-21",
+      "size_acres": 4743,
       "percent_contained": 34,
       "resources": {
         "crews": 0,
@@ -151,18 +134,35 @@
       "lng": null
     },
     {
+      "incident_id": "CA-MEU/Cooley",
+      "incident_name": "Cooley",
+      "gacc": "ONCC",
+      "state": "CA",
+      "date": "2026-10-21",
+      "size_acres": 1365,
+      "percent_contained": 67,
+      "resources": {
+        "crews": 16,
+        "engines": 37,
+        "helicopters": 0,
+        "total_personnel": 586
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
       "incident_id": "MI-MIS/Ridge",
       "incident_name": "Ridge",
       "gacc": "EACC",
       "state": "MI",
-      "date": "2026-10-19",
+      "date": "2026-10-21",
       "size_acres": 466,
       "percent_contained": 50,
       "resources": {
         "crews": 0,
-        "engines": 4,
+        "engines": 5,
         "helicopters": 0,
-        "total_personnel": 44
+        "total_personnel": 28
       },
       "lat": null,
       "lng": null
@@ -172,48 +172,31 @@
       "incident_name": "Black River",
       "gacc": "EACC",
       "state": "MI",
-      "date": "2026-10-19",
-      "size_acres": 350,
+      "date": "2026-10-21",
+      "size_acres": 326,
       "percent_contained": 70,
       "resources": {
         "crews": 0,
-        "engines": 8,
+        "engines": 4,
         "helicopters": 0,
-        "total_personnel": 27
+        "total_personnel": 16
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "CA-MEU/Cooley",
-      "incident_name": "Cooley",
-      "gacc": "ONCC",
-      "state": "CA",
-      "date": "2026-10-19",
-      "size_acres": 1037,
-      "percent_contained": 15,
-      "resources": {
-        "crews": 29,
-        "engines": 47,
-        "helicopters": 2,
-        "total_personnel": 790
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "MS-MSS/Mount Pilgrim Road",
-      "incident_name": "Mount Pilgrim Road",
-      "gacc": "SACC",
-      "state": "MS",
-      "date": "2026-10-19",
-      "size_acres": 150,
-      "percent_contained": 10,
+      "incident_id": "MT-FHA/Bras",
+      "incident_name": "Bras",
+      "gacc": "NRCC",
+      "state": "MT",
+      "date": "2026-10-21",
+      "size_acres": 1688,
+      "percent_contained": 35,
       "resources": {
         "crews": 0,
-        "engines": 0,
+        "engines": 4,
         "helicopters": 0,
-        "total_personnel": 0
+        "total_personnel": 17
       },
       "lat": null,
       "lng": null

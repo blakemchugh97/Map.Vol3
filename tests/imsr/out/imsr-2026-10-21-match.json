@@ -1,52 +1,22 @@
 {
-  "matched_at": "2026-10-19T20:29:57.413628+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-19-extracted.json",
-  "imsr_date": "2026-10-19",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-19.json",
-  "layer_records": 363,
+  "matched_at": "2026-10-21T19:11:38.208101+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-21-extracted.json",
+  "imsr_date": "2026-10-21",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-21.json",
+  "layer_records": 424,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 10,
-    "match_rate_pct": 90.0,
+    "imsr_incidents": 9,
+    "match_rate_pct": 100.0,
     "exact": 9,
     "strong": 0,
     "weak": 0,
-    "ambiguous": 1,
+    "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 354
+    "layer_only_count": 415
   },
-  "failure_reasons": {
-    ">=2 competing EXACT candidates": 1
-  },
+  "failure_reasons": {},
   "results": [
-    {
-      "imsr_id": "CA-PMQ/Henderson",
-      "imsr_name": "Henderson",
-      "imsr_unit": "CAPMQ",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAPMQ-003992",
-        "name": "HENDERSON",
-        "state": "CA",
-        "acres": 3226,
-        "lat": 33.34329482163308,
-        "lng": -117.40939198987081
-      },
-      "other_candidates": []
-    },
     {
       "imsr_id": "CA-ORC/Norte",
       "imsr_name": "Norte",
@@ -188,6 +158,34 @@
       "other_candidates": []
     },
     {
+      "imsr_id": "CA-MEU/Cooley",
+      "imsr_name": "Cooley",
+      "imsr_unit": "CAMEU",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CAMEU-012265",
+        "name": "COOLEY",
+        "state": "CA",
+        "acres": 1365,
+        "lat": 38.81972696913502,
+        "lng": -123.18806945548245
+      },
+      "other_candidates": []
+    },
+    {
       "imsr_id": "MI-MIS/Ridge",
       "imsr_name": "Ridge",
       "imsr_unit": "MIMIS",
@@ -221,41 +219,6 @@
       "imsr_unit": "MIMIS",
       "imsr_state": "MI",
       "imsr_year": "2026",
-      "final": "AMBIGUOUS",
-      "reason": ">=2 competing EXACT candidates",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MIMIS-260420",
-        "name": "Black River",
-        "state": "MI",
-        "acres": 300,
-        "lat": 46.42540843284826,
-        "lng": -89.93312397656655
-      },
-      "other_candidates": [
-        {
-          "ufi": "2026-MIMIS-270010",
-          "name": "Black River",
-          "tier": "EXACT",
-          "score": 1.0
-        }
-      ]
-    },
-    {
-      "imsr_id": "CA-MEU/Cooley",
-      "imsr_name": "Cooley",
-      "imsr_unit": "CAMEU",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
       "score": 1.0,
@@ -269,20 +232,20 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-CAMEU-012265",
-        "name": "COOLEY",
-        "state": "CA",
-        "acres": 1156,
-        "lat": 38.81972696913502,
-        "lng": -123.18806945548245
+        "ufi": "2026-MIMIS-270010",
+        "name": "Black River",
+        "state": "MI",
+        "acres": 326,
+        "lat": 46.42528623283465,
+        "lng": -89.93306257653092
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MSS/Mount Pilgrim Road",
-      "imsr_name": "Mount Pilgrim Road",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
+      "imsr_id": "MT-FHA/Bras",
+      "imsr_name": "Bras",
+      "imsr_unit": "MTFHA",
+      "imsr_state": "MT",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -297,12 +260,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMSS-019162",
-        "name": "Mount Pilgrim Road",
-        "state": "MS",
-        "acres": 150,
-        "lat": 32.71917270774127,
-        "lng": -89.89500569832141
+        "ufi": "2026-MTFHA-000179",
+        "name": "Bras",
+        "state": "MT",
+        "acres": 1688,
+        "lat": 47.27806201536095,
+        "lng": -114.5861245166759
       },
       "other_candidates": []
     }

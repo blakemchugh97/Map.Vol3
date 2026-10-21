@@ -1,0 +1,196 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Wednesday October 21, 2026 – 0730 MDT 
+National Preparedness Level 1 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 1 11 317,562 18 20 2 880 -303 
+ONCC 2 1 1,365 18 37 0 586 -283 
+OSCC 3 6 36,657 19 39 4 897 -136 
+NRCC 1 2 7,693 1 4 0 18 17 
+GBCC 2 2 7,149 1 0 3 46 45 
+SWCC 1 1 15,956 0 0 0 1 1 
+RMCC 2 1 1,645 0 2 0 6 -2 
+EACC 1 3 1,398 0 9 0 47 -39 
+SACC 2 4 658 0 3 0 19 -6 
+Total --- 31 390,083 57 114 9 2,500 -706 
+  
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (78 fires) 
+New large incidents: 1 
+Large fires contained: 0 
+Uncontained large fires:  9 
+CIMTs committed: 0 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern California Area (PL 3)   
+Fire Activity and Teams Assigned Totals 
+New fires: 14 
+New large incidents: 0 
+Uncontained large fires: 2 
+ 
+Norte, Orange County Fire Authority. One mile northwest of San Clemente, CA. Grass and chaparral. Minimal 
+fire behavior with smoldering, creeping and backing. Road and trail closures in effect. 
+ 
+Timber, Los Padres NF, USFS. Four miles southeast of Big Sur, CA. Grass, timber and chaparral. Minimal fire 
+behavior with creeping and smoldering. Area, road and trail closures in effect. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Norte CA-ORC 570 0 92 Ctn 11/6 239 -80 6 15 0 6 9.3M CNTY 
+Timber CA-LPF 25,350 0 97 Ctn 11/1 141 -14 2 6 1 1 185.3M FS 
+ 
+ 
+Northwest Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 0 
+New large incidents: 0 
+Uncontained large fires: 3 
+ 
+Austin, Mt. Hood NF, USFS. Twenty-five miles southeast of Estacada, OR. Brush, timber and closed timber 
+litter. Minimal fire behavior with smoldering. Area, road and trail closures in effect. 
+ 
+Grasshopper, Mt. Hood NF, USFS. Fourteen miles southwest of Dufur, OR. Brush, hardwood litter and closed 
+timber litter. Minimal fire behavior with smoldering and creeping. Area, road and trail closures in effect. 
+ 
+Sisi, Okanogan-Wenatchee NF, USFS. Ten miles northwest of Stehekin, WA. Timber and closed timber litter. 
+Minimal fire behavior with smoldering, creeping and backing. Residences threatened. Area, road and trail 
+closures in effect. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Austin OR-MHF 12,888 0 98 Ctn 10/31 245 -17 0 2 0 0 79.6M FS 
+Grasshopper OR-MHF 93,972 0 98 Ctn 10/31 134 -12 0 0 0 33 131.5M FS 
+Sisi WA-OWF 4,743 0 34 Ctn 10/31 28 0 0 0 0 0 11.9M FS 
+ 
+ 
+Northern California Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 7 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Cooley, Mendocino Unit, Cal Fire. Four miles south of Yorkville, CA. Timber, brush and grass. Minimal fire 
+behavior with smoldering. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Cooley CA-MEU 1,365 0 67 Ctn 10/24 586 -283 16 37 0 0 3.8M ST 
+ 
+ 
+===== PAGE 3 =====
+Eastern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 0 
+New large incidents: 0 
+Uncontained large fires: 2 
+ 
+Ridge, Michigan DNR. Six miles north of Negaunee, MI. Timber and hardwood litter. Minimal fire behavior with 
+smoldering. Structures threatened. Trail closures in effect. 
+ 
+Black River, Michigan DNR. Four miles south of Wakefield, MI. Timber and grass. Minimal fire behavior with 
+smoldering. Reduction in acreage due to more accurate mapping. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Ridge MI-MIS 466 0 50 Ctn 10/23 28 -11 0 5 0 0 230K ST 
+Black River MI-MIS 326 -24 70 Ctn 10/24 16 -14 0 4 0 0 250K ST 
+ 
+ 
+Northern Rockies Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 6 
+New large incidents: 1 
+Uncontained large fires: 1 
+ 
+* Bras, Flathead Agency, BIA. Two miles east of Hot Springs, MT. Grass and brush. Minimal fire behavior with 
+smoldering and creeping. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+* Bras MT-FHA 1,688 --- 35 Ctn 10/25 17 --- 0 4 0 0 100K BIA 
+  
+===== PAGE 4 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 0 0 0 0 0 0 0 
+Northwest ACRES 0 0 0 0 0 0 0 
+Northern California FIRES 0 0 0 0 6 1 7 
+Northern California ACRES 0 0 0 0 210 2 212 
+Southern California FIRES 0 0 0 0 14 0 14 
+Southern California ACRES 0 0 0 0 18 0 18 
+Northern Rockies FIRES 0 0 0 0 3 3 6 
+Northern Rockies ACRES 0 0 0 0 4 1 5 
+Great Basin FIRES 0 0 0 0 1 0 1 
+Great Basin ACRES 0 0 0 0 2 175 177 
+Southwest FIRES 0 0 0 0 0 0 0 
+Southwest ACRES 0 0 0 0 0 0 0 
+Rocky Mountain FIRES 0 0 0 0 0 0 0 
+Rocky Mountain ACRES 0 0 0 0 0 0 0 
+Eastern Area FIRES 0 0 0 0 0 0 0 
+Eastern Area ACRES 6 0 0 0 0 0 6 
+Southern Area FIRES 2 0 0 0 43 5 50 
+Southern Area ACRES 2 0 0 0 173 223 398 
+TOTAL FIRES:  2 0 0 0 67 9 78 
+TOTAL ACRES:  8 0 0 0 407 401 816 
+  
+===== PAGE 5 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 227 39 415 
+Alaska ACRES 0 36,761 0 0 52,183 12 88,956 
+Northwest FIRES 247 311 28 52 1,702 822 3,162 
+Northwest ACRES 117,135 1,977,557 34,146 19,038 413,797 464,543 3,026,216 
+Northern California FIRES 62 18 2 33 2,342 403 2,860 
+Northern California ACRES 7,736 70,418 5 53 20,060 8,374 106,646 
+Southern California FIRES 10 79 5 46 3,483 380 4,003 
+Southern California ACRES 2 9,646 4 25,604 146,984 54,530 236,770 
+Northern Rockies FIRES 273 113 7 4 1,523 589 2,509 
+Northern Rockies ACRES 19,012 9,462 520 6 66,355 115,437 210,792 
+Great Basin FIRES 46 1,159 3 43 1,045 517 2,813 
+Great Basin ACRES 3,172 1,257,502 2 802 274,181 393,184 1,928,842 
+Southwest FIRES 692 214 5 29 815 1,031 2,786 
+Southwest ACRES 3,642 6,414 7,131 806 80,963 113,626 212,581 
+Rocky Mountain FIRES 192 462 17 35 1,608 449 2,763 
+Rocky Mountain ACRES 1,682 23,132 3,964 1,412 1,330,603 210,787 1,571,580 
+Eastern Area FIRES 222 0 25 16 9,291 381 9,935 
+Eastern Area ACRES 1,082 0 344 17 91,005 86,199 178,647 
+Southern Area FIRES 1,141 2 110 122 32,809 774 34,958 
+Southern Area ACRES 87,887 72 52,775 44,890 1,242,887 61,407 1,489,918 
+TOTAL FIRES:  2,885 2,507 202 380 54,845 5,385 66,204 
+TOTAL ACRES:  241,349 3,390,964 98,892 92,626 3,719,017 1,508,100 9,050,949 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 49,468 134% 
+Acres (2016 – 2025 as of today) 6,359,617 142% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+  
+===== PAGE 6 =====
+Predictive Services Discussion:  
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 
