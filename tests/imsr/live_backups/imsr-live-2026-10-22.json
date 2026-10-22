@@ -1,13 +1,13 @@
 {
   "meta": {
-    "source_date": "2026-10-20",
-    "generated_at": "2026-10-20T19:06:26.664850+00:00",
+    "source_date": "2026-10-22",
+    "generated_at": "2026-10-22T19:06:56.064484+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
-      "gac_pl": 5,
-      "exact_incidents": 9
+      "gac_pl": 6,
+      "exact_incidents": 10
     }
   },
   "gac_pl": {
@@ -15,6 +15,7 @@
     "NWCC": 1,
     "ONCC": 2,
     "EACC": 1,
+    "NRCC": 1,
     "SACC": 2
   },
   "national_totals": {
@@ -22,45 +23,33 @@
     "national_preparedness_level": null
   },
   "exact_incidents": {
-    "2026-CAORC-149182": {
-      "tier": "EXACT",
-      "report_date": "2026-10-20",
-      "imsr_id": "CA-ORC/Norte",
-      "imsr_name": "Norte",
-      "layer_name": "NORTE",
-      "state": "CA",
-      "crews": 5,
-      "engines": 35,
-      "helicopters": 0,
-      "total_personnel": 319
-    },
     "2026-CALPF-002271": {
       "tier": "EXACT",
-      "report_date": "2026-10-20",
+      "report_date": "2026-10-22",
       "imsr_id": "CA-LPF/Timber",
       "imsr_name": "Timber",
       "layer_name": "Timber",
       "state": "CA",
       "crews": 2,
-      "engines": 7,
-      "helicopters": 2,
-      "total_personnel": 155
+      "engines": 6,
+      "helicopters": 1,
+      "total_personnel": 148
     },
-    "2026-CAPMQ-003992": {
+    "2026-CAORC-149182": {
       "tier": "EXACT",
-      "report_date": "2026-10-20",
-      "imsr_id": "CA-PMQ/Henderson",
-      "imsr_name": "Henderson",
-      "layer_name": "HENDERSON",
+      "report_date": "2026-10-22",
+      "imsr_id": "CA-ORC/Norte",
+      "imsr_name": "Norte",
+      "layer_name": "NORTE",
       "state": "CA",
-      "crews": 6,
-      "engines": 14,
+      "crews": 2,
+      "engines": 5,
       "helicopters": 0,
-      "total_personnel": 251
+      "total_personnel": 85
     },
     "2026-ORMHF-000863": {
       "tier": "EXACT",
-      "report_date": "2026-10-20",
+      "report_date": "2026-10-22",
       "imsr_id": "OR-MHF/Austin",
       "imsr_name": "Austin",
       "layer_name": "AUSTIN",
@@ -68,11 +57,11 @@
       "crews": 0,
       "engines": 2,
       "helicopters": 0,
-      "total_personnel": 262
+      "total_personnel": 235
     },
     "2026-ORMHF-000688": {
       "tier": "EXACT",
-      "report_date": "2026-10-20",
+      "report_date": "2026-10-22",
       "imsr_id": "OR-MHF/Grasshopper",
       "imsr_name": "Grasshopper",
       "layer_name": "GRASSHOPPER",
@@ -80,11 +69,11 @@
       "crews": 0,
       "engines": 0,
       "helicopters": 0,
-      "total_personnel": 146
+      "total_personnel": 134
     },
     "2026-WAOWF-260664": {
       "tier": "EXACT",
-      "report_date": "2026-10-20",
+      "report_date": "2026-10-22",
       "imsr_id": "WA-OWF/Sisi",
       "imsr_name": "Sisi",
       "layer_name": "SISI",
@@ -96,34 +85,58 @@
     },
     "2026-CAMEU-012265": {
       "tier": "EXACT",
-      "report_date": "2026-10-20",
+      "report_date": "2026-10-22",
       "imsr_id": "CA-MEU/Cooley",
       "imsr_name": "Cooley",
       "layer_name": "COOLEY",
       "state": "CA",
-      "crews": 28,
-      "engines": 47,
+      "crews": 7,
+      "engines": 16,
       "helicopters": 0,
-      "total_personnel": 869
+      "total_personnel": 310
     },
     "2026-MIMIS-520021": {
       "tier": "EXACT",
-      "report_date": "2026-10-20",
+      "report_date": "2026-10-22",
       "imsr_id": "MI-MIS/Ridge",
       "imsr_name": "Ridge",
       "layer_name": "Ridge",
       "state": "MI",
       "crews": 0,
+      "engines": 5,
+      "helicopters": 0,
+      "total_personnel": 27
+    },
+    "2026-MIMIS-270010": {
+      "tier": "EXACT",
+      "report_date": "2026-10-22",
+      "imsr_id": "MI-MIS/Black River",
+      "imsr_name": "Black River",
+      "layer_name": "Black River",
+      "state": "MI",
+      "crews": 0,
+      "engines": 3,
+      "helicopters": 0,
+      "total_personnel": 11
+    },
+    "2026-MTFHA-000179": {
+      "tier": "EXACT",
+      "report_date": "2026-10-22",
+      "imsr_id": "MT-FHA/Bras",
+      "imsr_name": "Bras",
+      "layer_name": "Bras",
+      "state": "MT",
+      "crews": 0,
       "engines": 4,
       "helicopters": 0,
-      "total_personnel": 39
+      "total_personnel": 8
     },
-    "2026-MSMSS-019162": {
+    "2026-MSMSS-019361": {
       "tier": "EXACT",
-      "report_date": "2026-10-20",
-      "imsr_id": "MS-MSS/Mount Pilgrim Road",
-      "imsr_name": "Mount Pilgrim Road",
-      "layer_name": "Mount Pilgrim Road",
+      "report_date": "2026-10-22",
+      "imsr_id": "MS-MSS/Columbia Purvis Rd",
+      "imsr_name": "Columbia Purvis Rd",
+      "layer_name": "Columbia Purvis Rd.",
       "state": "MS",
       "crews": 0,
       "engines": 0,

@@ -1,10 +1,10 @@
 {
   "meta": {
     "source_type": "IMSR_PDF",
-    "source_date": "2026-10-20",
-    "report_label": "IMSR \u2014 2026-10-20 (auto-extracted, UNVERIFIED)",
+    "source_date": "2026-10-22",
+    "report_label": "IMSR \u2014 2026-10-22 (auto-extracted, UNVERIFIED)",
     "parser_version": "imsr_extract.py 0.2.0",
-    "ingested_at": "2026-10-20T19:06:26.326371+00:00",
+    "ingested_at": "2026-10-22T19:06:55.765199+00:00",
     "is_fixture": false,
     "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
     "verification": {
@@ -19,82 +19,71 @@
       "gacc": "OSCC",
       "gacc_name": "Southern California",
       "preparedness_level": 3,
-      "date": "2026-10-20"
+      "date": "2026-10-22"
     },
     {
       "gacc": "NWCC",
       "gacc_name": "Northwest",
       "preparedness_level": 1,
-      "date": "2026-10-20"
+      "date": "2026-10-22"
     },
     {
       "gacc": "ONCC",
       "gacc_name": "Northern California",
       "preparedness_level": 2,
-      "date": "2026-10-20"
+      "date": "2026-10-22"
     },
     {
       "gacc": "EACC",
       "gacc_name": "Eastern",
       "preparedness_level": 1,
-      "date": "2026-10-20"
+      "date": "2026-10-22"
+    },
+    {
+      "gacc": "NRCC",
+      "gacc_name": "Northern Rockies",
+      "preparedness_level": 1,
+      "date": "2026-10-22"
     },
     {
       "gacc": "SACC",
       "gacc_name": "Southern",
       "preparedness_level": 2,
-      "date": "2026-10-20"
+      "date": "2026-10-22"
     }
   ],
   "national_resource_totals_daily": {},
   "incident_resources_daily": [
     {
-      "incident_id": "CA-ORC/Norte",
-      "incident_name": "Norte",
-      "gacc": "OSCC",
-      "state": "CA",
-      "date": "2026-10-20",
-      "size_acres": 570,
-      "percent_contained": 80,
-      "resources": {
-        "crews": 5,
-        "engines": 35,
-        "helicopters": 0,
-        "total_personnel": 319
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
       "incident_id": "CA-LPF/Timber",
       "incident_name": "Timber",
       "gacc": "OSCC",
       "state": "CA",
-      "date": "2026-10-20",
+      "date": "2026-10-22",
       "size_acres": 25350,
       "percent_contained": 97,
       "resources": {
         "crews": 2,
-        "engines": 7,
-        "helicopters": 2,
-        "total_personnel": 155
+        "engines": 6,
+        "helicopters": 1,
+        "total_personnel": 148
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "CA-PMQ/Henderson",
-      "incident_name": "Henderson",
+      "incident_id": "CA-ORC/Norte",
+      "incident_name": "Norte",
       "gacc": "OSCC",
       "state": "CA",
-      "date": "2026-10-20",
-      "size_acres": 3260,
-      "percent_contained": 100,
+      "date": "2026-10-22",
+      "size_acres": 570,
+      "percent_contained": 95,
       "resources": {
-        "crews": 6,
-        "engines": 14,
+        "crews": 2,
+        "engines": 5,
         "helicopters": 0,
-        "total_personnel": 251
+        "total_personnel": 85
       },
       "lat": null,
       "lng": null
@@ -104,14 +93,14 @@
       "incident_name": "Austin",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-10-20",
+      "date": "2026-10-22",
       "size_acres": 12888,
       "percent_contained": 98,
       "resources": {
         "crews": 0,
         "engines": 2,
         "helicopters": 0,
-        "total_personnel": 262
+        "total_personnel": 235
       },
       "lat": null,
       "lng": null
@@ -121,14 +110,14 @@
       "incident_name": "Grasshopper",
       "gacc": "NWCC",
       "state": "OR",
-      "date": "2026-10-20",
+      "date": "2026-10-22",
       "size_acres": 93972,
       "percent_contained": 98,
       "resources": {
         "crews": 0,
         "engines": 0,
         "helicopters": 0,
-        "total_personnel": 146
+        "total_personnel": 134
       },
       "lat": null,
       "lng": null
@@ -138,7 +127,7 @@
       "incident_name": "Sisi",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-10-20",
+      "date": "2026-10-22",
       "size_acres": 4743,
       "percent_contained": 34,
       "resources": {
@@ -155,14 +144,14 @@
       "incident_name": "Cooley",
       "gacc": "ONCC",
       "state": "CA",
-      "date": "2026-10-20",
+      "date": "2026-10-22",
       "size_acres": 1365,
-      "percent_contained": 45,
+      "percent_contained": 74,
       "resources": {
-        "crews": 28,
-        "engines": 47,
+        "crews": 7,
+        "engines": 16,
         "helicopters": 0,
-        "total_personnel": 869
+        "total_personnel": 310
       },
       "lat": null,
       "lng": null
@@ -172,14 +161,14 @@
       "incident_name": "Ridge",
       "gacc": "EACC",
       "state": "MI",
-      "date": "2026-10-20",
+      "date": "2026-10-22",
       "size_acres": 466,
       "percent_contained": 50,
       "resources": {
         "crews": 0,
-        "engines": 4,
+        "engines": 5,
         "helicopters": 0,
-        "total_personnel": 39
+        "total_personnel": 27
       },
       "lat": null,
       "lng": null
@@ -189,25 +178,42 @@
       "incident_name": "Black River",
       "gacc": "EACC",
       "state": "MI",
-      "date": "2026-10-20",
-      "size_acres": 350,
+      "date": "2026-10-22",
+      "size_acres": 326,
       "percent_contained": 70,
       "resources": {
         "crews": 0,
-        "engines": 9,
+        "engines": 3,
         "helicopters": 0,
-        "total_personnel": 30
+        "total_personnel": 11
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "MS-MSS/Mount Pilgrim Road",
-      "incident_name": "Mount Pilgrim Road",
+      "incident_id": "MT-FHA/Bras",
+      "incident_name": "Bras",
+      "gacc": "NRCC",
+      "state": "MT",
+      "date": "2026-10-22",
+      "size_acres": 1688,
+      "percent_contained": 45,
+      "resources": {
+        "crews": 0,
+        "engines": 4,
+        "helicopters": 0,
+        "total_personnel": 8
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MS-MSS/Columbia Purvis Rd",
+      "incident_name": "Columbia Purvis Rd",
       "gacc": "SACC",
       "state": "MS",
-      "date": "2026-10-20",
-      "size_acres": 150,
+      "date": "2026-10-22",
+      "size_acres": 143,
       "percent_contained": 100,
       "resources": {
         "crews": 0,

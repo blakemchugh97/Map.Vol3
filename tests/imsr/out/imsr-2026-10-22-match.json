@@ -1,52 +1,22 @@
 {
-  "matched_at": "2026-10-20T19:06:26.642192+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-20-extracted.json",
-  "imsr_date": "2026-10-20",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-20.json",
-  "layer_records": 394,
+  "matched_at": "2026-10-22T19:06:56.048862+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-22-extracted.json",
+  "imsr_date": "2026-10-22",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-22.json",
+  "layer_records": 513,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 10,
-    "match_rate_pct": 90.0,
-    "exact": 9,
+    "match_rate_pct": 100.0,
+    "exact": 10,
     "strong": 0,
     "weak": 0,
-    "ambiguous": 1,
+    "ambiguous": 0,
     "no_match": 0,
-    "layer_only_count": 385
+    "layer_only_count": 503
   },
-  "failure_reasons": {
-    ">=2 competing EXACT candidates": 1
-  },
+  "failure_reasons": {},
   "results": [
-    {
-      "imsr_id": "CA-ORC/Norte",
-      "imsr_name": "Norte",
-      "imsr_unit": "CAORC",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAORC-149182",
-        "name": "NORTE",
-        "state": "CA",
-        "acres": 570,
-        "lat": 33.479656005235746,
-        "lng": -117.6348419988251
-      },
-      "other_candidates": []
-    },
     {
       "imsr_id": "CA-LPF/Timber",
       "imsr_name": "Timber",
@@ -76,9 +46,9 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "CA-PMQ/Henderson",
-      "imsr_name": "Henderson",
-      "imsr_unit": "CAPMQ",
+      "imsr_id": "CA-ORC/Norte",
+      "imsr_name": "Norte",
+      "imsr_unit": "CAORC",
       "imsr_state": "CA",
       "imsr_year": "2026",
       "final": "EXACT",
@@ -94,12 +64,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-CAPMQ-003992",
-        "name": "HENDERSON",
+        "ufi": "2026-CAORC-149182",
+        "name": "NORTE",
         "state": "CA",
-        "acres": 3260,
-        "lat": 33.34329482163308,
-        "lng": -117.40939198987081
+        "acres": 570,
+        "lat": 33.479656005235746,
+        "lng": -117.6348419988251
       },
       "other_candidates": []
     },
@@ -249,8 +219,8 @@
       "imsr_unit": "MIMIS",
       "imsr_state": "MI",
       "imsr_year": "2026",
-      "final": "AMBIGUOUS",
-      "reason": ">=2 competing EXACT candidates",
+      "final": "EXACT",
+      "reason": "best single candidate",
       "score": 1.0,
       "signals": {
         "name_exact": true,
@@ -262,25 +232,46 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MIMIS-260420",
+        "ufi": "2026-MIMIS-270010",
         "name": "Black River",
         "state": "MI",
-        "acres": 300,
-        "lat": 46.42540843284826,
-        "lng": -89.93312397656655
+        "acres": 326,
+        "lat": 46.42528623283465,
+        "lng": -89.93306257653092
       },
-      "other_candidates": [
-        {
-          "ufi": "2026-MIMIS-270010",
-          "name": "Black River",
-          "tier": "EXACT",
-          "score": 1.0
-        }
-      ]
+      "other_candidates": []
     },
     {
-      "imsr_id": "MS-MSS/Mount Pilgrim Road",
-      "imsr_name": "Mount Pilgrim Road",
+      "imsr_id": "MT-FHA/Bras",
+      "imsr_name": "Bras",
+      "imsr_unit": "MTFHA",
+      "imsr_state": "MT",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MTFHA-000179",
+        "name": "Bras",
+        "state": "MT",
+        "acres": 1688,
+        "lat": 47.27806201536095,
+        "lng": -114.5861245166759
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MSS/Columbia Purvis Rd",
+      "imsr_name": "Columbia Purvis Rd",
       "imsr_unit": "MSMSS",
       "imsr_state": "MS",
       "imsr_year": "2026",
@@ -297,12 +288,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMSS-019162",
-        "name": "Mount Pilgrim Road",
+        "ufi": "2026-MSMSS-019361",
+        "name": "Columbia Purvis Rd.",
         "state": "MS",
-        "acres": 150,
-        "lat": 32.71917270774127,
-        "lng": -89.89500569832141
+        "acres": 143,
+        "lat": 31.214450096063526,
+        "lng": -89.76833888694854
       },
       "other_candidates": []
     }

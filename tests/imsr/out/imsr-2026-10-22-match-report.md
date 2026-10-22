@@ -1,32 +1,29 @@
-# IMSR ↔ incident-layer match — 2026-10-20
+# IMSR ↔ incident-layer match — 2026-10-22
 
-- IMSR source: `tests/imsr/out/imsr-2026-10-20-extracted.json`
-- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-20.json` (394 records)
+- IMSR source: `tests/imsr/out/imsr-2026-10-22-extracted.json`
+- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-22.json` (513 records)
 - **Extracted IMSR rows are UNVERIFIED; this measures record MATCHING, not parser or value correctness.**
 
 ## Match summary
 - IMSR incidents compared: **10**
-- Match rate (exact+strong+weak): **90.0%**
-- EXACT **9** · STRONG **0** · WEAK **0** · AMBIGUOUS **1** · NO_MATCH **0**
-- Layer records with no IMSR match: **385** (expected — IMSR lists only large incidents)
-
-## Top failure / ambiguity reasons
-- 1× — >=2 competing EXACT candidates
+- Match rate (exact+strong+weak): **100.0%**
+- EXACT **10** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **0**
+- Layer records with no IMSR match: **503** (expected — IMSR lists only large incidents)
 
 ## Per-incident result
 
 | IMSR incident | tier | matched layer (UFI) | score | signals |
 |---|---|---|---|---|
-| CA-ORC/Norte | **EXACT** | 2026-CAORC-149182 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | CA-LPF/Timber | **EXACT** | 2026-CALPF-002271 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| CA-PMQ/Henderson | **EXACT** | 2026-CAPMQ-003992 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| CA-ORC/Norte | **EXACT** | 2026-CAORC-149182 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OR-MHF/Austin | **EXACT** | 2026-ORMHF-000863 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OR-MHF/Grasshopper | **EXACT** | 2026-ORMHF-000688 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-OWF/Sisi | **EXACT** | 2026-WAOWF-260664 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | CA-MEU/Cooley | **EXACT** | 2026-CAMEU-012265 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MI-MIS/Ridge | **EXACT** | 2026-MIMIS-520021 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| MI-MIS/Black River | **AMBIGUOUS** | 2026-MIMIS-260420 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| MS-MSS/Mount Pilgrim Road | **EXACT** | 2026-MSMSS-019162 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| MI-MIS/Black River | **EXACT** | 2026-MIMIS-270010 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| MT-FHA/Bras | **EXACT** | 2026-MTFHA-000179 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
+| MS-MSS/Columbia Purvis Rd | **EXACT** | 2026-MSMSS-019361 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 
 ## Largest layer incidents with NO IMSR match (sample)
 - 2026-WAOWF-260406 — LITTLE GIANT (WA, 172912 ac)
