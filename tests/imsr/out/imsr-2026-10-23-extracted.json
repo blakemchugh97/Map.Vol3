@@ -1,0 +1,265 @@
+{
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2026-10-23",
+    "report_label": "IMSR \u2014 2026-10-23 (auto-extracted, UNVERIFIED)",
+    "parser_version": "imsr_extract.py 0.2.0",
+    "ingested_at": "2026-10-23T19:01:32.500654+00:00",
+    "is_fixture": false,
+    "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
+    "verification": {
+      "verified_by": null,
+      "verified_at": null,
+      "verification_method": null,
+      "verification_notes": null
+    }
+  },
+  "gac_pl_daily": [
+    {
+      "gacc": "SACC",
+      "gacc_name": "Southern",
+      "preparedness_level": 2,
+      "date": "2026-10-23"
+    },
+    {
+      "gacc": "NWCC",
+      "gacc_name": "Northwest",
+      "preparedness_level": 1,
+      "date": "2026-10-23"
+    },
+    {
+      "gacc": "OSCC",
+      "gacc_name": "Southern California",
+      "preparedness_level": 3,
+      "date": "2026-10-23"
+    },
+    {
+      "gacc": "ONCC",
+      "gacc_name": "Northern California",
+      "preparedness_level": 2,
+      "date": "2026-10-23"
+    },
+    {
+      "gacc": "EACC",
+      "gacc_name": "Eastern",
+      "preparedness_level": 1,
+      "date": "2026-10-23"
+    },
+    {
+      "gacc": "NRCC",
+      "gacc_name": "Northern Rockies",
+      "preparedness_level": 1,
+      "date": "2026-10-23"
+    }
+  ],
+  "national_resource_totals_daily": {},
+  "incident_resources_daily": [
+    {
+      "incident_id": "TX-TXS/Kickapoo Creek",
+      "incident_name": "Kickapoo Creek",
+      "gacc": "SACC",
+      "state": "TX",
+      "date": "2026-10-23",
+      "size_acres": 300,
+      "percent_contained": 50,
+      "resources": {
+        "crews": 0,
+        "engines": 1,
+        "helicopters": 2,
+        "total_personnel": 27
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FLS/Bee Haven 2 24-06",
+      "incident_name": "Bee Haven 2 24-06",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-10-23",
+      "size_acres": 2060,
+      "percent_contained": 80,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
+        "helicopters": 1,
+        "total_personnel": 25
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MS-MSS/Neshoba Rd 832",
+      "incident_name": "Neshoba Rd 832",
+      "gacc": "SACC",
+      "state": "MS",
+      "date": "2026-10-23",
+      "size_acres": 150,
+      "percent_contained": 96,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MS-MSS/Shelton Weeks Rd",
+      "incident_name": "Shelton Weeks Rd",
+      "gacc": "SACC",
+      "state": "MS",
+      "date": "2026-10-23",
+      "size_acres": 300,
+      "percent_contained": 100,
+      "resources": {
+        "crews": 0,
+        "engines": 3,
+        "helicopters": 1,
+        "total_personnel": 11
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WA-OWF/Sisi",
+      "incident_name": "Sisi",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-10-23",
+      "size_acres": 4743,
+      "percent_contained": 34,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 28
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-MHF/Grasshopper",
+      "incident_name": "Grasshopper",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-10-23",
+      "size_acres": 93972,
+      "percent_contained": 98,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 95
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-MHF/Austin",
+      "incident_name": "Austin",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-10-23",
+      "size_acres": 12888,
+      "percent_contained": 98,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 235
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "CA-LPF/Timber",
+      "incident_name": "Timber",
+      "gacc": "OSCC",
+      "state": "CA",
+      "date": "2026-10-23",
+      "size_acres": 25350,
+      "percent_contained": 97,
+      "resources": {
+        "crews": 2,
+        "engines": 6,
+        "helicopters": 1,
+        "total_personnel": 148
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "CA-MEU/Cooley",
+      "incident_name": "Cooley",
+      "gacc": "ONCC",
+      "state": "CA",
+      "date": "2026-10-23",
+      "size_acres": 1365,
+      "percent_contained": 80,
+      "resources": {
+        "crews": 0,
+        "engines": 11,
+        "helicopters": 0,
+        "total_personnel": 123
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MI-MIS/Ridge",
+      "incident_name": "Ridge",
+      "gacc": "EACC",
+      "state": "MI",
+      "date": "2026-10-23",
+      "size_acres": 466,
+      "percent_contained": 50,
+      "resources": {
+        "crews": 0,
+        "engines": 3,
+        "helicopters": 0,
+        "total_personnel": 6
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MI-MIS/Black River",
+      "incident_name": "Black River",
+      "gacc": "EACC",
+      "state": "MI",
+      "date": "2026-10-23",
+      "size_acres": 326,
+      "percent_contained": 75,
+      "resources": {
+        "crews": 0,
+        "engines": 6,
+        "helicopters": 0,
+        "total_personnel": 8
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MT-FHA/Bras",
+      "incident_name": "Bras",
+      "gacc": "NRCC",
+      "state": "MT",
+      "date": "2026-10-23",
+      "size_acres": 1688,
+      "percent_contained": 100,
+      "resources": {
+        "crews": 0,
+        "engines": 1,
+        "helicopters": 0,
+        "total_personnel": 3
+      },
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "_extractor_warnings": [
+    "national_totals: 'Total' summary row not found"
+  ]
+}
