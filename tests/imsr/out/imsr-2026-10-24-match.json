@@ -1,27 +1,29 @@
 {
-  "matched_at": "2026-10-22T19:06:56.048862+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-22-extracted.json",
-  "imsr_date": "2026-10-22",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-22.json",
-  "layer_records": 513,
+  "matched_at": "2026-10-24T18:01:01.760042+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-24-extracted.json",
+  "imsr_date": "2026-10-24",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-24.json",
+  "layer_records": 499,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 10,
-    "match_rate_pct": 100.0,
-    "exact": 10,
+    "imsr_incidents": 9,
+    "match_rate_pct": 88.9,
+    "exact": 8,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 0,
-    "layer_only_count": 503
+    "no_match": 1,
+    "layer_only_count": 491
   },
-  "failure_reasons": {},
+  "failure_reasons": {
+    "no name/unit signal in layer": 1
+  },
   "results": [
     {
-      "imsr_id": "CA-LPF/Timber",
-      "imsr_name": "Timber",
-      "imsr_unit": "CALPF",
-      "imsr_state": "CA",
+      "imsr_id": "MS-MSS/Pontotoc Pennington Rd",
+      "imsr_name": "Pontotoc Pennington Rd",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -36,48 +38,33 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-CALPF-002271",
-        "name": "Timber",
-        "state": "CA",
-        "acres": 25350,
-        "lat": 36.21589885898784,
-        "lng": -121.71752094030687
+        "ufi": "2026-MSMSS-019403",
+        "name": "Pontotoc Pennington Rd",
+        "state": "MS",
+        "acres": 171,
+        "lat": 34.16972853702332,
+        "lng": -89.09806116143213
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "CA-ORC/Norte",
-      "imsr_name": "Norte",
-      "imsr_unit": "CAORC",
-      "imsr_state": "CA",
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
       "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAORC-149182",
-        "name": "NORTE",
-        "state": "CA",
-        "acres": 570,
-        "lat": 33.479656005235746,
-        "lng": -117.6348419988251
-      },
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
       "other_candidates": []
     },
     {
-      "imsr_id": "OR-MHF/Austin",
-      "imsr_name": "Austin",
-      "imsr_unit": "ORMHF",
-      "imsr_state": "OR",
+      "imsr_id": "MS-MSS/Claiborne Freeman Hall",
+      "imsr_name": "Claiborne Freeman Hall",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -92,96 +79,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-ORMHF-000863",
-        "name": "AUSTIN",
-        "state": "OR",
-        "acres": 12888,
-        "lat": 45.025221509522204,
-        "lng": -121.94488626629744
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OR-MHF/Grasshopper",
-      "imsr_name": "Grasshopper",
-      "imsr_unit": "ORMHF",
-      "imsr_state": "OR",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-ORMHF-000688",
-        "name": "GRASSHOPPER",
-        "state": "OR",
-        "acres": 93972,
-        "lat": 45.252972567480924,
-        "lng": -121.51014724249825
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Sisi",
-      "imsr_name": "Sisi",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260664",
-        "name": "SISI",
-        "state": "WA",
-        "acres": 4743,
-        "lat": 48.346672822151575,
-        "lng": -120.83068182684767
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-MEU/Cooley",
-      "imsr_name": "Cooley",
-      "imsr_unit": "CAMEU",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAMEU-012265",
-        "name": "COOLEY",
-        "state": "CA",
-        "acres": 1365,
-        "lat": 38.81972696913502,
-        "lng": -123.18806945548245
+        "ufi": "2026-MSMSS-019408",
+        "name": "Claiborne - Freeman Hall",
+        "state": "MS",
+        "acres": 130,
+        "lat": 31.933061411856713,
+        "lng": -90.75083919000305
       },
       "other_candidates": []
     },
@@ -242,10 +145,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MT-FHA/Bras",
-      "imsr_name": "Bras",
-      "imsr_unit": "MTFHA",
-      "imsr_state": "MT",
+      "imsr_id": "CA-MEU/Cooley",
+      "imsr_name": "Cooley",
+      "imsr_unit": "CAMEU",
+      "imsr_state": "CA",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -260,20 +163,20 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MTFHA-000179",
-        "name": "Bras",
-        "state": "MT",
-        "acres": 1688,
-        "lat": 47.27806201536095,
-        "lng": -114.5861245166759
+        "ufi": "2026-CAMEU-012265",
+        "name": "COOLEY",
+        "state": "CA",
+        "acres": 1365,
+        "lat": 38.81972696913502,
+        "lng": -123.18806945548245
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MSS/Columbia Purvis Rd",
-      "imsr_name": "Columbia Purvis Rd",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
+      "imsr_id": "OR-MHF/Austin",
+      "imsr_name": "Austin",
+      "imsr_unit": "ORMHF",
+      "imsr_state": "OR",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -288,12 +191,68 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMSS-019361",
-        "name": "Columbia Purvis Rd.",
-        "state": "MS",
-        "acres": 143,
-        "lat": 31.214450096063526,
-        "lng": -89.76833888694854
+        "ufi": "2026-ORMHF-000863",
+        "name": "AUSTIN",
+        "state": "OR",
+        "acres": 12888,
+        "lat": 45.025221509522204,
+        "lng": -121.94488626629744
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-OWF/Sisi",
+      "imsr_name": "Sisi",
+      "imsr_unit": "WAOWF",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAOWF-260664",
+        "name": "SISI",
+        "state": "WA",
+        "acres": 4743,
+        "lat": 48.346672822151575,
+        "lng": -120.83068182684767
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CA-LPF/Timber",
+      "imsr_name": "Timber",
+      "imsr_unit": "CALPF",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CALPF-002271",
+        "name": "Timber",
+        "state": "CA",
+        "acres": 25350,
+        "lat": 36.21589885898784,
+        "lng": -121.71752094030687
       },
       "other_candidates": []
     }
@@ -330,10 +289,22 @@
       "acres": 102007
     },
     {
+      "ufi": "2026-ORMHF-000688",
+      "name": "GRASSHOPPER",
+      "state": "OR",
+      "acres": 93972
+    },
+    {
       "ufi": "2026-ORWSA-000100",
       "name": "Bench",
       "state": "OR",
       "acres": 67071
+    },
+    {
+      "ufi": "2026-COSJF-000536",
+      "name": "Ferris",
+      "state": "CO",
+      "acres": 64881
     },
     {
       "ufi": "2026-ORUMF-000324",
@@ -346,18 +317,6 @@
       "name": "Modrite",
       "state": "WA",
       "acres": 57594
-    },
-    {
-      "ufi": "2026-ORFWF-260286",
-      "name": "Wrights Spring",
-      "state": "OR",
-      "acres": 55134
-    },
-    {
-      "ufi": "2026-COGMF-000099",
-      "name": "Gold Mountain",
-      "state": "CO",
-      "acres": 39747
     }
   ]
 }
