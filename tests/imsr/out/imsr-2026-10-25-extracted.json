@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2026-10-25",
+    "report_label": "IMSR \u2014 2026-10-25 (auto-extracted, UNVERIFIED)",
+    "parser_version": "imsr_extract.py 0.2.0",
+    "ingested_at": "2026-10-25T18:18:24.545068+00:00",
+    "is_fixture": false,
+    "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
+    "verification": {
+      "verified_by": null,
+      "verified_at": null,
+      "verification_method": null,
+      "verification_notes": null
+    }
+  },
+  "gac_pl_daily": [
+    {
+      "gacc": "SACC",
+      "gacc_name": "Southern",
+      "preparedness_level": 2,
+      "date": "2026-10-25"
+    },
+    {
+      "gacc": "EACC",
+      "gacc_name": "Eastern",
+      "preparedness_level": 1,
+      "date": "2026-10-25"
+    },
+    {
+      "gacc": "ONCC",
+      "gacc_name": "Northern California",
+      "preparedness_level": 2,
+      "date": "2026-10-25"
+    },
+    {
+      "gacc": "NWCC",
+      "gacc_name": "Northwest",
+      "preparedness_level": 1,
+      "date": "2026-10-25"
+    },
+    {
+      "gacc": "OSCC",
+      "gacc_name": "Southern California",
+      "preparedness_level": 2,
+      "date": "2026-10-25"
+    }
+  ],
+  "national_resource_totals_daily": {},
+  "incident_resources_daily": [
+    {
+      "incident_id": "MS-MNF/Range 47B",
+      "incident_name": "Range 47B",
+      "gacc": "SACC",
+      "state": "MS",
+      "date": "2026-10-25",
+      "size_acres": 636,
+      "percent_contained": 50,
+      "resources": {
+        "crews": 0,
+        "engines": 3,
+        "helicopters": 0,
+        "total_personnel": 13
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FLS/Bee Haven 2 24-06",
+      "incident_name": "Bee Haven 2 24-06",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-10-25",
+      "size_acres": 2060,
+      "percent_contained": 80,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
+        "helicopters": 1,
+        "total_personnel": 25
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MI-MIS/Ridge",
+      "incident_name": "Ridge",
+      "gacc": "EACC",
+      "state": "MI",
+      "date": "2026-10-25",
+      "size_acres": 466,
+      "percent_contained": 50,
+      "resources": {
+        "crews": 0,
+        "engines": 1,
+        "helicopters": 0,
+        "total_personnel": 4
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "MI-MIS/Black River",
+      "incident_name": "Black River",
+      "gacc": "EACC",
+      "state": "MI",
+      "date": "2026-10-25",
+      "size_acres": 326,
+      "percent_contained": 80,
+      "resources": {
+        "crews": 0,
+        "engines": 6,
+        "helicopters": 0,
+        "total_personnel": 8
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "CA-MEU/Cooley",
+      "incident_name": "Cooley",
+      "gacc": "ONCC",
+      "state": "CA",
+      "date": "2026-10-25",
+      "size_acres": 1365,
+      "percent_contained": 90,
+      "resources": {
+        "crews": 0,
+        "engines": 7,
+        "helicopters": 0,
+        "total_personnel": 63
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "OR-MHF/Austin",
+      "incident_name": "Austin",
+      "gacc": "NWCC",
+      "state": "OR",
+      "date": "2026-10-25",
+      "size_acres": 12888,
+      "percent_contained": 98,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 170
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WA-OWF/Sisi",
+      "incident_name": "Sisi",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-10-25",
+      "size_acres": 4743,
+      "percent_contained": 34,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 28
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "CA-LPF/Timber",
+      "incident_name": "Timber",
+      "gacc": "OSCC",
+      "state": "CA",
+      "date": "2026-10-25",
+      "size_acres": 25350,
+      "percent_contained": 97,
+      "resources": {
+        "crews": 2,
+        "engines": 6,
+        "helicopters": 1,
+        "total_personnel": 148
+      },
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "_extractor_warnings": [
+    "national_totals: 'Total' summary row not found"
+  ]
+}

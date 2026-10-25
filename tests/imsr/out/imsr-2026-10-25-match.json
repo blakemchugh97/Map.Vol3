@@ -1,0 +1,294 @@
+{
+  "matched_at": "2026-10-25T18:18:25.000053+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-25-extracted.json",
+  "imsr_date": "2026-10-25",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-25.json",
+  "layer_records": 433,
+  "extractor_unverified": true,
+  "summary": {
+    "imsr_incidents": 8,
+    "match_rate_pct": 87.5,
+    "exact": 7,
+    "strong": 0,
+    "weak": 0,
+    "ambiguous": 0,
+    "no_match": 1,
+    "layer_only_count": 426
+  },
+  "failure_reasons": {
+    "no name/unit signal in layer": 1
+  },
+  "results": [
+    {
+      "imsr_id": "MS-MNF/Range 47B",
+      "imsr_name": "Range 47B",
+      "imsr_unit": "MSMNF",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMNF-000672",
+        "name": "Range  47B",
+        "state": "MS",
+        "acres": 636,
+        "lat": 31.099005692556943,
+        "lng": -89.16100541507234
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MI-MIS/Ridge",
+      "imsr_name": "Ridge",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MIMIS-520021",
+        "name": "Ridge",
+        "state": "MI",
+        "acres": 466,
+        "lat": 46.593619709809566,
+        "lng": -87.61861739490656
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MI-MIS/Black River",
+      "imsr_name": "Black River",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MIMIS-270010",
+        "name": "Black River",
+        "state": "MI",
+        "acres": 326,
+        "lat": 46.42528623283465,
+        "lng": -89.93306257653092
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CA-MEU/Cooley",
+      "imsr_name": "Cooley",
+      "imsr_unit": "CAMEU",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CAMEU-012265",
+        "name": "COOLEY",
+        "state": "CA",
+        "acres": 1365,
+        "lat": 38.81972696913502,
+        "lng": -123.18806945548245
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OR-MHF/Austin",
+      "imsr_name": "Austin",
+      "imsr_unit": "ORMHF",
+      "imsr_state": "OR",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-ORMHF-000863",
+        "name": "AUSTIN",
+        "state": "OR",
+        "acres": 12888,
+        "lat": 45.025221509522204,
+        "lng": -121.94488626629744
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WA-OWF/Sisi",
+      "imsr_name": "Sisi",
+      "imsr_unit": "WAOWF",
+      "imsr_state": "WA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WAOWF-260664",
+        "name": "SISI",
+        "state": "WA",
+        "acres": 4743,
+        "lat": 48.346672822151575,
+        "lng": -120.83068182684767
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "CA-LPF/Timber",
+      "imsr_name": "Timber",
+      "imsr_unit": "CALPF",
+      "imsr_state": "CA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-CALPF-002271",
+        "name": "Timber",
+        "state": "CA",
+        "acres": 25350,
+        "lat": 36.21589885898784,
+        "lng": -121.71752094030687
+      },
+      "other_candidates": []
+    }
+  ],
+  "layer_only_sample": [
+    {
+      "ufi": "2026-WAOWF-260406",
+      "name": "LITTLE GIANT",
+      "state": "WA",
+      "acres": 172912
+    },
+    {
+      "ufi": "2026-WANES-001791",
+      "name": "SINLAHEKIN",
+      "state": "WA",
+      "acres": 166007
+    },
+    {
+      "ufi": "2026-WACOA-260140",
+      "name": "Kaiser Canyon",
+      "state": "WA",
+      "acres": 138293
+    },
+    {
+      "ufi": "2026-ORBUD-002693",
+      "name": "Second Flat",
+      "state": "OR",
+      "acres": 105854
+    },
+    {
+      "ufi": "2026-COCUX-001160",
+      "name": "Aspen Acres",
+      "state": "CO",
+      "acres": 102007
+    },
+    {
+      "ufi": "2026-ORMHF-000688",
+      "name": "GRASSHOPPER",
+      "state": "OR",
+      "acres": 93972
+    },
+    {
+      "ufi": "2026-ORWSA-000100",
+      "name": "Bench",
+      "state": "OR",
+      "acres": 67071
+    },
+    {
+      "ufi": "2026-COSJF-000536",
+      "name": "Ferris",
+      "state": "CO",
+      "acres": 64881
+    },
+    {
+      "ufi": "2026-ORUMF-000324",
+      "name": "Hagen",
+      "state": "OR",
+      "acres": 61380
+    },
+    {
+      "ufi": "2026-WANES-260149",
+      "name": "Modrite",
+      "state": "WA",
+      "acres": 57594
+    }
+  ]
+}
