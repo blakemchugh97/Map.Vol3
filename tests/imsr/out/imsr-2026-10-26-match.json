@@ -1,28 +1,56 @@
 {
-  "matched_at": "2026-10-24T18:01:01.760042+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-24-extracted.json",
-  "imsr_date": "2026-10-24",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-24.json",
-  "layer_records": 499,
+  "matched_at": "2026-10-26T20:23:33.052798+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-26-extracted.json",
+  "imsr_date": "2026-10-26",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-26.json",
+  "layer_records": 454,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 9,
-    "match_rate_pct": 88.9,
-    "exact": 8,
+    "imsr_incidents": 8,
+    "match_rate_pct": 87.5,
+    "exact": 7,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 491
+    "layer_only_count": 447
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
     {
-      "imsr_id": "MS-MSS/Pontotoc Pennington Rd",
-      "imsr_name": "Pontotoc Pennington Rd",
-      "imsr_unit": "MSMSS",
+      "imsr_id": "OK-OKS/East Bailey Road",
+      "imsr_name": "East Bailey Road",
+      "imsr_unit": "OKOKS",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOKS-261256",
+        "name": "East Bailey Road",
+        "state": "OK",
+        "acres": 104,
+        "lat": 34.98361734994874,
+        "lng": -94.61639600576616
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MNF/Range 47B",
+      "imsr_name": "Range 47B",
+      "imsr_unit": "MSMNF",
       "imsr_state": "MS",
       "imsr_year": "2026",
       "final": "EXACT",
@@ -38,12 +66,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMSS-019403",
-        "name": "Pontotoc Pennington Rd",
+        "ufi": "2026-MSMNF-000672",
+        "name": "Range  47B",
         "state": "MS",
-        "acres": 171,
-        "lat": 34.16972853702332,
-        "lng": -89.09806116143213
+        "acres": 636,
+        "lat": 31.099005692556943,
+        "lng": -89.16100541507234
       },
       "other_candidates": []
     },
@@ -58,34 +86,6 @@
       "score": 0.0,
       "signals": null,
       "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MSS/Claiborne Freeman Hall",
-      "imsr_name": "Claiborne Freeman Hall",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMSS-019408",
-        "name": "Claiborne - Freeman Hall",
-        "state": "MS",
-        "acres": 130,
-        "lat": 31.933061411856713,
-        "lng": -90.75083919000305
-      },
       "other_candidates": []
     },
     {
@@ -141,34 +141,6 @@
         "acres": 326,
         "lat": 46.42528623283465,
         "lng": -89.93306257653092
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-MEU/Cooley",
-      "imsr_name": "Cooley",
-      "imsr_unit": "CAMEU",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAMEU-012265",
-        "name": "COOLEY",
-        "state": "CA",
-        "acres": 1365,
-        "lat": 38.81972696913502,
-        "lng": -123.18806945548245
       },
       "other_candidates": []
     },
@@ -301,12 +273,6 @@
       "acres": 67071
     },
     {
-      "ufi": "2026-COSJF-000536",
-      "name": "Ferris",
-      "state": "CO",
-      "acres": 64881
-    },
-    {
       "ufi": "2026-ORUMF-000324",
       "name": "Hagen",
       "state": "OR",
@@ -317,6 +283,12 @@
       "name": "Modrite",
       "state": "WA",
       "acres": 57594
+    },
+    {
+      "ufi": "2026-ORFWF-260286",
+      "name": "Wrights Spring",
+      "state": "OR",
+      "acres": 55134
     }
   ]
 }
