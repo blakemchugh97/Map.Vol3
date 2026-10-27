@@ -1,9 +1,9 @@
 {
-  "matched_at": "2026-10-25T18:18:25.000053+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-25-extracted.json",
-  "imsr_date": "2026-10-25",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-25.json",
-  "layer_records": 433,
+  "matched_at": "2026-10-27T19:58:48.722453+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-27-extracted.json",
+  "imsr_date": "2026-10-27",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-27.json",
+  "layer_records": 492,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 8,
@@ -13,12 +13,53 @@
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 426
+    "layer_only_count": 485
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-OKS/East Bailey Road",
+      "imsr_name": "East Bailey Road",
+      "imsr_unit": "OKOKS",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOKS-261256",
+        "name": "East Bailey Road",
+        "state": "OK",
+        "acres": 104,
+        "lat": 34.98361734994874,
+        "lng": -94.61639600576616
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "MS-MNF/Range 47B",
       "imsr_name": "Range 47B",
@@ -45,19 +86,6 @@
         "lat": 31.099005692556943,
         "lng": -89.16100541507234
       },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
       "other_candidates": []
     },
     {
@@ -113,34 +141,6 @@
         "acres": 326,
         "lat": 46.42528623283465,
         "lng": -89.93306257653092
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-MEU/Cooley",
-      "imsr_name": "Cooley",
-      "imsr_unit": "CAMEU",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CAMEU-012265",
-        "name": "COOLEY",
-        "state": "CA",
-        "acres": 1365,
-        "lat": 38.81972696913502,
-        "lng": -123.18806945548245
       },
       "other_candidates": []
     },
@@ -255,12 +255,6 @@
       "acres": 105854
     },
     {
-      "ufi": "2026-COCUX-001160",
-      "name": "Aspen Acres",
-      "state": "CO",
-      "acres": 102007
-    },
-    {
       "ufi": "2026-ORMHF-000688",
       "name": "GRASSHOPPER",
       "state": "OR",
@@ -273,12 +267,6 @@
       "acres": 67071
     },
     {
-      "ufi": "2026-COSJF-000536",
-      "name": "Ferris",
-      "state": "CO",
-      "acres": 64881
-    },
-    {
       "ufi": "2026-ORUMF-000324",
       "name": "Hagen",
       "state": "OR",
@@ -289,6 +277,18 @@
       "name": "Modrite",
       "state": "WA",
       "acres": 57594
+    },
+    {
+      "ufi": "2026-ORFWF-260286",
+      "name": "Wrights Spring",
+      "state": "OR",
+      "acres": 55134
+    },
+    {
+      "ufi": "2026-MTBDF-266319",
+      "name": "Sand Creek",
+      "state": "MT",
+      "acres": 35520
     }
   ]
 }
