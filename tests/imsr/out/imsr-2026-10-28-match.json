@@ -1,24 +1,65 @@
 {
-  "matched_at": "2026-10-26T20:23:33.052798+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-26-extracted.json",
-  "imsr_date": "2026-10-26",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-26.json",
-  "layer_records": 454,
+  "matched_at": "2026-10-28T20:10:49.611384+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-28-extracted.json",
+  "imsr_date": "2026-10-28",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-28.json",
+  "layer_records": 537,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 8,
-    "match_rate_pct": 87.5,
-    "exact": 7,
+    "imsr_incidents": 11,
+    "match_rate_pct": 90.9,
+    "exact": 10,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 447
+    "layer_only_count": 527
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
+    {
+      "imsr_id": "SC-SCS/Hewitt Lane",
+      "imsr_name": "Hewitt Lane",
+      "imsr_unit": "SCSCS",
+      "imsr_state": "SC",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-SCSCS-267730",
+        "name": "Hewitt Lane Fire",
+        "state": "SC",
+        "acres": 109,
+        "lat": 33.26267320370763,
+        "lng": -79.31400268754845
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
     {
       "imsr_id": "OK-OKS/East Bailey Road",
       "imsr_name": "East Bailey Road",
@@ -76,23 +117,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MI-MIS/Ridge",
-      "imsr_name": "Ridge",
-      "imsr_unit": "MIMIS",
-      "imsr_state": "MI",
+      "imsr_id": "MS-MSS/Hinds North Chapel Hill Rd",
+      "imsr_name": "Hinds North Chapel Hill Rd",
+      "imsr_unit": "MSMSS",
+      "imsr_state": "MS",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -107,12 +135,40 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MIMIS-520021",
-        "name": "Ridge",
-        "state": "MI",
-        "acres": 466,
-        "lat": 46.593619709809566,
-        "lng": -87.61861739490656
+        "ufi": "2026-MSMSS-019458",
+        "name": "Hinds North Chapel Hill Rd",
+        "state": "MS",
+        "acres": 117,
+        "lat": 32.328339202949415,
+        "lng": -90.5136169462567
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NY-NYS/Cherry Plain",
+      "imsr_name": "Cherry Plain",
+      "imsr_unit": "NYNYS",
+      "imsr_state": "NY",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NYNYS-000176",
+        "name": "Cherry Plain",
+        "state": "NY",
+        "acres": 198,
+        "lat": 42.64153865053848,
+        "lng": -73.30507134352025
       },
       "other_candidates": []
     },
@@ -141,6 +197,34 @@
         "acres": 326,
         "lat": 46.42528623283465,
         "lng": -89.93306257653092
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MI-MIS/Ridge",
+      "imsr_name": "Ridge",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MIMIS-520021",
+        "name": "Ridge",
+        "state": "MI",
+        "acres": 496,
+        "lat": 46.593619709809566,
+        "lng": -87.61861739490656
       },
       "other_candidates": []
     },
@@ -243,22 +327,10 @@
       "acres": 166007
     },
     {
-      "ufi": "2026-WACOA-260140",
-      "name": "Kaiser Canyon",
-      "state": "WA",
-      "acres": 138293
-    },
-    {
       "ufi": "2026-ORBUD-002693",
       "name": "Second Flat",
       "state": "OR",
       "acres": 105854
-    },
-    {
-      "ufi": "2026-COCUX-001160",
-      "name": "Aspen Acres",
-      "state": "CO",
-      "acres": 102007
     },
     {
       "ufi": "2026-ORMHF-000688",
@@ -279,16 +351,28 @@
       "acres": 61380
     },
     {
-      "ufi": "2026-WANES-260149",
-      "name": "Modrite",
-      "state": "WA",
-      "acres": 57594
-    },
-    {
       "ufi": "2026-ORFWF-260286",
       "name": "Wrights Spring",
       "state": "OR",
       "acres": 55134
+    },
+    {
+      "ufi": "2026-MTBDF-266319",
+      "name": "Sand Creek",
+      "state": "MT",
+      "acres": 35520
+    },
+    {
+      "ufi": "2026-NVWID-020620",
+      "name": "McConnell",
+      "state": "NV",
+      "acres": 33816
+    },
+    {
+      "ufi": "2026-ORBUD-002694",
+      "name": "Jackass Butte",
+      "state": "OR",
+      "acres": 24724
     }
   ]
 }
