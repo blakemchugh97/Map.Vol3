@@ -1,24 +1,52 @@
 {
-  "matched_at": "2026-10-27T19:58:48.722453+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-27-extracted.json",
-  "imsr_date": "2026-10-27",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-27.json",
-  "layer_records": 492,
+  "matched_at": "2026-10-29T20:09:00.044326+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-29-extracted.json",
+  "imsr_date": "2026-10-29",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-29.json",
+  "layer_records": 534,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 8,
-    "match_rate_pct": 87.5,
-    "exact": 7,
+    "imsr_incidents": 10,
+    "match_rate_pct": 90.0,
+    "exact": 9,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 485
+    "layer_only_count": 525
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
+    {
+      "imsr_id": "OK-OKS/Redbud",
+      "imsr_name": "Redbud",
+      "imsr_unit": "OKOKS",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOKS-261263",
+        "name": "Redbud",
+        "state": "OK",
+        "acres": 198,
+        "lat": 34.806672889206034,
+        "lng": -95.2027850466812
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "FL-FLS/Bee Haven 2 24-06",
       "imsr_name": "Bee Haven 2 24-06",
@@ -30,6 +58,62 @@
       "score": 0.0,
       "signals": null,
       "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MNF/Range 47B",
+      "imsr_name": "Range 47B",
+      "imsr_unit": "MSMNF",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMNF-000672",
+        "name": "Range  47B",
+        "state": "MS",
+        "acres": 392,
+        "lat": 31.099005692556943,
+        "lng": -89.16100541507234
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "SC-SCS/Hewitt Lane",
+      "imsr_name": "Hewitt Lane",
+      "imsr_unit": "SCSCS",
+      "imsr_state": "SC",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-SCSCS-267730",
+        "name": "Hewitt Lane Fire",
+        "state": "SC",
+        "acres": 109,
+        "lat": 33.26267320370763,
+        "lng": -79.31400268754845
+      },
       "other_candidates": []
     },
     {
@@ -61,10 +145,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MNF/Range 47B",
-      "imsr_name": "Range 47B",
-      "imsr_unit": "MSMNF",
-      "imsr_state": "MS",
+      "imsr_id": "NY-NYS/Cherry Plain",
+      "imsr_name": "Cherry Plain",
+      "imsr_unit": "NYNYS",
+      "imsr_state": "NY",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -79,40 +163,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMNF-000672",
-        "name": "Range  47B",
-        "state": "MS",
-        "acres": 636,
-        "lat": 31.099005692556943,
-        "lng": -89.16100541507234
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MI-MIS/Ridge",
-      "imsr_name": "Ridge",
-      "imsr_unit": "MIMIS",
-      "imsr_state": "MI",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MIMIS-520021",
-        "name": "Ridge",
-        "state": "MI",
-        "acres": 466,
-        "lat": 46.593619709809566,
-        "lng": -87.61861739490656
+        "ufi": "2026-NYNYS-000176",
+        "name": "Cherry Plain",
+        "state": "NY",
+        "acres": 251,
+        "lat": 42.64153865053848,
+        "lng": -73.30507134352025
       },
       "other_candidates": []
     },
@@ -141,6 +197,34 @@
         "acres": 326,
         "lat": 46.42528623283465,
         "lng": -89.93306257653092
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MI-MIS/Ridge",
+      "imsr_name": "Ridge",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MIMIS-520021",
+        "name": "Ridge",
+        "state": "MI",
+        "acres": 496,
+        "lat": 46.593619709809566,
+        "lng": -87.61861739490656
       },
       "other_candidates": []
     },
@@ -199,34 +283,6 @@
         "lng": -120.83068182684767
       },
       "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-LPF/Timber",
-      "imsr_name": "Timber",
-      "imsr_unit": "CALPF",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CALPF-002271",
-        "name": "Timber",
-        "state": "CA",
-        "acres": 25350,
-        "lat": 36.21589885898784,
-        "lng": -121.71752094030687
-      },
-      "other_candidates": []
     }
   ],
   "layer_only_sample": [
@@ -235,18 +291,6 @@
       "name": "LITTLE GIANT",
       "state": "WA",
       "acres": 172912
-    },
-    {
-      "ufi": "2026-WANES-001791",
-      "name": "SINLAHEKIN",
-      "state": "WA",
-      "acres": 166007
-    },
-    {
-      "ufi": "2026-WACOA-260140",
-      "name": "Kaiser Canyon",
-      "state": "WA",
-      "acres": 138293
     },
     {
       "ufi": "2026-ORBUD-002693",
@@ -261,22 +305,10 @@
       "acres": 93972
     },
     {
-      "ufi": "2026-ORWSA-000100",
-      "name": "Bench",
-      "state": "OR",
-      "acres": 67071
-    },
-    {
       "ufi": "2026-ORUMF-000324",
       "name": "Hagen",
       "state": "OR",
       "acres": 61380
-    },
-    {
-      "ufi": "2026-WANES-260149",
-      "name": "Modrite",
-      "state": "WA",
-      "acres": 57594
     },
     {
       "ufi": "2026-ORFWF-260286",
@@ -289,6 +321,30 @@
       "name": "Sand Creek",
       "state": "MT",
       "acres": 35520
+    },
+    {
+      "ufi": "2026-CALPF-002271",
+      "name": "Timber",
+      "state": "CA",
+      "acres": 25350
+    },
+    {
+      "ufi": "2026-ORBUD-002694",
+      "name": "Jackass Butte",
+      "state": "OR",
+      "acres": 24724
+    },
+    {
+      "ufi": "2026-NMSNF-000444",
+      "name": "Frijoles",
+      "state": "NM",
+      "acres": 15956
+    },
+    {
+      "ufi": "2026-ORMAR-002683",
+      "name": "Stubble",
+      "state": "OR",
+      "acres": 15673
     }
   ]
 }
