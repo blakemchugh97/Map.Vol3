@@ -1,24 +1,93 @@
 {
-  "matched_at": "2026-10-28T20:10:49.611384+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-28-extracted.json",
-  "imsr_date": "2026-10-28",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-28.json",
-  "layer_records": 537,
+  "matched_at": "2026-10-30T19:53:23.226766+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-10-30-extracted.json",
+  "imsr_date": "2026-10-30",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-30.json",
+  "layer_records": 511,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 11,
-    "match_rate_pct": 90.9,
-    "exact": 10,
+    "imsr_incidents": 10,
+    "match_rate_pct": 90.0,
+    "exact": 9,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 527
+    "layer_only_count": 502
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MNF/Range 47B",
+      "imsr_name": "Range 47B",
+      "imsr_unit": "MSMNF",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMNF-000672",
+        "name": "Range  47B",
+        "state": "MS",
+        "acres": 392,
+        "lat": 31.099005692556943,
+        "lng": -89.16100541507234
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "OK-OKS/Redbud",
+      "imsr_name": "Redbud",
+      "imsr_unit": "OKOKS",
+      "imsr_state": "OK",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-OKOKS-261263",
+        "name": "Redbud",
+        "state": "OK",
+        "acres": 198,
+        "lat": 34.806672889206034,
+        "lng": -95.2027850466812
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "SC-SCS/Hewitt Lane",
       "imsr_name": "Hewitt Lane",
@@ -48,49 +117,8 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OK-OKS/East Bailey Road",
-      "imsr_name": "East Bailey Road",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-261256",
-        "name": "East Bailey Road",
-        "state": "OK",
-        "acres": 104,
-        "lat": 34.98361734994874,
-        "lng": -94.61639600576616
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MNF/Range 47B",
-      "imsr_name": "Range 47B",
+      "imsr_id": "MS-MNF/South Tank Trail",
+      "imsr_name": "South Tank Trail",
       "imsr_unit": "MSMNF",
       "imsr_state": "MS",
       "imsr_year": "2026",
@@ -107,96 +135,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMNF-000672",
-        "name": "Range  47B",
+        "ufi": "2026-MSMNF-000680",
+        "name": "South Tank Trail",
         "state": "MS",
-        "acres": 636,
-        "lat": 31.099005692556943,
-        "lng": -89.16100541507234
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MSS/Hinds North Chapel Hill Rd",
-      "imsr_name": "Hinds North Chapel Hill Rd",
-      "imsr_unit": "MSMSS",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMSS-019458",
-        "name": "Hinds North Chapel Hill Rd",
-        "state": "MS",
-        "acres": 117,
-        "lat": 32.328339202949415,
-        "lng": -90.5136169462567
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NY-NYS/Cherry Plain",
-      "imsr_name": "Cherry Plain",
-      "imsr_unit": "NYNYS",
-      "imsr_state": "NY",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NYNYS-000176",
-        "name": "Cherry Plain",
-        "state": "NY",
-        "acres": 198,
-        "lat": 42.64153865053848,
-        "lng": -73.30507134352025
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MI-MIS/Black River",
-      "imsr_name": "Black River",
-      "imsr_unit": "MIMIS",
-      "imsr_state": "MI",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MIMIS-270010",
-        "name": "Black River",
-        "state": "MI",
-        "acres": 326,
-        "lat": 46.42528623283465,
-        "lng": -89.93306257653092
+        "acres": 1282,
+        "lat": 31.085838691911732,
+        "lng": -89.09778839708062
       },
       "other_candidates": []
     },
@@ -225,6 +169,62 @@
         "acres": 496,
         "lat": 46.593619709809566,
         "lng": -87.61861739490656
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MI-MIS/Black River",
+      "imsr_name": "Black River",
+      "imsr_unit": "MIMIS",
+      "imsr_state": "MI",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MIMIS-270010",
+        "name": "Black River",
+        "state": "MI",
+        "acres": 362,
+        "lat": 46.42528623283465,
+        "lng": -89.93306257653092
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "NY-NYS/Cherry Plain",
+      "imsr_name": "Cherry Plain",
+      "imsr_unit": "NYNYS",
+      "imsr_state": "NY",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-NYNYS-000176",
+        "name": "Cherry Plain",
+        "state": "NY",
+        "acres": 251,
+        "lat": 42.64153865053848,
+        "lng": -73.30507134352025
       },
       "other_candidates": []
     },
@@ -278,37 +278,9 @@
         "ufi": "2026-WAOWF-260664",
         "name": "SISI",
         "state": "WA",
-        "acres": 4743,
+        "acres": 4774,
         "lat": 48.346672822151575,
         "lng": -120.83068182684767
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "CA-LPF/Timber",
-      "imsr_name": "Timber",
-      "imsr_unit": "CALPF",
-      "imsr_state": "CA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-CALPF-002271",
-        "name": "Timber",
-        "state": "CA",
-        "acres": 25350,
-        "lat": 36.21589885898784,
-        "lng": -121.71752094030687
       },
       "other_candidates": []
     }
@@ -319,12 +291,6 @@
       "name": "LITTLE GIANT",
       "state": "WA",
       "acres": 172912
-    },
-    {
-      "ufi": "2026-WANES-001791",
-      "name": "SINLAHEKIN",
-      "state": "WA",
-      "acres": 166007
     },
     {
       "ufi": "2026-ORBUD-002693",
@@ -339,12 +305,6 @@
       "acres": 93972
     },
     {
-      "ufi": "2026-ORWSA-000100",
-      "name": "Bench",
-      "state": "OR",
-      "acres": 67071
-    },
-    {
       "ufi": "2026-ORUMF-000324",
       "name": "Hagen",
       "state": "OR",
@@ -357,16 +317,28 @@
       "acres": 55134
     },
     {
+      "ufi": "2026-ORPRD-000476",
+      "name": "0476 HOAG",
+      "state": "OR",
+      "acres": 50224
+    },
+    {
+      "ufi": "2026-ORPRD-000567",
+      "name": "0567 LITTLE BUCK",
+      "state": "OR",
+      "acres": 43818
+    },
+    {
       "ufi": "2026-MTBDF-266319",
       "name": "Sand Creek",
       "state": "MT",
       "acres": 35520
     },
     {
-      "ufi": "2026-NVWID-020620",
-      "name": "McConnell",
-      "state": "NV",
-      "acres": 33816
+      "ufi": "2026-CALPF-002271",
+      "name": "Timber",
+      "state": "CA",
+      "acres": 25350
     },
     {
       "ufi": "2026-ORBUD-002694",

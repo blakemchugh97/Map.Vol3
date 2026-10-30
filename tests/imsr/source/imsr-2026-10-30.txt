@@ -1,0 +1,191 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Friday October 30, 2026 – 0730 MDT 
+National Preparedness Level 1 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 1 9 316,590 2 7 2 304 -10 
+ONCC 2 1 1,365 1 1 0 22 -41 
+OSCC 2 0 0 0 0 0 0 0 
+NRCC 1 0 0 0 0 0 0 -1 
+GBCC 1 2 5,040 0 0 0 6 0 
+SWCC 1 0 0 0 0 0 0 0 
+RMCC 2 0 0 0 0 0 0 0 
+EACC 1 4 1,715 0 3 0 113 -10 
+SACC 2 15 4,937 0 21 1 136 6 
+Total --- 31 329,647 3 32 3 581 -56 
+ 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (63 fires) 
+New large incidents: 1 
+Large fires contained: 1 
+Uncontained large fires:  9 
+CIMTs committed: 0 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 28 
+New large incidents: 1 
+Uncontained large fires: 4 
+ 
+Bee Haven 2 24-06, Florida Forest Service. Twenty-eight miles northwest of Lake City, FL. Southern rough. 
+Minimal fire behavior with smoldering. 
+ 
+Range 47B, National Forests in Mississippi, USFS. Three miles northeast of Brooklyn, MS. Southern rough 
+and grass. Minimal fire behavior with smoldering. 
+ 
+Redbud, Oklahoma DOF. Ten miles southeast of Wilburton, OK. Hardwood litter. No new information. 
+ 
+Hewitt Lane, South Carolina Forestry Commission. Seven miles south of Georgetown, SC. Timber and 
+southern rough. No new information. Last narrative report unless new information is received. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Bee Haven 2 24-06 FL-FLS 2,060 0 85 Ctn 12/25 41 3 0 5 1 0 NR ST 
+Range 47B MS-MNF 392 0 50 Ctn 10/30 13 0 0 3 0 0 75K FS 
+Redbud OK-OKS 198 --- 60 Ctn UNK 5 --- 0 2 0 0 5K ST 
+Hewitt Lane SC-SCS 109 --- 60 Ctn 10/31 8 --- 0 2 0 0 6K ST 
+* South Tank Trail MS-MNF 1,282 --- 100 Ctn --- 18 --- 0 4 0 5 15K FS 
+ 
+ 
+Eastern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 14 
+New large incidents: 0 
+Uncontained large fires: 3 
+ 
+Ridge, Michigan DNR. Six miles north of Negaunee, MI. Timber and hardwood litter. Minimal fire behavior with 
+smoldering. Structures threatened. Trail closures in effect. Precipitation occurred over the fire area yesterday. 
+ 
+Black River, Michigan DNR. Four miles south of Wakefield, MI. Timber and grass. Minimal fire behavior. 
+Precipitation occurred over the fire area yesterday. Last report unless significant activity occurs. 
+ 
+Cherry Plain, New York State Department of Environmental Conservation. Seven miles northeast of 
+Stephentown, NY. Hardwood litter. No new information. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Ridge MI-MIS 496 0 50 Ctn 11/30 3 -5 0 1 0 0 250K ST 
+Black River MI-MIS 362 36 90 Ctn 11/7 3 -5 0 2 0 0 250K ST 
+Cherry Plain NY-NYS 251 --- 99 Ctn 10/31 106 --- 0 0 0 0 20K ST 
+ 
+ 
+Northwest Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 3 
+New large incidents: 0 
+Uncontained large fires: 2 
+ 
+===== PAGE 3 =====
+Austin, Mt. Hood NF, USFS. Twenty-five miles southeast of Estacada, OR. Brush, timber and closed timber 
+litter. Minimal fire behavior with smoldering. Area, road and trail closures in effect. 
+ 
+Sisi, Okanogan-Wenatchee NF, USFS. Ten miles northwest of Stehekin, WA. Timber and closed timber litter. 
+Minimal fire behavior with smoldering, creeping and backing. Residences threatened. Area, road and trail 
+closures in effect. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Austin OR-MHF 12,888 0 98 Ctn 11/30 102 -10 0 0 0 0 87.1M FS 
+Sisi WA-OWF 4,774 31 35 Ctn 10/31 28 0 0 0 0 0 11.9M FS 
+ 
+===== PAGE 4 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 0 0 0 0 0 3 3 
+Northwest ACRES 0 0 0 0 0 0 0 
+Northern California FIRES 0 0 0 0 4 0 4 
+Northern California ACRES 0 0 0 0 1 0 1 
+Southern California FIRES 0 0 0 0 5 0 5 
+Southern California ACRES 0 0 0 0 1 0 1 
+Northern Rockies FIRES 0 0 0 0 0 0 0 
+Northern Rockies ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 3 0 0 1 4 8 
+Great Basin ACRES 0 0 0 0 0 0 1 
+Southwest FIRES 1 0 0 0 0 0 1 
+Southwest ACRES 1 0 0 0 0 0 1 
+Rocky Mountain FIRES 0 0 0 0 0 0 0 
+Rocky Mountain ACRES 0 0 0 0 0 0 0 
+Eastern Area FIRES 0 0 0 0 13 1 14 
+Eastern Area ACRES 0 0 0 0 4 0 4 
+Southern Area FIRES 1 0 0 0 27 0 28 
+Southern Area ACRES 0 0 0 0 135 0 135 
+TOTAL FIRES:  2 3 0 0 50 8 63 
+TOTAL ACRES:  1 0 0 0 141 1 143 
+ 
+===== PAGE 5 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 231 41 421 
+Alaska ACRES 0 36,761 0 0 52,184 12 88,957 
+Northwest FIRES 262 313 28 52 1,920 863 3,438 
+Northwest ACRES 231,646 1,978,262 34,146 19,038 566,009 519,369 3,348,470 
+Northern California FIRES 62 18 2 33 2,388 421 2,924 
+Northern California ACRES 7,736 70,418 5 53 20,090 8,376 106,678 
+Southern California FIRES 10 79 5 46 3,523 384 4,047 
+Southern California ACRES 2 9,646 4 25,604 147,008 54,459 236,723 
+Northern Rockies FIRES 292 113 7 4 1,530 596 2,542 
+Northern Rockies ACRES 20,721 9,462 520 6 66,390 115,467 212,566 
+Great Basin FIRES 46 1,174 3 44 1,059 539 2,865 
+Great Basin ACRES 3,172 1,257,775 2 784 274,842 393,255 1,929,830 
+Southwest FIRES 694 214 5 30 817 1,035 2,795 
+Southwest ACRES 3,644 6,414 7,131 806 81,018 113,647 212,659 
+Rocky Mountain FIRES 192 506 17 35 1,610 451 2,811 
+Rocky Mountain ACRES 1,682 24,965 3,964 1,412 1,330,668 210,789 1,573,480 
+Eastern Area FIRES 223 0 25 16 8,751 388 9,403 
+Eastern Area ACRES 1,086 0 344 17 85,570 86,293 173,309 
+Southern Area FIRES 1,165 2 111 127 34,007 799 36,211 
+Southern Area ACRES 87,855 72 52,776 44,931 1,256,445 63,228 1,505,306 
+TOTAL FIRES:  2,946 2,568 203 387 55,836 5,517 67,457 
+TOTAL ACRES:  357,543 3,393,775 98,893 92,650 3,880,225 1,564,894 9,387,979 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 50,746 133% 
+Acres (2016 – 2025 as of today) 6,430,994 146% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+ 
+===== PAGE 6 =====
+Predictive Services Discussion:  
+ 
+A dry cold front will continue to move through the Ohio Valley and Mid -Atlantic today, with breezy northwest 
+winds in the Northeast. These winds will be accompanied by relative humidity above 40% keeping fire potential 
+low. Dry and warm conditions will con tinue in the Southeast and Lower Mississippi Valley, but relative humidity 
+will be higher than previous days and generally above 30%, except in portions of the southern Appalachians 
+which may drop as low as 25%. Scattered showers and thunderstorms will develop on the central and southern 
+Plains due to moisture from the remnants of Pacific Tropical Storm Vance. Farther west, moisture from Vance 
+will also move into the Southwest and northward into the Great Basin and central Rockies, where scattered 
+showers and isolated thunderstorms are expected. Due to the warm nature of the system, snow will be confined 
+to the highest elevations of the central Rockies. Precipitation will wind down today in western Alaska while strong 
+winds occur off the Alaska Range in port ions of the central and eastern Interior, while heavy snow is expected 
+in the Alaska Range and Chugach Mountains. Trade winds return to Hawai’i but elevated low-level moisture will 
+result in scattered and locally heavy windward showers. 
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 

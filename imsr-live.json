@@ -1,7 +1,7 @@
 {
   "meta": {
-    "source_date": "2026-10-29",
-    "generated_at": "2026-10-29T20:09:00.064780+00:00",
+    "source_date": "2026-10-30",
+    "generated_at": "2026-10-30T19:53:23.244548+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
@@ -20,21 +20,9 @@
     "national_preparedness_level": null
   },
   "exact_incidents": {
-    "2026-OKOKS-261263": {
-      "tier": "EXACT",
-      "report_date": "2026-10-29",
-      "imsr_id": "OK-OKS/Redbud",
-      "imsr_name": "Redbud",
-      "layer_name": "Redbud",
-      "state": "OK",
-      "crews": 0,
-      "engines": 2,
-      "helicopters": 0,
-      "total_personnel": 5
-    },
     "2026-MSMNF-000672": {
       "tier": "EXACT",
-      "report_date": "2026-10-29",
+      "report_date": "2026-10-30",
       "imsr_id": "MS-MNF/Range 47B",
       "imsr_name": "Range 47B",
       "layer_name": "Range  47B",
@@ -44,9 +32,21 @@
       "helicopters": 0,
       "total_personnel": 13
     },
+    "2026-OKOKS-261263": {
+      "tier": "EXACT",
+      "report_date": "2026-10-30",
+      "imsr_id": "OK-OKS/Redbud",
+      "imsr_name": "Redbud",
+      "layer_name": "Redbud",
+      "state": "OK",
+      "crews": 0,
+      "engines": 2,
+      "helicopters": 0,
+      "total_personnel": 5
+    },
     "2026-SCSCS-267730": {
       "tier": "EXACT",
-      "report_date": "2026-10-29",
+      "report_date": "2026-10-30",
       "imsr_id": "SC-SCS/Hewitt Lane",
       "imsr_name": "Hewitt Lane",
       "layer_name": "Hewitt Lane Fire",
@@ -56,21 +56,45 @@
       "helicopters": 0,
       "total_personnel": 8
     },
-    "2026-OKOKS-261256": {
+    "2026-MSMNF-000680": {
       "tier": "EXACT",
-      "report_date": "2026-10-29",
-      "imsr_id": "OK-OKS/East Bailey Road",
-      "imsr_name": "East Bailey Road",
-      "layer_name": "East Bailey Road",
-      "state": "OK",
+      "report_date": "2026-10-30",
+      "imsr_id": "MS-MNF/South Tank Trail",
+      "imsr_name": "South Tank Trail",
+      "layer_name": "South Tank Trail",
+      "state": "MS",
+      "crews": 0,
+      "engines": 4,
+      "helicopters": 0,
+      "total_personnel": 18
+    },
+    "2026-MIMIS-520021": {
+      "tier": "EXACT",
+      "report_date": "2026-10-30",
+      "imsr_id": "MI-MIS/Ridge",
+      "imsr_name": "Ridge",
+      "layer_name": "Ridge",
+      "state": "MI",
       "crews": 0,
       "engines": 1,
       "helicopters": 0,
-      "total_personnel": 4
+      "total_personnel": 3
+    },
+    "2026-MIMIS-270010": {
+      "tier": "EXACT",
+      "report_date": "2026-10-30",
+      "imsr_id": "MI-MIS/Black River",
+      "imsr_name": "Black River",
+      "layer_name": "Black River",
+      "state": "MI",
+      "crews": 0,
+      "engines": 2,
+      "helicopters": 0,
+      "total_personnel": 3
     },
     "2026-NYNYS-000176": {
       "tier": "EXACT",
-      "report_date": "2026-10-29",
+      "report_date": "2026-10-30",
       "imsr_id": "NY-NYS/Cherry Plain",
       "imsr_name": "Cherry Plain",
       "layer_name": "Cherry Plain",
@@ -80,33 +104,9 @@
       "helicopters": 0,
       "total_personnel": 106
     },
-    "2026-MIMIS-270010": {
-      "tier": "EXACT",
-      "report_date": "2026-10-29",
-      "imsr_id": "MI-MIS/Black River",
-      "imsr_name": "Black River",
-      "layer_name": "Black River",
-      "state": "MI",
-      "crews": 0,
-      "engines": 6,
-      "helicopters": 0,
-      "total_personnel": 8
-    },
-    "2026-MIMIS-520021": {
-      "tier": "EXACT",
-      "report_date": "2026-10-29",
-      "imsr_id": "MI-MIS/Ridge",
-      "imsr_name": "Ridge",
-      "layer_name": "Ridge",
-      "state": "MI",
-      "crews": 0,
-      "engines": 2,
-      "helicopters": 0,
-      "total_personnel": 8
-    },
     "2026-ORMHF-000863": {
       "tier": "EXACT",
-      "report_date": "2026-10-29",
+      "report_date": "2026-10-30",
       "imsr_id": "OR-MHF/Austin",
       "imsr_name": "Austin",
       "layer_name": "AUSTIN",
@@ -114,11 +114,11 @@
       "crews": 0,
       "engines": 0,
       "helicopters": 0,
-      "total_personnel": 112
+      "total_personnel": 102
     },
     "2026-WAOWF-260664": {
       "tier": "EXACT",
-      "report_date": "2026-10-29",
+      "report_date": "2026-10-30",
       "imsr_id": "WA-OWF/Sisi",
       "imsr_name": "Sisi",
       "layer_name": "SISI",
