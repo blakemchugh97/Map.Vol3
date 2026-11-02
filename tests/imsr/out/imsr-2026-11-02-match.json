@@ -1,42 +1,29 @@
 {
-  "matched_at": "2026-10-31T19:11:50.479376+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-10-31-extracted.json",
-  "imsr_date": "2026-10-31",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-31.json",
-  "layer_records": 457,
+  "matched_at": "2026-11-02T23:03:17.355942+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-02-extracted.json",
+  "imsr_date": "2026-11-02",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-02.json",
+  "layer_records": 381,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 9,
-    "match_rate_pct": 88.9,
-    "exact": 8,
+    "imsr_incidents": 6,
+    "match_rate_pct": 83.3,
+    "exact": 5,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 449
+    "layer_only_count": 376
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
     {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "SC-SCS/Hewitt Lane",
-      "imsr_name": "Hewitt Lane",
-      "imsr_unit": "SCSCS",
-      "imsr_state": "SC",
+      "imsr_id": "TN-BSP/BSP Cactus",
+      "imsr_name": "BSP Cactus",
+      "imsr_unit": "TNBSP",
+      "imsr_state": "TN",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -51,13 +38,26 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-SCSCS-267730",
-        "name": "Hewitt Lane Fire",
-        "state": "SC",
-        "acres": 109,
-        "lat": 33.26267320370763,
-        "lng": -79.31400268754845
+        "ufi": "2026-TNBSP-926029",
+        "name": "BSP - Cactus",
+        "state": "TN",
+        "acres": 220,
+        "lat": 36.44252797957238,
+        "lng": -84.75659946821276
       },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
       "other_candidates": []
     },
     {
@@ -85,90 +85,6 @@
         "acres": 198,
         "lat": 34.806672889206034,
         "lng": -95.2027850466812
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MNF/Range 47B",
-      "imsr_name": "Range 47B",
-      "imsr_unit": "MSMNF",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMNF-000672",
-        "name": "Range  47B",
-        "state": "MS",
-        "acres": 800,
-        "lat": 31.099005692556943,
-        "lng": -89.16100541507234
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "LA-KIF/Drakes Creek",
-      "imsr_name": "Drakes Creek",
-      "imsr_unit": "LAKIF",
-      "imsr_state": "LA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-LAKIF-000490",
-        "name": "Drakes Creek",
-        "state": "LA",
-        "acres": 349,
-        "lat": 30.98050552543318,
-        "lng": -93.16203948668945
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "OR-MHF/Austin",
-      "imsr_name": "Austin",
-      "imsr_unit": "ORMHF",
-      "imsr_state": "OR",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-ORMHF-000863",
-        "name": "AUSTIN",
-        "state": "OR",
-        "acres": 12888,
-        "lat": 45.025221509522204,
-        "lng": -121.94488626629744
       },
       "other_candidates": []
     },

@@ -1,14 +1,14 @@
-# IMSR ↔ incident-layer match — 2026-10-31
+# IMSR ↔ incident-layer match — 2026-11-02
 
-- IMSR source: `tests/imsr/out/imsr-2026-10-31-extracted.json`
-- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-10-31.json` (457 records)
+- IMSR source: `tests/imsr/out/imsr-2026-11-02-extracted.json`
+- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-02.json` (381 records)
 - **Extracted IMSR rows are UNVERIFIED; this measures record MATCHING, not parser or value correctness.**
 
 ## Match summary
-- IMSR incidents compared: **9**
-- Match rate (exact+strong+weak): **88.9%**
-- EXACT **8** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **1**
-- Layer records with no IMSR match: **449** (expected — IMSR lists only large incidents)
+- IMSR incidents compared: **6**
+- Match rate (exact+strong+weak): **83.3%**
+- EXACT **5** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **1**
+- Layer records with no IMSR match: **376** (expected — IMSR lists only large incidents)
 
 ## Top failure / ambiguity reasons
 - 1× — no name/unit signal in layer
@@ -17,12 +17,9 @@
 
 | IMSR incident | tier | matched layer (UFI) | score | signals |
 |---|---|---|---|---|
+| TN-BSP/BSP Cactus | **EXACT** | 2026-TNBSP-926029 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | FL-FLS/Bee Haven 2 24-06 | **NO_MATCH** | — | 0.0 | — |
-| SC-SCS/Hewitt Lane | **EXACT** | 2026-SCSCS-267730 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | OK-OKS/Redbud | **EXACT** | 2026-OKOKS-261263 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| MS-MNF/Range 47B | **EXACT** | 2026-MSMNF-000672 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| LA-KIF/Drakes Creek | **EXACT** | 2026-LAKIF-000490 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| OR-MHF/Austin | **EXACT** | 2026-ORMHF-000863 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-OWF/Sisi | **EXACT** | 2026-WAOWF-260664 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MI-MIS/Ridge | **EXACT** | 2026-MIMIS-520021 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | NY-NYS/Cherry Plain | **EXACT** | 2026-NYNYS-000176 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
