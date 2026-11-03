@@ -1,19 +1,19 @@
 {
   "meta": {
-    "source_date": "2026-11-02",
-    "generated_at": "2026-11-02T23:03:17.377234+00:00",
+    "source_date": "2026-11-03",
+    "generated_at": "2026-11-03T20:51:26.022191+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
       "gac_pl": 3,
-      "exact_incidents": 5
+      "exact_incidents": 6
     }
   },
   "gac_pl": {
     "SACC": 2,
-    "NWCC": 1,
-    "EACC": 1
+    "EACC": 1,
+    "NWCC": 1
   },
   "national_totals": {
     "date": null,
@@ -22,7 +22,7 @@
   "exact_incidents": {
     "2026-TNBSP-926029": {
       "tier": "EXACT",
-      "report_date": "2026-11-02",
+      "report_date": "2026-11-03",
       "imsr_id": "TN-BSP/BSP Cactus",
       "imsr_name": "BSP Cactus",
       "layer_name": "BSP - Cactus",
@@ -34,7 +34,7 @@
     },
     "2026-OKOKS-261263": {
       "tier": "EXACT",
-      "report_date": "2026-11-02",
+      "report_date": "2026-11-03",
       "imsr_id": "OK-OKS/Redbud",
       "imsr_name": "Redbud",
       "layer_name": "Redbud",
@@ -44,21 +44,33 @@
       "helicopters": 0,
       "total_personnel": 5
     },
-    "2026-WAOWF-260664": {
+    "2026-NHWMF-000182": {
       "tier": "EXACT",
-      "report_date": "2026-11-02",
-      "imsr_id": "WA-OWF/Sisi",
-      "imsr_name": "Sisi",
-      "layer_name": "SISI",
-      "state": "WA",
+      "report_date": "2026-11-03",
+      "imsr_id": "NH-WMF/Wild River",
+      "imsr_name": "Wild River",
+      "layer_name": "Wild River",
+      "state": "NH",
       "crews": 0,
       "engines": 0,
       "helicopters": 0,
-      "total_personnel": 28
+      "total_personnel": 50
+    },
+    "2026-NYNYS-000176": {
+      "tier": "EXACT",
+      "report_date": "2026-11-03",
+      "imsr_id": "NY-NYS/Cherry Plain",
+      "imsr_name": "Cherry Plain",
+      "layer_name": "Cherry Plain",
+      "state": "NY",
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 2
     },
     "2026-MIMIS-520021": {
       "tier": "EXACT",
-      "report_date": "2026-11-02",
+      "report_date": "2026-11-03",
       "imsr_id": "MI-MIS/Ridge",
       "imsr_name": "Ridge",
       "layer_name": "Ridge",
@@ -68,17 +80,17 @@
       "helicopters": 0,
       "total_personnel": 3
     },
-    "2026-NYNYS-000176": {
+    "2026-WAOWF-260664": {
       "tier": "EXACT",
-      "report_date": "2026-11-02",
-      "imsr_id": "NY-NYS/Cherry Plain",
-      "imsr_name": "Cherry Plain",
-      "layer_name": "Cherry Plain",
-      "state": "NY",
+      "report_date": "2026-11-03",
+      "imsr_id": "WA-OWF/Sisi",
+      "imsr_name": "Sisi",
+      "layer_name": "SISI",
+      "state": "WA",
       "crews": 0,
       "engines": 0,
       "helicopters": 0,
-      "total_personnel": 106
+      "total_personnel": 28
     }
   }
 }

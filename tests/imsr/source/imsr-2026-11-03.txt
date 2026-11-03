@@ -1,0 +1,165 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Tuesday November 3, 2026 – 0730 MDT 
+National Preparedness Level 1 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 1 8 210,778 1 0 0 128 -14 
+ONCC 2 1 1,365 0 1 0 8 0 
+OSCC 2 0 0 0 0 0 0 0 
+NRCC 1 0 0 0 0 0 0 0 
+GBCC 1 1 5,040 0 0 0 1 -5 
+SWCC 1 0 0 0 0 0 0 0 
+RMCC 2 0 0 0 0 0 0 0 
+EACC 1 6 2,003 0 7 0 78 -54 
+SACC 2 10 5,388 0 22 1 114 -12 
+Total --- 26 224,574 1 30 1 329 -85 
+ 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (41 fires) 
+New large incidents: 1 
+Large fires contained: 1 
+Uncontained large fires:  6 
+CIMTs committed: 0 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 20 
+New large incidents: 0 
+Uncontained large fires: 2 
+ 
+BSP Cactus, Big South Fork National River & Recreation Area, NPS. Eleven miles east of Jamestown, TN. 
+Hardwood litter. Minimal fire behavior. 
+ 
+Bee Haven 2 24-06, Florida Forest Service. Twenty-eight miles northwest of Lake City, FL. Southern rough. 
+No new information. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+BSP Cactus TN-BSP 220 0 85 Ctn 11/3 9 0 0 3 0 0 30K NPS 
+Bee Haven 2 24-06 FL-FLS 2,060 --- 85 Ctn 12/25 41 --- 0 5 1 0 NR ST 
+Redbud OK-OKS 198 0 100 Ctn --- 5 0 0 2 0 0 7K ST 
+OKS – Oklahoma DOF 
+ 
+ 
+Eastern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 11 
+New large incidents: 1 
+Uncontained large fires: 3 
+ 
+* Wild River, White Mountain NF, USFS. Five miles southwest of Shelburne, NH. Hardwood litter and closed 
+timber litter. Moderate fire behavior with isolated torching, smoldering and creeping. 
+ 
+Cherry Plain, New York State Department of Environmental Conservation. Seven miles northeast of 
+Stephentown, NY. Hardwood litter. Minimal fire behavior with smoldering. Last report unless significant activity 
+occurs. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+* Wild River NH-WMF 288 --- 11 Ctn 11/7 50 --- 0 0 0 0 15K FS 
+Cherry Plain NY-NYS 251 0 99 Ctn 11/7 2 -104 0 0 0 0 20K ST 
+Ridge MI-MIS 496 --- 50 Ctn 11/30 3 --- 0 1 0 0 250K ST 
+MIS – Michigan DNR 
+ 
+ 
+Northwest Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 1 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Sisi, Okanogan-Wenatchee NF, USFS. Ten miles northwest of Stehekin, WA. Timber and closed timber litter. 
+Minimal fire behavior with smoldering, creeping and backing. Residences threatened. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Sisi WA-OWF 4,816 0 40 Ctn 11/11 28 0 0 0 0 0 9.6M FS 
+ 
+===== PAGE 3 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 0 0 0 0 0 1 1 
+Northwest ACRES 0 0 0 0 0 0 0 
+Northern California FIRES 0 0 0 0 5 1 6 
+Northern California ACRES 0 0 0 0 9 0 9 
+Southern California FIRES 0 0 0 0 1 1 2 
+Southern California ACRES 0 0 0 0 0 0 0 
+Northern Rockies FIRES 0 0 0 0 0 0 0 
+Northern Rockies ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 0 0 0 0 1 1 
+Great Basin ACRES 0 0 0 0 0 0 0 
+Southwest FIRES 0 0 0 0 0 0 0 
+Southwest ACRES 0 0 0 0 0 0 0 
+Rocky Mountain FIRES 0 0 0 0 0 0 0 
+Rocky Mountain ACRES 0 0 0 0 0 0 0 
+Eastern Area FIRES 0 0 0 0 11 0 11 
+Eastern Area ACRES 0 0 0 0 9 0 9 
+Southern Area FIRES 2 0 0 0 17 1 20 
+Southern Area ACRES 2 0 0 0 45 0 47 
+TOTAL FIRES:  2 0 0 0 34 5 41 
+TOTAL ACRES:  2 0 0 0 63 0 65 
+ 
+===== PAGE 4 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 231 41 421 
+Alaska ACRES 0 36,761 0 0 52,184 12 88,957 
+Northwest FIRES 262 313 28 52 1,933 872 3,460 
+Northwest ACRES 231,646 1,978,262 34,146 19,038 566,042 519,571 3,348,705 
+Northern California FIRES 62 18 2 34 2,413 425 2,954 
+Northern California ACRES 7,736 70,418 5 53 20,108 8,377 106,696 
+Southern California FIRES 10 79 5 46 3,535 387 4,062 
+Southern California ACRES 2 9,646 4 25,604 147,014 54,459 236,729 
+Northern Rockies FIRES 303 113 7 4 1,530 596 2,553 
+Northern Rockies ACRES 20,832 9,462 520 6 66,390 115,467 212,677 
+Great Basin FIRES 46 1,174 3 44 1,059 540 2,866 
+Great Basin ACRES 3,172 1,257,775 2 784 274,842 393,255 1,929,830 
+Southwest FIRES 694 214 5 30 817 1,036 2,796 
+Southwest ACRES 3,644 6,414 7,131 806 81,018 113,646 212,658 
+Rocky Mountain FIRES 192 506 17 35 1,611 451 2,812 
+Rocky Mountain ACRES 1,682 24,965 3,964 1,412 1,330,669 210,789 1,573,480 
+Eastern Area FIRES 223 0 25 16 8,790 390 9,444 
+Eastern Area ACRES 1,086 0 344 17 85,592 86,307 173,346 
+Southern Area FIRES 1,168 2 111 127 34,280 816 36,504 
+Southern Area ACRES 87,857 72 52,776 44,931 1,258,065 63,779 1,507,479 
+TOTAL FIRES:  2,960 2,568 203 388 56,199 5,554 67,872 
+TOTAL ACRES:  357,656 3,393,775 98,893 92,650 3,881,924 1,565,661 9,390,558 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 51,340 132% 
+Acres (2016 – 2025 as of today) 6,454,373 145% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+ 
+===== PAGE 5 =====
+Predictive Services Discussion:  
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 
