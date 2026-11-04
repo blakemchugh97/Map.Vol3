@@ -1,10 +1,10 @@
 {
   "meta": {
     "source_type": "IMSR_PDF",
-    "source_date": "2026-11-02",
-    "report_label": "IMSR \u2014 2026-11-02 (auto-extracted, UNVERIFIED)",
+    "source_date": "2026-11-04",
+    "report_label": "IMSR \u2014 2026-11-04 (auto-extracted, UNVERIFIED)",
     "parser_version": "imsr_extract.py 0.2.0",
-    "ingested_at": "2026-11-02T23:03:17.013538+00:00",
+    "ingested_at": "2026-11-04T21:12:13.479516+00:00",
     "is_fixture": false,
     "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
     "verification": {
@@ -19,19 +19,19 @@
       "gacc": "SACC",
       "gacc_name": "Southern",
       "preparedness_level": 2,
-      "date": "2026-11-02"
-    },
-    {
-      "gacc": "NWCC",
-      "gacc_name": "Northwest",
-      "preparedness_level": 1,
-      "date": "2026-11-02"
+      "date": "2026-11-04"
     },
     {
       "gacc": "EACC",
       "gacc_name": "Eastern",
       "preparedness_level": 1,
-      "date": "2026-11-02"
+      "date": "2026-11-04"
+    },
+    {
+      "gacc": "NWCC",
+      "gacc_name": "Northwest",
+      "preparedness_level": 1,
+      "date": "2026-11-04"
     }
   ],
   "national_resource_totals_daily": {},
@@ -41,9 +41,9 @@
       "incident_name": "BSP Cactus",
       "gacc": "SACC",
       "state": "TN",
-      "date": "2026-11-02",
+      "date": "2026-11-04",
       "size_acres": 220,
-      "percent_contained": 75,
+      "percent_contained": 85,
       "resources": {
         "crews": 0,
         "engines": 3,
@@ -58,7 +58,7 @@
       "incident_name": "Bee Haven 2 24-06",
       "gacc": "SACC",
       "state": "FL",
-      "date": "2026-11-02",
+      "date": "2026-11-04",
       "size_acres": 2060,
       "percent_contained": 85,
       "resources": {
@@ -71,35 +71,18 @@
       "lng": null
     },
     {
-      "incident_id": "OK-OKS/Redbud",
-      "incident_name": "Redbud",
-      "gacc": "SACC",
-      "state": "OK",
-      "date": "2026-11-02",
-      "size_acres": 198,
-      "percent_contained": 60,
-      "resources": {
-        "crews": 0,
-        "engines": 2,
-        "helicopters": 0,
-        "total_personnel": 5
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "WA-OWF/Sisi",
-      "incident_name": "Sisi",
-      "gacc": "NWCC",
-      "state": "WA",
-      "date": "2026-11-02",
-      "size_acres": 4816,
-      "percent_contained": 40,
+      "incident_id": "NH-WMF/Wild River",
+      "incident_name": "Wild River",
+      "gacc": "EACC",
+      "state": "NH",
+      "date": "2026-11-04",
+      "size_acres": 288,
+      "percent_contained": 11,
       "resources": {
         "crews": 0,
         "engines": 0,
         "helicopters": 0,
-        "total_personnel": 28
+        "total_personnel": 50
       },
       "lat": null,
       "lng": null
@@ -109,7 +92,7 @@
       "incident_name": "Ridge",
       "gacc": "EACC",
       "state": "MI",
-      "date": "2026-11-02",
+      "date": "2026-11-04",
       "size_acres": 496,
       "percent_contained": 50,
       "resources": {
@@ -122,18 +105,18 @@
       "lng": null
     },
     {
-      "incident_id": "NY-NYS/Cherry Plain",
-      "incident_name": "Cherry Plain",
-      "gacc": "EACC",
-      "state": "NY",
-      "date": "2026-11-02",
-      "size_acres": 251,
-      "percent_contained": 99,
+      "incident_id": "WA-OWF/Sisi",
+      "incident_name": "Sisi",
+      "gacc": "NWCC",
+      "state": "WA",
+      "date": "2026-11-04",
+      "size_acres": 4816,
+      "percent_contained": 45,
       "resources": {
         "crews": 0,
         "engines": 0,
         "helicopters": 0,
-        "total_personnel": 106
+        "total_personnel": 28
       },
       "lat": null,
       "lng": null

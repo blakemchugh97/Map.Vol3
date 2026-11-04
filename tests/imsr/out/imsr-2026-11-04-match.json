@@ -1,19 +1,19 @@
 {
-  "matched_at": "2026-11-02T23:03:17.355942+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-02-extracted.json",
-  "imsr_date": "2026-11-02",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-02.json",
-  "layer_records": 381,
+  "matched_at": "2026-11-04T21:12:13.735320+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-04-extracted.json",
+  "imsr_date": "2026-11-04",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-04.json",
+  "layer_records": 464,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 6,
-    "match_rate_pct": 83.3,
-    "exact": 5,
+    "imsr_incidents": 5,
+    "match_rate_pct": 80.0,
+    "exact": 4,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 376
+    "layer_only_count": 460
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
@@ -61,10 +61,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "OK-OKS/Redbud",
-      "imsr_name": "Redbud",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
+      "imsr_id": "NH-WMF/Wild River",
+      "imsr_name": "Wild River",
+      "imsr_unit": "NHWMF",
+      "imsr_state": "NH",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -79,40 +79,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-OKOKS-261263",
-        "name": "Redbud",
-        "state": "OK",
-        "acres": 198,
-        "lat": 34.806672889206034,
-        "lng": -95.2027850466812
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Sisi",
-      "imsr_name": "Sisi",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260664",
-        "name": "SISI",
-        "state": "WA",
-        "acres": 4816,
-        "lat": 48.346672822151575,
-        "lng": -120.83068182684767
+        "ufi": "2026-NHWMF-000182",
+        "name": "Wild River",
+        "state": "NH",
+        "acres": 982,
+        "lat": 44.330592038888476,
+        "lng": -71.031283701987
       },
       "other_candidates": []
     },
@@ -145,10 +117,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "NY-NYS/Cherry Plain",
-      "imsr_name": "Cherry Plain",
-      "imsr_unit": "NYNYS",
-      "imsr_state": "NY",
+      "imsr_id": "WA-OWF/Sisi",
+      "imsr_name": "Sisi",
+      "imsr_unit": "WAOWF",
+      "imsr_state": "WA",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -163,12 +135,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-NYNYS-000176",
-        "name": "Cherry Plain",
-        "state": "NY",
-        "acres": 251,
-        "lat": 42.64153865053848,
-        "lng": -73.30507134352025
+        "ufi": "2026-WAOWF-260664",
+        "name": "SISI",
+        "state": "WA",
+        "acres": 4816,
+        "lat": 48.346672822151575,
+        "lng": -120.83068182684767
       },
       "other_candidates": []
     }
@@ -199,12 +171,6 @@
       "acres": 61380
     },
     {
-      "ufi": "2026-ORFWF-260286",
-      "name": "Wrights Spring",
-      "state": "OR",
-      "acres": 55134
-    },
-    {
       "ufi": "2026-ORPRD-000476",
       "name": "0476 HOAG",
       "state": "OR",
@@ -233,6 +199,12 @@
       "name": "Jackass Butte",
       "state": "OR",
       "acres": 24724
+    },
+    {
+      "ufi": "2026-TXMCR-000378",
+      "name": "Star Lake",
+      "state": "TX",
+      "acres": 16412
     }
   ]
 }
