@@ -1,14 +1,14 @@
-# IMSR ↔ incident-layer match — 2026-11-03
+# IMSR ↔ incident-layer match — 2026-11-05
 
-- IMSR source: `tests/imsr/out/imsr-2026-11-03-extracted.json`
-- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-03.json` (421 records)
+- IMSR source: `tests/imsr/out/imsr-2026-11-05-extracted.json`
+- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-05.json` (422 records)
 - **Extracted IMSR rows are UNVERIFIED; this measures record MATCHING, not parser or value correctness.**
 
 ## Match summary
-- IMSR incidents compared: **7**
-- Match rate (exact+strong+weak): **85.7%**
-- EXACT **6** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **1**
-- Layer records with no IMSR match: **415** (expected — IMSR lists only large incidents)
+- IMSR incidents compared: **5**
+- Match rate (exact+strong+weak): **80.0%**
+- EXACT **4** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **1**
+- Layer records with no IMSR match: **418** (expected — IMSR lists only large incidents)
 
 ## Top failure / ambiguity reasons
 - 1× — no name/unit signal in layer
@@ -19,9 +19,7 @@
 |---|---|---|---|---|
 | TN-BSP/BSP Cactus | **EXACT** | 2026-TNBSP-926029 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | FL-FLS/Bee Haven 2 24-06 | **NO_MATCH** | — | 0.0 | — |
-| OK-OKS/Redbud | **EXACT** | 2026-OKOKS-261263 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | NH-WMF/Wild River | **EXACT** | 2026-NHWMF-000182 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| NY-NYS/Cherry Plain | **EXACT** | 2026-NYNYS-000176 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MI-MIS/Ridge | **EXACT** | 2026-MIMIS-520021 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | WA-OWF/Sisi | **EXACT** | 2026-WAOWF-260664 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 

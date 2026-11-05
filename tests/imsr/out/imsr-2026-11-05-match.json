@@ -1,19 +1,19 @@
 {
-  "matched_at": "2026-11-03T20:51:25.995977+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-03-extracted.json",
-  "imsr_date": "2026-11-03",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-03.json",
-  "layer_records": 421,
+  "matched_at": "2026-11-05T21:24:59.059975+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-05-extracted.json",
+  "imsr_date": "2026-11-05",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-05.json",
+  "layer_records": 422,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 7,
-    "match_rate_pct": 85.7,
-    "exact": 6,
+    "imsr_incidents": 5,
+    "match_rate_pct": 80.0,
+    "exact": 4,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 415
+    "layer_only_count": 418
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
@@ -61,34 +61,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "OK-OKS/Redbud",
-      "imsr_name": "Redbud",
-      "imsr_unit": "OKOKS",
-      "imsr_state": "OK",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-OKOKS-261263",
-        "name": "Redbud",
-        "state": "OK",
-        "acres": 198,
-        "lat": 34.806672889206034,
-        "lng": -95.2027850466812
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "imsr_unit": "NHWMF",
@@ -110,37 +82,9 @@
         "ufi": "2026-NHWMF-000182",
         "name": "Wild River",
         "state": "NH",
-        "acres": 288,
+        "acres": 982,
         "lat": 44.330592038888476,
         "lng": -71.031283701987
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NY-NYS/Cherry Plain",
-      "imsr_name": "Cherry Plain",
-      "imsr_unit": "NYNYS",
-      "imsr_state": "NY",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NYNYS-000176",
-        "name": "Cherry Plain",
-        "state": "NY",
-        "acres": 251,
-        "lat": 42.64153865053848,
-        "lng": -73.30507134352025
       },
       "other_candidates": []
     },
