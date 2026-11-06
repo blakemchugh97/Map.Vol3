@@ -1,64 +1,52 @@
 {
   "meta": {
-    "source_date": "2026-11-04",
-    "generated_at": "2026-11-04T21:12:13.761038+00:00",
+    "source_date": "2026-11-06",
+    "generated_at": "2026-11-06T20:47:16.561543+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
       "gac_pl": 3,
-      "exact_incidents": 4
+      "exact_incidents": 3
     }
   },
   "gac_pl": {
-    "SACC": 2,
     "EACC": 1,
-    "NWCC": 1
+    "NWCC": 1,
+    "SACC": 2
   },
   "national_totals": {
     "date": null,
     "national_preparedness_level": null
   },
   "exact_incidents": {
-    "2026-TNBSP-926029": {
-      "tier": "EXACT",
-      "report_date": "2026-11-04",
-      "imsr_id": "TN-BSP/BSP Cactus",
-      "imsr_name": "BSP Cactus",
-      "layer_name": "BSP - Cactus",
-      "state": "TN",
-      "crews": 0,
-      "engines": 3,
-      "helicopters": 0,
-      "total_personnel": 9
-    },
     "2026-NHWMF-000182": {
       "tier": "EXACT",
-      "report_date": "2026-11-04",
+      "report_date": "2026-11-06",
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "layer_name": "Wild River",
       "state": "NH",
       "crews": 0,
-      "engines": 0,
-      "helicopters": 0,
-      "total_personnel": 50
+      "engines": 2,
+      "helicopters": 2,
+      "total_personnel": 140
     },
     "2026-MIMIS-520021": {
       "tier": "EXACT",
-      "report_date": "2026-11-04",
+      "report_date": "2026-11-06",
       "imsr_id": "MI-MIS/Ridge",
       "imsr_name": "Ridge",
       "layer_name": "Ridge",
       "state": "MI",
       "crews": 0,
-      "engines": 1,
+      "engines": 0,
       "helicopters": 0,
-      "total_personnel": 3
+      "total_personnel": 1
     },
     "2026-WAOWF-260664": {
       "tier": "EXACT",
-      "report_date": "2026-11-04",
+      "report_date": "2026-11-06",
       "imsr_id": "WA-OWF/Sisi",
       "imsr_name": "Sisi",
       "layer_name": "SISI",

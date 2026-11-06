@@ -1,10 +1,10 @@
 {
   "meta": {
     "source_type": "IMSR_PDF",
-    "source_date": "2026-11-04",
-    "report_label": "IMSR \u2014 2026-11-04 (auto-extracted, UNVERIFIED)",
+    "source_date": "2026-11-06",
+    "report_label": "IMSR \u2014 2026-11-06 (auto-extracted, UNVERIFIED)",
     "parser_version": "imsr_extract.py 0.2.0",
-    "ingested_at": "2026-11-04T21:12:13.479516+00:00",
+    "ingested_at": "2026-11-06T20:47:16.291771+00:00",
     "is_fixture": false,
     "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
     "verification": {
@@ -16,73 +16,39 @@
   },
   "gac_pl_daily": [
     {
-      "gacc": "SACC",
-      "gacc_name": "Southern",
-      "preparedness_level": 2,
-      "date": "2026-11-04"
-    },
-    {
       "gacc": "EACC",
       "gacc_name": "Eastern",
       "preparedness_level": 1,
-      "date": "2026-11-04"
+      "date": "2026-11-06"
     },
     {
       "gacc": "NWCC",
       "gacc_name": "Northwest",
       "preparedness_level": 1,
-      "date": "2026-11-04"
+      "date": "2026-11-06"
+    },
+    {
+      "gacc": "SACC",
+      "gacc_name": "Southern",
+      "preparedness_level": 2,
+      "date": "2026-11-06"
     }
   ],
   "national_resource_totals_daily": {},
   "incident_resources_daily": [
     {
-      "incident_id": "TN-BSP/BSP Cactus",
-      "incident_name": "BSP Cactus",
-      "gacc": "SACC",
-      "state": "TN",
-      "date": "2026-11-04",
-      "size_acres": 220,
-      "percent_contained": 85,
-      "resources": {
-        "crews": 0,
-        "engines": 3,
-        "helicopters": 0,
-        "total_personnel": 9
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "FL-FLS/Bee Haven 2 24-06",
-      "incident_name": "Bee Haven 2 24-06",
-      "gacc": "SACC",
-      "state": "FL",
-      "date": "2026-11-04",
-      "size_acres": 2060,
-      "percent_contained": 85,
-      "resources": {
-        "crews": 0,
-        "engines": 5,
-        "helicopters": 1,
-        "total_personnel": 41
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
       "incident_id": "NH-WMF/Wild River",
       "incident_name": "Wild River",
       "gacc": "EACC",
       "state": "NH",
-      "date": "2026-11-04",
-      "size_acres": 288,
-      "percent_contained": 11,
+      "date": "2026-11-06",
+      "size_acres": 856,
+      "percent_contained": 20,
       "resources": {
         "crews": 0,
-        "engines": 0,
-        "helicopters": 0,
-        "total_personnel": 50
+        "engines": 2,
+        "helicopters": 2,
+        "total_personnel": 140
       },
       "lat": null,
       "lng": null
@@ -92,14 +58,14 @@
       "incident_name": "Ridge",
       "gacc": "EACC",
       "state": "MI",
-      "date": "2026-11-04",
+      "date": "2026-11-06",
       "size_acres": 496,
-      "percent_contained": 50,
+      "percent_contained": 85,
       "resources": {
         "crews": 0,
-        "engines": 1,
+        "engines": 0,
         "helicopters": 0,
-        "total_personnel": 3
+        "total_personnel": 1
       },
       "lat": null,
       "lng": null
@@ -109,14 +75,31 @@
       "incident_name": "Sisi",
       "gacc": "NWCC",
       "state": "WA",
-      "date": "2026-11-04",
+      "date": "2026-11-06",
       "size_acres": 4816,
-      "percent_contained": 45,
+      "percent_contained": 50,
       "resources": {
         "crews": 0,
         "engines": 0,
         "helicopters": 0,
         "total_personnel": 28
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FLS/Bee Haven 2 24-06",
+      "incident_name": "Bee Haven 2 24-06",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-11-06",
+      "size_acres": 2060,
+      "percent_contained": 85,
+      "resources": {
+        "crews": 0,
+        "engines": 5,
+        "helicopters": 1,
+        "total_personnel": 41
       },
       "lat": null,
       "lng": null
