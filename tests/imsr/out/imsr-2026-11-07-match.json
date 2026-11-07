@@ -1,65 +1,24 @@
 {
-  "matched_at": "2026-11-05T21:24:59.059975+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-05-extracted.json",
-  "imsr_date": "2026-11-05",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-05.json",
-  "layer_records": 422,
+  "matched_at": "2026-11-07T19:19:04.768142+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-07-extracted.json",
+  "imsr_date": "2026-11-07",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-07.json",
+  "layer_records": 315,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 5,
-    "match_rate_pct": 80.0,
-    "exact": 4,
+    "imsr_incidents": 4,
+    "match_rate_pct": 75.0,
+    "exact": 3,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 418
+    "layer_only_count": 312
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
-    {
-      "imsr_id": "TN-BSP/BSP Cactus",
-      "imsr_name": "BSP Cactus",
-      "imsr_unit": "TNBSP",
-      "imsr_state": "TN",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-TNBSP-926029",
-        "name": "BSP - Cactus",
-        "state": "TN",
-        "acres": 220,
-        "lat": 36.44252797957238,
-        "lng": -84.75659946821276
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
     {
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
@@ -82,7 +41,7 @@
         "ufi": "2026-NHWMF-000182",
         "name": "Wild River",
         "state": "NH",
-        "acres": 982,
+        "acres": 856,
         "lat": 44.330592038888476,
         "lng": -71.031283701987
       },
@@ -142,6 +101,19 @@
         "lat": 48.346672822151575,
         "lng": -120.83068182684767
       },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
       "other_candidates": []
     }
   ],
