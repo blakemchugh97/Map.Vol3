@@ -1,14 +1,14 @@
-# IMSR ↔ incident-layer match — 2026-11-06
+# IMSR ↔ incident-layer match — 2026-11-08
 
-- IMSR source: `tests/imsr/out/imsr-2026-11-06-extracted.json`
-- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-06.json` (371 records)
+- IMSR source: `tests/imsr/out/imsr-2026-11-08-extracted.json`
+- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-08.json` (284 records)
 - **Extracted IMSR rows are UNVERIFIED; this measures record MATCHING, not parser or value correctness.**
 
 ## Match summary
 - IMSR incidents compared: **4**
 - Match rate (exact+strong+weak): **75.0%**
 - EXACT **3** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **1**
-- Layer records with no IMSR match: **368** (expected — IMSR lists only large incidents)
+- Layer records with no IMSR match: **281** (expected — IMSR lists only large incidents)
 
 ## Top failure / ambiguity reasons
 - 1× — no name/unit signal in layer
@@ -17,9 +17,9 @@
 
 | IMSR incident | tier | matched layer (UFI) | score | signals |
 |---|---|---|---|---|
+| WY-BHF/Foot Creek | **EXACT** | 2026-WYBHF-000401 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | NH-WMF/Wild River | **EXACT** | 2026-NHWMF-000182 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | MI-MIS/Ridge | **EXACT** | 2026-MIMIS-520021 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
-| WA-OWF/Sisi | **EXACT** | 2026-WAOWF-260664 | 1.0 | name=EX,unit=Y,st=Y,yr=Y |
 | FL-FLS/Bee Haven 2 24-06 | **NO_MATCH** | — | 0.0 | — |
 
 ## Largest layer incidents with NO IMSR match (sample)
