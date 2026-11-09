@@ -1,9 +1,9 @@
 {
-  "matched_at": "2026-11-07T19:19:04.768142+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-07-extracted.json",
-  "imsr_date": "2026-11-07",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-07.json",
-  "layer_records": 315,
+  "matched_at": "2026-11-09T23:44:15.590992+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-09-extracted.json",
+  "imsr_date": "2026-11-09",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-09.json",
+  "layer_records": 367,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 4,
@@ -13,12 +13,40 @@
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 312
+    "layer_only_count": 364
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
+    {
+      "imsr_id": "WY-BHF/Foot Creek",
+      "imsr_name": "Foot Creek",
+      "imsr_unit": "WYBHF",
+      "imsr_state": "WY",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WYBHF-000401",
+        "name": "FOOT CREEK",
+        "state": "WY",
+        "acres": 683,
+        "lat": 44.3187238448945,
+        "lng": -106.93256119516276
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
@@ -41,7 +69,7 @@
         "ufi": "2026-NHWMF-000182",
         "name": "Wild River",
         "state": "NH",
-        "acres": 856,
+        "acres": 821,
         "lat": 44.330592038888476,
         "lng": -71.031283701987
       },
@@ -72,34 +100,6 @@
         "acres": 496,
         "lat": 46.593619709809566,
         "lng": -87.61861739490656
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WA-OWF/Sisi",
-      "imsr_name": "Sisi",
-      "imsr_unit": "WAOWF",
-      "imsr_state": "WA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WAOWF-260664",
-        "name": "SISI",
-        "state": "WA",
-        "acres": 4816,
-        "lat": 48.346672822151575,
-        "lng": -120.83068182684767
       },
       "other_candidates": []
     },
