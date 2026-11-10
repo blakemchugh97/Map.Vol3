@@ -1,7 +1,7 @@
 {
   "meta": {
-    "source_date": "2026-11-08",
-    "generated_at": "2026-11-08T19:27:38.751287+00:00",
+    "source_date": "2026-11-10",
+    "generated_at": "2026-11-10T21:14:49.176076+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
@@ -22,31 +22,31 @@
   "exact_incidents": {
     "2026-WYBHF-000401": {
       "tier": "EXACT",
-      "report_date": "2026-11-08",
+      "report_date": "2026-11-10",
       "imsr_id": "WY-BHF/Foot Creek",
       "imsr_name": "Foot Creek",
       "layer_name": "FOOT CREEK",
       "state": "WY",
       "crews": 0,
-      "engines": 7,
+      "engines": 3,
       "helicopters": 1,
-      "total_personnel": 85
+      "total_personnel": 60
     },
     "2026-NHWMF-000182": {
       "tier": "EXACT",
-      "report_date": "2026-11-08",
+      "report_date": "2026-11-10",
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "layer_name": "Wild River",
       "state": "NH",
-      "crews": 1,
-      "engines": 2,
-      "helicopters": 2,
-      "total_personnel": 95
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 3,
+      "total_personnel": 88
     },
     "2026-MIMIS-520021": {
       "tier": "EXACT",
-      "report_date": "2026-11-08",
+      "report_date": "2026-11-10",
       "imsr_id": "MI-MIS/Ridge",
       "imsr_name": "Ridge",
       "layer_name": "Ridge",

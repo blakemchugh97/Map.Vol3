@@ -1,14 +1,14 @@
-# IMSR ↔ incident-layer match — 2026-11-08
+# IMSR ↔ incident-layer match — 2026-11-10
 
-- IMSR source: `tests/imsr/out/imsr-2026-11-08-extracted.json`
-- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-08.json` (284 records)
+- IMSR source: `tests/imsr/out/imsr-2026-11-10-extracted.json`
+- Layer source: `tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-10.json` (384 records)
 - **Extracted IMSR rows are UNVERIFIED; this measures record MATCHING, not parser or value correctness.**
 
 ## Match summary
 - IMSR incidents compared: **4**
 - Match rate (exact+strong+weak): **75.0%**
 - EXACT **3** · STRONG **0** · WEAK **0** · AMBIGUOUS **0** · NO_MATCH **1**
-- Layer records with no IMSR match: **281** (expected — IMSR lists only large incidents)
+- Layer records with no IMSR match: **381** (expected — IMSR lists only large incidents)
 
 ## Top failure / ambiguity reasons
 - 1× — no name/unit signal in layer
@@ -24,12 +24,12 @@
 
 ## Largest layer incidents with NO IMSR match (sample)
 - 2026-WAOWF-260406 — LITTLE GIANT (WA, 172912 ac)
-- 2026-ORBUD-002693 — Second Flat (OR, 105854 ac)
 - 2026-ORMHF-000688 — GRASSHOPPER (OR, 93972 ac)
 - 2026-ORUMF-000324 — Hagen (OR, 61380 ac)
 - 2026-ORPRD-000476 — 0476 HOAG (OR, 50224 ac)
 - 2026-ORPRD-000567 — 0567 LITTLE BUCK (OR, 43818 ac)
 - 2026-MTBDF-266319 — Sand Creek (MT, 35520 ac)
 - 2026-CALPF-002271 — Timber (CA, 25350 ac)
-- 2026-ORBUD-002694 — Jackass Butte (OR, 24724 ac)
 - 2026-TXMCR-000378 — Star Lake (TX, 16412 ac)
+- 2026-ORPRD-000584 — 0584 COTTONWOOD (OR, 15658 ac)
+- 2026-ORWWF-000531 — McCully (OR, 13604 ac)

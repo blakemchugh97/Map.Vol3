@@ -1,6 +1,6 @@
 ===== PAGE 1 =====
 Incident Management Situation Report 
-Sunday November 8, 2026 – 0730 MDT 
+Tuesday November 10, 2026 – 0730 MDT 
 National Preparedness Level 1 
  
  
@@ -15,20 +15,20 @@ IMSR Map
 Active Incident Resource Summary 
 GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
 AICC 1 0 0 0 0 0 0 0 
-NWCC 1 2 17,704 0 0 0 81 -17 
+NWCC 1 3 27,279 0 0 0 22 -59 
 ONCC 1 0 0 0 0 0 0 0 
 OSCC 2 0 0 0 0 0 0 0 
 NRCC 1 0 0 0 0 0 0 0 
-GBCC 1 0 0 0 0 0 0 -1 
-SWCC 1 0 0 0 0 0 0 0 
-RMCC 2 1 532 2 7 1 85 -9 
-EACC 1 2 856 1 6 2 115 -25 
-SACC 2 3 2,389 0 9 1 57 -1 
-Total --- 8 21,481 3 22 4 338 -53 
+GBCC 1 0 0 0 0 0 0 0 
+SWCC 1 1 0 0 0 0 230 0 
+RMCC 2 1 683 1 3 1 60 0 
+EACC 1 1 821 0 0 3 88 -7 
+SACC 2 3 2,284 0 13 1 63 13 
+Total --- 9 31,067 1 16 5 463 -53 
  
 Fire Activity and Teams Assigned Totals 
-Initial attack activity:  Light (23 fires) 
-New large incidents: 1 
+Initial attack activity:  Light (25 fires) 
+New large incidents: 0 
 Large fires contained: 0 
 Uncontained large fires:  4 
 CIMTs committed: 0 
@@ -37,36 +37,33 @@ NIMOs committed: 0
 Rocky Mountain Area (PL 2)   
 Fire Activity and Teams Assigned Totals 
 New fires: 0 
-New large incidents: 1 
+New large incidents: 0 
 Uncontained large fires: 1 
  
-* Foot Creek, Bighorn NF, USFS. Ten miles west of Buffalo, WY. Timber and brush. Moderate fire behavior 
-with backing. Residences threatened. Road closures in effect. 
+Foot Creek, Bighorn NF, USFS. Ten miles west of Buffalo, WY. Timber and brush. No new information. 
  
 Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
-* Foot Creek WY-BHF 532 --- 41 Ctn 11/10 85 --- 0 7 1 0 286K FS 
+Foot Creek WY-BHF 683 --- 36 Ctn 11/13 60 --- 0 3 1 0 350K FS 
  
  
 Eastern Area (PL 1)   
 Fire Activity and Teams Assigned Totals 
-New fires: 0 
+New fires: 2 
 New large incidents: 0 
 Uncontained large fires: 2 
  
 Wild River, White Mountain NF, USFS. Five miles southwest of Shelburne, NH. Hardwood litter. Minimal fire 
 behavior with smoldering. 
  
-Ridge, Michigan DNR. Six miles north of Negaunee, MI. Timber and hardwood litter. No new information. Last 
-narrative report unless new information is received. 
- 
 Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
-Wild River NH-WMF 856 0 20 Ctn 11/12 95 -45 1 2 2 0 750K FS 
+Wild River NH-WMF 821 0 53 Ctn 12/1 88 -7 0 0 3 0 1.3M FS 
 Ridge MI-MIS 496 --- 85 Ctn 11/30 1 --- 0 0 0 0 400K ST 
+MIS – Michigan DNR 
  
  
 Southern Area (PL 2)   
 Fire Activity and Teams Assigned Totals 
-New fires: 6 
+New fires: 2 
 New large incidents: 0 
 Uncontained large fires: 1 
  
@@ -84,53 +81,53 @@ Alaska ACRES 0 0 0 0 0 0 0
 Northwest FIRES 0 0 0 0 0 0 0 
 Northwest ACRES 0 0 0 0 0 0 0 
 Northern California FIRES 0 0 0 0 9 1 10 
-Northern California ACRES 0 0 0 0 4 0 4 
-Southern California FIRES 0 0 0 0 6 1 7 
-Southern California ACRES 0 0 0 0 0 1 1 
+Northern California ACRES 0 0 0 0 9 0 9 
+Southern California FIRES 0 0 0 0 7 0 7 
+Southern California ACRES 0 0 0 0 7 0 7 
 Northern Rockies FIRES 0 0 0 0 0 0 0 
 Northern Rockies ACRES 0 0 0 0 0 0 0 
-Great Basin FIRES 0 0 0 0 0 0 0 
-Great Basin ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 3 0 0 0 1 4 
+Great Basin ACRES 0 13 0 0 0 150 163 
 Southwest FIRES 0 0 0 0 0 0 0 
 Southwest ACRES 0 0 0 0 0 0 0 
 Rocky Mountain FIRES 0 0 0 0 0 0 0 
 Rocky Mountain ACRES 0 0 0 0 0 0 0 
-Eastern Area FIRES 0 0 0 0 0 0 0 
+Eastern Area FIRES 0 0 0 0 1 1 2 
 Eastern Area ACRES 0 0 0 0 0 0 0 
-Southern Area FIRES 1 0 0 0 4 1 6 
-Southern Area ACRES 2 0 0 0 47 0 49 
-TOTAL FIRES:  1 0 0 0 19 3 23 
-TOTAL ACRES:  2 0 0 0 51 1 54 
+Southern Area FIRES 0 0 0 0 1 1 2 
+Southern Area ACRES 0 0 0 0 0 3 3 
+TOTAL FIRES:  0 3 0 0 18 4 25 
+TOTAL ACRES:  0 13 0 0 16 153 182 
  
 ===== PAGE 4 =====
 Fires and Acres Year-to-Date (by Protection): 
 Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
 Alaska FIRES 0 149 0 0 231 41 421 
 Alaska ACRES 0 36,761 0 0 52,184 12 88,957 
-Northwest FIRES 267 313 28 52 1,948 877 3,485 
-Northwest ACRES 310,814 1,978,262 34,146 19,038 566,059 519,573 3,427,892 
-Northern California FIRES 62 18 2 34 2,438 427 2,981 
-Northern California ACRES 7,736 70,418 5 53 20,117 8,378 106,706 
-Southern California FIRES 10 79 5 46 3,553 388 4,081 
-Southern California ACRES 2 9,646 4 25,604 147,039 54,358 236,653 
-Northern Rockies FIRES 303 113 7 4 1,530 596 2,553 
-Northern Rockies ACRES 20,832 9,462 520 6 66,390 115,467 212,677 
-Great Basin FIRES 46 1,175 3 44 1,062 540 2,870 
-Great Basin ACRES 3,172 1,257,830 2 784 275,070 393,256 1,930,115 
+Northwest FIRES 267 313 28 52 1,950 879 3,489 
+Northwest ACRES 310,814 1,978,262 34,146 19,038 566,060 519,573 3,427,893 
+Northern California FIRES 62 18 2 34 2,467 430 3,013 
+Northern California ACRES 7,736 70,418 5 53 20,145 8,378 106,735 
+Southern California FIRES 10 79 5 46 3,566 390 4,096 
+Southern California ACRES 2 9,646 4 25,604 147,045 54,358 236,659 
+Northern Rockies FIRES 303 113 7 4 1,534 596 2,557 
+Northern Rockies ACRES 20,832 9,462 520 6 66,392 115,470 212,681 
+Great Basin FIRES 46 1,178 3 44 1,062 541 2,874 
+Great Basin ACRES 3,172 1,257,843 2 784 275,070 393,406 1,930,278 
 Southwest FIRES 694 215 5 30 819 1,036 2,799 
 Southwest ACRES 3,644 6,414 7,131 806 81,032 113,646 212,673 
-Rocky Mountain FIRES 192 507 17 35 1,612 451 2,814 
-Rocky Mountain ACRES 1,682 24,967 3,964 1,412 1,330,716 210,789 1,573,529 
-Eastern Area FIRES 223 0 25 16 8,920 392 9,576 
-Eastern Area ACRES 1,086 0 344 17 86,019 86,307 173,773 
-Southern Area FIRES 1,172 2 111 127 34,448 817 36,677 
-Southern Area ACRES 87,860 72 52,776 44,931 1,258,992 63,779 1,508,409 
-TOTAL FIRES:  2,969 2,571 203 388 56,561 5,565 68,257 
-TOTAL ACRES:  436,827 3,393,832 98,893 92,650 3,883,618 1,565,564 9,471,384 
+Rocky Mountain FIRES 192 507 17 35 1,612 452 2,815 
+Rocky Mountain ACRES 1,682 24,967 3,964 1,412 1,330,716 211,472 1,574,212 
+Eastern Area FIRES 223 0 25 16 8,955 393 9,612 
+Eastern Area ACRES 1,086 0 344 17 86,080 86,307 173,834 
+Southern Area FIRES 1,172 2 111 127 34,563 820 36,795 
+Southern Area ACRES 87,861 72 52,776 44,931 1,258,816 63,782 1,508,237 
+TOTAL FIRES:  2,969 2,574 203 388 56,759 5,578 68,471 
+TOTAL ACRES:  436,828 3,393,845 98,892 92,650 3,883,539 1,566,403 9,472,158 
  
 Ten Year Average Quantity % of Ten Year Average 
-Fires (2016 – 2025 as of today) 52,363 130% 
-Acres (2016 – 2025 as of today) 6,486,143 146% 
+Fires (2016 – 2025 as of today) 52,654 130% 
+Acres (2016 – 2025 as of today) 6,495,410 146% 
  
  
 Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 

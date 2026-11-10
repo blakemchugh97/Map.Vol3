@@ -1,9 +1,9 @@
 {
-  "matched_at": "2026-11-08T19:27:38.728455+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-08-extracted.json",
-  "imsr_date": "2026-11-08",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-08.json",
-  "layer_records": 284,
+  "matched_at": "2026-11-10T21:14:49.157381+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-10-extracted.json",
+  "imsr_date": "2026-11-10",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-10.json",
+  "layer_records": 384,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 4,
@@ -13,7 +13,7 @@
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 281
+    "layer_only_count": 381
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
@@ -41,7 +41,7 @@
         "ufi": "2026-WYBHF-000401",
         "name": "FOOT CREEK",
         "state": "WY",
-        "acres": 532,
+        "acres": 683,
         "lat": 44.3187238448945,
         "lng": -106.93256119516276
       },
@@ -69,7 +69,7 @@
         "ufi": "2026-NHWMF-000182",
         "name": "Wild River",
         "state": "NH",
-        "acres": 856,
+        "acres": 821,
         "lat": 44.330592038888476,
         "lng": -71.031283701987
       },
@@ -125,12 +125,6 @@
       "acres": 172912
     },
     {
-      "ufi": "2026-ORBUD-002693",
-      "name": "Second Flat",
-      "state": "OR",
-      "acres": 105854
-    },
-    {
       "ufi": "2026-ORMHF-000688",
       "name": "GRASSHOPPER",
       "state": "OR",
@@ -167,16 +161,22 @@
       "acres": 25350
     },
     {
-      "ufi": "2026-ORBUD-002694",
-      "name": "Jackass Butte",
-      "state": "OR",
-      "acres": 24724
-    },
-    {
       "ufi": "2026-TXMCR-000378",
       "name": "Star Lake",
       "state": "TX",
       "acres": 16412
+    },
+    {
+      "ufi": "2026-ORPRD-000584",
+      "name": "0584 COTTONWOOD",
+      "state": "OR",
+      "acres": 15658
+    },
+    {
+      "ufi": "2026-ORWWF-000531",
+      "name": "McCully",
+      "state": "OR",
+      "acres": 13604
     }
   ]
 }
