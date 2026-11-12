@@ -1,13 +1,13 @@
 {
   "meta": {
-    "source_date": "2026-11-11",
-    "generated_at": "2026-11-11T21:49:57.996682+00:00",
+    "source_date": "2026-11-12",
+    "generated_at": "2026-11-12T21:47:39.335678+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
       "gac_pl": 3,
-      "exact_incidents": 5
+      "exact_incidents": 4
     }
   },
   "gac_pl": {
@@ -22,7 +22,7 @@
   "exact_incidents": {
     "2026-TNTNS-261076": {
       "tier": "EXACT",
-      "report_date": "2026-11-11",
+      "report_date": "2026-11-12",
       "imsr_id": "TN-TNS/Campbell Glassman Way",
       "imsr_name": "Campbell Glassman Way",
       "layer_name": "Campbell - Glassman Way",
@@ -32,45 +32,33 @@
       "helicopters": 0,
       "total_personnel": 4
     },
-    "2026-VAVAS-26WR00724": {
-      "tier": "EXACT",
-      "report_date": "2026-11-11",
-      "imsr_id": "VA-VAS/Hunts Fork",
-      "imsr_name": "Hunts Fork",
-      "layer_name": "Hunts Fork",
-      "state": "VA",
-      "crews": 0,
-      "engines": 0,
-      "helicopters": 0,
-      "total_personnel": 0
-    },
     "2026-WYBHF-000401": {
       "tier": "EXACT",
-      "report_date": "2026-11-11",
+      "report_date": "2026-11-12",
       "imsr_id": "WY-BHF/Foot Creek",
       "imsr_name": "Foot Creek",
       "layer_name": "FOOT CREEK",
       "state": "WY",
       "crews": 0,
-      "engines": 3,
+      "engines": 0,
       "helicopters": 1,
-      "total_personnel": 60
+      "total_personnel": 34
     },
     "2026-NHWMF-000182": {
       "tier": "EXACT",
-      "report_date": "2026-11-11",
+      "report_date": "2026-11-12",
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "layer_name": "Wild River",
       "state": "NH",
       "crews": 0,
       "engines": 0,
-      "helicopters": 2,
-      "total_personnel": 87
+      "helicopters": 1,
+      "total_personnel": 58
     },
     "2026-MIMIS-520021": {
       "tier": "EXACT",
-      "report_date": "2026-11-11",
+      "report_date": "2026-11-12",
       "imsr_id": "MI-MIS/Ridge",
       "imsr_name": "Ridge",
       "layer_name": "Ridge",

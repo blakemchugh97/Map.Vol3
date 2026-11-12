@@ -1,24 +1,65 @@
 {
-  "matched_at": "2026-11-10T21:14:49.157381+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-10-extracted.json",
-  "imsr_date": "2026-11-10",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-10.json",
-  "layer_records": 384,
+  "matched_at": "2026-11-12T21:47:39.312593+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-12-extracted.json",
+  "imsr_date": "2026-11-12",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-12.json",
+  "layer_records": 376,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 4,
-    "match_rate_pct": 75.0,
-    "exact": 3,
+    "imsr_incidents": 5,
+    "match_rate_pct": 80.0,
+    "exact": 4,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 1,
-    "layer_only_count": 381
+    "layer_only_count": 372
   },
   "failure_reasons": {
     "no name/unit signal in layer": 1
   },
   "results": [
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "TN-TNS/Campbell Glassman Way",
+      "imsr_name": "Campbell Glassman Way",
+      "imsr_unit": "TNTNS",
+      "imsr_state": "TN",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-TNTNS-261076",
+        "name": "Campbell - Glassman Way",
+        "state": "TN",
+        "acres": 380,
+        "lat": 36.446561422201505,
+        "lng": -84.23785283696768
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "WY-BHF/Foot Creek",
       "imsr_name": "Foot Creek",
@@ -69,7 +110,7 @@
         "ufi": "2026-NHWMF-000182",
         "name": "Wild River",
         "state": "NH",
-        "acres": 821,
+        "acres": 817,
         "lat": 44.330592038888476,
         "lng": -71.031283701987
       },
@@ -102,28 +143,9 @@
         "lng": -87.61861739490656
       },
       "other_candidates": []
-    },
-    {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
     }
   ],
   "layer_only_sample": [
-    {
-      "ufi": "2026-WAOWF-260406",
-      "name": "LITTLE GIANT",
-      "state": "WA",
-      "acres": 172912
-    },
     {
       "ufi": "2026-ORMHF-000688",
       "name": "GRASSHOPPER",
@@ -177,6 +199,12 @@
       "name": "McCully",
       "state": "OR",
       "acres": 13604
+    },
+    {
+      "ufi": "2026-ORMHF-000863",
+      "name": "AUSTIN",
+      "state": "OR",
+      "acres": 12888
     }
   ]
 }

@@ -1,10 +1,10 @@
 {
   "meta": {
     "source_type": "IMSR_PDF",
-    "source_date": "2026-11-10",
-    "report_label": "IMSR \u2014 2026-11-10 (auto-extracted, UNVERIFIED)",
+    "source_date": "2026-11-12",
+    "report_label": "IMSR \u2014 2026-11-12 (auto-extracted, UNVERIFIED)",
     "parser_version": "imsr_extract.py 0.2.0",
-    "ingested_at": "2026-11-10T21:14:48.916099+00:00",
+    "ingested_at": "2026-11-12T21:47:38.924946+00:00",
     "is_fixture": false,
     "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
     "verification": {
@@ -16,39 +16,73 @@
   },
   "gac_pl_daily": [
     {
+      "gacc": "SACC",
+      "gacc_name": "Southern",
+      "preparedness_level": 2,
+      "date": "2026-11-12"
+    },
+    {
       "gacc": "RMCC",
       "gacc_name": "Rocky Mountain",
       "preparedness_level": 2,
-      "date": "2026-11-10"
+      "date": "2026-11-12"
     },
     {
       "gacc": "EACC",
       "gacc_name": "Eastern",
       "preparedness_level": 1,
-      "date": "2026-11-10"
-    },
-    {
-      "gacc": "SACC",
-      "gacc_name": "Southern",
-      "preparedness_level": 2,
-      "date": "2026-11-10"
+      "date": "2026-11-12"
     }
   ],
   "national_resource_totals_daily": {},
   "incident_resources_daily": [
     {
+      "incident_id": "FL-FLS/Bee Haven 2 24-06",
+      "incident_name": "Bee Haven 2 24-06",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-11-12",
+      "size_acres": 2060,
+      "percent_contained": 85,
+      "resources": {
+        "crews": 0,
+        "engines": 5,
+        "helicopters": 1,
+        "total_personnel": 41
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "TN-TNS/Campbell Glassman Way",
+      "incident_name": "Campbell Glassman Way",
+      "gacc": "SACC",
+      "state": "TN",
+      "date": "2026-11-12",
+      "size_acres": 115,
+      "percent_contained": 65,
+      "resources": {
+        "crews": 0,
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 4
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
       "incident_id": "WY-BHF/Foot Creek",
       "incident_name": "Foot Creek",
       "gacc": "RMCC",
       "state": "WY",
-      "date": "2026-11-10",
+      "date": "2026-11-12",
       "size_acres": 683,
-      "percent_contained": 36,
+      "percent_contained": 90,
       "resources": {
         "crews": 0,
-        "engines": 3,
+        "engines": 0,
         "helicopters": 1,
-        "total_personnel": 60
+        "total_personnel": 34
       },
       "lat": null,
       "lng": null
@@ -58,14 +92,14 @@
       "incident_name": "Wild River",
       "gacc": "EACC",
       "state": "NH",
-      "date": "2026-11-10",
-      "size_acres": 821,
-      "percent_contained": 53,
+      "date": "2026-11-12",
+      "size_acres": 817,
+      "percent_contained": 59,
       "resources": {
         "crews": 0,
         "engines": 0,
-        "helicopters": 3,
-        "total_personnel": 88
+        "helicopters": 1,
+        "total_personnel": 58
       },
       "lat": null,
       "lng": null
@@ -75,7 +109,7 @@
       "incident_name": "Ridge",
       "gacc": "EACC",
       "state": "MI",
-      "date": "2026-11-10",
+      "date": "2026-11-12",
       "size_acres": 496,
       "percent_contained": 85,
       "resources": {
@@ -83,23 +117,6 @@
         "engines": 0,
         "helicopters": 0,
         "total_personnel": 1
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "FL-FLS/Bee Haven 2 24-06",
-      "incident_name": "Bee Haven 2 24-06",
-      "gacc": "SACC",
-      "state": "FL",
-      "date": "2026-11-10",
-      "size_acres": 2060,
-      "percent_contained": 85,
-      "resources": {
-        "crews": 0,
-        "engines": 5,
-        "helicopters": 1,
-        "total_personnel": 41
       },
       "lat": null,
       "lng": null

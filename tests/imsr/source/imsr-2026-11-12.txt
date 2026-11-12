@@ -1,0 +1,170 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Thursday November 12, 2026 – 0730 MDT 
+National Preparedness Level 1 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 1 3 27,279 0 0 0 20 -1 
+ONCC 1 0 0 0 0 0 0 0 
+OSCC 1 0 0 0 0 0 0 0 
+NRCC 1 0 0 0 0 0 0 0 
+GBCC 1 0 0 0 0 0 0 0 
+SWCC 1 1 0 0 0 0 230 0 
+RMCC 2 1 683 1 0 1 34 -26 
+EACC 1 1 817 0 0 1 58 -29 
+SACC 2 4 2,601 0 13 1 63 -9 
+Total --- 10 31,380 1 13 3 405 -65 
+ 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (47 fires) 
+New large incidents: 0 
+Large fires contained: 0 
+Uncontained large fires:  5 
+CIMTs committed: 0 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 18 
+New large incidents: 0 
+Uncontained large fires: 2 
+ 
+Bee Haven 2 24-06, Florida Forest Service. Twenty-eight miles northwest of Lake City, FL. Southern rough. 
+Minimal fire behavior with smoldering. 
+ 
+Campbell Glassman Way, Tennessee DOF. Ten miles north of Caryville, TN. Hardwood litter. No new 
+information. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Bee Haven 2 24-06 FL-FLS 2,060 0 85 Ctn 12/25 41 0 0 5 1 0 NR ST 
+Campbell Glassman 
+Way TN-TNS 115 --- 65 Ctn UNK 4 --- 0 2 0 0 1K ST 
+ 
+ 
+Rocky Mountain Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 1 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Foot Creek, Bighorn NF, USFS. Ten miles west of Buffalo, WY. Timber and brush. Minimal fire behavior. Last 
+report unless significant activity occurs. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Foot Creek WY-BHF 683 0 90 Ctn 11/20 34 -26 0 0 1 0 409K FS 
+ 
+ 
+Eastern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 6 
+New large incidents: 0 
+Uncontained large fires: 2 
+ 
+Wild River, White Mountain NF, USFS. Five miles southwest of Shelburne, NH. Hardwood litter. Minimal fire 
+behavior with smoldering. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Wild River NH-WMF 817 0 59 Ctn 12/1 58 -29 0 0 1 0 1.5M FS 
+Ridge MI-MIS 496 --- 85 Ctn 11/30 1 --- 0 0 0 0 400K ST 
+MIS – Michigan DNR 
+ 
+===== PAGE 3 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 0 0 0 0 0 1 1 
+Northwest ACRES 0 0 0 0 0 0 0 
+Northern California FIRES 0 0 0 0 13 2 15 
+Northern California ACRES 0 0 0 0 2 0 2 
+Southern California FIRES 0 0 0 0 6 0 6 
+Southern California ACRES 0 0 0 0 0 0 0 
+Northern Rockies FIRES 0 0 0 0 0 0 0 
+Northern Rockies ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 0 0 0 0 0 0 
+Great Basin ACRES 0 0 0 0 0 0 0 
+Southwest FIRES 0 0 0 0 0 0 0 
+Southwest ACRES 0 0 0 0 0 0 0 
+Rocky Mountain FIRES 0 0 0 0 1 0 1 
+Rocky Mountain ACRES 0 0 0 0 40 0 40 
+Eastern Area FIRES 0 0 0 0 6 0 6 
+Eastern Area ACRES 0 0 0 0 3 0 3 
+Southern Area FIRES 2 0 0 0 14 2 18 
+Southern Area ACRES 0 0 0 0 39 519 558 
+TOTAL FIRES:  2 0 0 0 40 5 47 
+TOTAL ACRES:  0 0 0 0 84 519 603 
+ 
+===== PAGE 4 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 231 41 421 
+Alaska ACRES 0 36,761 0 0 52,184 12 88,957 
+Northwest FIRES 267 313 28 52 1,950 882 3,492 
+Northwest ACRES 310,814 1,978,262 34,146 19,038 566,060 519,573 3,427,893 
+Northern California FIRES 62 18 2 34 2,490 432 3,038 
+Northern California ACRES 7,736 70,418 5 53 20,150 8,378 106,740 
+Southern California FIRES 10 79 5 46 3,577 391 4,108 
+Southern California ACRES 2 9,646 4 25,604 147,049 54,359 236,664 
+Northern Rockies FIRES 302 113 7 4 1,534 596 2,556 
+Northern Rockies ACRES 20,852 9,462 520 6 66,392 115,470 212,701 
+Great Basin FIRES 46 1,179 3 44 1,062 541 2,875 
+Great Basin ACRES 3,172 1,257,843 2 784 275,070 393,406 1,930,278 
+Southwest FIRES 694 215 5 30 819 1,036 2,799 
+Southwest ACRES 3,644 6,414 7,131 806 81,032 113,646 212,673 
+Rocky Mountain FIRES 192 508 17 35 1,613 452 2,817 
+Rocky Mountain ACRES 1,682 24,967 3,964 1,412 1,330,756 211,472 1,574,252 
+Eastern Area FIRES 223 0 25 17 8,972 393 9,630 
+Eastern Area ACRES 1,086 0 344 17 86,099 86,307 173,853 
+Southern Area FIRES 1,174 2 111 128 34,704 824 36,943 
+Southern Area ACRES 87,861 72 52,776 44,936 1,258,527 64,324 1,508,495 
+TOTAL FIRES:  2,970 2,576 203 390 56,952 5,588 68,679 
+TOTAL ACRES:  436,848 3,393,845 98,892 92,656 3,883,319 1,566,945 9,472,505 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 52,840 130% 
+Acres (2016 – 2025 as of today) 6,518,735 145% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+ 
+===== PAGE 5 =====
+Predictive Services Discussion:  
+ 
+Low pressure will move through the Northeast today, with widespread precipitation, falling as snow in northern 
+New York and New England, while scattered showers occur farther south in the Mid-Atlantic and Carolinas. Rain 
+will also change to snow in the hig her elevations of the Appalachians during the day as cold air moves in. 
+Precipitation will linger downwind of the Great Lakes through the day, while breezy northerly winds occur in the 
+Mid to Upper Mississippi Valley but relative humidity will remain elevated. Mostly dry conditions will continue in 
+the West amid temperatures above normal, with temperatures 15 -25°F above n ormal for the northern 
+Intermountain West. Scattered showers will continue west of the Cascades, as well. Scattered light showers 
+across southwest Alaska, but drier conditions are expected for south-central Alaska as seasonable temperatures 
+and dry conditi ons occur in the Interior. Breezy trade winds will continue across Hawai’i with an increase in 
+showers for the northern islands as a weakening cold front approaches. 
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 
