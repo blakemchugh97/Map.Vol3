@@ -1,24 +1,65 @@
 {
-  "matched_at": "2026-11-11T21:49:57.972546+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-11-extracted.json",
-  "imsr_date": "2026-11-11",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-11.json",
-  "layer_records": 423,
+  "matched_at": "2026-11-13T21:20:42.803556+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-13-extracted.json",
+  "imsr_date": "2026-11-13",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-13.json",
+  "layer_records": 309,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 6,
-    "match_rate_pct": 83.3,
-    "exact": 5,
+    "match_rate_pct": 66.7,
+    "exact": 4,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 1,
-    "layer_only_count": 418
+    "no_match": 2,
+    "layer_only_count": 305
   },
   "failure_reasons": {
-    "no name/unit signal in layer": 1
+    "no name/unit signal in layer": 2
   },
   "results": [
+    {
+      "imsr_id": "MS-MNF/Red Hill",
+      "imsr_name": "Red Hill",
+      "imsr_unit": "MSMNF",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMNF-000713",
+        "name": "Red Hill",
+        "state": "MS",
+        "acres": 519,
+        "lat": 31.130074702618266,
+        "lng": -89.06385838982159
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
     {
       "imsr_id": "TN-TNS/Campbell Glassman Way",
       "imsr_name": "Campbell Glassman Way",
@@ -44,75 +85,6 @@
         "acres": 380,
         "lat": 36.446561422201505,
         "lng": -84.23785283696768
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "VA-VAS/Hunts Fork",
-      "imsr_name": "Hunts Fork",
-      "imsr_unit": "VAVAS",
-      "imsr_state": "VA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-VAVAS-26WR00724",
-        "name": "Hunts Fork",
-        "state": "VA",
-        "acres": 172,
-        "lat": 37.410285084523636,
-        "lng": -82.13083705588872
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WY-BHF/Foot Creek",
-      "imsr_name": "Foot Creek",
-      "imsr_unit": "WYBHF",
-      "imsr_state": "WY",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WYBHF-000401",
-        "name": "FOOT CREEK",
-        "state": "WY",
-        "acres": 683,
-        "lat": 44.3187238448945,
-        "lng": -106.93256119516276
       },
       "other_candidates": []
     },
@@ -171,15 +143,22 @@
         "lng": -87.61861739490656
       },
       "other_candidates": []
+    },
+    {
+      "imsr_id": "PA-PAS/Macks Curve",
+      "imsr_name": "Macks Curve",
+      "imsr_unit": "PAPAS",
+      "imsr_state": "PA",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
     }
   ],
   "layer_only_sample": [
-    {
-      "ufi": "2026-WAOWF-260406",
-      "name": "LITTLE GIANT",
-      "state": "WA",
-      "acres": 172912
-    },
     {
       "ufi": "2026-ORMHF-000688",
       "name": "GRASSHOPPER",
@@ -191,24 +170,6 @@
       "name": "Hagen",
       "state": "OR",
       "acres": 61380
-    },
-    {
-      "ufi": "2026-ORPRD-000476",
-      "name": "0476 HOAG",
-      "state": "OR",
-      "acres": 50224
-    },
-    {
-      "ufi": "2026-ORPRD-000567",
-      "name": "0567 LITTLE BUCK",
-      "state": "OR",
-      "acres": 43818
-    },
-    {
-      "ufi": "2026-MTBDF-266319",
-      "name": "Sand Creek",
-      "state": "MT",
-      "acres": 35520
     },
     {
       "ufi": "2026-CALPF-002271",
@@ -223,16 +184,40 @@
       "acres": 16412
     },
     {
-      "ufi": "2026-ORPRD-000584",
-      "name": "0584 COTTONWOOD",
-      "state": "OR",
-      "acres": 15658
-    },
-    {
       "ufi": "2026-ORWWF-000531",
       "name": "McCully",
       "state": "OR",
       "acres": 13604
+    },
+    {
+      "ufi": "2026-ORMHF-000863",
+      "name": "AUSTIN",
+      "state": "OR",
+      "acres": 12888
+    },
+    {
+      "ufi": "2026-MTBDF-266313",
+      "name": "Bobcat Lakes",
+      "state": "MT",
+      "acres": 10896
+    },
+    {
+      "ufi": "2026-AZASF-000940",
+      "name": "D6 Wallow West Unit 6 RX",
+      "state": "AZ",
+      "acres": 7605
+    },
+    {
+      "ufi": "2026-IDNCF-000349",
+      "name": "Moose Mountain",
+      "state": "ID",
+      "acres": 5832
+    },
+    {
+      "ufi": "2026-AZASF-000955",
+      "name": "D2 Dye RX",
+      "state": "AZ",
+      "acres": 5246
     }
   ]
 }
