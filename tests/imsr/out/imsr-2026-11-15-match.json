@@ -1,8 +1,8 @@
 {
-  "matched_at": "2026-11-13T21:20:42.803556+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-13-extracted.json",
-  "imsr_date": "2026-11-13",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-13.json",
+  "matched_at": "2026-11-15T20:15:53.796098+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-15-extracted.json",
+  "imsr_date": "2026-11-15",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-15.json",
   "layer_records": 309,
   "extractor_unverified": true,
   "summary": {
@@ -20,8 +20,8 @@
   },
   "results": [
     {
-      "imsr_id": "MS-MNF/Red Hill",
-      "imsr_name": "Red Hill",
+      "imsr_id": "MS-MNF/201W",
+      "imsr_name": "201W",
       "imsr_unit": "MSMNF",
       "imsr_state": "MS",
       "imsr_year": "2026",
@@ -38,12 +38,40 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMNF-000713",
-        "name": "Red Hill",
+        "ufi": "2026-MSMNF-000720",
+        "name": "201W",
         "state": "MS",
-        "acres": 519,
-        "lat": 31.130074702618266,
-        "lng": -89.06385838982159
+        "acres": 2700,
+        "lat": 31.119788699849906,
+        "lng": -89.07978839372039
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MNF/Range 47",
+      "imsr_name": "Range 47",
+      "imsr_unit": "MSMNF",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMNF-000723",
+        "name": "Range 47",
+        "state": "MS",
+        "acres": 2378.77,
+        "lat": 31.09982769279187,
+        "lng": -89.15933441465165
       },
       "other_candidates": []
     },
@@ -117,38 +145,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MI-MIS/Ridge",
-      "imsr_name": "Ridge",
-      "imsr_unit": "MIMIS",
-      "imsr_state": "MI",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MIMIS-520021",
-        "name": "Ridge",
-        "state": "MI",
-        "acres": 496,
-        "lat": 46.593619709809566,
-        "lng": -87.61861739490656
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "PA-PAS/Macks Curve",
-      "imsr_name": "Macks Curve",
-      "imsr_unit": "PAPAS",
-      "imsr_state": "PA",
+      "imsr_id": "ID-BOD/Mud",
+      "imsr_name": "Mud",
+      "imsr_unit": "IDBOD",
+      "imsr_state": "ID",
       "imsr_year": "2026",
       "final": "NO_MATCH",
       "reason": "no name/unit signal in layer",
@@ -164,12 +164,6 @@
       "name": "GRASSHOPPER",
       "state": "OR",
       "acres": 93972
-    },
-    {
-      "ufi": "2026-ORUMF-000324",
-      "name": "Hagen",
-      "state": "OR",
-      "acres": 61380
     },
     {
       "ufi": "2026-CALPF-002271",
@@ -218,6 +212,12 @@
       "name": "D2 Dye RX",
       "state": "AZ",
       "acres": 5246
+    },
+    {
+      "ufi": "2026-AZASF-000967",
+      "name": "D3 Bear RX",
+      "state": "AZ",
+      "acres": 5072
     }
   ]
 }
