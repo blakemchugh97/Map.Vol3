@@ -1,19 +1,18 @@
 {
   "meta": {
-    "source_date": "2026-11-15",
-    "generated_at": "2026-11-15T20:15:53.817034+00:00",
+    "source_date": "2026-11-16",
+    "generated_at": "2026-11-16T23:41:42.332606+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
-      "gac_pl": 3,
+      "gac_pl": 2,
       "exact_incidents": 4
     }
   },
   "gac_pl": {
     "SACC": 2,
-    "EACC": 1,
-    "GBCC": 1
+    "EACC": 1
   },
   "national_totals": {
     "date": null,
@@ -22,7 +21,7 @@
   "exact_incidents": {
     "2026-MSMNF-000720": {
       "tier": "EXACT",
-      "report_date": "2026-11-15",
+      "report_date": "2026-11-16",
       "imsr_id": "MS-MNF/201W",
       "imsr_name": "201W",
       "layer_name": "201W",
@@ -34,7 +33,7 @@
     },
     "2026-MSMNF-000723": {
       "tier": "EXACT",
-      "report_date": "2026-11-15",
+      "report_date": "2026-11-16",
       "imsr_id": "MS-MNF/Range 47",
       "imsr_name": "Range 47",
       "layer_name": "Range 47",
@@ -46,7 +45,7 @@
     },
     "2026-TNTNS-261076": {
       "tier": "EXACT",
-      "report_date": "2026-11-15",
+      "report_date": "2026-11-16",
       "imsr_id": "TN-TNS/Campbell Glassman Way",
       "imsr_name": "Campbell Glassman Way",
       "layer_name": "Campbell - Glassman Way",
@@ -58,7 +57,7 @@
     },
     "2026-NHWMF-000182": {
       "tier": "EXACT",
-      "report_date": "2026-11-15",
+      "report_date": "2026-11-16",
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "layer_name": "Wild River",

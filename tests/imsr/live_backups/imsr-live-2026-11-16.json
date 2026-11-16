@@ -1,40 +1,51 @@
 {
   "meta": {
-    "source_date": "2026-11-14",
-    "generated_at": "2026-11-14T19:50:45.639421+00:00",
+    "source_date": "2026-11-16",
+    "generated_at": "2026-11-16T23:41:42.332606+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
-      "gac_pl": 3,
+      "gac_pl": 2,
       "exact_incidents": 4
     }
   },
   "gac_pl": {
     "SACC": 2,
-    "EACC": 1,
-    "GBCC": 1
+    "EACC": 1
   },
   "national_totals": {
     "date": null,
     "national_preparedness_level": null
   },
   "exact_incidents": {
+    "2026-MSMNF-000720": {
+      "tier": "EXACT",
+      "report_date": "2026-11-16",
+      "imsr_id": "MS-MNF/201W",
+      "imsr_name": "201W",
+      "layer_name": "201W",
+      "state": "MS",
+      "crews": 0,
+      "engines": 4,
+      "helicopters": 0,
+      "total_personnel": 17
+    },
     "2026-MSMNF-000723": {
       "tier": "EXACT",
-      "report_date": "2026-11-14",
+      "report_date": "2026-11-16",
       "imsr_id": "MS-MNF/Range 47",
       "imsr_name": "Range 47",
       "layer_name": "Range 47",
       "state": "MS",
       "crews": 0,
-      "engines": 1,
+      "engines": 4,
       "helicopters": 0,
-      "total_personnel": 8
+      "total_personnel": 18
     },
     "2026-TNTNS-261076": {
       "tier": "EXACT",
-      "report_date": "2026-11-14",
+      "report_date": "2026-11-16",
       "imsr_id": "TN-TNS/Campbell Glassman Way",
       "imsr_name": "Campbell Glassman Way",
       "layer_name": "Campbell - Glassman Way",
@@ -44,21 +55,9 @@
       "helicopters": 0,
       "total_personnel": 1
     },
-    "2026-MSMNF-000713": {
-      "tier": "EXACT",
-      "report_date": "2026-11-14",
-      "imsr_id": "MS-MNF/Red Hill",
-      "imsr_name": "Red Hill",
-      "layer_name": "Red Hill",
-      "state": "MS",
-      "crews": 0,
-      "engines": 4,
-      "helicopters": 0,
-      "total_personnel": 10
-    },
     "2026-NHWMF-000182": {
       "tier": "EXACT",
-      "report_date": "2026-11-14",
+      "report_date": "2026-11-16",
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "layer_name": "Wild River",

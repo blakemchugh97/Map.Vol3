@@ -1,24 +1,52 @@
 {
-  "matched_at": "2026-11-14T19:50:45.619733+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-14-extracted.json",
-  "imsr_date": "2026-11-14",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-14.json",
-  "layer_records": 360,
+  "matched_at": "2026-11-16T23:41:42.308847+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-16-extracted.json",
+  "imsr_date": "2026-11-16",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-16.json",
+  "layer_records": 352,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 6,
-    "match_rate_pct": 66.7,
+    "imsr_incidents": 5,
+    "match_rate_pct": 80.0,
     "exact": 4,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 2,
-    "layer_only_count": 356
+    "no_match": 1,
+    "layer_only_count": 348
   },
   "failure_reasons": {
-    "no name/unit signal in layer": 2
+    "no name/unit signal in layer": 1
   },
   "results": [
+    {
+      "imsr_id": "MS-MNF/201W",
+      "imsr_name": "201W",
+      "imsr_unit": "MSMNF",
+      "imsr_state": "MS",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-MSMNF-000720",
+        "name": "201W",
+        "state": "MS",
+        "acres": 2700,
+        "lat": 31.119788699849906,
+        "lng": -89.07978839372039
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "MS-MNF/Range 47",
       "imsr_name": "Range 47",
@@ -41,7 +69,7 @@
         "ufi": "2026-MSMNF-000723",
         "name": "Range 47",
         "state": "MS",
-        "acres": 2378,
+        "acres": 2378.77,
         "lat": 31.09982769279187,
         "lng": -89.15933441465165
       },
@@ -89,34 +117,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MNF/Red Hill",
-      "imsr_name": "Red Hill",
-      "imsr_unit": "MSMNF",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMNF-000713",
-        "name": "Red Hill",
-        "state": "MS",
-        "acres": 519,
-        "lat": 31.130074702618266,
-        "lng": -89.06385838982159
-      },
-      "other_candidates": []
-    },
-    {
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "imsr_unit": "NHWMF",
@@ -142,19 +142,6 @@
         "lat": 44.330592038888476,
         "lng": -71.031283701987
       },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "ID-BOD/Mud",
-      "imsr_name": "Mud",
-      "imsr_unit": "IDBOD",
-      "imsr_state": "ID",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
       "other_candidates": []
     }
   ],
@@ -196,28 +183,28 @@
       "acres": 10896
     },
     {
+      "ufi": "2026-MTFNF-000393",
+      "name": "Camp Creek",
+      "state": "MT",
+      "acres": 9725
+    },
+    {
       "ufi": "2026-AZASF-000940",
       "name": "D6 Wallow West Unit 6 RX",
       "state": "AZ",
       "acres": 7605
     },
     {
+      "ufi": "2026-MTFNF-000280",
+      "name": "Silvertip",
+      "state": "MT",
+      "acres": 7280
+    },
+    {
       "ufi": "2026-IDNCF-000349",
       "name": "Moose Mountain",
       "state": "ID",
       "acres": 5832
-    },
-    {
-      "ufi": "2026-AZASF-000955",
-      "name": "D2 Dye RX",
-      "state": "AZ",
-      "acres": 5246
-    },
-    {
-      "ufi": "2026-AZASF-000967",
-      "name": "D3 Bear RX",
-      "state": "AZ",
-      "acres": 5072
     }
   ]
 }
