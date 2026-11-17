@@ -1,0 +1,152 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Tuesday November 17, 2026 – 0730 MDT 
+National Preparedness Level 1 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 1 5 117,334 0 6 0 35 1 
+ONCC 1 0 0 0 0 0 0 0 
+OSCC 1 0 0 0 0 0 0 0 
+NRCC 1 0 0 0 0 0 0 0 
+GBCC 1 0 2,096 0 0 0 0 0 
+SWCC 1 0 0 0 0 0 0 0 
+RMCC 2 1 683 1 0 1 34 0 
+EACC 1 2 1,068 0 0 1 57 0 
+SACC 2 8 8,381 0 24 1 118 13 
+Total --- 16 129,562 1 30 3 244 14 
+ 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (36 fires) 
+New large incidents: 1 
+Large fires contained: 0 
+Uncontained large fires:  6 
+CIMTs committed: 0 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 29 
+New large incidents: 1 
+Uncontained large fires: 5 
+ 
+* Walker Mt West, Ouachita NF, USFS. Seven miles south of Heavener, OK. Timber. Minimal fire behavior 
+with smoldering. 
+ 
+201W, National Forests in Mississippi, USFS. Seven miles southwest of New Augusta, MS. Southern rough 
+and timber. Minimal fire behavior. 
+ 
+Range 47, National Forests in Mississippi, USFS. Sixteen miles southeast of Hattiesburg, MS. Southern rough. 
+Minimal fire behavior. Structures threatened. 
+ 
+Bee Haven 2 24-06, Florida Forest Service. Twenty-eight miles northwest of Lake City, FL. Southern rough. 
+Minimal fire behavior with smoldering. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+* Walker Mt West AR-OUF 132 --- 75 Ctn 11/19 3 --- 0 1 0 0 1K FS 
+201W MS-MNF 2,700 0 70 Ctn 11/20 17 0 0 4 0 0 75K FS 
+Range 47 MS-MNF 2,379 0 75 Ctn 11/20 18 0 0 4 0 0 90K FS 
+Bee Haven 2 24-06 FL-FLS 2,060 0 85 Ctn 12/25 41 0 0 5 1 0 NR ST 
+Campbell Glassman 
+Way TN-TNS 380 --- 85 Ctn UNK 1 --- 0 1 0 0 1K ST 
+TNS – Tennessee DOF 
+ 
+ 
+Eastern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 5 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Wild River NH-WMF 817 --- 59 Ctn 12/1 56 --- 0 0 1 0 1.6M FS 
+WMF – White Mountain NF, USFS 
+ 
+===== PAGE 3 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 0 0 0 0 0 0 0 
+Northwest ACRES 0 0 0 0 0 0 0 
+Northern California FIRES 0 0 0 0 0 0 0 
+Northern California ACRES 0 0 0 0 0 0 0 
+Southern California FIRES 0 0 0 0 2 0 2 
+Southern California ACRES 0 0 0 0 2 0 2 
+Northern Rockies FIRES 0 0 0 0 0 0 0 
+Northern Rockies ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 0 0 0 0 0 0 
+Great Basin ACRES 0 0 0 0 0 0 0 
+Southwest FIRES 0 0 0 0 0 0 0 
+Southwest ACRES 0 0 0 0 0 0 0 
+Rocky Mountain FIRES 0 0 0 0 0 0 0 
+Rocky Mountain ACRES 0 0 0 0 0 0 0 
+Eastern Area FIRES 0 0 0 0 5 0 5 
+Eastern Area ACRES 0 0 0 0 1 0 1 
+Southern Area FIRES 0 0 0 0 26 3 29 
+Southern Area ACRES 0 0 0 0 141 293 434 
+TOTAL FIRES:  0 0 0 0 33 3 36 
+TOTAL ACRES:  0 0 0 0 144 293 437 
+ 
+===== PAGE 4 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 231 41 421 
+Alaska ACRES 0 36,761 0 0 52,184 12 88,957 
+Northwest FIRES 267 316 28 52 1,954 893 3,510 
+Northwest ACRES 310,814 1,978,263 34,146 19,038 566,307 519,583 3,428,151 
+Northern California FIRES 62 18 2 34 2,533 434 3,083 
+Northern California ACRES 7,736 70,418 5 53 20,227 8,378 106,817 
+Southern California FIRES 10 79 5 46 3,595 393 4,128 
+Southern California ACRES 2 9,646 4 25,604 147,156 54,360 236,772 
+Northern Rockies FIRES 309 113 7 4 1,537 596 2,566 
+Northern Rockies ACRES 20,833 9,462 520 6 66,395 115,470 212,685 
+Great Basin FIRES 46 1,180 3 44 1,063 541 2,877 
+Great Basin ACRES 3,172 1,259,939 2 784 275,093 393,406 1,932,397 
+Southwest FIRES 694 215 5 30 819 1,039 2,802 
+Southwest ACRES 3,644 6,414 7,131 806 81,032 113,646 212,673 
+Rocky Mountain FIRES 192 508 17 35 2,106 456 3,314 
+Rocky Mountain ACRES 1,682 35,902 3,964 1,412 1,330,764 211,514 1,585,238 
+Eastern Area FIRES 223 0 26 17 9,053 396 9,715 
+Eastern Area ACRES 1,086 0 344 17 86,437 86,308 174,192 
+Southern Area FIRES 1,177 2 111 128 35,136 839 37,393 
+Southern Area ACRES 87,896 72 52,776 44,936 1,260,427 69,951 1,516,057 
+TOTAL FIRES:  2,980 2,580 204 390 58,027 5,628 69,809 
+TOTAL ACRES:  436,864 3,406,877 98,892 92,656 3,886,024 1,572,628 9,493,940 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 53,688 130% 
+Acres (2016 – 2025 as of today) 6,521,506 146% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+ 
+===== PAGE 5 =====
+Predictive Services Discussion:  
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 

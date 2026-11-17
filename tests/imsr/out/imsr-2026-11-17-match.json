@@ -1,9 +1,9 @@
 {
-  "matched_at": "2026-11-15T20:15:53.796098+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-15-extracted.json",
-  "imsr_date": "2026-11-15",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-15.json",
-  "layer_records": 309,
+  "matched_at": "2026-11-17T22:49:55.409912+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-17-extracted.json",
+  "imsr_date": "2026-11-17",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-17.json",
+  "layer_records": 440,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 6,
@@ -13,12 +13,33 @@
     "weak": 0,
     "ambiguous": 0,
     "no_match": 2,
-    "layer_only_count": 305
+    "layer_only_count": 436
   },
   "failure_reasons": {
-    "no name/unit signal in layer": 2
+    "state_conflict (name matched but states differ)": 1,
+    "no name/unit signal in layer": 1
   },
   "results": [
+    {
+      "imsr_id": "AR-OUF/Walker Mt West",
+      "imsr_name": "Walker Mt West",
+      "imsr_unit": "AROUF",
+      "imsr_state": "AR",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "state_conflict (name matched but states differ)",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": [
+        {
+          "ufi": "2026-AROUF-003219",
+          "name": "Walker MT West",
+          "tier": "STATE_CONFLICT",
+          "score": 0.8
+        }
+      ]
+    },
     {
       "imsr_id": "MS-MNF/201W",
       "imsr_name": "201W",
@@ -143,19 +164,6 @@
         "lng": -71.031283701987
       },
       "other_candidates": []
-    },
-    {
-      "imsr_id": "ID-BOD/Mud",
-      "imsr_name": "Mud",
-      "imsr_unit": "IDBOD",
-      "imsr_state": "ID",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
     }
   ],
   "layer_only_sample": [
@@ -167,15 +175,9 @@
     },
     {
       "ufi": "2026-CALPF-002271",
-      "name": "Timber",
+      "name": "TIMBER",
       "state": "CA",
       "acres": 25350
-    },
-    {
-      "ufi": "2026-TXMCR-000378",
-      "name": "Star Lake",
-      "state": "TX",
-      "acres": 16412
     },
     {
       "ufi": "2026-ORWWF-000531",
@@ -196,10 +198,22 @@
       "acres": 10896
     },
     {
+      "ufi": "2026-MTFNF-000393",
+      "name": "Camp Creek",
+      "state": "MT",
+      "acres": 9725
+    },
+    {
       "ufi": "2026-AZASF-000940",
       "name": "D6 Wallow West Unit 6 RX",
       "state": "AZ",
       "acres": 7605
+    },
+    {
+      "ufi": "2026-MTFNF-000280",
+      "name": "Silvertip",
+      "state": "MT",
+      "acres": 7280
     },
     {
       "ufi": "2026-IDNCF-000349",
@@ -212,12 +226,6 @@
       "name": "D2 Dye RX",
       "state": "AZ",
       "acres": 5246
-    },
-    {
-      "ufi": "2026-AZASF-000967",
-      "name": "D3 Bear RX",
-      "state": "AZ",
-      "acres": 5072
     }
   ]
 }
