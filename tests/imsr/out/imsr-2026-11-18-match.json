@@ -1,24 +1,58 @@
 {
-  "matched_at": "2026-11-16T23:41:42.308847+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-16-extracted.json",
-  "imsr_date": "2026-11-16",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-16.json",
-  "layer_records": 352,
+  "matched_at": "2026-11-18T22:31:39.620246+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-18-extracted.json",
+  "imsr_date": "2026-11-18",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-18.json",
+  "layer_records": 515,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 5,
-    "match_rate_pct": 80.0,
-    "exact": 4,
+    "imsr_incidents": 7,
+    "match_rate_pct": 71.4,
+    "exact": 5,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 1,
-    "layer_only_count": 348
+    "no_match": 2,
+    "layer_only_count": 510
   },
   "failure_reasons": {
-    "no name/unit signal in layer": 1
+    "no name/unit signal in layer": 1,
+    "state_conflict (name matched but states differ)": 1
   },
   "results": [
+    {
+      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
+      "imsr_name": "Bee Haven 2 24-06",
+      "imsr_unit": "FLFLS",
+      "imsr_state": "FL",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "AR-OUF/Walker Mt West",
+      "imsr_name": "Walker Mt West",
+      "imsr_unit": "AROUF",
+      "imsr_state": "AR",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "state_conflict (name matched but states differ)",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": [
+        {
+          "ufi": "2026-AROUF-003219",
+          "name": "Walker MT West",
+          "tier": "STATE_CONFLICT",
+          "score": 0.8
+        }
+      ]
+    },
     {
       "imsr_id": "MS-MNF/201W",
       "imsr_name": "201W",
@@ -76,19 +110,6 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
-    {
       "imsr_id": "TN-TNS/Campbell Glassman Way",
       "imsr_name": "Campbell Glassman Way",
       "imsr_unit": "TNTNS",
@@ -113,6 +134,34 @@
         "acres": 380,
         "lat": 36.446561422201505,
         "lng": -84.23785283696768
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "WV-WVS/Kessel",
+      "imsr_name": "Kessel",
+      "imsr_unit": "WVWVS",
+      "imsr_state": "WV",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-WVWVS-000457",
+        "name": "Kessel",
+        "state": "WV",
+        "acres": 360,
+        "lat": 39.52610786155345,
+        "lng": -78.31470273214575
       },
       "other_candidates": []
     },
@@ -153,16 +202,28 @@
       "acres": 93972
     },
     {
+      "ufi": "2026-ORFWF-260286",
+      "name": "Wrights Spring",
+      "state": "OR",
+      "acres": 55134
+    },
+    {
       "ufi": "2026-CALPF-002271",
-      "name": "Timber",
+      "name": "TIMBER",
       "state": "CA",
       "acres": 25350
     },
     {
-      "ufi": "2026-TXMCR-000378",
-      "name": "Star Lake",
-      "state": "TX",
-      "acres": 16412
+      "ufi": "2026-ORPRD-000584",
+      "name": "0584 COTTONWOOD",
+      "state": "OR",
+      "acres": 15658
+    },
+    {
+      "ufi": "2026-MTLG14-000775",
+      "name": "Snow",
+      "state": "MT",
+      "acres": 14056
     },
     {
       "ufi": "2026-ORWWF-000531",
@@ -175,12 +236,6 @@
       "name": "AUSTIN",
       "state": "OR",
       "acres": 12888
-    },
-    {
-      "ufi": "2026-MTBDF-266313",
-      "name": "Bobcat Lakes",
-      "state": "MT",
-      "acres": 10896
     },
     {
       "ufi": "2026-MTFNF-000393",
@@ -199,12 +254,6 @@
       "name": "Silvertip",
       "state": "MT",
       "acres": 7280
-    },
-    {
-      "ufi": "2026-IDNCF-000349",
-      "name": "Moose Mountain",
-      "state": "ID",
-      "acres": 5832
     }
   ]
 }
