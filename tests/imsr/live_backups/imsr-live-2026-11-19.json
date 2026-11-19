@@ -1,7 +1,7 @@
 {
   "meta": {
-    "source_date": "2026-11-17",
-    "generated_at": "2026-11-17T22:49:55.427904+00:00",
+    "source_date": "2026-11-19",
+    "generated_at": "2026-11-19T22:37:43.233852+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
@@ -21,7 +21,7 @@
   "exact_incidents": {
     "2026-MSMNF-000720": {
       "tier": "EXACT",
-      "report_date": "2026-11-17",
+      "report_date": "2026-11-19",
       "imsr_id": "MS-MNF/201W",
       "imsr_name": "201W",
       "layer_name": "201W",
@@ -33,7 +33,7 @@
     },
     "2026-MSMNF-000723": {
       "tier": "EXACT",
-      "report_date": "2026-11-17",
+      "report_date": "2026-11-19",
       "imsr_id": "MS-MNF/Range 47",
       "imsr_name": "Range 47",
       "layer_name": "Range 47",
@@ -43,21 +43,21 @@
       "helicopters": 0,
       "total_personnel": 18
     },
-    "2026-TNTNS-261076": {
+    "2026-AROZF-003220": {
       "tier": "EXACT",
-      "report_date": "2026-11-17",
-      "imsr_id": "TN-TNS/Campbell Glassman Way",
-      "imsr_name": "Campbell Glassman Way",
-      "layer_name": "Campbell - Glassman Way",
-      "state": "TN",
+      "report_date": "2026-11-19",
+      "imsr_id": "AR-OZF/Shady Hollow",
+      "imsr_name": "Shady Hollow",
+      "layer_name": "Shady Hollow",
+      "state": "AR",
       "crews": 0,
-      "engines": 1,
+      "engines": 2,
       "helicopters": 0,
-      "total_personnel": 1
+      "total_personnel": 7
     },
     "2026-NHWMF-000182": {
       "tier": "EXACT",
-      "report_date": "2026-11-17",
+      "report_date": "2026-11-19",
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "layer_name": "Wild River",
