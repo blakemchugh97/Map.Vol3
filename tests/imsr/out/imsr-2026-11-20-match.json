@@ -1,23 +1,22 @@
 {
-  "matched_at": "2026-11-18T22:31:39.620246+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-18-extracted.json",
-  "imsr_date": "2026-11-18",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-18.json",
-  "layer_records": 515,
+  "matched_at": "2026-11-20T22:11:22.007372+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-20-extracted.json",
+  "imsr_date": "2026-11-20",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-20.json",
+  "layer_records": 481,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 7,
-    "match_rate_pct": 71.4,
-    "exact": 5,
+    "imsr_incidents": 6,
+    "match_rate_pct": 66.7,
+    "exact": 4,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 2,
-    "layer_only_count": 510
+    "layer_only_count": 477
   },
   "failure_reasons": {
-    "no name/unit signal in layer": 1,
-    "state_conflict (name matched but states differ)": 1
+    "no name/unit signal in layer": 2
   },
   "results": [
     {
@@ -34,28 +33,8 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "AR-OUF/Walker Mt West",
-      "imsr_name": "Walker Mt West",
-      "imsr_unit": "AROUF",
-      "imsr_state": "AR",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "state_conflict (name matched but states differ)",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": [
-        {
-          "ufi": "2026-AROUF-003219",
-          "name": "Walker MT West",
-          "tier": "STATE_CONFLICT",
-          "score": 0.8
-        }
-      ]
-    },
-    {
-      "imsr_id": "MS-MNF/201W",
-      "imsr_name": "201W",
+      "imsr_id": "MS-MNF/East Air",
+      "imsr_name": "East Air",
       "imsr_unit": "MSMNF",
       "imsr_state": "MS",
       "imsr_year": "2026",
@@ -72,12 +51,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMNF-000720",
-        "name": "201W",
+        "ufi": "2026-MSMNF-000734",
+        "name": "East Air",
         "state": "MS",
-        "acres": 2700,
-        "lat": 31.119788699849906,
-        "lng": -89.07978839372039
+        "acres": 305,
+        "lat": 31.125005704212665,
+        "lng": -88.98639436826959
       },
       "other_candidates": []
     },
@@ -110,10 +89,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "TN-TNS/Campbell Glassman Way",
-      "imsr_name": "Campbell Glassman Way",
-      "imsr_unit": "TNTNS",
-      "imsr_state": "TN",
+      "imsr_id": "MS-MNF/201W",
+      "imsr_name": "201W",
+      "imsr_unit": "MSMNF",
+      "imsr_state": "MS",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -128,12 +107,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-TNTNS-261076",
-        "name": "Campbell - Glassman Way",
-        "state": "TN",
-        "acres": 380,
-        "lat": 36.446561422201505,
-        "lng": -84.23785283696768
+        "ufi": "2026-MSMNF-000720",
+        "name": "201W",
+        "state": "MS",
+        "acres": 2700,
+        "lat": 31.119788699849906,
+        "lng": -89.07978839372039
       },
       "other_candidates": []
     },
@@ -143,26 +122,11 @@
       "imsr_unit": "WVWVS",
       "imsr_state": "WV",
       "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-WVWVS-000457",
-        "name": "Kessel",
-        "state": "WV",
-        "acres": 360,
-        "lat": 39.52610786155345,
-        "lng": -78.31470273214575
-      },
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
       "other_candidates": []
     },
     {
@@ -214,12 +178,6 @@
       "acres": 25350
     },
     {
-      "ufi": "2026-ORPRD-000584",
-      "name": "0584 COTTONWOOD",
-      "state": "OR",
-      "acres": 15658
-    },
-    {
       "ufi": "2026-MTLG14-000775",
       "name": "Snow",
       "state": "MT",
@@ -254,6 +212,12 @@
       "name": "Silvertip",
       "state": "MT",
       "acres": 7280
+    },
+    {
+      "ufi": "2026-CAYNP-000100",
+      "name": "DOME",
+      "state": "CA",
+      "acres": 6788
     }
   ]
 }

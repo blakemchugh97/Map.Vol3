@@ -1,10 +1,10 @@
 {
   "meta": {
     "source_type": "IMSR_PDF",
-    "source_date": "2026-11-18",
-    "report_label": "IMSR \u2014 2026-11-18 (auto-extracted, UNVERIFIED)",
+    "source_date": "2026-11-20",
+    "report_label": "IMSR \u2014 2026-11-20 (auto-extracted, UNVERIFIED)",
     "parser_version": "imsr_extract.py 0.2.0",
-    "ingested_at": "2026-11-18T22:31:39.114539+00:00",
+    "ingested_at": "2026-11-20T22:11:21.574243+00:00",
     "is_fixture": false,
     "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
     "verification": {
@@ -19,13 +19,13 @@
       "gacc": "SACC",
       "gacc_name": "Southern",
       "preparedness_level": 2,
-      "date": "2026-11-18"
+      "date": "2026-11-20"
     },
     {
       "gacc": "EACC",
       "gacc_name": "Eastern",
       "preparedness_level": 1,
-      "date": "2026-11-18"
+      "date": "2026-11-20"
     }
   ],
   "national_resource_totals_daily": {},
@@ -35,7 +35,7 @@
       "incident_name": "Bee Haven 2 24-06",
       "gacc": "SACC",
       "state": "FL",
-      "date": "2026-11-18",
+      "date": "2026-11-20",
       "size_acres": 2060,
       "percent_contained": 85,
       "resources": {
@@ -48,35 +48,18 @@
       "lng": null
     },
     {
-      "incident_id": "AR-OUF/Walker Mt West",
-      "incident_name": "Walker Mt West",
-      "gacc": "SACC",
-      "state": "AR",
-      "date": "2026-11-18",
-      "size_acres": 132,
-      "percent_contained": 90,
-      "resources": {
-        "crews": 0,
-        "engines": 1,
-        "helicopters": 0,
-        "total_personnel": 3
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "MS-MNF/201W",
-      "incident_name": "201W",
+      "incident_id": "MS-MNF/East Air",
+      "incident_name": "East Air",
       "gacc": "SACC",
       "state": "MS",
-      "date": "2026-11-18",
-      "size_acres": 2700,
-      "percent_contained": 70,
+      "date": "2026-11-20",
+      "size_acres": 305,
+      "percent_contained": 100,
       "resources": {
         "crews": 0,
-        "engines": 4,
+        "engines": 2,
         "helicopters": 0,
-        "total_personnel": 17
+        "total_personnel": 9
       },
       "lat": null,
       "lng": null
@@ -86,9 +69,9 @@
       "incident_name": "Range 47",
       "gacc": "SACC",
       "state": "MS",
-      "date": "2026-11-18",
+      "date": "2026-11-20",
       "size_acres": 2379,
-      "percent_contained": 75,
+      "percent_contained": 100,
       "resources": {
         "crews": 0,
         "engines": 4,
@@ -99,18 +82,18 @@
       "lng": null
     },
     {
-      "incident_id": "TN-TNS/Campbell Glassman Way",
-      "incident_name": "Campbell Glassman Way",
+      "incident_id": "MS-MNF/201W",
+      "incident_name": "201W",
       "gacc": "SACC",
-      "state": "TN",
-      "date": "2026-11-18",
-      "size_acres": 380,
+      "state": "MS",
+      "date": "2026-11-20",
+      "size_acres": 2700,
       "percent_contained": 100,
       "resources": {
         "crews": 0,
-        "engines": 1,
+        "engines": 4,
         "helicopters": 0,
-        "total_personnel": 1
+        "total_personnel": 17
       },
       "lat": null,
       "lng": null
@@ -120,7 +103,7 @@
       "incident_name": "Kessel",
       "gacc": "EACC",
       "state": "WV",
-      "date": "2026-11-18",
+      "date": "2026-11-20",
       "size_acres": 360,
       "percent_contained": 80,
       "resources": {
@@ -137,7 +120,7 @@
       "incident_name": "Wild River",
       "gacc": "EACC",
       "state": "NH",
-      "date": "2026-11-18",
+      "date": "2026-11-20",
       "size_acres": 817,
       "percent_contained": 59,
       "resources": {

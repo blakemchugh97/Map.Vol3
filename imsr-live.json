@@ -1,7 +1,7 @@
 {
   "meta": {
-    "source_date": "2026-11-19",
-    "generated_at": "2026-11-19T22:37:43.233852+00:00",
+    "source_date": "2026-11-20",
+    "generated_at": "2026-11-20T22:11:22.028605+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
@@ -19,21 +19,21 @@
     "national_preparedness_level": null
   },
   "exact_incidents": {
-    "2026-MSMNF-000720": {
+    "2026-MSMNF-000734": {
       "tier": "EXACT",
-      "report_date": "2026-11-19",
-      "imsr_id": "MS-MNF/201W",
-      "imsr_name": "201W",
-      "layer_name": "201W",
+      "report_date": "2026-11-20",
+      "imsr_id": "MS-MNF/East Air",
+      "imsr_name": "East Air",
+      "layer_name": "East Air",
       "state": "MS",
       "crews": 0,
-      "engines": 4,
+      "engines": 2,
       "helicopters": 0,
-      "total_personnel": 17
+      "total_personnel": 9
     },
     "2026-MSMNF-000723": {
       "tier": "EXACT",
-      "report_date": "2026-11-19",
+      "report_date": "2026-11-20",
       "imsr_id": "MS-MNF/Range 47",
       "imsr_name": "Range 47",
       "layer_name": "Range 47",
@@ -43,21 +43,21 @@
       "helicopters": 0,
       "total_personnel": 18
     },
-    "2026-AROZF-003220": {
+    "2026-MSMNF-000720": {
       "tier": "EXACT",
-      "report_date": "2026-11-19",
-      "imsr_id": "AR-OZF/Shady Hollow",
-      "imsr_name": "Shady Hollow",
-      "layer_name": "Shady Hollow",
-      "state": "AR",
+      "report_date": "2026-11-20",
+      "imsr_id": "MS-MNF/201W",
+      "imsr_name": "201W",
+      "layer_name": "201W",
+      "state": "MS",
       "crews": 0,
-      "engines": 2,
+      "engines": 4,
       "helicopters": 0,
-      "total_personnel": 7
+      "total_personnel": 17
     },
     "2026-NHWMF-000182": {
       "tier": "EXACT",
-      "report_date": "2026-11-19",
+      "report_date": "2026-11-20",
       "imsr_id": "NH-WMF/Wild River",
       "imsr_name": "Wild River",
       "layer_name": "Wild River",
