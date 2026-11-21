@@ -1,0 +1,153 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Saturday November 21, 2026 – 0730 MDT 
+National Preparedness Level 1 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 1 1 9,575 0 0 0 1 0 
+ONCC 1 0 0 0 0 0 0 0 
+OSCC 1 0 0 0 0 0 0 0 
+NRCC 1 0 0 0 0 0 0 0 
+GBCC 1 0 0 0 0 0 0 0 
+SWCC 1 0 0 0 0 0 0 0 
+RMCC 2 0 0 0 0 0 0 -1 
+EACC 1 0 0 0 0 0 0 -57 
+SACC 2 10 11,099 0 34 3 152 41 
+Total --- 11 20,674 0 34 3 153 -17 
+ 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (93 fires) 
+New large incidents: 1 
+Large fires contained: 0 
+Uncontained large fires:  3 
+CIMTs committed: 0 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 72 
+New large incidents: 1 
+Uncontained large fires: 2 
+ 
+* Greene Caney Creek Lane, Tennessee DOF. Three miles northeast of Baileyton, TN. Hardwood litter. 
+Active fire behavior with backing and wind-driven runs. Residences threatened. 
+ 
+Bee Haven 2 24-06, Florida Forest Service. Twenty-eight miles northwest of Lake City, FL. Southern rough. 
+No new information. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+* Greene Caney 
+Creek Lane TN-TNS 500 --- 60 Ctn 11/22 35 --- 0 12 2 0 10K ST 
+Bee Haven 2 24-06 FL-FLS 2,060 --- 85 Ctn 12/25 41 --- 0 5 1 0 NR ST 
+ 
+ 
+Eastern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 15 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Kessel WV-WVS 360 --- 80 Ctn UNK 0 --- 0 0 0 0 7K ST 
+WVS – West Virginia DOF 
+ 
+===== PAGE 3 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 0 0 0 0 0 0 0 
+Northwest ACRES 0 0 0 0 0 0 0 
+Northern California FIRES 0 0 0 0 0 0 0 
+Northern California ACRES 0 0 0 0 0 0 0 
+Southern California FIRES 0 0 0 0 0 4 4 
+Southern California ACRES 0 0 0 0 0 1 1 
+Northern Rockies FIRES 0 0 0 0 1 0 1 
+Northern Rockies ACRES 0 0 0 0 1 0 1 
+Great Basin FIRES 0 0 0 0 0 0 0 
+Great Basin ACRES 0 0 0 0 0 0 0 
+Southwest FIRES 0 0 0 0 0 0 0 
+Southwest ACRES 0 0 0 0 0 0 0 
+Rocky Mountain FIRES 0 0 0 0 0 1 1 
+Rocky Mountain ACRES 0 0 0 0 0 0 0 
+Eastern Area FIRES 0 0 0 0 14 1 15 
+Eastern Area ACRES 0 0 0 0 20 10 30 
+Southern Area FIRES 2 0 0 0 68 2 72 
+Southern Area ACRES 3 0 0 0 232 500 736 
+TOTAL FIRES:  2 0 0 0 83 8 93 
+TOTAL ACRES:  3 0 0 0 253 511 768 
+ 
+===== PAGE 4 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 231 41 421 
+Alaska ACRES 0 36,761 0 0 52,184 12 88,957 
+Northwest FIRES 284 315 28 53 1,952 896 3,528 
+Northwest ACRES 310,556 1,978,263 34,146 19,039 566,315 519,584 3,427,901 
+Northern California FIRES 62 18 2 34 2,537 435 3,088 
+Northern California ACRES 7,736 70,418 5 53 20,227 8,379 106,818 
+Southern California FIRES 10 79 5 46 3,596 398 4,134 
+Southern California ACRES 2 9,646 4 25,604 147,156 54,361 236,773 
+Northern Rockies FIRES 309 113 7 4 1,539 597 2,569 
+Northern Rockies ACRES 20,833 9,462 520 6 66,396 115,469 212,685 
+Great Basin FIRES 46 1,180 3 44 1,063 541 2,877 
+Great Basin ACRES 3,172 1,259,939 2 784 275,093 393,406 1,932,397 
+Southwest FIRES 694 216 5 30 819 1,040 2,804 
+Southwest ACRES 3,644 6,414 7,131 806 81,032 113,647 212,674 
+Rocky Mountain FIRES 192 508 17 35 2,109 458 3,319 
+Rocky Mountain ACRES 1,682 35,902 3,964 1,412 1,330,769 211,516 1,585,244 
+Eastern Area FIRES 223 0 27 17 9,172 406 9,845 
+Eastern Area ACRES 1,086 0 344 17 86,646 87,217 175,311 
+Southern Area FIRES 1,188 2 111 135 35,430 849 37,715 
+Southern Area ACRES 87,957 72 52,776 44,942 1,261,093 73,920 1,520,760 
+TOTAL FIRES:  3,008 2,580 205 398 58,448 5,661 70,300 
+TOTAL ACRES:  436,667 3,406,877 98,892 92,663 3,886,911 1,577,511 9,499,521 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 54,216 130% 
+Acres (2016 – 2025 as of today) 6,523,433 146% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+ 
+===== PAGE 5 =====
+Predictive Services Discussion:  
+ 
+Very dry conditions will persist across the central and southern Appalachians with minimum relative humidity of 
+15-30% but winds will be light. Farther east, a developing coastal storm will bring rain to the Piedmont and the 
+southeast Atlantic coast with gusty northeast winds. Dry conditions with well above normal temperatures will 
+continue in the Northeast, but with elevated relative humidity. A cold front will move through the Midwest with 
+scattered showers and thunderstorms, focused from eastern Kansas to Upper Michigan, with scattered light 
+showers south to Texas. A storm will continue to move through the northern Intermountain West with scattered 
+valley rain and mountain snow showers. Another cold front will move into the Northwest overnight with rain and 
+snow from the Cascades westward, with snow levels 3,000 to 5,000 feet. Snow will continue in the Brooks Range 
+while Interior Alaska is drier with colder temperatures today. In Hawai’i, breezy to strong trade winds will occur 
+with scattered showers for windward areas. 
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 

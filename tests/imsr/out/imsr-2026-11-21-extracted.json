@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2026-11-21",
+    "report_label": "IMSR \u2014 2026-11-21 (auto-extracted, UNVERIFIED)",
+    "parser_version": "imsr_extract.py 0.2.0",
+    "ingested_at": "2026-11-21T20:50:54.234914+00:00",
+    "is_fixture": false,
+    "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
+    "verification": {
+      "verified_by": null,
+      "verified_at": null,
+      "verification_method": null,
+      "verification_notes": null
+    }
+  },
+  "gac_pl_daily": [
+    {
+      "gacc": "SACC",
+      "gacc_name": "Southern",
+      "preparedness_level": 2,
+      "date": "2026-11-21"
+    },
+    {
+      "gacc": "EACC",
+      "gacc_name": "Eastern",
+      "preparedness_level": 1,
+      "date": "2026-11-21"
+    }
+  ],
+  "national_resource_totals_daily": {},
+  "incident_resources_daily": [
+    {
+      "incident_id": "TN-TNS/Greene Caney Creek Lane",
+      "incident_name": "Greene Caney Creek Lane",
+      "gacc": "SACC",
+      "state": "TN",
+      "date": "2026-11-21",
+      "size_acres": 500,
+      "percent_contained": 60,
+      "resources": {
+        "crews": 0,
+        "engines": 12,
+        "helicopters": 2,
+        "total_personnel": 35
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "FL-FLS/Bee Haven 2 24-06",
+      "incident_name": "Bee Haven 2 24-06",
+      "gacc": "SACC",
+      "state": "FL",
+      "date": "2026-11-21",
+      "size_acres": 2060,
+      "percent_contained": 85,
+      "resources": {
+        "crews": 0,
+        "engines": 5,
+        "helicopters": 1,
+        "total_personnel": 41
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "WV-WVS/Kessel",
+      "incident_name": "Kessel",
+      "gacc": "EACC",
+      "state": "WV",
+      "date": "2026-11-21",
+      "size_acres": 360,
+      "percent_contained": 80,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 0
+      },
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "_extractor_warnings": [
+    "national_totals: 'Total' summary row not found"
+  ]
+}
