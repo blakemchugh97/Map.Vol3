@@ -1,24 +1,52 @@
 {
-  "matched_at": "2026-11-20T22:11:22.007372+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-20-extracted.json",
-  "imsr_date": "2026-11-20",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-20.json",
-  "layer_records": 481,
+  "matched_at": "2026-11-22T20:58:33.087009+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-22-extracted.json",
+  "imsr_date": "2026-11-22",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-22.json",
+  "layer_records": 364,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 6,
-    "match_rate_pct": 66.7,
-    "exact": 4,
+    "imsr_incidents": 5,
+    "match_rate_pct": 60.0,
+    "exact": 3,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
     "no_match": 2,
-    "layer_only_count": 477
+    "layer_only_count": 361
   },
   "failure_reasons": {
     "no name/unit signal in layer": 2
   },
   "results": [
+    {
+      "imsr_id": "VA-VAF/White Oak Flat",
+      "imsr_name": "White Oak Flat",
+      "imsr_unit": "VAVAF",
+      "imsr_state": "VA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-VAVAF-260136",
+        "name": "White Oak Flat",
+        "state": "VA",
+        "acres": 1000,
+        "lat": 37.84220746338614,
+        "lng": -79.86212009921947
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "FL-FLS/Bee Haven 2 24-06",
       "imsr_name": "Bee Haven 2 24-06",
@@ -33,10 +61,10 @@
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MNF/East Air",
-      "imsr_name": "East Air",
-      "imsr_unit": "MSMNF",
-      "imsr_state": "MS",
+      "imsr_id": "NC-NCS/Elk Shoals",
+      "imsr_name": "Elk Shoals",
+      "imsr_unit": "NCNCS",
+      "imsr_state": "NC",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -51,20 +79,20 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMNF-000734",
-        "name": "East Air",
-        "state": "MS",
-        "acres": 305,
-        "lat": 31.125005704212665,
-        "lng": -88.98639436826959
+        "ufi": "2026-NCNCS-260074",
+        "name": "Elk Shoals",
+        "state": "NC",
+        "acres": 113,
+        "lat": 35.95584030523753,
+        "lng": -82.41750375092496
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "MS-MNF/Range 47",
-      "imsr_name": "Range 47",
-      "imsr_unit": "MSMNF",
-      "imsr_state": "MS",
+      "imsr_id": "TN-TNS/Greene Caney Creek Lane",
+      "imsr_name": "Greene Caney Creek Lane",
+      "imsr_unit": "TNTNS",
+      "imsr_state": "TN",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -79,40 +107,12 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-MSMNF-000723",
-        "name": "Range 47",
-        "state": "MS",
-        "acres": 2378.77,
-        "lat": 31.09982769279187,
-        "lng": -89.15933441465165
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MNF/201W",
-      "imsr_name": "201W",
-      "imsr_unit": "MSMNF",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMNF-000720",
-        "name": "201W",
-        "state": "MS",
-        "acres": 2700,
-        "lat": 31.119788699849906,
-        "lng": -89.07978839372039
+        "ufi": "2026-TNTNS-261114",
+        "name": "Greene - Caney Creek Lane",
+        "state": "TN",
+        "acres": 1875,
+        "lat": 36.363023714209085,
+        "lng": -82.79850388823714
       },
       "other_candidates": []
     },
@@ -128,43 +128,9 @@
       "signals": null,
       "matched_layer": null,
       "other_candidates": []
-    },
-    {
-      "imsr_id": "NH-WMF/Wild River",
-      "imsr_name": "Wild River",
-      "imsr_unit": "NHWMF",
-      "imsr_state": "NH",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NHWMF-000182",
-        "name": "Wild River",
-        "state": "NH",
-        "acres": 817,
-        "lat": 44.330592038888476,
-        "lng": -71.031283701987
-      },
-      "other_candidates": []
     }
   ],
   "layer_only_sample": [
-    {
-      "ufi": "2026-ORMHF-000688",
-      "name": "GRASSHOPPER",
-      "state": "OR",
-      "acres": 93972
-    },
     {
       "ufi": "2026-ORFWF-260286",
       "name": "Wrights Spring",
@@ -208,16 +174,22 @@
       "acres": 7605
     },
     {
-      "ufi": "2026-MTFNF-000280",
-      "name": "Silvertip",
-      "state": "MT",
-      "acres": 7280
-    },
-    {
       "ufi": "2026-CAYNP-000100",
       "name": "DOME",
       "state": "CA",
       "acres": 6788
+    },
+    {
+      "ufi": "2026-IDNCF-000349",
+      "name": "Moose Mountain",
+      "state": "ID",
+      "acres": 5832
+    },
+    {
+      "ufi": "2026-AZASF-000955",
+      "name": "D2 Dye RX",
+      "state": "AZ",
+      "acres": 5246
     }
   ]
 }

@@ -1,13 +1,13 @@
 {
   "meta": {
-    "source_date": "2026-11-21",
-    "generated_at": "2026-11-21T20:50:54.487141+00:00",
+    "source_date": "2026-11-22",
+    "generated_at": "2026-11-22T20:58:33.111013+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
       "gac_pl": 2,
-      "exact_incidents": 1
+      "exact_incidents": 3
     }
   },
   "gac_pl": {
@@ -19,9 +19,33 @@
     "national_preparedness_level": null
   },
   "exact_incidents": {
+    "2026-VAVAF-260136": {
+      "tier": "EXACT",
+      "report_date": "2026-11-22",
+      "imsr_id": "VA-VAF/White Oak Flat",
+      "imsr_name": "White Oak Flat",
+      "layer_name": "White Oak Flat",
+      "state": "VA",
+      "crews": 1,
+      "engines": 6,
+      "helicopters": 2,
+      "total_personnel": 89
+    },
+    "2026-NCNCS-260074": {
+      "tier": "EXACT",
+      "report_date": "2026-11-22",
+      "imsr_id": "NC-NCS/Elk Shoals",
+      "imsr_name": "Elk Shoals",
+      "layer_name": "Elk Shoals",
+      "state": "NC",
+      "crews": 1,
+      "engines": 2,
+      "helicopters": 1,
+      "total_personnel": 81
+    },
     "2026-TNTNS-261114": {
       "tier": "EXACT",
-      "report_date": "2026-11-21",
+      "report_date": "2026-11-22",
       "imsr_id": "TN-TNS/Greene Caney Creek Lane",
       "imsr_name": "Greene Caney Creek Lane",
       "layer_name": "Greene - Caney Creek Lane",
