@@ -1,13 +1,13 @@
 {
   "meta": {
-    "source_date": "2026-11-23",
-    "generated_at": "2026-11-24T02:05:25.286650+00:00",
+    "source_date": "2026-11-24",
+    "generated_at": "2026-11-24T23:49:26.982058+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
     "counts": {
       "gac_pl": 2,
-      "exact_incidents": 4
+      "exact_incidents": 2
     }
   },
   "gac_pl": {
@@ -19,21 +19,21 @@
     "national_preparedness_level": null
   },
   "exact_incidents": {
-    "2026-KYKYS-261953455": {
+    "2026-VAVAF-260139": {
       "tier": "EXACT",
-      "report_date": "2026-11-23",
-      "imsr_id": "KY-KYS/Card Knob Road",
-      "imsr_name": "Card Knob Road",
-      "layer_name": "Card Knob Road",
-      "state": "KY",
+      "report_date": "2026-11-24",
+      "imsr_id": "VA-VAF/Little Ridge",
+      "imsr_name": "Little Ridge",
+      "layer_name": "Little Ridge",
+      "state": "VA",
       "crews": 0,
-      "engines": 1,
+      "engines": 3,
       "helicopters": 0,
-      "total_personnel": 8
+      "total_personnel": 45
     },
     "2026-VAVAF-260136": {
       "tier": "EXACT",
-      "report_date": "2026-11-23",
+      "report_date": "2026-11-24",
       "imsr_id": "VA-VAF/White Oak Flat",
       "imsr_name": "White Oak Flat",
       "layer_name": "White Oak Flat",
@@ -41,31 +41,7 @@
       "crews": 2,
       "engines": 6,
       "helicopters": 2,
-      "total_personnel": 131
-    },
-    "2026-TNTNS-261114": {
-      "tier": "EXACT",
-      "report_date": "2026-11-23",
-      "imsr_id": "TN-TNS/Greene Caney Creek Lane",
-      "imsr_name": "Greene Caney Creek Lane",
-      "layer_name": "Greene - Caney Creek Lane",
-      "state": "TN",
-      "crews": 0,
-      "engines": 7,
-      "helicopters": 0,
-      "total_personnel": 26
-    },
-    "2026-VAVAS-26WR00763": {
-      "tier": "EXACT",
-      "report_date": "2026-11-23",
-      "imsr_id": "VA-VAS/Ball Diamond",
-      "imsr_name": "Ball Diamond",
-      "layer_name": "Ball Diamond",
-      "state": "VA",
-      "crews": 0,
-      "engines": 0,
-      "helicopters": 0,
-      "total_personnel": 0
+      "total_personnel": 133
     }
   }
 }

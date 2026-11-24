@@ -1,10 +1,10 @@
 {
   "meta": {
     "source_type": "IMSR_PDF",
-    "source_date": "2026-11-22",
-    "report_label": "IMSR \u2014 2026-11-22 (auto-extracted, UNVERIFIED)",
+    "source_date": "2026-11-24",
+    "report_label": "IMSR \u2014 2026-11-24 (auto-extracted, UNVERIFIED)",
     "parser_version": "imsr_extract.py 0.2.0",
-    "ingested_at": "2026-11-22T20:58:32.837206+00:00",
+    "ingested_at": "2026-11-24T23:49:26.070184+00:00",
     "is_fixture": false,
     "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
     "verification": {
@@ -19,81 +19,81 @@
       "gacc": "SACC",
       "gacc_name": "Southern",
       "preparedness_level": 2,
-      "date": "2026-11-22"
+      "date": "2026-11-24"
     },
     {
       "gacc": "EACC",
       "gacc_name": "Eastern",
       "preparedness_level": 1,
-      "date": "2026-11-22"
+      "date": "2026-11-24"
     }
   ],
   "national_resource_totals_daily": {},
   "incident_resources_daily": [
     {
+      "incident_id": "VA-VAF/Little Ridge",
+      "incident_name": "Little Ridge",
+      "gacc": "SACC",
+      "state": "VA",
+      "date": "2026-11-24",
+      "size_acres": 900,
+      "percent_contained": 20,
+      "resources": {
+        "crews": 0,
+        "engines": 3,
+        "helicopters": 0,
+        "total_personnel": 45
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "KY-KYS/Card Knob Road",
+      "incident_name": "Card Knob Road",
+      "gacc": "SACC",
+      "state": "KY",
+      "date": "2026-11-24",
+      "size_acres": 131,
+      "percent_contained": 80,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 2
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
       "incident_id": "VA-VAF/White Oak Flat",
       "incident_name": "White Oak Flat",
       "gacc": "SACC",
       "state": "VA",
-      "date": "2026-11-22",
-      "size_acres": 1000,
-      "percent_contained": 0,
+      "date": "2026-11-24",
+      "size_acres": 2237,
+      "percent_contained": 53,
       "resources": {
-        "crews": 1,
+        "crews": 2,
         "engines": 6,
         "helicopters": 2,
-        "total_personnel": 89
+        "total_personnel": 133
       },
       "lat": null,
       "lng": null
     },
     {
-      "incident_id": "FL-FLS/Bee Haven 2 24-06",
-      "incident_name": "Bee Haven 2 24-06",
-      "gacc": "SACC",
-      "state": "FL",
-      "date": "2026-11-22",
-      "size_acres": 2060,
-      "percent_contained": 90,
-      "resources": {
-        "crews": 0,
-        "engines": 5,
-        "helicopters": 1,
-        "total_personnel": 41
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "NC-NCS/Elk Shoals",
-      "incident_name": "Elk Shoals",
-      "gacc": "SACC",
-      "state": "NC",
-      "date": "2026-11-22",
-      "size_acres": 113,
-      "percent_contained": 95,
-      "resources": {
-        "crews": 1,
-        "engines": 2,
-        "helicopters": 1,
-        "total_personnel": 81
-      },
-      "lat": null,
-      "lng": null
-    },
-    {
-      "incident_id": "TN-TNS/Greene Caney Creek Lane",
-      "incident_name": "Greene Caney Creek Lane",
+      "incident_id": "TN-TNS/Bledsoe Lester Cemetery",
+      "incident_name": "Bledsoe Lester Cemetery",
       "gacc": "SACC",
       "state": "TN",
-      "date": "2026-11-22",
-      "size_acres": 500,
-      "percent_contained": 60,
+      "date": "2026-11-24",
+      "size_acres": 184,
+      "percent_contained": 100,
       "resources": {
         "crews": 0,
-        "engines": 12,
-        "helicopters": 2,
-        "total_personnel": 35
+        "engines": 2,
+        "helicopters": 0,
+        "total_personnel": 14
       },
       "lat": null,
       "lng": null
@@ -103,7 +103,7 @@
       "incident_name": "Kessel",
       "gacc": "EACC",
       "state": "WV",
-      "date": "2026-11-22",
+      "date": "2026-11-24",
       "size_acres": 360,
       "percent_contained": 80,
       "resources": {

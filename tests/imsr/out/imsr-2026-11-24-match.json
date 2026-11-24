@@ -1,24 +1,65 @@
 {
-  "matched_at": "2026-11-22T20:58:33.087009+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-22-extracted.json",
-  "imsr_date": "2026-11-22",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-22.json",
-  "layer_records": 364,
+  "matched_at": "2026-11-24T23:49:26.959416+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-24-extracted.json",
+  "imsr_date": "2026-11-24",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-24.json",
+  "layer_records": 368,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 5,
-    "match_rate_pct": 60.0,
-    "exact": 3,
+    "match_rate_pct": 40.0,
+    "exact": 2,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 2,
-    "layer_only_count": 361
+    "no_match": 3,
+    "layer_only_count": 366
   },
   "failure_reasons": {
-    "no name/unit signal in layer": 2
+    "no name/unit signal in layer": 3
   },
   "results": [
+    {
+      "imsr_id": "VA-VAF/Little Ridge",
+      "imsr_name": "Little Ridge",
+      "imsr_unit": "VAVAF",
+      "imsr_state": "VA",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-VAVAF-260139",
+        "name": "Little Ridge",
+        "state": "VA",
+        "acres": 900,
+        "lat": 38.313624561401255,
+        "lng": -79.79137010756708
+      },
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "KY-KYS/Card Knob Road",
+      "imsr_name": "Card Knob Road",
+      "imsr_unit": "KYKYS",
+      "imsr_state": "KY",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
     {
       "imsr_id": "VA-VAF/White Oak Flat",
       "imsr_name": "White Oak Flat",
@@ -41,79 +82,23 @@
         "ufi": "2026-VAVAF-260136",
         "name": "White Oak Flat",
         "state": "VA",
-        "acres": 1000,
+        "acres": 2244,
         "lat": 37.84220746338614,
         "lng": -79.86212009921947
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "FL-FLS/Bee Haven 2 24-06",
-      "imsr_name": "Bee Haven 2 24-06",
-      "imsr_unit": "FLFLS",
-      "imsr_state": "FL",
+      "imsr_id": "TN-TNS/Bledsoe Lester Cemetery",
+      "imsr_name": "Bledsoe Lester Cemetery",
+      "imsr_unit": "TNTNS",
+      "imsr_state": "TN",
       "imsr_year": "2026",
       "final": "NO_MATCH",
       "reason": "no name/unit signal in layer",
       "score": 0.0,
       "signals": null,
       "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "NC-NCS/Elk Shoals",
-      "imsr_name": "Elk Shoals",
-      "imsr_unit": "NCNCS",
-      "imsr_state": "NC",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-NCNCS-260074",
-        "name": "Elk Shoals",
-        "state": "NC",
-        "acres": 113,
-        "lat": 35.95584030523753,
-        "lng": -82.41750375092496
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "TN-TNS/Greene Caney Creek Lane",
-      "imsr_name": "Greene Caney Creek Lane",
-      "imsr_unit": "TNTNS",
-      "imsr_state": "TN",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-TNTNS-261114",
-        "name": "Greene - Caney Creek Lane",
-        "state": "TN",
-        "acres": 1875,
-        "lat": 36.363023714209085,
-        "lng": -82.79850388823714
-      },
       "other_candidates": []
     },
     {
@@ -168,12 +153,6 @@
       "acres": 9725
     },
     {
-      "ufi": "2026-AZASF-000940",
-      "name": "D6 Wallow West Unit 6 RX",
-      "state": "AZ",
-      "acres": 7605
-    },
-    {
       "ufi": "2026-CAYNP-000100",
       "name": "DOME",
       "state": "CA",
@@ -186,10 +165,16 @@
       "acres": 5832
     },
     {
-      "ufi": "2026-AZASF-000955",
-      "name": "D2 Dye RX",
-      "state": "AZ",
-      "acres": 5246
+      "ufi": "2026-WAOWF-260664",
+      "name": "SISI",
+      "state": "WA",
+      "acres": 4816
+    },
+    {
+      "ufi": "2026-UTUOA-100254",
+      "name": "Slough Canyon",
+      "state": "UT",
+      "acres": 4774
     }
   ]
 }
