@@ -1,0 +1,160 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Monday November 23, 2026 – 0730 MDT 
+National Preparedness Level 1 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 1 0 0 0 0 0 0 -1 
+ONCC 1 0 0 0 0 0 0 0 
+OSCC 1 0 0 0 0 0 0 0 
+NRCC 1 0 0 0 0 0 0 0 
+GBCC 1 0 0 0 0 0 0 0 
+SWCC 1 0 0 0 0 0 0 0 
+RMCC 2 0 0 0 0 0 0 0 
+EACC 1 1 1 0 8 0 27 0 
+SACC 2 17 14,880 11 49 4 442 120 
+Total --- 18 14,881 11 57 4 469 119 
+ 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (3 fires) 
+New large incidents: 3 
+Large fires contained: 2 
+Uncontained large fires:  4 
+CIMTs committed: 0 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 0 
+New large incidents: 3 
+Uncontained large fires: 3 
+ 
+* Card Knob Road, Kentucky DOF. Two miles south of Mouthcard, KY. Hardwood litter. Active fire behavior 
+with uphill runs, flanking and backing. Structures threatened. 
+ 
+* Bledsoe Lester Cemetery, Tennessee DOF. Twelve miles northeast of Pikeville, TN. Closed timber litter. 
+Active fire behavior with wind-driven runs, uphill runs and backing. 
+ 
+White Oak Flat, George Washington & Jefferson NF, USFS. Two miles northwest of Clifton Forge, VA. 
+Hardwood litter, brush and dormant brush. Active fire behavior with flanking, backing and creeping. Area, road 
+and trail closures in effect. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+* Card Knob Road KY-KYS 131 --- 49 Ctn 11/24 8 --- 0 1 0 0 2K ST 
+* Bledsoe Lester 
+Cemetery TN-TNS 170 --- 60 Ctn UNK 36 --- 0 5 0 0 20K ST 
+White Oak Flat VA-VAF 1,577 577 49 Ctn 12/5 131 42 2 6 2 0 194K FS 
+Greene Caney 
+Creek Lane TN-TNS 1,875 1,375 100 Ctn --- 26 -9 0 7 0 0 110K ST 
+* Ball Diamond VA-VAS 152 --- 100 Ctn --- 0 --- 0 0 0 0 9K ST 
+VAS – Virginia DOF 
+ 
+ 
+Eastern Area (PL 1)   
+Fire Activity and Teams Assigned Totals 
+New fires: 0 
+New large incidents: 0 
+Uncontained large fires: 1 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Kessel WV-WVS 360 --- 80 Ctn UNK 0 --- 0 0 0 0 7K ST 
+WVS – West Virginia DOF 
+ 
+===== PAGE 3 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 0 0 0 0 0 0 0 
+Northwest ACRES 0 0 0 0 0 0 0 
+Northern California FIRES 0 0 0 0 1 0 1 
+Northern California ACRES 0 0 0 0 0 0 0 
+Southern California FIRES 0 0 0 0 1 0 1 
+Southern California ACRES 0 0 0 0 0 0 0 
+Northern Rockies FIRES 0 0 0 0 0 0 0 
+Northern Rockies ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 0 0 0 0 0 0 
+Great Basin ACRES 0 0 0 0 0 0 0 
+Southwest FIRES 0 0 0 0 0 0 0 
+Southwest ACRES 0 0 0 0 0 0 0 
+Rocky Mountain FIRES 0 0 0 0 1 0 1 
+Rocky Mountain ACRES 0 0 0 0 0 0 0 
+Eastern Area FIRES 0 0 0 0 0 0 0 
+Eastern Area ACRES 0 0 0 0 0 0 0 
+Southern Area FIRES 0 0 0 0 0 0 0 
+Southern Area ACRES 0 0 0 0 0 0 0 
+TOTAL FIRES:  0 0 0 0 3 0 3 
+TOTAL ACRES:  0 0 0 0 0 0 0 
+ 
+===== PAGE 4 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 231 41 421 
+Alaska ACRES 0 36,761 0 0 52,184 12 88,957 
+Northwest FIRES 284 315 28 53 1,952 896 3,528 
+Northwest ACRES 310,556 1,978,263 34,146 19,039 566,315 519,584 3,427,901 
+Northern California FIRES 62 18 2 34 2,538 435 3,089 
+Northern California ACRES 7,736 70,418 5 53 20,228 8,379 106,819 
+Southern California FIRES 10 79 5 46 3,597 398 4,135 
+Southern California ACRES 2 9,646 4 25,604 147,157 54,361 236,774 
+Northern Rockies FIRES 309 113 7 4 1,539 597 2,569 
+Northern Rockies ACRES 20,833 9,462 520 6 66,396 115,469 212,685 
+Great Basin FIRES 46 1,180 3 44 1,063 541 2,877 
+Great Basin ACRES 3,172 1,259,939 2 784 275,093 393,406 1,932,397 
+Southwest FIRES 694 216 5 30 819 1,040 2,804 
+Southwest ACRES 3,644 6,414 7,131 806 81,032 113,647 212,674 
+Rocky Mountain FIRES 192 508 17 35 2,111 459 3,322 
+Rocky Mountain ACRES 1,682 35,904 3,964 1,411 1,330,763 211,489 1,585,212 
+Eastern Area FIRES 223 0 27 17 9,183 406 9,856 
+Eastern Area ACRES 1,086 0 344 17 86,651 87,217 175,316 
+Southern Area FIRES 1,190 2 111 135 35,464 852 37,754 
+Southern Area ACRES 87,959 72 52,776 44,942 1,261,367 76,271 1,523,387 
+TOTAL FIRES:  3,010 2,580 205 398 58,497 5,665 70,355 
+TOTAL ACRES:  436,669 3,406,879 98,892 92,662 3,887,187 1,579,834 9,502,123 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 54,512 129% 
+Acres (2016 – 2025 as of today) 6,595,096 144% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+ 
+===== PAGE 5 =====
+Predictive Services Discussion:  
+ 
+A coastal storm will move away from the Northeast into the Canadian Maritimes with rain ending during the day. 
+Breezy northwest winds will continue, with breezy northwest winds also expected westward into the Great Lakes 
+and Mid-Mississippi Valley. Locally breezy and dry northerly winds will occur in the Lower Mississippi Valley as 
+minimum relative humidity falls to 20-30%. Drier conditions are expected across much of the West except for the 
+next Pacific storm moving onto the Northwest coast overnight. Isolated showers and thunderstorms are also 
+expected in Florida while much of the rest of the contiguous U.S. is dry. Mostly dry conditions will continue in 
+Alaska except for light showers in southwest Alaska, with much colder temperatures for the central and eastern 
+Interior. In Hawai’i, trade winds begin to relax to moderate levels, but windward showers will remain limited. 
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 
