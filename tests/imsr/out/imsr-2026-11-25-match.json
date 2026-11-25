@@ -1,29 +1,29 @@
 {
-  "matched_at": "2026-11-24T02:05:25.267557+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-23-extracted.json",
-  "imsr_date": "2026-11-23",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-23.json",
-  "layer_records": 368,
+  "matched_at": "2026-11-25T23:31:32.783241+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-25-extracted.json",
+  "imsr_date": "2026-11-25",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-25.json",
+  "layer_records": 366,
   "extractor_unverified": true,
   "summary": {
     "imsr_incidents": 6,
-    "match_rate_pct": 66.7,
-    "exact": 4,
+    "match_rate_pct": 50.0,
+    "exact": 3,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 2,
-    "layer_only_count": 364
+    "no_match": 3,
+    "layer_only_count": 363
   },
   "failure_reasons": {
-    "no name/unit signal in layer": 2
+    "no name/unit signal in layer": 3
   },
   "results": [
     {
-      "imsr_id": "KY-KYS/Card Knob Road",
-      "imsr_name": "Card Knob Road",
-      "imsr_unit": "KYKYS",
-      "imsr_state": "KY",
+      "imsr_id": "VA-VAF/Little Ridge",
+      "imsr_name": "Little Ridge",
+      "imsr_unit": "VAVAF",
+      "imsr_state": "VA",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -38,26 +38,13 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-KYKYS-261953455",
-        "name": "Card Knob Road",
-        "state": "KY",
-        "acres": 131,
-        "lat": 37.355948567883395,
-        "lng": -82.26854703349755
+        "ufi": "2026-VAVAF-260139",
+        "name": "Little Ridge",
+        "state": "VA",
+        "acres": 900,
+        "lat": 38.313624561401255,
+        "lng": -79.79137010756708
       },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "TN-TNS/Bledsoe Lester Cemetery",
-      "imsr_name": "Bledsoe Lester Cemetery",
-      "imsr_unit": "TNTNS",
-      "imsr_state": "TN",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
       "other_candidates": []
     },
     {
@@ -82,17 +69,43 @@
         "ufi": "2026-VAVAF-260136",
         "name": "White Oak Flat",
         "state": "VA",
-        "acres": 2237,
+        "acres": 2244,
         "lat": 37.84220746338614,
         "lng": -79.86212009921947
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "TN-TNS/Greene Caney Creek Lane",
-      "imsr_name": "Greene Caney Creek Lane",
-      "imsr_unit": "TNTNS",
-      "imsr_state": "TN",
+      "imsr_id": "KY-KYS/Vanderpool Mountain",
+      "imsr_name": "Vanderpool Mountain",
+      "imsr_unit": "KYKYS",
+      "imsr_state": "KY",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "KY-KYS/Card Knob Road",
+      "imsr_name": "Card Knob Road",
+      "imsr_unit": "KYKYS",
+      "imsr_state": "KY",
+      "imsr_year": "2026",
+      "final": "NO_MATCH",
+      "reason": "no name/unit signal in layer",
+      "score": 0.0,
+      "signals": null,
+      "matched_layer": null,
+      "other_candidates": []
+    },
+    {
+      "imsr_id": "MS-MNF/Bagley",
+      "imsr_name": "Bagley",
+      "imsr_unit": "MSMNF",
+      "imsr_state": "MS",
       "imsr_year": "2026",
       "final": "EXACT",
       "reason": "best single candidate",
@@ -107,48 +120,20 @@
         "year_ok": true
       },
       "matched_layer": {
-        "ufi": "2026-TNTNS-261114",
-        "name": "Greene - Caney Creek Lane",
-        "state": "TN",
-        "acres": 1875,
-        "lat": 36.363023714209085,
-        "lng": -82.79850388823714
+        "ufi": "2026-MSMNF-000751",
+        "name": "Bagley",
+        "state": "MS",
+        "acres": 563,
+        "lat": 34.47889538652038,
+        "lng": -89.4053386655156
       },
       "other_candidates": []
     },
     {
-      "imsr_id": "VA-VAS/Ball Diamond",
-      "imsr_name": "Ball Diamond",
-      "imsr_unit": "VAVAS",
-      "imsr_state": "VA",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-VAVAS-26WR00763",
-        "name": "Ball Diamond",
-        "state": "VA",
-        "acres": 152,
-        "lat": 37.18750726295456,
-        "lng": -81.55250356857732
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WV-WVS/Kessel",
-      "imsr_name": "Kessel",
-      "imsr_unit": "WVWVS",
-      "imsr_state": "WV",
+      "imsr_id": "KY-KYS/Mud Lick",
+      "imsr_name": "Mud Lick",
+      "imsr_unit": "KYKYS",
+      "imsr_state": "KY",
       "imsr_year": "2026",
       "final": "NO_MATCH",
       "reason": "no name/unit signal in layer",
@@ -214,10 +199,10 @@
       "acres": 4816
     },
     {
-      "ufi": "2026-UTMLF-005244",
-      "name": "Black Canyon",
+      "ufi": "2026-UTUOA-100254",
+      "name": "Slough Canyon",
       "state": "UT",
-      "acres": 3264
+      "acres": 4774
     }
   ]
 }

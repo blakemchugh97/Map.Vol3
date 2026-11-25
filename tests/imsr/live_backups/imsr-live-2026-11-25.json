@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "source_date": "2026-11-25",
+    "generated_at": "2026-11-25T23:31:32.803982+00:00",
+    "generator": "tools/imsr_build_live.py",
+    "review_only": true,
+    "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
+    "counts": {
+      "gac_pl": 1,
+      "exact_incidents": 3
+    }
+  },
+  "gac_pl": {
+    "SACC": 2
+  },
+  "national_totals": {
+    "date": null,
+    "national_preparedness_level": null
+  },
+  "exact_incidents": {
+    "2026-VAVAF-260139": {
+      "tier": "EXACT",
+      "report_date": "2026-11-25",
+      "imsr_id": "VA-VAF/Little Ridge",
+      "imsr_name": "Little Ridge",
+      "layer_name": "Little Ridge",
+      "state": "VA",
+      "crews": 1,
+      "engines": 3,
+      "helicopters": 0,
+      "total_personnel": 68
+    },
+    "2026-VAVAF-260136": {
+      "tier": "EXACT",
+      "report_date": "2026-11-25",
+      "imsr_id": "VA-VAF/White Oak Flat",
+      "imsr_name": "White Oak Flat",
+      "layer_name": "White Oak Flat",
+      "state": "VA",
+      "crews": 2,
+      "engines": 6,
+      "helicopters": 2,
+      "total_personnel": 119
+    },
+    "2026-MSMNF-000751": {
+      "tier": "EXACT",
+      "report_date": "2026-11-25",
+      "imsr_id": "MS-MNF/Bagley",
+      "imsr_name": "Bagley",
+      "layer_name": "Bagley",
+      "state": "MS",
+      "crews": 0,
+      "engines": 1,
+      "helicopters": 0,
+      "total_personnel": 8
+    }
+  }
+}

@@ -1,0 +1,140 @@
+===== PAGE 1 =====
+Incident Management Situation Report 
+Wednesday November 25, 2026 – 0730 MDT 
+National Preparedness Level 1 
+ 
+ 
+National Fire Activity: 
+ 
+ 
+ 
+Understanding the IMSR 
+ 
+IMSR Map 
+ 
+Active Incident Resource Summary 
+GACC PL Incidents Cumulative Acres Crews Engines Helicopters Total Personnel Change in Personnel 
+AICC 1 0 0 0 0 0 0 0 
+NWCC 1 2 38,454 0 0 0 3 0 
+ONCC 1 0 0 0 0 0 0 0 
+OSCC 1 0 0 0 0 0 0 0 
+NRCC 1 0 0 0 0 0 0 0 
+GBCC 1 0 0 0 0 0 0 0 
+SWCC 1 0 0 0 0 0 0 0 
+RMCC 2 0 0 0 0 0 0 0 
+EACC 1 2 822 0 9 0 34 7 
+SACC 2 19 18,009 11 46 3 426 31 
+Total --- 23 57,285 11 55 3 463 38 
+ 
+Fire Activity and Teams Assigned Totals 
+Initial attack activity:  Light (22 fires) 
+New large incidents: 3 
+Large fires contained: 3 
+Uncontained large fires:  3 
+CIMTs committed: 0 
+NIMOs committed: 0 
+===== PAGE 2 =====
+Southern Area (PL 2)   
+Fire Activity and Teams Assigned Totals 
+New fires: 14 
+New large incidents: 3 
+Uncontained large fires: 3 
+ 
+Little Ridge, George Washington & Jefferson NF, USFS. Twelve miles southwest of Monterey, VA. Hardwood 
+litter and brush. Active fire behavior with flanking, backing and creeping. Structures threatened. 
+ 
+White Oak Flat, George Washington & Jefferson NF, USFS. Two miles northwest of Clifton Forge, VA. 
+Hardwood litter, brush and dormant brush. Minimal fire behavior with creeping and smoldering. Area, road and 
+trail closures in effect. 
+ 
+* Vanderpool Mountain, Kentucky DOF. Eight miles southeast of Williamsburg, KY. Timber and hardwood 
+litter. Minimal fire behavior with creeping and smoldering. Last report unless significant activity occurs. 
+ 
+Incident Name  Unit  Total Acres  Chge in Acres  %  Ctn  Est  Total PPL  Chge in PPL  Crw  Eng  Heli  Strc Lost  $$ CTD  Origin Own  
+Little Ridge VA-VAF 1,250 350 40 Ctn 12/6 68 23 1 3 0 0 103K FS 
+White Oak Flat VA-VAF 2,237 0 68 Ctn 11/28 119 -14 2 6 2 0 465K FS 
+* Vanderpool 
+Mountain KY-KYS 740 --- 99 Ctn 11/25 12 --- 0 1 0 0 96K ST 
+Card Knob Road KY-KYS 144 13 100 Ctn --- 9 7 0 1 0 0 4K ST 
+* Bagley MS-MNF 563 --- 100 Ctn --- 8 --- 0 1 0 0 25K FS 
+* Mud Lick KY-KYS 144 --- 100 Ctn --- 15 --- 0 2 0 3 65K ST 
+MNF – National Forests in Mississippi, USFS 
+ 
+===== PAGE 3 =====
+Fires and Acres Yesterday (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 0 0 0 0 0 0 
+Alaska ACRES 0 0 0 0 0 0 0 
+Northwest FIRES 0 0 0 0 1 0 1 
+Northwest ACRES 0 0 0 0 1 0 1 
+Northern California FIRES 0 0 0 0 1 0 1 
+Northern California ACRES 0 0 0 0 0 0 0 
+Southern California FIRES 0 0 0 0 2 1 3 
+Southern California ACRES 0 0 0 0 0 0 0 
+Northern Rockies FIRES 0 0 0 0 0 0 0 
+Northern Rockies ACRES 0 0 0 0 0 0 0 
+Great Basin FIRES 0 0 0 0 0 0 0 
+Great Basin ACRES 0 0 0 0 0 0 0 
+Southwest FIRES 1 1 0 0 0 0 2 
+Southwest ACRES 0 0 0 0 0 0 0 
+Rocky Mountain FIRES 0 0 0 0 1 0 1 
+Rocky Mountain ACRES 0 0 0 0 2 0 2 
+Eastern Area FIRES 0 0 0 0 0 0 0 
+Eastern Area ACRES 0 0 0 0 0 0 0 
+Southern Area FIRES 0 0 0 0 12 2 14 
+Southern Area ACRES 0 0 0 0 32 563 595 
+TOTAL FIRES:  1 1 0 0 17 3 22 
+TOTAL ACRES:  0 0 0 0 35 563 598 
+ 
+===== PAGE 4 =====
+Fires and Acres Year-to-Date (by Protection): 
+Geographic Area Fires/ Acres BIA BLM FWS NPS ST/OT USFS TOTAL 
+Alaska FIRES 0 149 0 0 231 41 421 
+Alaska ACRES 0 36,761 0 0 52,184 12 88,957 
+Northwest FIRES 284 315 27 53 1,953 900 3,532 
+Northwest ACRES 310,556 1,978,263 34,141 19,039 566,316 519,585 3,427,899 
+Northern California FIRES 62 18 2 34 2,538 435 3,089 
+Northern California ACRES 7,736 70,418 5 53 20,228 8,379 106,819 
+Southern California FIRES 10 79 5 46 3,601 399 4,140 
+Southern California ACRES 2 9,646 4 25,604 147,157 54,361 236,774 
+Northern Rockies FIRES 311 113 7 4 1,540 598 2,573 
+Northern Rockies ACRES 20,834 9,462 520 6 66,395 115,469 212,685 
+Great Basin FIRES 46 1,181 3 44 1,063 541 2,878 
+Great Basin ACRES 3,172 1,259,940 2 784 275,093 393,406 1,932,398 
+Southwest FIRES 695 220 5 30 819 1,040 2,809 
+Southwest ACRES 3,644 6,415 7,131 806 81,032 113,647 212,675 
+Rocky Mountain FIRES 192 509 17 35 2,112 459 3,324 
+Rocky Mountain ACRES 1,682 35,904 3,964 1,411 1,330,765 211,489 1,585,214 
+Eastern Area FIRES 223 0 27 17 9,220 406 9,893 
+Eastern Area ACRES 1,086 0 344 17 86,659 87,217 175,323 
+Southern Area FIRES 1,190 2 111 142 35,669 860 37,974 
+Southern Area ACRES 87,959 72 52,776 44,952 1,262,437 77,206 1,525,401 
+TOTAL FIRES:  3,013 2,586 204 405 58,746 5,679 70,633 
+TOTAL ACRES:  436,670 3,406,881 98,887 92,671 3,888,265 1,580,771 9,504,145 
+ 
+Ten Year Average Quantity % of Ten Year Average 
+Fires (2016 – 2025 as of today) 54,657 129% 
+Acres (2016 – 2025 as of today) 6,602,648 144% 
+ 
+ 
+Cumulative acres shown in the Active Incident Resource Summary Table may not be reflected in the 
+YTD statistics due to a lag in units completing YTD adjustments in the SIT/209 Application. Otherwise, 
+changes in agency YTD fires and acres reflect more accurate mapping or reporting adjustments. 
+ 
+ 
+ 
+ 
+ 
+===== PAGE 5 =====
+Predictive Services Discussion:  
+ 
+National Predictive Services Outlook (7-Day Significant Fire Potential Outlook) 
+ 
+National Weather Service, Storm Prediction Center: Fire Weather Outlook Map and discussion 
+National Weather Service: Fire Weather Hazards Map 
+National Weather Service, Weather Prediction Center: National Forecast Chart and  
+Short Range Forecast Discussion 
+ 
+ 
+6 Minutes for Safety topics can be found here.   
+ 
