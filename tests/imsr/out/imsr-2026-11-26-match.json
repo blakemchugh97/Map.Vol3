@@ -1,24 +1,50 @@
 {
-  "matched_at": "2026-11-24T23:49:26.959416+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-24-extracted.json",
-  "imsr_date": "2026-11-24",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-24.json",
-  "layer_records": 368,
+  "matched_at": "2026-11-26T23:39:43.599300+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-26-extracted.json",
+  "imsr_date": "2026-11-26",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-26.json",
+  "layer_records": 294,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 5,
-    "match_rate_pct": 40.0,
-    "exact": 2,
+    "imsr_incidents": 3,
+    "match_rate_pct": 100.0,
+    "exact": 3,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 3,
-    "layer_only_count": 366
+    "no_match": 0,
+    "layer_only_count": 291
   },
-  "failure_reasons": {
-    "no name/unit signal in layer": 3
-  },
+  "failure_reasons": {},
   "results": [
+    {
+      "imsr_id": "AL-ALF/Dugger",
+      "imsr_name": "Dugger",
+      "imsr_unit": "ALALF",
+      "imsr_state": "AL",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-ALALF-000537",
+        "name": "Dugger",
+        "state": "AL",
+        "acres": 500,
+        "lat": 33.8738394166107,
+        "lng": -85.5639215476948
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "VA-VAF/Little Ridge",
       "imsr_name": "Little Ridge",
@@ -41,23 +67,10 @@
         "ufi": "2026-VAVAF-260139",
         "name": "Little Ridge",
         "state": "VA",
-        "acres": 900,
+        "acres": 1507,
         "lat": 38.313624561401255,
         "lng": -79.79137010756708
       },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "KY-KYS/Card Knob Road",
-      "imsr_name": "Card Knob Road",
-      "imsr_unit": "KYKYS",
-      "imsr_state": "KY",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
       "other_candidates": []
     },
     {
@@ -82,36 +95,10 @@
         "ufi": "2026-VAVAF-260136",
         "name": "White Oak Flat",
         "state": "VA",
-        "acres": 2244,
+        "acres": 2237,
         "lat": 37.84220746338614,
         "lng": -79.86212009921947
       },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "TN-TNS/Bledsoe Lester Cemetery",
-      "imsr_name": "Bledsoe Lester Cemetery",
-      "imsr_unit": "TNTNS",
-      "imsr_state": "TN",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "WV-WVS/Kessel",
-      "imsr_name": "Kessel",
-      "imsr_unit": "WVWVS",
-      "imsr_state": "WV",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
       "other_candidates": []
     }
   ],

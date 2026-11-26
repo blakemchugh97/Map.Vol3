@@ -1,7 +1,7 @@
 {
   "meta": {
-    "source_date": "2026-11-25",
-    "generated_at": "2026-11-25T23:31:32.803982+00:00",
+    "source_date": "2026-11-26",
+    "generated_at": "2026-11-26T23:39:43.618558+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
@@ -18,41 +18,41 @@
     "national_preparedness_level": null
   },
   "exact_incidents": {
+    "2026-ALALF-000537": {
+      "tier": "EXACT",
+      "report_date": "2026-11-26",
+      "imsr_id": "AL-ALF/Dugger",
+      "imsr_name": "Dugger",
+      "layer_name": "Dugger",
+      "state": "AL",
+      "crews": 0,
+      "engines": 0,
+      "helicopters": 0,
+      "total_personnel": 11
+    },
     "2026-VAVAF-260139": {
       "tier": "EXACT",
-      "report_date": "2026-11-25",
+      "report_date": "2026-11-26",
       "imsr_id": "VA-VAF/Little Ridge",
       "imsr_name": "Little Ridge",
       "layer_name": "Little Ridge",
       "state": "VA",
-      "crews": 1,
-      "engines": 3,
+      "crews": 2,
+      "engines": 4,
       "helicopters": 0,
-      "total_personnel": 68
+      "total_personnel": 92
     },
     "2026-VAVAF-260136": {
       "tier": "EXACT",
-      "report_date": "2026-11-25",
+      "report_date": "2026-11-26",
       "imsr_id": "VA-VAF/White Oak Flat",
       "imsr_name": "White Oak Flat",
       "layer_name": "White Oak Flat",
       "state": "VA",
-      "crews": 2,
-      "engines": 6,
-      "helicopters": 2,
-      "total_personnel": 119
-    },
-    "2026-MSMNF-000751": {
-      "tier": "EXACT",
-      "report_date": "2026-11-25",
-      "imsr_id": "MS-MNF/Bagley",
-      "imsr_name": "Bagley",
-      "layer_name": "Bagley",
-      "state": "MS",
       "crews": 0,
-      "engines": 1,
-      "helicopters": 0,
-      "total_personnel": 8
+      "engines": 5,
+      "helicopters": 2,
+      "total_personnel": 46
     }
   }
 }

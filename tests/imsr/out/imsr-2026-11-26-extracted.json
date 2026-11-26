@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "source_type": "IMSR_PDF",
+    "source_date": "2026-11-26",
+    "report_label": "IMSR \u2014 2026-11-26 (auto-extracted, UNVERIFIED)",
+    "parser_version": "imsr_extract.py 0.2.0",
+    "ingested_at": "2026-11-26T23:39:43.249284+00:00",
+    "is_fixture": false,
+    "notes": "Auto-extracted from the PDF text layer. UNVERIFIED machine output - a populated field is NOT a verified field. Diff against a hand-verified fixture before trusting anything.",
+    "verification": {
+      "verified_by": null,
+      "verified_at": null,
+      "verification_method": null,
+      "verification_notes": null
+    }
+  },
+  "gac_pl_daily": [
+    {
+      "gacc": "SACC",
+      "gacc_name": "Southern",
+      "preparedness_level": 2,
+      "date": "2026-11-26"
+    }
+  ],
+  "national_resource_totals_daily": {},
+  "incident_resources_daily": [
+    {
+      "incident_id": "AL-ALF/Dugger",
+      "incident_name": "Dugger",
+      "gacc": "SACC",
+      "state": "AL",
+      "date": "2026-11-26",
+      "size_acres": 400,
+      "percent_contained": 0,
+      "resources": {
+        "crews": 0,
+        "engines": 0,
+        "helicopters": 0,
+        "total_personnel": 11
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "VA-VAF/Little Ridge",
+      "incident_name": "Little Ridge",
+      "gacc": "SACC",
+      "state": "VA",
+      "date": "2026-11-26",
+      "size_acres": 1507,
+      "percent_contained": 47,
+      "resources": {
+        "crews": 2,
+        "engines": 4,
+        "helicopters": 0,
+        "total_personnel": 92
+      },
+      "lat": null,
+      "lng": null
+    },
+    {
+      "incident_id": "VA-VAF/White Oak Flat",
+      "incident_name": "White Oak Flat",
+      "gacc": "SACC",
+      "state": "VA",
+      "date": "2026-11-26",
+      "size_acres": 2237,
+      "percent_contained": 89,
+      "resources": {
+        "crews": 0,
+        "engines": 5,
+        "helicopters": 2,
+        "total_personnel": 46
+      },
+      "lat": null,
+      "lng": null
+    }
+  ],
+  "_extractor_warnings": [
+    "national_totals: 'Total' summary row not found"
+  ]
+}
