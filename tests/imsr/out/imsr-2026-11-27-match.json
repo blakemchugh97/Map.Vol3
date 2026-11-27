@@ -1,24 +1,50 @@
 {
-  "matched_at": "2026-11-25T23:31:32.783241+00:00",
-  "imsr_source": "tests/imsr/out/imsr-2026-11-25-extracted.json",
-  "imsr_date": "2026-11-25",
-  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-25.json",
-  "layer_records": 366,
+  "matched_at": "2026-11-27T23:19:42.375315+00:00",
+  "imsr_source": "tests/imsr/out/imsr-2026-11-27-extracted.json",
+  "imsr_date": "2026-11-27",
+  "layer_source": "tests/imsr/incident_layer/wfigs-usa-wildfires-snapshot-2026-11-27.json",
+  "layer_records": 244,
   "extractor_unverified": true,
   "summary": {
-    "imsr_incidents": 6,
-    "match_rate_pct": 50.0,
+    "imsr_incidents": 3,
+    "match_rate_pct": 100.0,
     "exact": 3,
     "strong": 0,
     "weak": 0,
     "ambiguous": 0,
-    "no_match": 3,
-    "layer_only_count": 363
+    "no_match": 0,
+    "layer_only_count": 241
   },
-  "failure_reasons": {
-    "no name/unit signal in layer": 3
-  },
+  "failure_reasons": {},
   "results": [
+    {
+      "imsr_id": "AL-ALF/Dugger",
+      "imsr_name": "Dugger",
+      "imsr_unit": "ALALF",
+      "imsr_state": "AL",
+      "imsr_year": "2026",
+      "final": "EXACT",
+      "reason": "best single candidate",
+      "score": 1.0,
+      "signals": {
+        "name_exact": true,
+        "name_jaccard": 1.0,
+        "name_fuzzy": true,
+        "unit_match": true,
+        "state_match": true,
+        "state_conflict": false,
+        "year_ok": true
+      },
+      "matched_layer": {
+        "ufi": "2026-ALALF-000537",
+        "name": "Dugger",
+        "state": "AL",
+        "acres": 500,
+        "lat": 33.8738394166107,
+        "lng": -85.5639215476948
+      },
+      "other_candidates": []
+    },
     {
       "imsr_id": "VA-VAF/Little Ridge",
       "imsr_name": "Little Ridge",
@@ -41,7 +67,7 @@
         "ufi": "2026-VAVAF-260139",
         "name": "Little Ridge",
         "state": "VA",
-        "acres": 900,
+        "acres": 1507,
         "lat": 38.313624561401255,
         "lng": -79.79137010756708
       },
@@ -69,77 +95,10 @@
         "ufi": "2026-VAVAF-260136",
         "name": "White Oak Flat",
         "state": "VA",
-        "acres": 2244,
+        "acres": 2237,
         "lat": 37.84220746338614,
         "lng": -79.86212009921947
       },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "KY-KYS/Vanderpool Mountain",
-      "imsr_name": "Vanderpool Mountain",
-      "imsr_unit": "KYKYS",
-      "imsr_state": "KY",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "KY-KYS/Card Knob Road",
-      "imsr_name": "Card Knob Road",
-      "imsr_unit": "KYKYS",
-      "imsr_state": "KY",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "MS-MNF/Bagley",
-      "imsr_name": "Bagley",
-      "imsr_unit": "MSMNF",
-      "imsr_state": "MS",
-      "imsr_year": "2026",
-      "final": "EXACT",
-      "reason": "best single candidate",
-      "score": 1.0,
-      "signals": {
-        "name_exact": true,
-        "name_jaccard": 1.0,
-        "name_fuzzy": true,
-        "unit_match": true,
-        "state_match": true,
-        "state_conflict": false,
-        "year_ok": true
-      },
-      "matched_layer": {
-        "ufi": "2026-MSMNF-000751",
-        "name": "Bagley",
-        "state": "MS",
-        "acres": 563,
-        "lat": 34.47889538652038,
-        "lng": -89.4053386655156
-      },
-      "other_candidates": []
-    },
-    {
-      "imsr_id": "KY-KYS/Mud Lick",
-      "imsr_name": "Mud Lick",
-      "imsr_unit": "KYKYS",
-      "imsr_state": "KY",
-      "imsr_year": "2026",
-      "final": "NO_MATCH",
-      "reason": "no name/unit signal in layer",
-      "score": 0.0,
-      "signals": null,
-      "matched_layer": null,
       "other_candidates": []
     }
   ],
@@ -187,12 +146,6 @@
       "acres": 6788
     },
     {
-      "ufi": "2026-IDNCF-000349",
-      "name": "Moose Mountain",
-      "state": "ID",
-      "acres": 5832
-    },
-    {
       "ufi": "2026-WAOWF-260664",
       "name": "SISI",
       "state": "WA",
@@ -203,6 +156,12 @@
       "name": "Slough Canyon",
       "state": "UT",
       "acres": 4774
+    },
+    {
+      "ufi": "2026-WAOWF-260699",
+      "name": "KING",
+      "state": "WA",
+      "acres": 3427
     }
   ]
 }

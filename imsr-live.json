@@ -1,7 +1,7 @@
 {
   "meta": {
-    "source_date": "2026-11-26",
-    "generated_at": "2026-11-26T23:39:43.618558+00:00",
+    "source_date": "2026-11-27",
+    "generated_at": "2026-11-27T23:19:42.400312+00:00",
     "generator": "tools/imsr_build_live.py",
     "review_only": true,
     "note": "CURATED current-day IMSR data for the live app. EXACT-tier incidents only; weak/ambiguous/unmatched excluded. UNVERIFIED review data \u2014 not core app truth.",
@@ -20,19 +20,19 @@
   "exact_incidents": {
     "2026-ALALF-000537": {
       "tier": "EXACT",
-      "report_date": "2026-11-26",
+      "report_date": "2026-11-27",
       "imsr_id": "AL-ALF/Dugger",
       "imsr_name": "Dugger",
       "layer_name": "Dugger",
       "state": "AL",
       "crews": 0,
-      "engines": 0,
+      "engines": 3,
       "helicopters": 0,
-      "total_personnel": 11
+      "total_personnel": 23
     },
     "2026-VAVAF-260139": {
       "tier": "EXACT",
-      "report_date": "2026-11-26",
+      "report_date": "2026-11-27",
       "imsr_id": "VA-VAF/Little Ridge",
       "imsr_name": "Little Ridge",
       "layer_name": "Little Ridge",
@@ -44,7 +44,7 @@
     },
     "2026-VAVAF-260136": {
       "tier": "EXACT",
-      "report_date": "2026-11-26",
+      "report_date": "2026-11-27",
       "imsr_id": "VA-VAF/White Oak Flat",
       "imsr_name": "White Oak Flat",
       "layer_name": "White Oak Flat",
